@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>The Bag Room — Second Hand</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Bag Room — curadoria second hand de luxo com peças 100% originais, autenticidade verificada e atendimento por WhatsApp. Entre no nosso Grupo VIP.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg0:#000000; --bg1:#1b1b1b; --orb:rgba(255,255,255,.07); --text:#ffffff; --muted:#bcbcbc; --line:rgba(255,255,255,.12);
+      --max:980px; --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height:1.65; overflow-x:hidden;
+      background: radial-gradient(circle at 50% 30%, var(--orb), var(--bg0) 70%), linear-gradient(180deg, var(--bg1) 0%, var(--bg0) 100%);
+    }
+    body::before{
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background-image:url('bg.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat;
+      filter:grayscale(100%) contrast(1.05) brightness(0.9) blur(3px);
+      opacity:.22; mix-blend-mode:luminosity; transform:translateZ(0);
+    }
+    .wrap{max-width:var(--max); margin:0 auto; padding:40px 20px 80px; position:relative; z-index:1;}
+    header{text-align:center; margin-bottom:32px;}
+    .logo{font-family:"Playfair Display", serif; font-weight:700; letter-spacing:.35em; text-transform:uppercase; font-size:clamp(28px,6vw,56px);}
+    .tag{letter-spacing:.5em; text-transform:uppercase; color:var(--muted); font-size:12px; margin-top:6px}
+
+    .grid{display:grid; gap:22px;}
+    @media(min-width:900px){.grid{grid-template-columns:1.2fr .8fr}}
+
+    .card{background:rgba(255,255,255,.02); border:1px solid var(--line); border-radius:var(--radius); padding:24px}
+    h2{font-family:"Playfair Display", serif; font-size:clamp(20px,3.5vw,28px); margin:0 0 8px}
+    p{margin:0 0 10px}
+    .muted{color:var(--muted)}
+
+    .buttons{display:grid; gap:14px; margin-top:16px}
+    .btn{appearance:none; display:inline-block; text-decoration:none; text-align:center; padding:14px 18px; border-radius:12px; font-weight:600; transition:all .22s ease; border:1px solid transparent}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:#fff; color:#000; border-color:#fff; box-shadow:0 8px 30px rgba(255,255,255,.08)}
+    .btn-primary:hover{background:#d5c6a1; border-color:#d5c6a1; box-shadow:0 8px 30px rgba(213,198,161,.25)}
+    .btn-outline{background:transparent; color:#fff; border-color:rgba(255,255,255,.4)}
+    .btn-outline:hover{background:rgba(255,255,255,.08)}
+
+    .steps{display:grid; gap:12px; margin-top:6px}
+    .step{background:rgba(255,255,255,.02); border:1px dashed var(--line); border-radius:var(--radius); padding:18px; display:grid; gap:8px; transition:transform .25s ease;}
+    .step:hover{transform:translateY(-3px)}
+    .step .num{width:32px; height:32px; border-radius:50%; display:grid; place-items:center; background:rgba(255,255,255,.08); font-weight:700; font-family:'Inter'; margin-bottom:4px}
+
+    footer{text-align:center; color:#8a8a8a; font-size:13px; margin-top:36px}
+    .whats{color:#bdbdbd}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">THE BAG ROOM </div>
+      <div class="tag">SECOND HAND</div>
+    </header>
+
+    <section class="grid">
+      <div class="card" aria-label="Sobre a The Bag Room">
+        <p>Na <strong>The Bag Room</strong>, re-significamos o conceito de “novo”. Selecionamos peças de luxo com olhar criterioso, autenticadas e avaliadas em cada detalhe — porque acreditamos que exclusividade e consciência podem caminhar juntas.</p>
+
+        <h2 style="margin-top:24px">Nossa missão</h2>
+        <p>Celebrar o luxo sustentável, oferecendo peças de grife que inspiram estilo e preservam histórias. Cada item carrega uma trajetória única — e nossa curadoria existe para conectar você à sua próxima peça favorita.</p>
+
+        <div class="buttons">
+          <a class="btn btn-primary" href="https://wa.me/5513996904227?text=Ol%C3%A1%2C+quero+falar+com+a+The+Bag+Room+%F0%9F%92%9C" target="_blank" rel="noopener" aria-label="WhatsApp Compras e Dúvidas">WhatsApp — Compras & Dúvidas</a>
+          <a class="btn btn-outline" href="https://chat.whatsapp.com/J9gxW9Whk778OKfLGnjoWN?mode=wwt" target="_blank" rel="noopener" aria-label="Entrar no Grupo VIP">Entrar no Grupo VIP</a>
+          <a class="btn btn-outline" href="https://www.instagram.com/thebagroom.br" target="_blank" rel="noopener" aria-label="Instagram The Bag Room">Instagram — @thebagroom.br</a>
+        </div>
+      </div>
+
+      <div id="desapego" class="card" aria-label="Como desapegar suas peças">
+        <h2>Como funciona o desapego</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <strong>Entre em contato conosco</strong>
+              <p class="muted">Para uma avaliação prévia, envie fotos e informações básicas da peça.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <strong>Autenticidade & conservação</strong>
+              <p class="muted">A peça precisa ser autêntica e estar em bom estado. Ter dust bag, nota e caixa ajuda, mas não é essencial.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <strong>Autenticação e fotos profissionais</strong>
+              <p class="muted">Trabalhamos com o produto em mãos para autenticação e fotos no padrão The Bag Room.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">4</div>
+            <div>
+              <strong>Venda & repasse</strong>
+              <p class="muted">O valor é repassado à fornecedora 7 dias após a venda, conforme as condições acordadas.</p>
+            </div>
+          </div>
+        </div>
+        <div class="buttons" style="margin-top:16px">
+          <a class="btn btn-primary" href="https://wa.me/5513996904227?text=Ol%C3%A1%2C+quero+enviar+minhas+fotos+para+avalia%C3%A7%C3%A3o+%F0%9F%93%B7" target="_blank" rel="noopener">Falar com a curadoria no WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> The Bag Room · thebagroom.com.br · <span class="whats">WhatsApp (13) 99690-4227</span>
+    </footer>
+  </div>
+
+  <script>
+  document.getElementById('year').textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>
+
+
