@@ -1,128 +1,202 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>The Bag Room — Second Hand</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="The Bag Room — curadoria second hand de luxo com peças 100% originais, autenticidade verificada e atendimento por WhatsApp. Entre no nosso Grupo VIP.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="The Bag Room — curadoria second hand de luxo com peças 100% originais, autenticidade verificada e atendimento por WhatsApp. Entre no nosso Grupo VIP." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
   <style>
-    :root{
-      --bg0:#000000; --bg1:#1b1b1b; --orb:rgba(255,255,255,.07); --text:#ffffff; --muted:#bcbcbc; --line:rgba(255,255,255,.12);
-      --max:980px; --radius:14px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    :root{ --bg:#ffffff; --text:#000000; --muted:#222; --line:#e8e8e8; --radius:14px; --max:980px; --accent:#d5c6a1; }
+    *{ box-sizing: border-box; }
+    html, body { height: 100%; }
     body{
-      margin:0; color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height:1.65; overflow-x:hidden;
-      background: radial-gradient(circle at 50% 30%, var(--orb), var(--bg0) 70%), linear-gradient(180deg, var(--bg1) 0%, var(--bg0) 100%);
+      margin:0; background: var(--bg); color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.75; /* +legibilidade */
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
     }
-    body::before{
-      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
-      background-image:url('bg.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat;
-      filter:grayscale(100%) contrast(1.05) brightness(0.9) blur(3px);
-      opacity:.22; mix-blend-mode:luminosity; transform:translateZ(0);
+
+    /* ===== Topo ===== */
+    .topbar{ background:#000; color:#fff; width:100%; }
+    .topbar .wrap{
+      max-width:var(--max); margin:0 auto; padding:32px 20px 28px; /* +respiro */
+      display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
     }
-    .wrap{max-width:var(--max); margin:0 auto; padding:40px 20px 80px; position:relative; z-index:1;}
-    header{text-align:center; margin-bottom:32px;}
-    .logo{font-family:"Playfair Display", serif; font-weight:700; letter-spacing:.35em; text-transform:uppercase; font-size:clamp(28px,6vw,56px);}
-    .tag{letter-spacing:.5em; text-transform:uppercase; color:var(--muted); font-size:12px; margin-top:6px}
+    .logo{
+      font-family:"Playfair Display", serif; font-weight:700; letter-spacing:.35em; text-transform:uppercase;
+      color:#fff; font-size:clamp(28px,6vw,52px); line-height:1.1; animation:fadeIn .8s ease both;
+      margin-bottom:10px;
+    }
+    .tag{ letter-spacing:.6em; text-transform:uppercase; color:#fff; font-size:12px; opacity:.95; }
 
-    .grid{display:grid; gap:22px;}
-    @media(min-width:900px){.grid{grid-template-columns:1.2fr .8fr}}
+    /* ===== Conteúdo ===== */
+    .page{ max-width:var(--max); margin:0 auto; padding:40px 20px 84px; color:var(--text); }
+    .grid{ display:grid; gap:26px; }
+    @media(min-width:900px){ .grid{ grid-template-columns:1.2fr .8fr; } }
 
-    .card{background:rgba(255,255,255,.02); border:1px solid var(--line); border-radius:var(--radius); padding:24px}
-    h2{font-family:"Playfair Display", serif; font-size:clamp(20px,3.5vw,28px); margin:0 0 8px}
-    p{margin:0 0 10px}
-    .muted{color:var(--muted)}
+    .card{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:28px; box-shadow:0 2px 12px rgba(0,0,0,.03); color:var(--text); }
 
-    .buttons{display:grid; gap:14px; margin-top:16px}
-    .btn{appearance:none; display:inline-block; text-decoration:none; text-align:center; padding:14px 18px; border-radius:12px; font-weight:600; transition:all .22s ease; border:1px solid transparent}
-    .btn:hover{transform:translateY(-2px)}
-    .btn-primary{background:#fff; color:#000; border-color:#fff; box-shadow:0 8px 30px rgba(255,255,255,.08)}
-    .btn-primary:hover{background:#d5c6a1; border-color:#d5c6a1; box-shadow:0 8px 30px rgba(213,198,161,.25)}
-    .btn-outline{background:transparent; color:#fff; border-color:rgba(255,255,255,.4)}
-    .btn-outline:hover{background:rgba(255,255,255,.08)}
+    h2{ font-family:"Playfair Display", serif; font-size:clamp(21px,3.2vw,30px); margin:0 0 6px; line-height:1.25; color:#000; }
+    p{ margin:0 0 12px; color:#000; font-size:17px; }
+    .muted{ color:#333; }
 
-    .steps{display:grid; gap:12px; margin-top:6px}
-    .step{background:rgba(255,255,255,.02); border:1px dashed var(--line); border-radius:var(--radius); padding:18px; display:grid; gap:8px; transition:transform .25s ease;}
-    .step:hover{transform:translateY(-3px)}
-    .step .num{width:32px; height:32px; border-radius:50%; display:grid; place-items:center; background:rgba(255,255,255,.08); font-weight:700; font-family:'Inter'; margin-bottom:4px}
+    /* separador elegante */
+    .sep{ width:68px; height:2px; background:var(--accent); border-radius:2px; margin:10px 0 12px; }
 
-    footer{text-align:center; color:#8a8a8a; font-size:13px; margin-top:36px}
-    .whats{color:#bdbdbd}
+    /* Botões */
+    .buttons{ display:grid; gap:18px; margin-top:18px; }
+    .btn{ appearance:none; display:inline-block; text-decoration:none; text-align:center; padding:14px 18px; border-radius:12px; font-weight:600; transition:transform .22s ease, box-shadow .22s ease, background-color .22s ease, color .22s ease; border:1px solid transparent; }
+    .btn:hover{ transform:translateY(-2px); }
+    .btn-primary{ background:#000; color:#fff; border-color:#000; box-shadow:0 10px 26px rgba(0,0,0,.12); }
+    .btn-primary:hover{ background:#111; border-color:#111; box-shadow:0 12px 30px rgba(0,0,0,.18); }
+    .btn-outline{ background:#fff; color:#000; border-color:rgba(0,0,0,.45); }
+    .btn-outline:hover{ background:rgba(0,0,0,.05); border-color:rgba(0,0,0,.6); }
+
+    /* Etapas */
+    .steps{ display:grid; gap:14px; margin-top:6px; }
+    .step{ display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:start; padding:16px; border-radius:12px; border:1px dashed var(--line); background:#f8f8f8; color:#000; transition: box-shadow .22s ease, border-color .22s ease; }
+    .step:hover{ box-shadow:0 6px 24px rgba(0,0,0,.06); border-color: var(--accent); }
+    .step .num{ width:28px; height:28px; border-radius:50%; display:grid; place-items:center; background:#000; color:#fff; font-weight:700; }
+    .step strong{ display:block; margin-bottom:2px; }
+
+    footer{ text-align:center; color:#000; font-size:12px; margin-top:42px; padding-top:18px; border-top:1px solid var(--line); }
+    /* Chat WhatsApp (balão) */
+    .chat-whats{ position: fixed; right: 18px; bottom: 18px; z-index: 20; display: flex; align-items: center; gap: 10px; text-decoration: none; background: #25D366; color: #fff; padding: 12px 16px; border-radius: 9999px; box-shadow: 0 10px 26px rgba(0,0,0,.15); transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+    .chat-whats::after{ content: ""; position: absolute; right: 14px; bottom: -6px; width: 12px; height: 12px; background: #25D366; transform: rotate(45deg); border-bottom-left-radius: 2px; box-shadow: 2px 2px 4px rgba(0,0,0,.08); }
+    .chat-whats:hover{ transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,.22); filter: brightness(1.05); }
+    .chat-whats svg{ width: 22px; height: 22px; fill: #fff; flex-shrink: 0; }
+    .chat-whats span{ font-weight: 600; line-height: 1; }
+
+    @media (max-width: 600px){ .chat-whats{ right:14px; bottom:14px; padding:12px; } .chat-whats span{ display:none; } .chat-whats::after{ display:none; } }
+    /* Chat WhatsApp (balão) */
+    .chat-whats{ position: fixed; right: 18px; bottom: 18px; z-index: 20; display: flex; align-items: center; gap: 10px; text-decoration: none; background: #25D366; color: #fff; padding: 12px 16px; border-radius: 9999px; box-shadow: 0 10px 26px rgba(0,0,0,.15); transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+    .chat-whats::after{ content: ""; position: absolute; right: 14px; bottom: -6px; width: 12px; height: 12px; background: #25D366; transform: rotate(45deg); border-bottom-left-radius: 2px; box-shadow: 2px 2px 4px rgba(0,0,0,.08); }
+    .chat-whats:hover{ transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,.22); filter: brightness(1.05); }
+    .chat-whats svg{ width: 22px; height: 22px; fill: #fff; flex-shrink: 0; }
+    .chat-whats span{ font-weight: 600; line-height: 1; }
+
+    @media (max-width: 600px){ .chat-whats{ right:14px; bottom:14px; padding:12px; } .chat-whats span{ display:none; } .chat-whats::after{ display:none; } }
+
+    /* Animações */
+    @keyframes fadeUp { from {opacity:0; transform:translateY(15px);} to {opacity:1; transform:none;} }
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    .reveal{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
+    .reveal.show{ opacity:1; transform:none; }
+
+    /* Mobile refinements */
+    @media (max-width: 600px){
+      .topbar .wrap{ padding:30px 16px 24px; }
+      .page{ padding:28px 16px 84px; }
+      .buttons{ gap:14px; }
+      .card{ padding:22px; }
+      p{ font-size:16.5px; }
+      .chat-whats{ right:14px; bottom:14px; padding:12px; }
+      .chat-whats span{ display:none; }
+      .chat-whats::after{ display:none; }
+    }
+      .page{ padding:28px 16px 72px; }
+      .buttons{ gap:14px; }
+      .card{ padding:22px; }
+      p{ font-size:16.5px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){ .reveal{ transition:none; } .logo{ animation:none; } }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="logo">THE BAG ROOM </div>
-      <div class="tag">SECOND HAND</div>
-    </header>
 
+  <!-- Topo -->
+  <div class="topbar">
+    <div class="wrap">
+      <div class="logo">THE BAG ROOM</div>
+      <div class="tag">SECOND HAND</div>
+    </div>
+  </div>
+
+  <!-- Conteúdo -->
+  <main class="page">
     <section class="grid">
       <div class="card" aria-label="Sobre a The Bag Room">
-        <p>Na <strong>The Bag Room</strong>, re-significamos o conceito de “novo”. Selecionamos peças de luxo com olhar criterioso, autenticadas e avaliadas em cada detalhe — porque acreditamos que exclusividade e consciência podem caminhar juntas.</p>
-
-        <h2 style="margin-top:24px">Nossa missão</h2>
-        <p>Celebrar o luxo sustentável, oferecendo peças de grife que inspiram estilo e preservam histórias. Cada item carrega uma trajetória única — e nossa curadoria existe para conectar você à sua próxima peça favorita.</p>
+        <p class="reveal">Na The Bag Room, re-significamos o conceito de “novo”. Selecionamos peças de luxo com olhar criterioso, autenticadas e avaliadas em cada detalhe — porque acreditamos que exclusividade e consciência podem caminhar juntas.</p>
+        <h2 class="reveal">Nossa missão</h2>
+        <div class="sep reveal" aria-hidden="true"></div>
+        <p class="muted reveal">Celebrar o luxo sustentável, oferecendo peças de grife que inspiram estilo e preservam histórias. Cada item carrega uma trajetória única — e nossa curadoria existe para conectar você à sua próxima peça favorita.</p>
 
         <div class="buttons">
-          <a class="btn btn-primary" href="https://wa.me/5513996904227?text=Ol%C3%A1%2C+quero+falar+com+a+The+Bag+Room+%F0%9F%92%9C" target="_blank" rel="noopener" aria-label="WhatsApp Compras e Dúvidas">WhatsApp — Compras & Dúvidas</a>
-          <a class="btn btn-outline" href="https://chat.whatsapp.com/J9gxW9Whk778OKfLGnjoWN?mode=wwt" target="_blank" rel="noopener" aria-label="Entrar no Grupo VIP">Entrar no Grupo VIP</a>
-          <a class="btn btn-outline" href="https://www.instagram.com/thebagroom.br" target="_blank" rel="noopener" aria-label="Instagram The Bag Room">Instagram — @thebagroom.br</a>
+          <a class="btn btn-primary" href="https://wa.me/5513996904227?text=Ol%C3%A1%2C+quero+falar+com+a+The+Bag+Room+%F0%9F%92%9C" target="_blank" rel="noopener">WhatsApp — Compras & Dúvidas</a>
+          <a class="btn btn-outline" href="https://chat.whatsapp.com/J9gxW9Whk778OKfLGnjoWN?mode=wwt" target="_blank" rel="noopener">Entrar no Grupo VIP</a>
+          <a class="btn btn-outline" href="#desapego">Desapegue sua bolsa</a>
         </div>
       </div>
 
       <div id="desapego" class="card" aria-label="Como desapegar suas peças">
-        <h2>Como funciona o desapego</h2>
+        <h2 class="reveal">Como desapegar suas peças</h2>
         <div class="steps">
-          <div class="step">
+          <div class="step reveal">
             <div class="num">1</div>
             <div>
-              <strong>Entre em contato conosco</strong>
+              <strong>💬 Entre em contato conosco</strong>
               <p class="muted">Para uma avaliação prévia, envie fotos e informações básicas da peça.</p>
             </div>
           </div>
-          <div class="step">
+          <div class="step reveal">
             <div class="num">2</div>
             <div>
-              <strong>Autenticidade & conservação</strong>
+              <strong>🛡️ Autenticidade & conservação</strong>
               <p class="muted">A peça precisa ser autêntica e estar em bom estado. Ter dust bag, nota e caixa ajuda, mas não é essencial.</p>
             </div>
           </div>
-          <div class="step">
+          <div class="step reveal">
             <div class="num">3</div>
             <div>
-              <strong>Autenticação e fotos profissionais</strong>
+              <strong>📸 Autenticação e fotos profissionais</strong>
               <p class="muted">Trabalhamos com o produto em mãos para autenticação e fotos no padrão The Bag Room.</p>
             </div>
           </div>
-          <div class="step">
+          <div class="step reveal">
             <div class="num">4</div>
             <div>
-              <strong>Venda & repasse</strong>
+              <strong>💳 Venda & repasse</strong>
               <p class="muted">O valor é repassado à fornecedora 7 dias após a venda, conforme as condições acordadas.</p>
             </div>
           </div>
         </div>
+
         <div class="buttons" style="margin-top:16px">
-          <a class="btn btn-primary" href="https://wa.me/5513996904227?text=Ol%C3%A1%2C+quero+enviar+minhas+fotos+para+avalia%C3%A7%C3%A3o+%F0%9F%93%B7" target="_blank" rel="noopener">Falar com a curadoria no WhatsApp</a>
+          <a class="btn btn-primary" href="https://wa.me/5513996904227?text=Ol%C3%A1%2C+quero+enviar+minhas+fotos+para+avalia%C3%A7%C3%A3o+%F0%9F%93%B7" target="_blank" rel="noopener">Enviar fotos para avaliação</a>
         </div>
       </div>
     </section>
 
-    <footer>
-      © <span id="year"></span> The Bag Room · thebagroom.com.br · <span class="whats">WhatsApp (13) 99690-4227</span>
+    <footer class="reveal">
+      © <span id="year"></span> The Bag Room · thebagroom.com.br · WhatsApp (13) 99690-4227
     </footer>
-  </div>
+
+    <!-- Botão flutuante estilo balão -->
+    <a class="chat-whats" aria-label="Conversar no WhatsApp" target="_blank" rel="noopener" href="https://wa.me/5513996904227?text=Ol%C3%A1%2C+vim+pelo+site+The+Bag+Room">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.52c-.27-.14-1.56-.77-1.8-.85-.24-.09-.42-.14-.6.14-.17.27-.69.85-.85 1.02-.16.18-.31.2-.58.07-.27-.14-1.14-.42-2.18-1.33-.81-.72-1.35-1.6-1.51-1.86-.16-.27-.02-.41.12-.55.12-.12.27-.31.4-.47.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.6-1.44-.83-1.98-.22-.53-.44-.46-.6-.46h-.51c-.18 0-.48.07-.73.34-.24.27-.96.94-.96 2.28 0 1.33.98 2.62 1.11 2.8.14.18 1.93 2.95 4.68 4.02.65.28 1.16.45 1.56.58.66.21 1.26.18 1.73.11.53-.08 1.56-.64 1.78-1.27.22-.63.22-1.17.15-1.28-.06-.11-.24-.18-.51-.31zM16.02 5.33c-5.86 0-10.62 4.75-10.62 10.61 0 1.87.49 3.72 1.42 5.35L5 27l5.85-1.54a10.6 10.6 0 0 0 5.18 1.35h.01c5.85 0 10.61-4.76 10.61-10.62 0-2.84-1.11-5.52-3.13-7.54a10.59 10.59 0 0 0-7.5-3.32zm0 19.22h-.01a8.6 8.6 0 0 1-4.39-1.2l-.32-.19-3.47.91.93-3.39-.2-.34a8.62 8.62 0 0 1-1.29-4.55c0-4.75 3.87-8.61 8.62-8.61 2.3 0 4.47.9 6.1 2.52a8.57 8.57 0 0 1 2.52 6.09c0 4.75-3.87 8.61-8.61 8.61z"></path></svg>
+      <span>Fale com a The Bag Room</span>
+    </a>
+
+  </main>
 
   <script>
-  document.getElementById('year').textContent=new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
+    (function(){
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const els = Array.from(document.querySelectorAll('.reveal'));
+      els.forEach((el, i) => el.style.transitionDelay = (100 * i) + 'ms');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){ entry.target.classList.add('show'); io.unobserve(entry.target); }
+        });
+      }, { threshold: 0.2 });
+      els.forEach(el => io.observe(el));
+    })();
   </script>
 </body>
 </html>
-
-
