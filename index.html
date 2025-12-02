@@ -180,7 +180,7 @@ width: 100%;
 margin: 0;
 }
 
-/* ========== FUNDO PRETO GRADIENTE ========== */
+/* ========== FUNDO PRETO GRADIENTE NA SEÇÃO COMO DESAPEGAR ========== */
 .section.desapegar-bg {
 background: linear-gradient(to bottom, #030303, #363636);
 color: #ffffff;
@@ -252,23 +252,6 @@ font-size: 14px;
 opacity: 0.5;
 }
 
-/* RESPONSIVO */
-@media (max-width: 900px) {
-.about-wrapper {
-flex-direction: column;
-padding: 60px 20px 40px;
-}
-
-.slider {
-width: 280px;
-height: 300px;
-}
-
-.section p {
-width: 90%;
-}
-}
-
 /* =============================== */
 /* SOCIAL BAR FLUTUANTE */
 /* =============================== */
@@ -314,6 +297,40 @@ box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 width: 24px;
 height: 24px;
 }
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+.about-wrapper {
+flex-direction: column;
+padding: 60px 20px 40px;
+}
+
+.slider {
+width: 280px;
+height: 300px;
+}
+
+.section p {
+width: 90%;
+}
+}
+
+/* AJUSTES ESPECÍFICOS PARA CELULAR PEQUENO */
+@media (max-width: 600px) {
+header {
+padding: 14px 20px;
+}
+
+header h1 {
+font-size: 20px;
+letter-spacing: 5px;
+}
+
+.hero {
+height: 40vh; /* reduz a altura da imagem */
+background-position: center top;
+}
+}
 </style>
 </head>
 
@@ -331,10 +348,12 @@ height: 24px;
 
 <section class="section-about">
 <h3>Sobre Nós</h3>
-<p>Na The Bag Room, re-significamos o conceito de “novo”. Selecionamos peças de luxo com olhar criterioso, autenticadas e avaliadas em cada detalhe — porque acreditamos que exclusividade e consciência podem caminhar juntas.</p>
+<p>
+Na The Bag Room, re-significamos o conceito de “novo”. Selecionamos peças de luxo com olhar criterioso, autenticadas e avaliadas em cada detalhe — porque acreditamos que exclusividade e consciência podem caminhar juntas.</p>
 
 <h3>Nossa Missão</h3>
-<p>Celebrar o luxo sustentável, oferecendo peças de grife que inspiram estilo e preservam histórias. Cada item carrega uma trajetória única — e nossa curadoria existe para conectar você à sua próxima peça favorita.</p>
+<p>
+Celebrar o luxo sustentável, oferecendo peças de grife que inspiram estilo e preservam histórias. Cada item carrega uma trajetória única — e nossa curadoria existe para conectar você à sua próxima peça favorita.</p>
 </section>
 
 <section class="slider-section">
@@ -368,7 +387,9 @@ height: 24px;
 <div class="step-card-number">1</div>
 <div class="step-card-title">💬 Entre em contato</div>
 </div>
-<div class="step-card-text">Envie fotos e informações básicas da peça pelo WhatsApp.</div>
+<div class="step-card-text">
+Envie fotos e informações básicas da peça pelo WhatsApp para avaliação.
+</div>
 </div>
 
 <div class="step-arrow">➝</div>
@@ -378,7 +399,9 @@ height: 24px;
 <div class="step-card-number">2</div>
 <div class="step-card-title">🛡️ Autenticidade</div>
 </div>
-<div class="step-card-text">A peça precisa ser autêntica e estar em bom estado.</div>
+<div class="step-card-text">
+A peça precisa ser autêntica, com ou sem dust bag.
+</div>
 </div>
 
 <div class="step-arrow">➝</div>
@@ -388,7 +411,9 @@ height: 24px;
 <div class="step-card-number">3</div>
 <div class="step-card-title">📸 Fotos profissionais</div>
 </div>
-<div class="step-card-text">Realizamos fotos no padrão The Bag Room.</div>
+<div class="step-card-text">
+Realizamos fotos no padrão The Bag Room.
+</div>
 </div>
 
 <div class="step-arrow">➝</div>
@@ -398,7 +423,9 @@ height: 24px;
 <div class="step-card-number">4</div>
 <div class="step-card-title">💳 Repasse</div>
 </div>
-<div class="step-card-text">Repasse até 7 dias após a venda.</div>
+<div class="step-card-text">
+Você recebe até 7 dias após a venda.
+</div>
 </div>
 
 </div>
@@ -407,15 +434,15 @@ height: 24px;
 <!-- SOCIAL BAR -->
 <div class="social-bar">
 <a href="https://instagram.com/thebagroom.br" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+<img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
 </a>
 
 <a href="https://tiktok.com/@thebagroom.br" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
+<img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok">
 </a>
 
 <a href="https://wa.me/5513996904227" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
 </a>
 </div>
 
@@ -451,3 +478,4 @@ setInterval(nextSlide, 4000);
 
 </body>
 </html>
+
