@@ -16,13 +16,22 @@ margin: 0;
 background: #faf9f7;
 color: #000000;
 font-family: 'Montserrat', sans-serif;
-overflow-x: hidden;
+overflow-x: auto;
+overflow-y: auto;
 }
+
+.container {
+  max-width: 1200px;   /* controla a “largura visual” */
+  margin: 0 auto;
+ padding: 0 clamp(16px, 3vw, 40px);
+
+}
+
 
 /* MENU */
 header {
 width: 100%;
-padding: 20px 60px;
+padding: 20px clamp(10px, 1vw, 30px);
 display: flex;
 justify-content: center;
 align-items: center;
@@ -52,9 +61,11 @@ display: flex;
 align-items: center;
 justify-content: center;
 position: relative;
-padding: 12px 60px;   /* diminui a altura */
 top: 0;  
-margin-top: 0px
+margin-top: 0px;
+max-width: 1310px;
+margin: 0 auto;
+padding: 0 12px;
 }
 
 .hero::after {
@@ -87,7 +98,7 @@ opacity: 0.8;
 
 /* ========= BLOCO SLIDER + SOBRE ========= */
 .about-wrapper {
-padding: 20px 60px 20px;
+padding: 40px clamp(16px, 3vw, 40px);
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -152,7 +163,7 @@ background: #ffffff;
 
 /* SEÇÕES */
 .section {
-padding: 80px 60px;
+padding: 80px clamp(16px, 3vw, 40px);
 text-align: center;
 }
 
@@ -193,6 +204,9 @@ background: linear-gradient(to bottom, #030303, #363636);
 color: #ffffff;
 padding-top: 80px;
 padding-bottom: 100px;
+max-width: 1310px;
+margin: 0 auto;
+padding: 20px 12px;
 }
 
 /* PASSO A PASSO */
@@ -307,10 +321,10 @@ height: 24px;
 
 /* RESPONSIVO */
 /* AJUSTES ESPECÍFICOS PARA CELULAR PEQUENO */
-@media (max-width: 728px) {
+@media (max-width: 600px) {
 
   .section.desapegar-bg {
-    width: 100%;
+    width: 100px;
     margin: 0;
     padding-left: 16px;
     padding-right: 16px;
@@ -648,6 +662,7 @@ function toggleMenuMobile() {
 
 </body>
 </html>
+
 
 
 
