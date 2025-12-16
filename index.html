@@ -14,6 +14,7 @@ margin: 0;
 background: #faf9f7;
 color: #000000;
 font-family: 'Montserrat', sans-serif;
+overflow-x: hidden;
 }
 
 /* MENU */
@@ -320,9 +321,22 @@ width: 90%;
 
 /* AJUSTES ESPECÍFICOS PARA CELULAR PEQUENO */
 @media (max-width: 600px) {
+
 header {
-padding: 10px 16px;
+padding: 14px 16px;
 height: 56px;
+}
+
+.about-wrapper{
+  padding: 40px 16px;
+}
+
+.section{
+  padding: 60px 16px;
+}
+
+.section p {
+  width: 100%;
 }
 
 .menu-mobile{
@@ -382,11 +396,11 @@ background-position: center top;
 }
 
 .menu-mobile-inner a {
-  font-size: 19px;
+  font-size: 24px;
   text-decoration: none;
   color: #000;
   font-family: 'Cormorant Garamond', serif;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   transition: 0.3s;
 }
 
@@ -426,11 +440,11 @@ background-position: center top;
 }
 
 .menu-mobile-inner a {
-  font-size: 24px;
+  font-size: 19px;
   text-decoration: none;
   color: #000;
   font-family: 'Cormorant Garamond', serif;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   transition: 0.3s;
 }
 
