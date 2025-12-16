@@ -9,9 +9,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
 width: 100% ;  
-max-width: 100%;
 margin: 0;
 background: #faf9f7;
 color: #000000;
@@ -163,7 +167,7 @@ background: #ffffff;
 
 /* SEÇÕES */
 .section {
-padding: 80px clamp(16px, 3vw, 40px);
+padding: 80px 16px;
 text-align: center;
 }
 
@@ -199,7 +203,7 @@ margin: 0;
 
 /* ========== FUNDO PRETO GRADIENTE NA SEÇÃO COMO DESAPEGAR ========== */
 .section.desapegar-bg {
- width: 100%;
+  width: 100%;
   background: linear-gradient(to bottom, #030303, #363636);
   color: #ffffff;
   padding: 80px 0 100px;
@@ -321,14 +325,13 @@ height: 24px;
 @media (max-width: 600px) {
 
   .section.desapegar-bg {
-    width: 100px;
+    width: 100%;
     margin: 0 auto;
    padding-left: 16px;
    padding-right: 16px;
   }
 
   .desapegar-container {
-  max-width: 1080px;
   margin: 0 auto;
   padding: 0 16px;
 }
@@ -667,7 +670,6 @@ function toggleMenuMobile() {
 
 </body>
 </html>
-
 
 
 
