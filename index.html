@@ -57,8 +57,8 @@ margin: 0;
 /* HERO BANNER */
 .hero {
 width: 100%;
-height: 40vh;
-background-image: url('https://i.imgur.com/LslpYEA.jpeg');
+height: 80vh;
+background-image: url('https://i.imgur.com/T97Bcx9.jpeg');
 background-size: cover;
 background-position: center;
 display: flex;
@@ -431,6 +431,192 @@ height: 24px;
 /* AJUSTES ESPECÍFICOS PARA CELULAR PEQUENO */
 @media (max-width: 600px) {
 
+body {
+width: 100% ;  
+margin: 0;
+background: #faf9f7;
+color: #000000;
+font-family: 'Montserrat', sans-serif;
+overflow-x: auto;
+overflow-y: auto;
+}
+
+.container {
+  max-width: 1200px;   /* controla a “largura visual” */
+  margin: 0 auto;
+ padding: 0 clamp(16px, 3vw, 40px);
+}
+
+
+/* MENU */
+header {
+width: 100%;
+padding: 20px clamp(10px, 1vw, 30px);
+display: flex;
+justify-content: center;
+align-items: center;
+background: rgba(255, 255, 255, 0.979);
+position: fixed;
+backdrop-filter: blur(8px);
+z-index: 999;
+border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+header h1 {
+letter-spacing: 8px;
+font-family: 'Cormorant Garamond', serif;
+font-size: 28px;
+margin: 0;
+}
+
+/* HERO BANNER */
+.hero {
+width: 100%;
+height: 26vh;
+background-image: url('https://i.imgur.com/T97Bcx9.jpeg');
+background-size: cover;
+background-position: center;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+}
+
+.hero::after {
+content: "";
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+background: rgba(0,0,0,0.30);
+}
+
+.hero-text {
+position: relative;
+z-index: 2;
+color: white;
+text-align: center;
+}
+
+.hero-text h2 {
+font-family: 'Cormorant Garamond', serif;
+font-size: 60px;
+font-weight: 300;
+letter-spacing: 2px;
+}
+
+.hero-text p {
+font-size: 16px;
+margin-top: 10px;
+opacity: 0.8;
+}
+
+.internal-title {
+  width: 100%;
+}
+
+
+/* ========= BLOCO SLIDER + SOBRE ========= */
+.about-wrapper {
+padding: 40px clamp(16px, 3vw, 40px);
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 40px;
+}
+
+.slider-section {
+padding: 0;
+display: flex;
+justify-content: flex-end;
+flex: 1;
+}
+
+.slider {
+width: 240px;
+height: 220px;
+position: relative;
+overflow: hidden;
+border-radius: 10px;
+box-shadow: 0px 10px 25px rgba(0,0,0,0.18);
+background: #000;
+}
+
+.slides {
+display: flex;
+width: 100%;
+height: 100%;
+transition: transform 0.6s ease-in-out;
+}
+
+.slide {
+min-width: 100%;
+height: 100%;
+}
+
+.slide img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.dots {
+position: absolute;
+bottom: 10px;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+gap: 6px;
+}
+
+.dot {
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: rgba(255,255,255,0.5);
+cursor: pointer;
+}
+
+.dot.active {
+background: #ffffff;
+}
+
+/* SEÇÕES */
+.section {
+padding: 80px 16px;
+text-align: center;
+}
+
+.section h3 {
+font-family: 'Cormorant Garamond', serif;
+font-size: 40px;
+margin-bottom: 20px;
+}
+
+.section p {
+width: 70%;
+margin: auto;
+line-height: 1.7;
+font-size: 16px;
+}
+
+.section-about {
+flex: 1;
+text-align: left;
+padding: 0;
+margin-top: -50px;
+}
+
+.section-about h3 {
+text-align: left;
+margin-bottom: 16px;
+}
+
+.section-about p {
+width: 100%;
+margin: 0;
+}
+
+
   /* BOTÃO HAMBÚRGUER */
 .menu-mobile-btn {
   font-size: 24px;
@@ -503,12 +689,6 @@ flex-direction: column;
 padding: 60px 20px 40px;
 }
 
-.slider {
-width: 280px;
-height: 300px;
-}
-
-
 header {
 padding: 14px 16px;
 height: 56px;
@@ -552,10 +732,7 @@ letter-spacing: 4px;
 line-height: 1;
 }
 
-.hero {
-height: 40vh; /* reduz a altura da imagem */
-background-position: center top;
-}
+
 }
 
 
