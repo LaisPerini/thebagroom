@@ -6,7 +6,7 @@
 <title>Como Funciona · The Bag Room</title>
 
 <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 /* ========================= */
@@ -80,8 +80,8 @@ margin: 0;
 /* ========================= */
 .internal-title {
 width: 100%;
-height: 40vh;
-background-image: url('https://i.imgur.com/LslpYEA.jpeg');
+height: 80vh;
+background-image: url('https://i.imgur.com/cEmhXKD.jpeg');
 background-size: cover;
 background-position: center;
 display: flex;
@@ -96,7 +96,9 @@ content: "";
 position: absolute;
 top: 0; left: 0;
 width: 100%; height: 100%;
-background: rgba(0,0,0,0.30);
+background: rgba(0,0,0,0.45);
+backdrop-filter: blur(1px);
+
 }
 
 
@@ -105,7 +107,7 @@ background: rgba(0,0,0,0.30);
   z-index:3;
   font-family:'Cormorant Garamond', serif;
   font-size:45px;
-  font-weight:600;
+  font-weight:800;
   color:white;
   letter-spacing:5px;
   text-align:center;
@@ -306,6 +308,130 @@ footer {
 /* ========================= */
 @media (max-width: 600px) {
 
+.internal-title {
+width: 100%;
+height: 26vh;
+background-image: url('https://i.imgur.com/cEmhXKD.jpeg');
+background-size: cover;
+background-position: center;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+margin-bottom: -90px;
+}
+
+.internal-title::after {
+content: "";
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+background: rgba(0,0,0,0.45);
+backdrop-filter: blur(1px);
+}
+
+
+.internal-title h2 {
+  position:relative;
+  z-index:3;
+  font-family:'Cormorant Garamond', serif;
+  font-size:40px;
+  font-weight:900;
+  color:white;
+  letter-spacing:5px;
+  text-align:center;
+  margin: 0;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.7);
+}
+
+/* ========================= */
+/* CAIXA DE CONTEÚDO */
+/* ========================= */
+.page-wrapper {
+  padding-top: 6px;
+  padding-bottom: 30px;
+}
+
+.content-box {
+  max-width: 900px;
+  margin: 40px auto 100px;
+  padding: 28px 26px;
+  background: #ffffff;
+  border: 0px solid #d4d3d3;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+}
+
+/* TÍTULOS DO PASSO A PASSO */
+.content-box h3 {
+  font-family:'Cormorant Garamond', serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin-top: 0;
+  position: relative;
+  padding-top: 30px;
+}
+
+.content-box h3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 1px;
+  background: #ddd;
+}
+
+/* NÚMERO DO PASSO */
+.step-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 300;
+  margin-right: 10px;
+  color: #000;
+}
+
+/* LISTA */
+.content-box ul {
+  padding-left: 20px;
+}
+
+.content-box ul li {
+  list-style: none;
+  position: relative;
+  padding-left: 18px;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.content-box ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #777;
+  font-size: 18px;
+}
+
+.content-box p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+/* ========================= */
+/* RODAPÉ */
+/* ========================= */
+footer {
+  text-align: center;
+  padding: 40px;
+  font-size: 14px;
+  opacity: 0.5;
+  border-top: 1px solid #e5e5e5;
+}
+
+
   /* BOTÃO HAMBÚRGUER */
 .menu-mobile-btn {
   font-size: 24px;
@@ -360,11 +486,7 @@ footer {
   left: 0;
 }
 
-  .internal-title h2 {
-    font-size: 42px;
-  }
-
-  .page-wrapper {
+   .page-wrapper {
     padding-top: 60px;
   }
 
