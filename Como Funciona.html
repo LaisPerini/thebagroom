@@ -3,13 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Bag Room</title>
+<title>Como Funciona · The Bag Room</title>
 
 <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
+/* ========================= */
+/* BASE DO SITE */
+/* ========================= */
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -31,10 +33,11 @@ overflow-y: auto;
 
 }
 
-
-/* MENU */
+/* ========================= */
+/* HEADER + MENU HAMBURGUER */
+/* ========================= */
 header {
-width: 100%;
+ width: 100%;
 padding: 20px clamp(10px, 1vw, 30px);
 display: flex;
 justify-content: center;
@@ -44,9 +47,9 @@ position: fixed;
 backdrop-filter: blur(8px);
 z-index: 999;
 border-bottom: 1px solid rgba(0,0,0,0.05);
-
 }
 
+/* LOGO */
 header h1 {
 letter-spacing: 8px;
 font-family: 'Cormorant Garamond', serif;
@@ -54,283 +57,149 @@ font-size: 28px;
 margin: 0;
 }
 
-/* HERO BANNER */
-.hero {
-  position: relative;
-  width: 100%;
-  height: 90vh; /* altura do banner */
-  overflow: hidden;
-}
 
-.hero-video {
+/* BOTÃO “X” PARA FECHAR */
+.close-menu {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* cobre a tela */
-  transform: translate(-50%, -50%);
+  top: 26px;
+  right: 30px;
+  font-size: 34px;
+  cursor: pointer;
+  color: #000;
+  z-index: 2004;
+  user-select: none;
+  opacity: 0.8;
 }
 
+.close-menu:hover {
+  opacity: 0.5;
+}
 
+/* ========================= */
+/* TÍTULO PRINCIPAL (HERO) */
+/* ========================= */
+.internal-title {
+width: 100%;
+height: 80vh;
+background-image: url('https://i.imgur.com/cEmhXKD.jpeg');
+background-size: cover;
+background-position: center;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
 
-.hero::after {
+}
+
+.internal-title::after {
 content: "";
 position: absolute;
 top: 0; left: 0;
 width: 100%; height: 100%;
-background: rgba(0,0,0,0.30);
-}
+background: rgba(0,0,0,0.45);
+backdrop-filter: blur(1px);
 
-.hero-text {
-position: absolute;
-top: 50%;
-right:60%;
-font-weight: 500;
-z-index: 3;
-color: white;
-text-align: absolute;
-margin-top: 120px;
-}
-
-.hero-text h2 {
-  font-size: 15px;
-  font-weight: 600;
-  color: #fff;
-  text-shadow: 0 4px 16px rgba(0,0,0,0.7);
-  text-align: absolute;
-}
-
-.hero-text p {
-font-size: 16px;
-margin-top: 10px;
-opacity: 0.8;
-}
-
-.internal-title {
-  width: 100%;
 }
 
 
-/* ========= BLOCO SLIDER + SOBRE ========= */
-.about-wrapper {
-padding: 40px clamp(16px, 3vw, 40px);
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 40px;
+.internal-title h2 {
+  position:relative;
+  z-index:3;
+  font-family:'Cormorant Garamond', serif;
+  font-size:45px;
+  font-weight:800;
+  color:white;
+  letter-spacing:5px;
+  text-align:center;
+  margin: 0;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
-.slider-section {
-padding: 0;
-display: flex;
-justify-content: flex-end;
-flex: 1;
+/* ========================= */
+/* CAIXA DE CONTEÚDO */
+/* ========================= */
+.page-wrapper {
+  padding-top: 6px;
+  padding-bottom: 30px;
 }
 
-.slider {
-width: 360px;
-height: 330px;
-position: relative;
-overflow: hidden;
-border-radius: 10px;
-box-shadow: 0px 10px 25px rgba(0,0,0,0.18);
-background: #000;
+.content-box {
+  max-width: 900px;
+  margin: 40px auto 100px;
+  padding: 28px 26px;
+  background: #ffffff;
+  border: 1px solid #d4d3d3;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
 }
 
-.slides {
-display: flex;
-width: 100%;
-height: 100%;
-transition: transform 0.6s ease-in-out;
+/* TÍTULOS DO PASSO A PASSO */
+.content-box h3 {
+  font-family:'Cormorant Garamond', serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin-top: 0;
+  position: relative;
+  padding-top: 30px;
 }
 
-.slide {
-min-width: 100%;
-height: 100%;
+.content-box h3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 1px;
+  background: #ddd;
 }
 
-.slide img {
-width: 100%;
-height: 100%;
-object-fit: cover;
+/* NÚMERO DO PASSO */
+.step-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 300;
+  margin-right: 10px;
+  color: #000;
 }
 
-.dots {
-position: absolute;
-bottom: 10px;
-left: 50%;
-transform: translateX(-50%);
-display: flex;
-gap: 6px;
+/* LISTA */
+.content-box ul {
+  padding-left: 20px;
 }
 
-.dot {
-width: 8px;
-height: 8px;
-border-radius: 50%;
-background: rgba(255,255,255,0.5);
-cursor: pointer;
+.content-box ul li {
+  list-style: none;
+  position: relative;
+  padding-left: 18px;
+  font-size: 16px;
+  line-height: 1.7;
 }
 
-.dot.active {
-background: #ffffff;
+.content-box ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #777;
+  font-size: 18px;
 }
 
-/* SEÇÕES */
-.section {
-padding: 80px 16px;
-text-align: center;
+.content-box p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 16px;
 }
 
-.section h3 {
-font-family: 'Cormorant Garamond', serif;
-font-size: 40px;
-margin-bottom: 20px;
-}
-
-.section p {
-width: 70%;
-margin: auto;
-line-height: 1.7;
-font-size: 16px;
-}
-
-.section-about {
-flex: 1;
-text-align: left;
-padding: 0;
-margin-top: -50px;
-}
-
-.section-about h3 {
-text-align: left;
-margin-bottom: 16px;
-}
-
-.section-about p {
-width: 100%;
-margin: 0;
-}
-
-/* ========== FUNDO PRETO GRADIENTE NA SEÇÃO COMO DESAPEGAR ========== */
-.section.desapegar-bg {
-  width: 100%;
-  background: linear-gradient(to bottom, #030303, #363636);
-  color: #ffffff;
-  padding: 80px 0 100px;
-}
-
-
-/* PASSO A PASSO */
-.steps-flow {
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-gap: 14px;
-margin-top: 30px;
-}
-
-.step-card {
-background: #f0eeee;
-border-radius: 18px;
-border: 1px solid #b6b5b5ab;
-padding: 10px 10px;
-width: 220px;
-box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-display: flex;
-flex-direction: column;
-gap: 6px;
-font-size: 14px;
-}
-
-.step-card-header {
-display: flex;
-align-items: center;
-gap: 10px;
-margin-bottom: 4px;
-}
-
-.step-card-number {
-width: 28px;
-height: 28px;
-border-radius: 999px;
-background: #000;
-color: #fff;
-font-weight: 700;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-.step-card-title {
-font-weight: 600;
-color: #111;
-}
-
-.step-card-text {
-line-height: 1.3;
-color: #111;
-}
-
-.step-arrow {
-align-self: center;
-font-size: 36px;
-color: rgb(255, 255, 255);
-}
-
+/* ========================= */
+/* RODAPÉ */
+/* ========================= */
 footer {
-text-align: center;
-padding: 40px;
-font-size: 14px;
-opacity: 0.5;
-}
-
-/* =============================== */
-/* SOCIAL BAR FLUTUANTE */
-/* =============================== */
-
-.social-bar {
-position: fixed;
-right: 10px;
-top: 50%;
-transform: translateY(-50%);
-display: flex;
-flex-direction: column;
-gap: 14px;
-z-index: 99999;
-}
-
-.social-bar a {
-background: #ffffff;
-padding: 10px;
-border-radius: 50%;
-width: 46px;
-height: 46px;
-display: flex;
-align-items: center;
-justify-content: center;
-box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-border: 1px solid #ddd;
-animation: float 4s ease-in-out infinite;
-transition: 0.2s;
-}
-
-.social-bar a:hover {
-transform: scale(1.1);
-box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-}
-
-
-@keyframes float {
-0% { transform: translateY(0); }
-50% { transform: translateY(-8px); }
-100% { transform: translateY(0); }
-}
-
-.social-bar img {
-width: 24px;
-height: 24px;
+  text-align: center;
+  padding: 40px;
+  font-size: 14px;
+  opacity: 0.5;
+  border-top: 1px solid #e5e5e5;
 }
 
 /* BOTÃO HAMBÚRGUER */
@@ -343,7 +212,7 @@ height: 24px;
   z-index: 2003;
   color: #000;
   user-select: none;
- transform: translateY(-100%);
+  transform: translateY(-100%);
 }
 
 /* MENU LATERAL */
@@ -434,199 +303,135 @@ height: 24px;
 }
 
 
-/* RESPONSIVO */
-/* AJUSTES ESPECÍFICOS PARA CELULAR PEQUENO */
+/* ========================= */
+/* MOBILE */
+/* ========================= */
 @media (max-width: 600px) {
 
-body {
-width: 100% ;  
-margin: 0;
-background: #faf9f7;
-color: #000000;
-font-family: 'Montserrat', sans-serif;
-overflow-x: auto;
-overflow-y: auto;
-}
-
-.container {
-  max-width: 1200px;   /* controla a “largura visual” */
-  margin: 0 auto;
- padding: 0 clamp(16px, 3vw, 40px);
-}
-
-
-/* MENU */
-header {
-width: 100%;
-padding: 20px clamp(10px, 1vw, 30px);
-display: flex;
-justify-content: center;
-align-items: center;
-background: rgba(255, 255, 255, 0.979);
-position: fixed;
-backdrop-filter: blur(8px);
-z-index: 999;
-border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-
-header h1 {
-letter-spacing: 8px;
-font-family: 'Cormorant Garamond', serif;
-font-size: 28px;
-margin: 0;
-}
-
-/* HERO BANNER */
-.hero {
+.internal-title {
 width: 100%;
 height: 26vh;
-background-image: url('https://i.imgur.com/T97Bcx9.jpeg');
+background-image: url('https://i.imgur.com/cEmhXKD.jpeg');
 background-size: cover;
 background-position: center;
 display: flex;
 align-items: center;
 justify-content: center;
 position: relative;
+margin-bottom: -90px;
+text-align: center;
+padding: 0;
 }
 
-.hero::after {
+.internal-title::after {
 content: "";
 position: absolute;
 top: 0; left: 0;
 width: 100%; height: 100%;
-background: rgba(0,0,0,0.30);
+background: rgba(0,0,0,0.45);
+backdrop-filter: blur(1px);
 }
 
 
-.hero-text {
-position: absolute;
-top: 15%;
-right:25%;
-font-weight: 500;
-z-index: 3;
-color: white;
-text-align: absolute;
-margin-top: 120px;
+.internal-title h2 {
+  position:relative;
+  z-index:2;
+  font-family:'Cormorant Garamond', serif;
+  font-size:30px;
+  font-weight:700;
+  color:white;
+  letter-spacing:5px;
+  text-align:center;
+  width: auto;
+  margin: 0;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.7);
 }
 
-.hero-text h2 {
-  font-size: 12px;
-  font-weight: 600;
-  color: #fff;
-  text-shadow: 0 4px 16px rgba(0,0,0,0.7);
-  text-align: absolute;
+/* ========================= */
+/* CAIXA DE CONTEÚDO */
+/* ========================= */
+.page-wrapper {
+  padding-top: 6px;
+  padding-bottom: 30px;
 }
 
-.hero-text p {
-font-size: 10px;
-margin-top: 10px;
-opacity: 0.8;
+.content-box {
+  max-width: 900px;
+  margin: 40px auto 100px;
+  padding: 28px 26px;
+  background: #ffffff;
+  border: 0px solid #d4d3d3;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
 }
 
-.internal-title {
-  width: 100%;
+/* TÍTULOS DO PASSO A PASSO */
+.content-box h3 {
+  font-family:'Cormorant Garamond', serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin-top: 0;
+  position: relative;
+  padding-top: 30px;
 }
 
-
-/* ========= BLOCO SLIDER + SOBRE ========= */
-.about-wrapper {
-padding: 40px clamp(16px, 3vw, 40px);
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 40px;
+.content-box h3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 1px;
+  background: #ddd;
 }
 
-.slider-section {
-padding: 0;
-display: flex;
-justify-content: flex-end;
-flex: 1;
+/* NÚMERO DO PASSO */
+.step-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 300;
+  margin-right: 10px;
+  color: #000;
 }
 
-.slider {
-width: 240px;
-height: 220px;
-position: relative;
-overflow: hidden;
-border-radius: 10px;
-box-shadow: 0px 10px 25px rgba(0,0,0,0.18);
-background: #000;
+/* LISTA */
+.content-box ul {
+  padding-left: 20px;
 }
 
-.slides {
-display: flex;
-width: 100%;
-height: 100%;
-transition: transform 0.6s ease-in-out;
+.content-box ul li {
+  list-style: none;
+  position: relative;
+  padding-left: 18px;
+  font-size: 16px;
+  line-height: 1.7;
 }
 
-.slide {
-min-width: 100%;
-height: 100%;
+.content-box ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #777;
+  font-size: 18px;
 }
 
-.slide img {
-width: 100%;
-height: 100%;
-object-fit: cover;
+.content-box p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 16px;
 }
 
-.dots {
-position: absolute;
-bottom: 10px;
-left: 50%;
-transform: translateX(-50%);
-display: flex;
-gap: 6px;
-}
-
-.dot {
-width: 8px;
-height: 8px;
-border-radius: 50%;
-background: rgba(255,255,255,0.5);
-cursor: pointer;
-}
-
-.dot.active {
-background: #ffffff;
-}
-
-/* SEÇÕES */
-.section {
-padding: 80px 16px;
-text-align: center;
-}
-
-.section h3 {
-font-family: 'Cormorant Garamond', serif;
-font-size: 40px;
-margin-bottom: 20px;
-}
-
-.section p {
-width: 70%;
-margin: auto;
-line-height: 1.7;
-font-size: 16px;
-}
-
-.section-about {
-flex: 1;
-text-align: left;
-padding: 0;
-margin-top: -50px;
-}
-
-.section-about h3 {
-text-align: left;
-margin-bottom: 16px;
-}
-
-.section-about p {
-width: 100%;
-margin: 0;
+/* ========================= */
+/* RODAPÉ */
+/* ========================= */
+footer {
+  text-align: center;
+  padding: 40px;
+  font-size: 14px;
+  opacity: 0.5;
+  border-top: 1px solid #e5e5e5;
 }
 
 
@@ -684,6 +489,10 @@ margin: 0;
   left: 0;
 }
 
+   .page-wrapper {
+    padding-top: 60px;
+  }
+
   .section.desapegar-bg {
     width: 100%;
     margin: 0 auto;
@@ -701,6 +510,12 @@ margin: 0;
 flex-direction: column;
 padding: 60px 20px 40px;
 }
+
+.slider {
+width: 280px;
+height: 300px;
+}
+
 
 header {
 padding: 14px 16px;
@@ -745,7 +560,10 @@ letter-spacing: 4px;
 line-height: 1;
 }
 
-
+.hero {
+height: 40vh; /* reduz a altura da imagem */
+background-position: center top;
+}
 }
 
 
@@ -754,186 +572,84 @@ line-height: 1;
 
 <body>
 
-
-
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
 <header>
-<h1>THE BAG ROOM</h1>
+  <h1>THE BAG ROOM</h1>
 
+  <!-- Botão Hambúrguer -->
+  <div class="menu-mobile-btn" onclick="toggleMenuMobile()">
+    ☰
+  </div>
 
+  <!-- MENU LATERAL -->
+  <nav class="menu-mobile" id="menuMobile">
 
-
-<!-- Botão Hambúrguer -->
-<div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
-
-<!-- MENU LATERAL -->
-<nav class="menu-mobile" id="menuMobile">
+    <!-- Botão Fechar -->
     <div class="close-menu" onclick="toggleMenuMobile()">×</div>
 
     <div class="menu-mobile-inner">
-        <a href="Principal.html">Início</a>
-        <a href="Como Funciona.html">Como Desapegar</a>
-        <a href="autenticidade.html">Autenticidade</a>
-        <a href="quem-somos.html">Sobre</a>
+      <a href="index.html">Início</a>
+      <a href="Como Funciona.html">Como Desapegar</a>
+      <a href="autenticidade.html">Autenticidade</a>
+      <a href="quem-somos.html">Sobre</a>
     </div>
-</nav>
+  </nav>
 </header>
 
-<!-- HERO -->
-<!--<section class="hero"></section>-->
+<!-- ========================= -->
+<!-- TÍTULO -->
+<!-- ========================= -->
+<section class="internal-title">
+  <h2>COMO DESAPEGAR</h2>
+</section>
 
-  <section class="hero">
-  <video autoplay muted loop playsinline class="hero-video">
-    <source src="https://res.cloudinary.com/div3j1m4c/video/upload/banner_video-converter.com_nl8npr.mp4" type="video/mp4">
-  </video>
+<!-- ========================= -->
+<!-- CONTEÚDO -->
+<!-- ========================= -->
+<div class="page-wrapper">
+  <div class="content-box">
 
-  <div class="hero-overlay"></div>
+    <h3><span class="step-number">1</span> Entre em contato</h3>
+    <p>Envie fotos e informações da peça pelo WhatsApp. Avaliamos em até 24h:</p>
+    <ul>
+      <li>Marca e modelo</li>
+      <li>Estado de conservação</li>
+      <li>Nota fiscal, cartões, dust bag (opcional)</li>
+    </ul>
 
-  <div class="hero-text">
-    <h2>Curadoria de luxo, consignação e autenticidade.</h2>
-    <p>Bolsas Icônicas, destinos desejados e histórias que inspiram.</p>
-    <p>A The Bag Room conecta você ao luxo consciente.</p>
+    <h3><span class="step-number">2</span> Autenticidade</h3>
+    <p>Todas as peças passam por análise completa de autenticidade antes de entrarem no catálogo.</p>
+
+    <h3><span class="step-number">3</span> Envio da peça</h3>
+    <p>Após a avaliação inicial, você envia a peça para nossa curadoria. Cuidamos da conferência, higienização leve e armazenamento seguro.</p>
+
+    <h3><span class="step-number">4</span> Fotos profissionais</h3>
+    <p>Fotografamos sua peça no padrão The Bag Room: fundo clean, iluminação perfeita e foco nos detalhes.</p>
+
+    <h3><span class="step-number">5</span> Divulgação & venda</h3>
+    <p>Publicamos no site e nas redes sociais. Nossa equipe cuida de todo atendimento e processo de venda.</p>
+
+    <h3><span class="step-number">6</span> Repasse</h3>
+    <p>Após a venda, o valor é repassado em até <strong>7 dias corridos</strong>.</p>
+
+    <h3><span class="step-number">7</span> Comissão</h3>
+    <p>A comissão varia conforme marca e valor, sempre informada antes do envio da peça.</p>
+
   </div>
-</section>
-
-<!-- SOBRE + SLIDER -->
-<section class="about-wrapper">
-
-<section class="section-about">
-<h3>Sobre Nós</h3>
-<p>
-Na The Bag Room, re-significamos o conceito de “novo”. Selecionamos peças de luxo com olhar criterioso, autenticadas e avaliadas em cada detalhe — porque acreditamos que exclusividade e consciência podem caminhar juntas.</p>
-
-<h3>Nossa Missão</h3>
-<p>
-Celebrar o luxo sustentável, oferecendo peças de grife que inspiram estilo e preservam histórias. Cada item carrega uma trajetória única — e nossa curadoria existe para conectar você à sua próxima peça favorita.</p>
-</section>
-
-<section class="slider-section">
-<div class="slider">
-<div class="slides" id="slides">
-<div class="slide"><img src="https://i.imgur.com/CoYRjTq.jpg"></div>
-<div class="slide"><img src="https://i.imgur.com/BSMF15p.jpg"></div>
-<div class="slide"><img src="https://i.imgur.com/1BtmFor.jpg"></div>
-<div class="slide"><img src="https://i.imgur.com/fpgzkHP.jpg"></div>
 </div>
 
-<div class="dots" id="dots">
-<span class="dot active" onclick="goToSlide(0)"></span>
-<span class="dot" onclick="goToSlide(1)"></span>
-<span class="dot" onclick="goToSlide(2)"></span>
-<span class="dot" onclick="goToSlide(3)"></span>
-</div>
-</div>
-</section>
-
-</section>
-
-<!-- COMO DESAPEGAR -->
-<section class="section desapegar-bg">
-  <div class="desapegar-container">
-<h3>Como desapegar suas peças</h3>
-
-<div class="steps-flow">
-
-<div class="step-card">
-<div class="step-card-header">
-<div class="step-card-number">1</div>
-<div class="step-card-title">💬 Entre em contato</div>
-</div>
-<div class="step-card-text">
-Envie fotos e informações básicas da peça pelo WhatsApp para avaliação.
-</div>
-</div>
-
-
-<div class="step-card">
-<div class="step-card-header">
-<div class="step-card-number">2</div>
-<div class="step-card-title">🛡️ Autenticidade</div>
-</div>
-<div class="step-card-text">
-A peça precisa ser autêntica, com ou sem dust bag.
-</div>
-</div>
-
-
-<div class="step-card">
-<div class="step-card-header">
-<div class="step-card-number">3</div>
-<div class="step-card-title">📸 Fotos profissionais</div>
-</div>
-<div class="step-card-text">
-Realizamos fotos no padrão The Bag Room.
-</div>
-</div>
-
-
-<div class="step-card">
-<div class="step-card-header">
-<div class="step-card-number">4</div>
-<div class="step-card-title">💳 Repasse</div>
-</div>
-<div class="step-card-text">
-Você recebe até 7 dias após a venda.
-</div>
-</div>
-</div>
-</div>
-</section>
-
-<!-- SOCIAL BAR -->
-<div class="social-bar">
-<a href="https://instagram.com/thebagroom.br" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
-</a>
-
-<a href="https://tiktok.com/@thebagroom.br" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok">
-</a>
-
-<a href="https://wa.me/5513996904227" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
-</a>
-</div>
-
-<footer class="site-footer">
-  <div class="footer-inner">
-    <p>© 2025 The Bag Room · thebagroom.com.br</p>
-    <nav class="footer-nav">
-      <a href="politica-privacidade.html">Política de Privacidade</a>
-      <a href="politica-devolucao.html">Política de Devolução</a>
-      <a href="politica-consignacao.html">Política de Consignação</a>
-      <a href="termos-uso.html">Termos de Uso</a>
-    </nav>
-  </div>
+<!-- ========================= -->
+<!-- RODAPÉ -->
+<!-- ========================= -->
+<footer>
+  © 2025 The Bag Room · thebagroom.com.br
 </footer>
 
-<script>
-let currentSlide = 0;
-const slides = document.getElementById('slides');
-const dots = document.querySelectorAll('.dot');
-const totalSlides = dots.length;
-
-function updateSlider() {
-slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-dots.forEach((dot, index) =>
-dot.classList.toggle('active', index === currentSlide)
-);
-}
-
-function goToSlide(index) {
-currentSlide = index;
-updateSlider();
-}
-
-function nextSlide() {
-currentSlide = (currentSlide + 1) % totalSlides;
-updateSlider();
-}
-
-setInterval(nextSlide, 4000);
-</script>
-
+<!-- ========================= -->
+<!-- SCRIPT DO MENU -->
+<!-- ========================= -->
 <script>
 function toggleMenuMobile() {
   document.getElementById('menuMobile').classList.toggle('open');
@@ -942,7 +658,5 @@ function toggleMenuMobile() {
 
 </body>
 </html>
-
-
 
 
