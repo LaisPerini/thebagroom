@@ -119,6 +119,7 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 gap: 40px;
+margin-top: 80px;
 }
 
 .slider-section {
@@ -451,6 +452,57 @@ height: 24px;
   transform: scale(1.04);
 }
 
+#instagram {
+  text-align: center;
+  padding: 80px 0;
+  background: #faf9f7;
+  margin-top: 10px;
+}
+
+.insta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  letter-spacing: 6px;
+  margin-bottom: 40px;
+  color: #000;
+}
+
+/* ============================
+   FEED HORIZONTAL - EMBEDSOCIAL
+=============================== */
+
+.embedsocial-hashtag {
+  width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+/* container principal */
+.embedsocial-hashtag .es-hashtag-feed {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 20px !important;
+}
+
+/* cada post */
+.embedsocial-hashtag .es-hashtag-feed-item {
+  min-width: 300px !important;
+  max-width: 300px !important;
+  flex-shrink: 0 !important;
+}
+
+/* remover textos extras */
+.embedsocial-hashtag .es-header,
+.embedsocial-hashtag .es-load-more,
+.embedsocial-hashtag .es-caption {
+  display: none !important;
+}
+
+
+
 
 
 /* RESPONSIVO */
@@ -554,6 +606,7 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 gap: 40px;
+margin-top: 40px;
 }
 
 .slider-section {
@@ -645,7 +698,7 @@ margin-bottom: 16px;
 
 .section-about p {
 width: 100%;
-margin: 0;
+margin: 50;
 }
 
 
@@ -782,8 +835,64 @@ line-height: 1;
   transform: scale(1.04);
 }
 
+/* ==========================
+   FEED INSTAGRAM - SLIDER
+========================== */
+
+.embedsocial-hashtag {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+  margin-top: 20px;
+  overflow: hidden !important;
+  margin-top: -50px;
+}
+
+/* remover branding EmbedSocial */
+.embedsocial-hashtag .es-widget-branding {
+  display: none !important;
+}
+
+/* padrão desktop */
+.embedsocial-hashtag .es-slider-item {
+  min-width: -10% !important;
+  max-width: -10% !important;
+  margin: 0 10px !important;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* tablet */
+@media (max-width: 1024px) {
+  .embedsocial-hashtag .es-slider-item {
+    min-width: 30% !important;
+    max-width: 30% !important;
+  }
+}
+
+/* mobile — 2 posts */
+@media (max-width: 600px) {
+  .embedsocial-hashtag .es-slider-item {
+    min-width: 46% !important;
+    max-width: 46% !important;
+    margin: 0 6px !important;
+  }
+}
+
+.insta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  letter-spacing: 6px;
+  margin-bottom: 40px;
+  margin-top: -50px;
+  color: #000;
+}
 
 }
+
+
+
+
 
 
 </style>
@@ -847,15 +956,40 @@ Na The Bag Room, re-significamos o conceito de “novo”. Selecionamos peças d
 <p>
 Celebrar o luxo sustentável, oferecendo peças de grife que inspiram estilo e preservam histórias. Cada item carrega uma trajetória única — e nossa curadoria existe para conectar você à sua próxima peça favorita.</p>
 </section>
+</section>
 
-<section class="slider-section">
+
+<section id="instagram">
+  <h2 class="insta-title">SIGA NOSSO INSTAGRAM</h2>
+
+  <div class="embedsocial-hashtag" data-ref="15c911346df7adfa9e847ecb45f1f85ad4dbeb5d"></div>
+
+  <script>
+    (function(d, s, id) {
+        var js; 
+        if (d.getElementById(id)) {return;} 
+        js = d.createElement(s); 
+        js.id = id;
+        js.src = "https://embedsocial.com/cdn/ht.js"; 
+        d.getElementsByTagName("head")[0].appendChild(js);
+    }(document, "script", "EmbedSocialHashtagScript"));
+  </script>
+</section>
+
+
+
+
+
+
+
+<!--<section class="slider-section">
 <div class="slider">
 <div class="slides" id="slides">
 <div class="slide"><img src="https://i.imgur.com/CoYRjTq.jpg"></div>
 <div class="slide"><img src="https://i.imgur.com/BSMF15p.jpg"></div>
 <div class="slide"><img src="https://i.imgur.com/1BtmFor.jpg"></div>
 <div class="slide"><img src="https://i.imgur.com/fpgzkHP.jpg"></div>
-</div>
+</div>-->
 
 <div class="dots" id="dots">
 <span class="dot active" onclick="goToSlide(0)"></span>
