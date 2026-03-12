@@ -29,6 +29,22 @@ width:100%;
 height:100%;
 object-fit:cover;
 z-index:-2;
+
+animation:zoomVideo 20s ease-in-out infinite alternate;
+}
+
+/* EFEITO CINEMATIC */
+
+@keyframes zoomVideo{
+
+from{
+transform:scale(1);
+}
+
+to{
+transform:scale(1.08);
+}
+
 }
 
 /* OVERLAY ESCURO */
@@ -53,7 +69,7 @@ margin-bottom:10px;
 .sub{
 color:#e0e0e0;
 margin-bottom:40px;
-font-size:16px;
+font-size:15px;
 line-height:1.5;
 }
 
@@ -81,7 +97,7 @@ background:white;
 color:black;
 }
 
-/* ICONES HORIZONTAIS */
+/* ICONES */
 
 .icones{
 display:flex;
@@ -93,8 +109,8 @@ margin-top:40px;
 /* CIRCULO ICONES */
 
 .icone{
-width:60px;
-height:60px;
+width:52px;
+height:52px;
 background:white;
 border-radius:50%;
 display:flex;
@@ -104,12 +120,13 @@ box-shadow:0 8px 25px rgba(0,0,0,0.25);
 }
 
 .icone img{
-width:28px;
+width:24px;
 }
 
-/* ANIMAÇÃO */
+/* ANIMAÇÃO DE ENTRADA */
 
 @keyframes fadeUp{
+
 from{
 opacity:0;
 transform:translateY(20px);
@@ -119,6 +136,7 @@ to{
 opacity:1;
 transform:translateY(0);
 }
+
 }
 
 .overlay > *{
