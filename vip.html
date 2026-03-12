@@ -10,11 +10,22 @@
 <style>
 
 body{
-background:#f7f7f7;
-font-family:'Inter', sans-serif;
-text-align:center;
-padding:40px 20px;
 margin:0;
+font-family:'Inter', sans-serif;
+
+background-image:url('https://i.imgur.com/3csVk9U.jpeg');
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+
+color:white;
+text-align:center;
+}
+
+.overlay{
+background:rgba(0,0,0,0.55);
+min-height:100vh;
+padding:40px 20px;
 }
 
 .logo{
@@ -25,21 +36,19 @@ margin-bottom:8px;
 }
 
 .sub{
-color:#777;
+color:#ddd;
 margin-bottom:40px;
-font-size:16px;
 }
 
 .botao{
 display:block;
 background:white;
-border:1px solid #ddd;
+color:black;
 padding:18px;
 margin:14px auto;
 width:90%;
 max-width:420px;
 text-decoration:none;
-color:#111;
 border-radius:12px;
 font-size:17px;
 }
@@ -47,18 +56,30 @@ font-size:17px;
 .vip{
 background:black;
 color:white;
-border:none;
 }
 
 .icones{
-margin-top:40px;
+position:fixed;
+right:20px;
+bottom:40px;
+display:flex;
+flex-direction:column;
+gap:16px;
 }
 
-.icones a{
-margin:0 12px;
-font-size:26px;
-text-decoration:none;
-color:black;
+.icone{
+width:60px;
+height:60px;
+background:white;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+}
+
+.icone img{
+width:28px;
 }
 
 </style>
@@ -66,6 +87,8 @@ color:black;
 </head>
 
 <body>
+
+<div class="overlay">
 
 <div class="logo">THE BAG ROOM</div>
 
@@ -82,13 +105,21 @@ Acesso antecipado no grupo VIP
 👜 Desapegue Conosco
 </a>
 
+</div>
+
 <div class="icones">
 
-<a href="https://www.instagram.com/thebagroom.br">📸</a>
+<a class="icone" href="https://www.instagram.com/thebagroom.br">
+<img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+</a>
 
-<a href="#">🎵</a>
+<a class="icone" href="#">
+<img src="https://cdn-icons-png.flaticon.com/512/3046/3046126.png">
+</a>
 
-<a href="https://wa.me/5513996904227">💬</a>
+<a class="icone" href="https://wa.me/5513996904227">
+<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+</a>
 
 </div>
 
