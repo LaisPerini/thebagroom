@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>The Bag Room VIP</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -12,74 +14,155 @@
 body{
 margin:0;
 font-family:'Inter', sans-serif;
-
-background-image:url('https://i.imgur.com/3csVk9U.jpeg');
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
-
 color:white;
 text-align:center;
+overflow-x:hidden;
 }
+
+/* VIDEO FUNDO */
+
+.video-bg{
+
+position:fixed;
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+z-index:-2;
+
+}
+
+/* CAMADA ESCURA */
 
 .overlay{
+
+position:relative;
+
 background:rgba(0,0,0,0.55);
+
 min-height:100vh;
-padding:40px 20px;
+
+padding:60px 20px;
+
 }
+
+/* LOGO */
 
 .logo{
+
 font-family:'Playfair Display', serif;
-font-size:34px;
-letter-spacing:6px;
-margin-bottom:8px;
+
+font-size:36px;
+
+letter-spacing:8px;
+
+margin-bottom:10px;
+
 }
+
+/* TEXTO */
 
 .sub{
-color:#ddd;
+
+color:#e0e0e0;
+
 margin-bottom:40px;
+
+font-size:16px;
+
+line-height:1.5;
+
 }
+
+/* BOTÕES */
 
 .botao{
+
 display:block;
+
 background:white;
+
 color:black;
+
 padding:18px;
+
 margin:14px auto;
+
 width:90%;
 max-width:420px;
+
 text-decoration:none;
-border-radius:12px;
+
+border-radius:14px;
+
 font-size:17px;
+
+font-weight:500;
+
+box-shadow:0 8px 25px rgba(0,0,0,0.25);
+
 }
+
+/* BOTÃO VIP */
 
 .vip{
+
 background:black;
+
 color:white;
+
 }
+
+/* ICONES FLUTUANTES */
 
 .icones{
+
 position:fixed;
+
 right:20px;
+
 bottom:40px;
+
 display:flex;
+
 flex-direction:column;
-gap:16px;
+
+gap:18px;
+
 }
+
+/* ESTILO DO CIRCULO */
 
 .icone{
-width:60px;
-height:60px;
+
+width:64px;
+
+height:64px;
+
 background:white;
+
 border-radius:50%;
+
 display:flex;
+
 align-items:center;
+
 justify-content:center;
-box-shadow:0 6px 15px rgba(0,0,0,0.3);
+
+box-shadow:0 8px 25px rgba(0,0,0,0.25);
+
 }
 
+/* IMAGEM DO ÍCONE */
+
 .icone img{
-width:28px;
+
+width:30px;
+
 }
 
 </style>
@@ -87,6 +170,12 @@ width:28px;
 </head>
 
 <body>
+
+<!-- VIDEO FUNDO -->
+
+<video autoplay muted loop playsinline class="video-bg">
+<source src="13F59A9B-0087-4284-B334-51556DC7189F.mov" type="video/mp4">
+</video>
 
 <div class="overlay">
 
@@ -124,4 +213,5 @@ Acesso antecipado no grupo VIP
 </div>
 
 </body>
+
 </html>
