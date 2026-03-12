@@ -29,17 +29,25 @@ width:100%;
 height:100%;
 object-fit:cover;
 z-index:-2;
+
 animation:zoomVideo 20s ease-in-out infinite alternate;
 }
 
 /* EFEITO CINEMATIC */
 
 @keyframes zoomVideo{
-from{transform:scale(1);}
-to{transform:scale(1.08);}
+
+from{
+transform:scale(1);
 }
 
-/* OVERLAY */
+to{
+transform:scale(1.08);
+}
+
+}
+
+/* OVERLAY ESCURO */
 
 .overlay{
 background:rgba(0,0,0,0.55);
@@ -115,17 +123,20 @@ box-shadow:0 8px 25px rgba(0,0,0,0.25);
 width:24px;
 }
 
-/* ANIMAÇÃO ENTRADA */
+/* ANIMAÇÃO DE ENTRADA */
 
 @keyframes fadeUp{
+
 from{
 opacity:0;
 transform:translateY(20px);
 }
+
 to{
 opacity:1;
 transform:translateY(0);
 }
+
 }
 
 .overlay > *{
@@ -170,8 +181,22 @@ Acesso antecipado no grupo VIP
 
 <div class="icones">
 
-<a class="icone" href="https://www.instagram.com/thebagroom.br" target="_blank">
+<a class="icone" href="https://www.instagram.com/thebagroom.br">
 <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
 </a>
 
-<a
+<a class="icone" href="https://www.tiktok.com/@thebagroom.br?_r=1&_t=ZS-94dXhUMYmV2">
+<img src="https://cdn-icons-png.flaticon.com/512/3046/3046126.png">
+</a>
+
+<a class="icone" href="https://wa.me/5513996904227">
+<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
