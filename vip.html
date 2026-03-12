@@ -19,7 +19,7 @@ text-align:center;
 overflow-x:hidden;
 }
 
-/* VIDEO DE FUNDO */
+/* VIDEO FUNDO */
 
 .video-bg{
 position:fixed;
@@ -31,7 +31,7 @@ object-fit:cover;
 z-index:-2;
 }
 
-/* CAMADA ESCURA */
+/* OVERLAY ESCURO */
 
 .overlay{
 background:rgba(0,0,0,0.55);
@@ -44,7 +44,7 @@ padding:60px 20px;
 .logo{
 font-family:'Playfair Display', serif;
 font-size:36px;
-letter-spacing:8px;
+letter-spacing:5px;
 margin-bottom:10px;
 }
 
@@ -63,7 +63,7 @@ line-height:1.5;
 display:block;
 background:white;
 color:black;
-padding:18px;
+padding:16px;
 margin:14px auto;
 width:90%;
 max-width:420px;
@@ -84,16 +84,13 @@ color:black;
 /* ICONES HORIZONTAIS */
 
 .icones{
-
 display:flex;
 justify-content:center;
 gap:22px;
-
 margin-top:40px;
-
 }
 
-/* CIRCULO DOS ICONES */
+/* CIRCULO ICONES */
 
 .icone{
 width:60px;
@@ -106,11 +103,34 @@ justify-content:center;
 box-shadow:0 8px 25px rgba(0,0,0,0.25);
 }
 
-/* TAMANHO DO ÍCONE */
-
 .icone img{
 width:28px;
 }
+
+/* ANIMAÇÃO */
+
+@keyframes fadeUp{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.overlay > *{
+opacity:0;
+animation:fadeUp 0.8s ease forwards;
+}
+
+.overlay > *:nth-child(1){animation-delay:0.2s;}
+.overlay > *:nth-child(2){animation-delay:0.4s;}
+.overlay > *:nth-child(3){animation-delay:0.6s;}
+.overlay > *:nth-child(4){animation-delay:0.8s;}
+.overlay > *:nth-child(5){animation-delay:1s;}
 
 </style>
 
