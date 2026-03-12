@@ -29,25 +29,17 @@ width:100%;
 height:100%;
 object-fit:cover;
 z-index:-2;
-
 animation:zoomVideo 20s ease-in-out infinite alternate;
 }
 
 /* EFEITO CINEMATIC */
 
 @keyframes zoomVideo{
-
-from{
-transform:scale(1);
+from{transform:scale(1);}
+to{transform:scale(1.08);}
 }
 
-to{
-transform:scale(1.08);
-}
-
-}
-
-/* OVERLAY ESCURO */
+/* OVERLAY */
 
 .overlay{
 background:rgba(0,0,0,0.55);
@@ -123,20 +115,17 @@ box-shadow:0 8px 25px rgba(0,0,0,0.25);
 width:24px;
 }
 
-/* ANIMAÇÃO DE ENTRADA */
+/* ANIMAÇÃO ENTRADA */
 
 @keyframes fadeUp{
-
 from{
 opacity:0;
 transform:translateY(20px);
 }
-
 to{
 opacity:1;
 transform:translateY(0);
 }
-
 }
 
 .overlay > *{
@@ -149,6 +138,7 @@ animation:fadeUp 0.8s ease forwards;
 .overlay > *:nth-child(3){animation-delay:0.6s;}
 .overlay > *:nth-child(4){animation-delay:0.8s;}
 .overlay > *:nth-child(5){animation-delay:1s;}
+.overlay > *:nth-child(6){animation-delay:1.2s;}
 
 </style>
 
@@ -175,21 +165,25 @@ Acesso antecipado no grupo VIP
 💎 Entrar no Grupo VIP
 </a>
 
+<a class="botao" href="https://www.thebagroom.com.br">
+👜 Site
+</a>
+
 <a class="botao" href="https://wa.me/5513996904227">
 👜 Desapegue Conosco
 </a>
 
 <div class="icones">
 
-<a class="icone" href="https://www.instagram.com/thebagroom.br">
+<a class="icone" href="https://www.instagram.com/thebagroom.br" target="_blank">
 <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
 </a>
 
-<a class="icone" href="https://www.tiktok.com/@thebagroom.br?_r=1&_t=ZS-94dXhUMYmV2">
+<a class="icone" href="https://www.tiktok.com/@thebagroom.br?_r=1&_t=ZS-94dXhUMYmV2" target="_blank">
 <img src="https://cdn-icons-png.flaticon.com/512/3046/3046126.png">
 </a>
 
-<a class="icone" href="https://wa.me/5513996904227">
+<a class="icone" href="https://wa.me/5513996904227" target="_blank">
 <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
 </a>
 
