@@ -148,7 +148,7 @@ animation:fadeUp 0.8s ease forwards;
 
 <!-- VIDEO FUNDO -->
 
-<video autoplay muted loop playsinline webkit-playsinline preload="auto" class="video-bg">
+<video id="bgVideo" autoplay muted loop playsinline webkit-playsinline preload="auto" class="video-bg">
 <source src="https://raw.githubusercontent.com/LaisPerini/thebagroom/main/video_thebagvip.mp4" type="video/mp4">
 </video>
 
@@ -190,6 +190,14 @@ Acesso antecipado no grupo VIP
 </div>
 
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const video = document.getElementById("bgVideo");
+  video.muted = true;
+  video.play().catch(() => {});
+});
+</script>
 
 </body>
 
