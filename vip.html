@@ -37,10 +37,10 @@ animation:zoomVideo 25s ease-in-out infinite alternate;
 
 @keyframes zoomVideo{
 from{transform:scale(1);}
-to{transform:scale(1.07);}
+to{transform:scale(1.05);}
 }
 
-/* OVERLAY ESCURO */
+/* OVERLAY */
 
 .overlay{
 background:rgba(0,0,0,0.55);
@@ -83,6 +83,18 @@ font-weight:500;
 box-shadow:0 8px 25px rgba(0,0,0,0.25);
 }
 
+/* BOTÃO VIP MAIS CHAMATIVO */
+
+.vip{
+animation:pulse 2.5s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.03)}
+100%{transform:scale(1)}
+}
+
 /* ICONES */
 
 .icones{
@@ -91,8 +103,6 @@ justify-content:center;
 gap:22px;
 margin-top:40px;
 }
-
-/* CIRCULO ICONES */
 
 .icone{
 width:52px;
@@ -112,17 +122,14 @@ width:24px;
 /* ANIMAÇÃO ENTRADA */
 
 @keyframes fadeUp{
-
 from{
 opacity:0;
 transform:translateY(20px);
 }
-
 to{
 opacity:1;
 transform:translateY(0);
 }
-
 }
 
 .overlay > *{
@@ -145,8 +152,8 @@ animation:fadeUp 0.8s ease forwards;
 
 <!-- VIDEO FUNDO -->
 
-<video autoplay muted loop playsinline class="video-bg">
-<source src="./video_thebagvip1.mp4" type="video/mp4">
+<video id="bgVideo" autoplay muted loop playsinline class="video-bg">
+<source src="bg.mp4" type="video/mp4">
 </video>
 
 <div class="overlay">
@@ -158,7 +165,7 @@ Peças selecionadas de luxo<br>
 Acesso antecipado no grupo VIP
 </div>
 
-<a class="botao" href="https://chat.whatsapp.com/J9gxW9Whk778OKfLGnjoWN?mode=gi_t">
+<a class="botao vip" href="https://chat.whatsapp.com/J9gxW9Whk778OKfLGnjoWN?mode=gi_t">
 💎 Entrar no Grupo VIP
 </a>
 
@@ -187,6 +194,22 @@ Acesso antecipado no grupo VIP
 </div>
 
 </div>
+
+<script>
+
+const video = document.getElementById("bgVideo");
+
+function playVideo(){
+video.play().catch(()=>{});
+}
+
+document.addEventListener("touchstart", playVideo);
+document.addEventListener("click", playVideo);
+document.addEventListener("visibilitychange", playVideo);
+
+playVideo();
+
+</script>
 
 </body>
 
