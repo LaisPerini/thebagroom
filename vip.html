@@ -16,8 +16,7 @@ margin:0;
 font-family:'Inter', sans-serif;
 color:white;
 text-align:center;
-overflow:hidden;
-height:100vh;
+overflow-x:hidden;
 background:black;
 }
 
@@ -34,48 +33,70 @@ z-index:-2;
 pointer-events:none;
 }
 
-/* OVERLAY */
+/* camada bloqueando clique no vídeo */
+
+.video-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+/* OVERLAY ESCURO */
 
 .overlay{
 background:rgba(0,0,0,0.55);
 min-height:100vh;
-padding:40px 20px;
+padding:20px 20px;
 }
 
-/* PERFIL */
+.botao:first-of-type{
+margin-top:-40px;
+}
+
+/* FOTO PERFIL */
 
 .perfil{
-width:110px;
-height:110px;
-border-radius:100px;
-margin:auto;
-display:block;
-margin-top:10px;
+width:85px;
+height:85px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid white;
 margin-bottom:10px;
 }
 
 /* USER */
 
-.user{
+.nome{
 font-size:18px;
-margin-bottom:25px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:6px;
+margin-bottom:30px;
 }
 
-/* LOGO TEXTO */
+.verificado{
+width:18px;
+}
+
+/* LOGO */
 
 .logo{
 font-family:'Playfair Display', serif;
-font-size:36px;
+font-size:30px;
 letter-spacing:6px;
-margin-top:10px;
-margin-bottom:10px;
+margin-top:-5px;
+margin-bottom:25px;
 }
 
 /* TEXTO */
 
 .sub{
 color:#e0e0e0;
-margin-bottom:40px;
+margin-bottom:50px;
 font-size:15px;
 line-height:1.5;
 }
@@ -95,27 +116,27 @@ border-radius:14px;
 font-size:17px;
 font-weight:500;
 box-shadow:0 8px 25px rgba(0,0,0,0.25);
-transition:0.3s;
+position:relative;
+overflow:hidden;
 }
 
-/* ANIMAÇÃO BOTÃO */
+/* brilho botão VIP */
 
-.botao:hover{
-transform:scale(1.03);
+.vip::after{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(120deg,transparent,rgba(255,255,255,0.7),transparent);
+animation:brilho 3s infinite;
 }
 
-/* BOTÃO VIP */
-
-.vip{
-background:white;
-color:black;
-box-shadow:0 0 25px rgba(255,255,255,0.25);
-}
-
-/* ESCONDER PLAY DO VIDEO */
-
-.botao:first-of-type{
-margin-top:-40px;
+@keyframes brilho{
+0%{left:-100%}
+50%{left:100%}
+100%{left:100%}
 }
 
 /* ICONES */
@@ -124,14 +145,12 @@ margin-top:-40px;
 display:flex;
 justify-content:center;
 gap:22px;
-margin-top:40px;
+margin-top:35px;
 }
 
-/* CIRCULO ICONES */
-
 .icone{
-width:55px;
-height:55px;
+width:52px;
+height:52px;
 background:white;
 border-radius:50%;
 display:flex;
@@ -141,43 +160,8 @@ box-shadow:0 8px 25px rgba(0,0,0,0.25);
 }
 
 .icone img{
-width:26px;
+width:24px;
 }
-
-/* RODAPÉ */
-
-.footer{
-margin-top:40px;
-font-size:12px;
-color:#bdbdbd;
-opacity:0.7;
-}
-
-/* ANIMAÇÃO ENTRADA */
-
-@keyframes fadeUp{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-.overlay > *{
-opacity:0;
-animation:fadeUp 0.8s ease forwards;
-}
-
-.overlay > *:nth-child(1){animation-delay:0.1s;}
-.overlay > *:nth-child(2){animation-delay:0.2s;}
-.overlay > *:nth-child(3){animation-delay:0.3s;}
-.overlay > *:nth-child(4){animation-delay:0.4s;}
-.overlay > *:nth-child(5){animation-delay:0.5s;}
-.overlay > *:nth-child(6){animation-delay:0.6s;}
-.overlay > *:nth-child(7){animation-delay:0.7s;}
 
 </style>
 
@@ -188,15 +172,18 @@ animation:fadeUp 0.8s ease forwards;
 <!-- VIDEO FUNDO -->
 
 <video autoplay muted loop playsinline class="video-bg">
-<source src="https://thebagroom.com.br/video_thebagvip1.mp4" type="video/mp4">
+<source src="video_thebagvip1.mp4" type="video/mp4">
 </video>
+
+<div class="video-overlay"></div>
 
 <div class="overlay">
 
 <img src="perfil.PNG" class="perfil">
 
-<div class="user">
-@thebagroom.br ✔️
+<div class="nome">
+@thebagroom.br
+<img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" class="verificado">
 </div>
 
 <div class="logo">THE BAG ROOM</div>
@@ -220,22 +207,18 @@ Acesso antecipado no grupo VIP
 
 <div class="icones">
 
-<a class="icone" href="https://www.instagram.com/thebagroom.br" target="_blank">
+<a class="icone" href="https://www.instagram.com/thebagroom.br">
 <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
 </a>
 
-<a class="icone" href="https://www.tiktok.com/@thebagroom.br?_r=1&_t=ZS-94dXhUMYmV2" target="_blank">
+<a class="icone" href="https://www.tiktok.com/@thebagroom.br">
 <img src="https://cdn-icons-png.flaticon.com/512/3046/3046126.png">
 </a>
 
-<a class="icone" href="https://wa.me/5513996904227" target="_blank">
+<a class="icone" href="https://wa.me/5513996904227">
 <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
 </a>
 
-</div>
-
-<div class="footer">
-© The Bag Room
 </div>
 
 </div>
