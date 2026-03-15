@@ -30,23 +30,21 @@ width:100%;
 height:100%;
 object-fit:cover;
 z-index:-2;
-}
-
-/* remove qualquer controle */
-
-video{
 pointer-events:none;
 }
 
-video::-webkit-media-controls{
-display:none !important;
+/* camada bloqueando clique no vídeo */
+
+.video-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
 }
 
-video::-webkit-media-controls-start-playback-button{
-display:none !important;
-}
-
-/* OVERLAY */
+/* OVERLAY ESCURO */
 
 .overlay{
 background:rgba(0,0,0,0.55);
@@ -167,9 +165,13 @@ width:24px;
 
 <body>
 
-<video id="bgVideo" autoplay muted loop playsinline class="video-bg">
+<!-- VIDEO FUNDO -->
+
+<video autoplay muted loop playsinline class="video-bg">
 <source src="video_thebagvip1.mp4" type="video/mp4">
 </video>
+
+<div class="video-overlay"></div>
 
 <div class="overlay">
 
@@ -216,21 +218,6 @@ Acesso antecipado no grupo VIP
 </div>
 
 </div>
-
-<script>
-
-const video = document.getElementById("bgVideo");
-
-function forcePlay(){
-video.play().catch(()=>{});
-}
-
-document.addEventListener("touchstart", forcePlay);
-document.addEventListener("click", forcePlay);
-
-forcePlay();
-
-</script>
 
 </body>
 
