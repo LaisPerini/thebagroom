@@ -18,7 +18,6 @@ color:white;
 text-align:center;
 overflow-x:hidden;
 background:black;
-caret-color: transparent;
 }
 
 /* VIDEO FUNDO */
@@ -33,17 +32,17 @@ object-fit:cover;
 z-index:-2;
 }
 
+/* remove qualquer controle */
+
 video{
 pointer-events:none;
 }
 
-/* remove botão play */
-
-video::-webkit-media-controls {
+video::-webkit-media-controls{
 display:none !important;
 }
 
-video::-webkit-media-controls-start-playback-button {
+video::-webkit-media-controls-start-playback-button{
 display:none !important;
 }
 
@@ -70,15 +69,12 @@ margin-bottom:10px;
 
 .nome{
 font-size:18px;
-font-weight:500;
 display:flex;
 align-items:center;
 justify-content:center;
 gap:6px;
 margin-bottom:30px;
 }
-
-/* SELO */
 
 .verificado{
 width:18px;
@@ -171,9 +167,7 @@ width:24px;
 
 <body>
 
-<!-- VIDEO FUNDO -->
-
-<video autoplay muted loop playsinline webkit-playsinline class="video-bg">
+<video id="bgVideo" autoplay muted loop playsinline class="video-bg">
 <source src="video_thebagvip1.mp4" type="video/mp4">
 </video>
 
@@ -222,6 +216,21 @@ Acesso antecipado no grupo VIP
 </div>
 
 </div>
+
+<script>
+
+const video = document.getElementById("bgVideo");
+
+function forcePlay(){
+video.play().catch(()=>{});
+}
+
+document.addEventListener("touchstart", forcePlay);
+document.addEventListener("click", forcePlay);
+
+forcePlay();
+
+</script>
 
 </body>
 
