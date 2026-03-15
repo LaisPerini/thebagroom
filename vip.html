@@ -1,4 +1,4 @@
-l<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -30,22 +30,6 @@ width:100%;
 height:100%;
 object-fit:cover;
 z-index:-2;
-animation:zoomVideo 25s ease-in-out infinite alternate;
-}
-video{
-pointer-events:none;
-}
-
-body{
-caret-color: transparent;
-}
-
-
-/* ZOOM CINEMATIC */
-
-@keyframes zoomVideo{
-from{transform:scale(1);}
-to{transform:scale(1.05);}
 }
 
 /* OVERLAY */
@@ -53,14 +37,43 @@ to{transform:scale(1.05);}
 .overlay{
 background:rgba(0,0,0,0.55);
 min-height:100vh;
-padding:60px 20px;
+padding:50px 20px;
+}
+
+/* FOTO PERFIL */
+
+.perfil{
+width:95px;
+height:95px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid white;
+margin-bottom:10px;
+}
+
+/* NOME */
+
+.nome{
+font-size:18px;
+font-weight:500;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:6px;
+margin-bottom:30px;
+}
+
+/* SELO */
+
+.verificado{
+width:18px;
 }
 
 /* LOGO */
 
 .logo{
 font-family:'Playfair Display', serif;
-font-size:36px;
+font-size:34px;
 letter-spacing:5px;
 margin-bottom:10px;
 }
@@ -69,7 +82,7 @@ margin-bottom:10px;
 
 .sub{
 color:#e0e0e0;
-margin-bottom:40px;
+margin-bottom:35px;
 font-size:15px;
 line-height:1.5;
 }
@@ -91,25 +104,13 @@ font-weight:500;
 box-shadow:0 8px 25px rgba(0,0,0,0.25);
 }
 
-/* BOTÃO VIP MAIS CHAMATIVO */
-
-.vip{
-animation:pulse 2.5s infinite;
-}
-
-@keyframes pulse{
-0%{transform:scale(1)}
-50%{transform:scale(1.03)}
-100%{transform:scale(1)}
-}
-
 /* ICONES */
 
 .icones{
 display:flex;
 justify-content:center;
 gap:22px;
-margin-top:40px;
+margin-top:35px;
 }
 
 .icone{
@@ -127,44 +128,26 @@ box-shadow:0 8px 25px rgba(0,0,0,0.25);
 width:24px;
 }
 
-/* ANIMAÇÃO ENTRADA */
-
-@keyframes fadeUp{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-.overlay > *{
-opacity:0;
-animation:fadeUp 0.8s ease forwards;
-}
-
-.overlay > *:nth-child(1){animation-delay:0.2s;}
-.overlay > *:nth-child(2){animation-delay:0.4s;}
-.overlay > *:nth-child(3){animation-delay:0.6s;}
-.overlay > *:nth-child(4){animation-delay:0.8s;}
-.overlay > *:nth-child(5){animation-delay:1s;}
-.overlay > *:nth-child(6){animation-delay:1.2s;}
-
 </style>
 
 </head>
 
 <body>
 
-<!-- VIDEO FUNDO -->
-
-<video id="bgVideo" autoplay muted loop playsinline class="video-bg">
+<video autoplay muted loop playsinline class="video-bg">
 <source src="video_thebagvip1.mp4" type="video/mp4">
 </video>
 
 <div class="overlay">
+
+<!-- FOTO PERFIL -->
+
+<img src="perfil.jpg" class="perfil">
+
+<div class="nome">
+@thebagroom.br
+<img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" class="verificado">
+</div>
 
 <div class="logo">THE BAG ROOM</div>
 
@@ -173,7 +156,7 @@ Peças selecionadas de luxo<br>
 Acesso antecipado no grupo VIP
 </div>
 
-<a class="botao vip" href="https://chat.whatsapp.com/J9gxW9Whk778OKfLGnjoWN?mode=gi_t">
+<a class="botao" href="https://chat.whatsapp.com/J9gxW9Whk778OKfLGnjoWN?mode=gi_t">
 💎 Entrar no Grupo VIP
 </a>
 
@@ -187,37 +170,21 @@ Acesso antecipado no grupo VIP
 
 <div class="icones">
 
-<a class="icone" href="https://www.instagram.com/thebagroom.br" target="_blank">
+<a class="icone" href="https://www.instagram.com/thebagroom.br">
 <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
 </a>
 
-<a class="icone" href="https://www.tiktok.com/@thebagroom.br?_r=1&_t=ZS-94dXhUMYmV2" target="_blank">
+<a class="icone" href="https://www.tiktok.com/@thebagroom.br">
 <img src="https://cdn-icons-png.flaticon.com/512/3046/3046126.png">
 </a>
 
-<a class="icone" href="https://wa.me/5513996904227" target="_blank">
+<a class="icone" href="https://wa.me/5513996904227">
 <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
 </a>
 
 </div>
 
 </div>
-
-<script>
-
-const video = document.getElementById("bgVideo");
-
-function playVideo(){
-video.play().catch(()=>{});
-}
-
-document.addEventListener("touchstart", playVideo);
-document.addEventListener("click", playVideo);
-document.addEventListener("visibilitychange", playVideo);
-
-playVideo();
-
-</script>
 
 </body>
 
