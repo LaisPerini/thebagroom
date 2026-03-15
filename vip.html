@@ -37,6 +37,16 @@ video{
 pointer-events:none;
 }
 
+/* remove botão play */
+
+video::-webkit-media-controls {
+display:none !important;
+}
+
+video::-webkit-media-controls-start-playback-button {
+display:none !important;
+}
+
 /* OVERLAY */
 
 .overlay{
@@ -48,8 +58,8 @@ padding:40px 20px;
 /* FOTO PERFIL */
 
 .perfil{
-width:95px;
-height:95px;
+width:85px;
+height:85px;
 border-radius:50%;
 object-fit:cover;
 border:3px solid white;
@@ -65,7 +75,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 gap:6px;
-margin-bottom:35px;
+margin-bottom:30px;
 }
 
 /* SELO */
@@ -80,7 +90,7 @@ width:18px;
 font-family:'Playfair Display', serif;
 font-size:30px;
 letter-spacing:6px;
-margin-top:10px;
+margin-top:-5px;
 margin-bottom:25px;
 }
 
@@ -112,7 +122,7 @@ position:relative;
 overflow:hidden;
 }
 
-/* BOTÃO VIP COM BRILHO */
+/* brilho botão VIP */
 
 .vip::after{
 content:"";
@@ -161,7 +171,9 @@ width:24px;
 
 <body>
 
-<video autoplay muted loop playsinline class="video-bg">
+<!-- VIDEO FUNDO -->
+
+<video autoplay muted loop playsinline webkit-playsinline class="video-bg">
 <source src="video_thebagvip1.mp4" type="video/mp4">
 </video>
 
