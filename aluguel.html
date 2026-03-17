@@ -1,1 +1,78 @@
-a
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+font-family:Arial;
+background:#f7f7f7;
+margin:0;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+padding:10px;
+}
+
+.card{
+background:white;
+border-radius:10px;
+padding:10px;
+text-align:center;
+}
+
+.card img{
+width:100%;
+border-radius:10px;
+}
+
+.nome{
+font-size:14px;
+margin-top:8px;
+}
+
+.preco{
+color:#555;
+font-size:13px;
+}
+
+.botao{
+display:block;
+background:black;
+color:white;
+padding:8px;
+margin-top:8px;
+border-radius:8px;
+text-decoration:none;
+font-size:13px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="grid">
+
+<div class="card">
+<img src="bolsa1.jpg">
+<div class="nome">Bvlgari Serpenti Verde</div>
+<div class="preco">R$ 290</div>
+<a class="botao" href="serpenti.html">Ver detalhes</a>
+</div>
+
+<div class="card">
+<img src="bolsa2.jpg">
+<div class="nome">Chanel Classic</div>
+<div class="preco">R$ 350</div>
+<a class="botao" href="#">Ver detalhes</a>
+</div>
+
+</div>
+
+</body>
+</html>
