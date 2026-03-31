@@ -84,7 +84,6 @@ gap:10px;
 margin-top:15px;
 }
 
-/* BOTÃO OPÇÃO PREMIUM */
 .opcao{
 border:1px solid #e5e5e5;
 padding:12px;
@@ -99,17 +98,14 @@ text-align:center;
 transition:0.2s;
 }
 
-/* ESCONDE RADIO */
 .opcao input{
 display:none;
 }
 
-/* HOVER */
 .opcao:hover{
 border-color:#000;
 }
 
-/* SELECIONADO */
 .opcao.active{
 background:#000;
 color:#fff;
@@ -117,7 +113,7 @@ border-color:#000;
 }
 
 /* INPUTS */
-input[type="date"], #cep{
+#dataInicio, #dataFim, #cep{
 width:220px;
 padding:8px;
 border:none;
@@ -161,19 +157,6 @@ font-family:'Inter', sans-serif;
 line-height:1.6;
 }
 
-#dataInicio, #dataFim{
-width:220px;
-padding:8px;
-border:none;
-border-bottom:1px solid #ccc;
-background:transparent;
-font-size:13px;
-margin-top:10px;
-font-family:'Inter', sans-serif;
-}
-
-
-
 /* MOBILE */
 @media(max-width:700px){
 .produto{
@@ -211,43 +194,41 @@ grid-template-columns:1fr;
 <div class="opcoes">
 
 <label class="opcao active">
-<input type="radio" name="dias" value="4 dias - R$ 418,95" checked>
+<input type="radio" name="dias" value="4" checked>
 4 dias • R$ 418,95
 </label>
 
 <label class="opcao">
-<input type="radio" name="dias" value="7 dias - R$ 485,10">
+<input type="radio" name="dias" value="7">
 7 dias • R$ 485,10
 </label>
 
 <label class="opcao">
-<input type="radio" name="dias" value="10 dias - R$ 540,75">
+<input type="radio" name="dias" value="10">
 10 dias • R$ 540,75
 </label>
 
 <label class="opcao">
-<input type="radio" name="dias" value="15 dias - R$ 639,45">
+<input type="radio" name="dias" value="15">
 15 dias • R$ 639,45
 </label>
 
 <label class="opcao">
-<input type="radio" name="dias" value="20 dias - R$ 705,60">
+<input type="radio" name="dias" value="20">
 20 dias • R$ 705,60
 </label>
 
 <label class="opcao">
-<input type="radio" name="dias" value="30 dias - R$ 771,75">
+<input type="radio" name="dias" value="30">
 30 dias • R$ 771,75
 </label>
 
 </div>
 
+<!-- DATAS -->
 <div style="margin-top:15px;">
-
-<input type="date" id="dataInicio" placeholder="Retirada"><br>
-
-<input type="date" id="dataFim" placeholder="Devolução">
-
+<input type="date" id="dataInicio"><br>
+<input type="date" id="dataFim" readonly>
 </div>
 
 <input type="text" id="cep" placeholder="Digite seu CEP">
@@ -266,12 +247,37 @@ grid-template-columns:1fr;
 
 <script>
 
-/* SELEÇÃO VISUAL PREMIUM */
+/* SELEÇÃO VISUAL */
 document.querySelectorAll('.opcao').forEach(opcao => {
   opcao.addEventListener('click', () => {
     document.querySelectorAll('.opcao').forEach(o => o.classList.remove('active'));
     opcao.classList.add('active');
   });
+});
+
+/* AUTO DATA */
+function atualizarDataFim(){
+
+let inicio = document.getElementById('dataInicio').value;
+let diasSelecionado = document.querySelector('input[name="dias"]:checked');
+
+if(!inicio || !diasSelecionado) return;
+
+let dias = parseInt(diasSelecionado.value);
+
+let data = new Date(inicio);
+data.setDate(data.getDate() + dias);
+
+let fim = data.toISOString().split('T')[0];
+
+document.getElementById('dataFim').value = fim;
+}
+
+/* EVENTOS */
+document.getElementById('dataInicio').addEventListener('change', atualizarDataFim);
+
+document.querySelectorAll('input[name="dias"]').forEach(radio => {
+  radio.addEventListener('change', atualizarDataFim);
 });
 
 /* FRETE */
@@ -301,8 +307,6 @@ to: { postal_code: cep }
 
 let data = await response.json();
 
-if(data && data.length > 0){
-
 let html = "";
 
 data
@@ -318,10 +322,6 @@ html += `<div>
 
 resultado.innerHTML = html || "Nenhuma opção disponível";
 
-}else{
-resultado.innerHTML = "Nenhuma opção encontrada";
-}
-
 }catch(e){
 resultado.innerHTML = "Erro ao calcular frete";
 }
@@ -336,29 +336,19 @@ let inicio = document.getElementById('dataInicio').value;
 let fim = document.getElementById('dataFim').value;
 let cep = document.getElementById('cep').value;
 
-if(!dias){
-alert("Selecione o período");
-return;
-}
-
 if(!inicio || !fim){
-alert("Selecione as datas");
-return;
-}
-
-if(fim <= inicio){
-alert("A data de devolução deve ser após a retirada");
+alert("Selecione a data de retirada");
 return;
 }
 
 let mensagem = `Olá! Quero alugar a Bvlgari Serpenti Verde
 Período: ${inicio} até ${fim}
-${dias.value}
+${dias.value} dias
 CEP: ${cep}`;
 
 window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
-}
 
+}
 
 </script>
 
