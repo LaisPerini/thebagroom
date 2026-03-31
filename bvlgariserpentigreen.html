@@ -246,6 +246,32 @@ document.querySelectorAll('.opcao').forEach(opcao => {
   });
 });
 
+// BLOQUEIO REAL (funciona em qualquer navegador)
+document.getElementById('dataInicio').addEventListener('change', function(){
+
+  let hoje = new Date();
+  hoje.setHours(0,0,0,0);
+
+  let dataSelecionada = new Date(this.value);
+
+  // soma +1 dia (não permitir hoje)
+  hoje.setDate(hoje.getDate() + 1);
+
+  if(dataSelecionada < hoje){
+    
+    alert("Selecione uma data futura");
+
+    this.value = ""; // limpa a data
+    
+    document.getElementById('devolucao').innerHTML = "";
+    
+    return;
+  }
+
+  atualizarDevolucao();
+
+});
+
 /* calcular devolução */
 function atualizarDevolucao(){
 
