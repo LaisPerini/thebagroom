@@ -225,8 +225,12 @@ if(data && data.length > 0){
 let html = "";
 
 data.forEach(frete => {
-html += `<b>${frete.name}</b>: R$ ${frete.price} • ${frete.delivery_time} dias<br>`;
+
+  if(!frete.price || !frete.delivery_time) return;
+
+  html += `${frete.name}: R$ ${parseFloat(frete.price).toFixed(2)} • ${frete.delivery_time} dias <br>`;
 });
+
 
 resultado.innerHTML = html;
 
