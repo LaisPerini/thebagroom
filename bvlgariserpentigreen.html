@@ -13,7 +13,7 @@
 body{
 margin:0;
 background:#faf9f7;
-font-family: 'Playfair Display', serif;
+font-family:'Playfair Display', serif;
 color:#111;
 }
 
@@ -67,7 +67,6 @@ font-weight:500;
 font-family:'Inter', sans-serif;
 font-size:18px;
 margin:10px 0;
-letter-spacing:0.5px;
 }
 
 .desc{
@@ -76,7 +75,7 @@ line-height:1.6;
 margin-bottom:20px;
 }
 
-/* GRID OPÇÕES */
+/* OPÇÕES */
 .opcoes{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -94,7 +93,6 @@ font-size:14px;
 display:flex;
 justify-content:center;
 align-items:center;
-text-align:center;
 transition:0.2s;
 }
 
@@ -112,8 +110,8 @@ color:#fff;
 border-color:#000;
 }
 
-/* INPUTS */
-#dataInicio, #dataFim, #cep{
+/* INPUT */
+#dataInicio, #cep{
 width:220px;
 padding:8px;
 border:none;
@@ -122,6 +120,14 @@ background:transparent;
 font-size:13px;
 margin-top:10px;
 font-family:'Inter', sans-serif;
+}
+
+/* TEXTO DEVOLUÇÃO */
+#devolucao{
+margin-top:10px;
+font-size:14px;
+font-family:'Inter', sans-serif;
+color:#444;
 }
 
 /* BOTÕES */
@@ -154,7 +160,6 @@ cursor:pointer;
 margin-top:15px;
 font-size:14px;
 font-family:'Inter', sans-serif;
-line-height:1.6;
 }
 
 /* MOBILE */
@@ -190,7 +195,7 @@ grid-template-columns:1fr;
 Ícone da Bvlgari com fecho em formato de serpente, símbolo de elegância e poder.
 </div>
 
-<!-- OPÇÕES PREMIUM -->
+<!-- OPÇÕES -->
 <div class="opcoes">
 
 <label class="opcao active">
@@ -225,11 +230,10 @@ grid-template-columns:1fr;
 
 </div>
 
-<!-- DATAS -->
-<div style="margin-top:15px;">
-<input type="date" id="dataInicio"><br>
-<input type="date" id="dataFim" readonly>
-</div>
+<!-- DATA -->
+<input type="date" id="dataInicio">
+
+<div id="devolucao"></div>
 
 <input type="text" id="cep" placeholder="Digite seu CEP">
 
@@ -247,42 +251,40 @@ grid-template-columns:1fr;
 
 <script>
 
-/* SELEÇÃO VISUAL */
+/* seleção visual */
 document.querySelectorAll('.opcao').forEach(opcao => {
   opcao.addEventListener('click', () => {
     document.querySelectorAll('.opcao').forEach(o => o.classList.remove('active'));
     opcao.classList.add('active');
+    atualizarDevolucao();
   });
 });
 
-/* AUTO DATA */
-function atualizarDataFim(){
+/* calcular devolução */
+function atualizarDevolucao(){
 
 let inicio = document.getElementById('dataInicio').value;
-let diasSelecionado = document.querySelector('input[name="dias"]:checked');
+let dias = document.querySelector('input[name="dias"]:checked');
 
-if(!inicio || !diasSelecionado) return;
-
-let dias = parseInt(diasSelecionado.value);
+if(!inicio || !dias) return;
 
 let data = new Date(inicio);
-data.setDate(data.getDate() + dias);
+data.setDate(data.getDate() + parseInt(dias.value));
 
-let fim = data.toISOString().split('T')[0];
-
-document.getElementById('dataFim').value = fim;
-}
-
-/* EVENTOS */
-document.getElementById('dataInicio').addEventListener('change', atualizarDataFim);
-
-document.querySelectorAll('input[name="dias"]').forEach(radio => {
-  radio.addEventListener('change', atualizarDataFim);
+let formatada = data.toLocaleDateString('pt-BR', {
+day:'2-digit',
+month:'long'
 });
 
-/* FRETE */
-async function calcularFrete(){
+document.getElementById('devolucao').innerHTML =
+`Devolução prevista: <strong>${formatada}</strong>`;
+}
 
+/* eventos */
+document.getElementById('dataInicio').addEventListener('change', atualizarDevolucao);
+
+/* frete (mantido igual) */
+async function calcularFrete(){
 let cep = document.getElementById("cep").value;
 let resultado = document.getElementById("freteResultado");
 
@@ -293,16 +295,10 @@ return;
 
 resultado.innerHTML = "Calculando...";
 
-try{
-
 let response = await fetch("https://thebagroomtest.onrender.com/frete", {
-method: "POST",
-headers: {
-"Content-Type": "application/json"
-},
-body: JSON.stringify({
-to: { postal_code: cep }
-})
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({ to:{ postal_code:cep } })
 });
 
 let data = await response.json();
@@ -312,39 +308,27 @@ let html = "";
 data
 .filter(f => (f.name === "PAC" || f.name === "SEDEX"))
 .filter(f => f.price && f.delivery_time)
-.sort((a,b) => a.name === "SEDEX" ? -1 : 1)
 .forEach(frete => {
-
-html += `<div>
-<strong>${frete.name}</strong> • R$ ${parseFloat(frete.price).toFixed(2)} • ${frete.delivery_time} dias
-</div>`;
+html += `<div>${frete.name} • R$ ${frete.price} • ${frete.delivery_time} dias</div>`;
 });
 
 resultado.innerHTML = html || "Nenhuma opção disponível";
-
-}catch(e){
-resultado.innerHTML = "Erro ao calcular frete";
 }
 
-}
-
-/* WHATSAPP */
+/* whatsapp */
 function alugar(){
 
-let dias = document.querySelector('input[name="dias"]:checked');
+let dias = document.querySelector('input[name="dias"]:checked').value;
 let inicio = document.getElementById('dataInicio').value;
-let fim = document.getElementById('dataFim').value;
-let cep = document.getElementById('cep').value;
 
-if(!inicio || !fim){
-alert("Selecione a data de retirada");
+if(!inicio){
+alert("Escolha a data");
 return;
 }
 
 let mensagem = `Olá! Quero alugar a Bvlgari Serpenti Verde
-Período: ${inicio} até ${fim}
-${dias.value} dias
-CEP: ${cep}`;
+Data: ${inicio}
+Período: ${dias} dias`;
 
 window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
 
