@@ -6,36 +6,33 @@
 
 <title>Catálogo · The Bag Room</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-
-*{box-sizing:border-box;}
 
 body{
 margin:0;
 background:#faf9f7;
-font-family:'Montserrat', sans-serif;
+font-family:'Cormorant Garamond', serif;
 color:#000;
 }
 
 /* HEADER */
 header{
 width:100%;
-padding:20px;
+padding:18px;
 display:flex;
 justify-content:center;
 align-items:center;
-background:rgba(255,255,255,0.98);
+background:#fff;
 position:fixed;
 z-index:999;
-border-bottom:1px solid rgba(0,0,0,0.05);
+border-bottom:1px solid #eee;
 }
 
 header h1{
 letter-spacing:8px;
-font-family:'Cormorant Garamond', serif;
-font-size:28px;
+font-size:22px;
 margin:0;
 }
 
@@ -47,50 +44,14 @@ font-size:22px;
 cursor:pointer;
 }
 
-.menu-mobile{
-position:fixed;
-top:0;
-left:-100%;
-width:70%;
-height:100vh;
-background:#fff;
-transition:0.3s;
-z-index:2000;
-padding-top:120px;
-}
-
-.menu-mobile.open{left:0;}
-
-.menu-mobile-inner{
-display:flex;
-flex-direction:column;
-gap:25px;
-padding-left:30px;
-}
-
-.menu-mobile-inner a{
-text-decoration:none;
-font-family:'Cormorant Garamond', serif;
-font-size:22px;
-color:#000;
-}
-
-.close-menu{
-position:absolute;
-top:20px;
-right:25px;
-font-size:30px;
-cursor:pointer;
-}
-
 /* HERO */
 .internal-title{
-height:40vh;
+height:35vh;
 background:url('https://i.imgur.com/cEmhXKD.jpeg') center/cover;
 display:flex;
 align-items:center;
 justify-content:center;
-margin-top:70px;
+margin-top:60px;
 position:relative;
 }
 
@@ -105,77 +66,59 @@ background:rgba(0,0,0,0.45);
 .internal-title h2{
 position:relative;
 color:white;
-font-family:'Cormorant Garamond', serif;
-font-size:36px;
-letter-spacing:5px;
+font-size:32px;
+letter-spacing:6px;
 }
 
 /* GRID */
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:20px;
-padding:30px;
+gap:18px;
+padding:25px;
 max-width:900px;
 margin:0 auto;
 }
 
 /* CARD */
 .card{
-background:white;
-border-radius:16px;
-padding:12px;
+background:#fff;
+border-radius:20px;
+padding:14px;
 text-align:center;
-border:1px solid #eee;
-transition:0.3s;
+border:1px solid #eaeaea;
 }
 
-.card:hover{
-transform:translateY(-5px);
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-}
-
+/* IMG */
 .card img{
 width:100%;
-border-radius:12px;
+border-radius:14px;
+object-fit:cover;
 }
 
+/* TEXTOS */
 .nome{
-margin-top:10px;
-font-family:'Cormorant Garamond', serif;
+margin-top:12px;
 font-size:18px;
 }
 
 .preco{
 font-size:14px;
-color:#777;
+color:#888;
 margin-top:4px;
 }
 
 /* BOTÃO */
 .botao{
 display:block;
-margin-top:10px;
+margin-top:12px;
 padding:10px;
-background:black;
-color:white;
+background:#000;
+color:#fff;
 border-radius:30px;
 text-decoration:none;
 font-size:12px;
 letter-spacing:2px;
-}
-
-.botao:hover{
-opacity:0.8;
-}
-
-/* FOOTER */
-footer{
-text-align:center;
-padding:40px;
-font-size:14px;
-opacity:0.5;
-border-top:1px solid #e5e5e5;
 }
 
 </style>
@@ -185,54 +128,30 @@ border-top:1px solid #e5e5e5;
 
 <header>
 <h1>THE BAG ROOM</h1>
-
-<div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
-
-<nav class="menu-mobile" id="menuMobile">
-<div class="close-menu" onclick="toggleMenuMobile()">×</div>
-
-<div class="menu-mobile-inner">
-<a href="index.html">Início</a>
-<a href="Como Funciona.html">Como Desapegar</a>
-<a href="autenticidade.html">Autenticidade</a>
-<a href="quem-somos.html">Sobre</a>
-</div>
-</nav>
+<div class="menu-mobile-btn">☰</div>
 </header>
 
-<!-- HERO -->
 <section class="internal-title">
 <h2>CATÁLOGO</h2>
 </section>
 
-<!-- GRID -->
 <div class="grid">
 
 <div class="card">
-<img src="bolsa1.jpg">
+<img src="https://i.imgur.com/2nCt3Sbl.jpg">
 <div class="nome">Bvlgari Serpenti Verde</div>
 <div class="preco">R$ 290</div>
 <a class="botao" href="bvlgariserpentigreen.html">VER DETALHES</a>
 </div>
 
 <div class="card">
-<img src="bolsa2.jpg">
+<img src="https://i.imgur.com/zYxDCQTl.jpg">
 <div class="nome">Chanel Classic</div>
 <div class="preco">R$ 350</div>
 <a class="botao" href="#">VER DETALHES</a>
 </div>
 
 </div>
-
-<footer>
-© 2025 The Bag Room · thebagroom.com.br
-</footer>
-
-<script>
-function toggleMenuMobile(){
-document.getElementById('menuMobile').classList.toggle('open');
-}
-</script>
 
 </body>
 </html>
