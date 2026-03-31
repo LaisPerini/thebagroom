@@ -52,6 +52,7 @@ gap:40px;
 
 .produto img{
 width:100%;
+border-radius:10px;
 }
 
 .nome{font-size:30px;}
@@ -63,27 +64,16 @@ line-height:1.6;
 margin-bottom:20px;
 }
 
-/* ========================= */
-/* ALUGUEL */
-/* ========================= */
-
-.aluguel{
-margin-top:20px;
-}
-
+/* OPÇÕES */
 .opcao{
-border:1px solid #ddd;
+border:1px solid #e5e5e5;
 padding:14px;
 margin-bottom:10px;
-border-radius:10px;
+border-radius:12px;
 cursor:pointer;
 display:flex;
 align-items:center;
 gap:10px;
-}
-
-.opcao input{
-transform:scale(1.2);
 }
 
 .opcao:hover{
@@ -92,17 +82,29 @@ border-color:#000;
 
 /* DATA */
 input[type="date"]{
-width:100%;
-padding:12px;
-border:1px solid #ddd;
-border-radius:8px;
+width:260px;
+padding:10px;
+border:none;
+border-bottom:1px solid #ccc;
+background:transparent;
+font-size:14px;
 margin-top:10px;
 }
 
-/* BOTÃO */
-.botao{
+/* CEP */
+#cep{
+width:260px;
+padding:10px;
+border:none;
+border-bottom:1px solid #ccc;
+background:transparent;
+font-size:14px;
+margin-top:15px;
+}
+
+/* BOTÕES */
+.btn{
 display:block;
-width:100%;
 margin-top:20px;
 padding:16px;
 background:#000;
@@ -110,8 +112,26 @@ color:#fff;
 border-radius:40px;
 text-align:center;
 text-decoration:none;
-letter-spacing:2px;
+letter-spacing:3px;
 font-size:12px;
+}
+
+.btn-frete{
+margin-top:10px;
+padding:10px 16px;
+background:#000;
+color:#fff;
+border:none;
+border-radius:20px;
+font-size:11px;
+cursor:pointer;
+}
+
+/* RESULTADO */
+#freteResultado{
+margin-top:10px;
+font-size:14px;
+color:#333;
 }
 
 /* MOBILE */
@@ -147,49 +167,22 @@ grid-template-columns:1fr;
 Ícone da Bvlgari com fecho em formato de serpente, símbolo de elegância e poder.
 </div>
 
-<!-- ========================= -->
-<!-- ALUGUEL -->
-<!-- ========================= -->
+<label class="opcao"><input type="radio" name="dias" value="4 dias - R$ 418,95">4 dias - R$ 418,95</label>
+<label class="opcao"><input type="radio" name="dias" value="7 dias - R$ 485,10">7 dias - R$ 485,10</label>
+<label class="opcao"><input type="radio" name="dias" value="10 dias - R$ 540,75">10 dias - R$ 540,75</label>
+<label class="opcao"><input type="radio" name="dias" value="15 dias - R$ 639,45">15 dias - R$ 639,45</label>
+<label class="opcao"><input type="radio" name="dias" value="20 dias - R$ 705,60">20 dias - R$ 705,60</label>
+<label class="opcao"><input type="radio" name="dias" value="30 dias - R$ 771,75">30 dias - R$ 771,75</label>
 
-<div class="aluguel">
-
-<label class="opcao">
-<input type="radio" name="dias" value="4 dias - R$ 418,95">
-4 dias - R$ 418,95
-</label>
-
-<label class="opcao">
-<input type="radio" name="dias" value="7 dias - R$ 485,10">
-7 dias - R$ 485,10
-</label>
-
-<label class="opcao">
-<input type="radio" name="dias" value="10 dias - R$ 540,75">
-10 dias - R$ 540,75
-</label>
-
-<label class="opcao">
-<input type="radio" name="dias" value="15 dias - R$ 639,45">
-15 dias - R$ 639,45
-</label>
-
-<label class="opcao">
-<input type="radio" name="dias" value="20 dias - R$ 705,60">
-20 dias - R$ 705,60
-</label>
-
-<label class="opcao">
-<input type="radio" name="dias" value="30 dias - R$ 771,75">
-30 dias - R$ 771,75
-</label>
-
-<!-- DATA -->
 <input type="date" id="data">
 
-<!-- BOTÃO -->
-<a class="botao" onclick="alugar()">ALUGAR AGORA</a>
+<input type="text" id="cep" placeholder="Digite seu CEP">
 
-</div>
+<button class="btn-frete" onclick="calcularFrete()">Calcular frete</button>
+
+<div id="freteResultado"></div>
+
+<a class="btn" onclick="alugar()">ALUGAR AGORA</a>
 
 </div>
 
@@ -198,20 +191,79 @@ grid-template-columns:1fr;
 </div>
 
 <script>
+
+async function calcularFrete(){
+
+let cep = document.getElementById("cep").value;
+let resultado = document.getElementById("freteResultado");
+
+if(!cep){
+resultado.innerHTML = "Digite o CEP";
+return;
+}
+
+resultado.innerHTML = "Calculando...";
+
+try{
+
+let response = await fetch("https://www.melhorenvio.com.br/api/v2/me/shipment/calculate", {
+method: "POST",
+headers: {
+"Content-Type": "application/json",
+"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9..."
+},
+body: JSON.stringify({
+from: { postal_code: "11000-000" },
+to: { postal_code: cep },
+products: [{
+id: "1",
+width: 20,
+height: 10,
+length: 25,
+weight: 1
+}]
+})
+});
+
+let data = await response.json();
+
+if(data && data.length > 0){
+
+let html = "";
+
+data.forEach(frete => {
+html += `${frete.name}: R$ ${frete.price} • ${frete.delivery_time} dias <br>`;
+});
+
+resultado.innerHTML = html;
+
+}else{
+resultado.innerHTML = "Não encontrado";
+}
+
+}catch(e){
+resultado.innerHTML = "Erro ao calcular frete";
+}
+
+}
+
 function alugar(){
 
 let dias = document.querySelector('input[name="dias"]:checked');
 let data = document.getElementById('data').value;
+let cep = document.getElementById('cep').value;
 
 if(!dias){
 alert("Selecione o período");
 return;
 }
 
-let mensagem = `Olá! Quero alugar a Bvlgari Serpenti Verde\n${dias.value}\nData: ${data}`;
+let mensagem = `Olá! Quero alugar a Bvlgari Serpenti Verde\n${dias.value}\nData: ${data}\nCEP: ${cep}`;
 
 window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
+
 }
+
 </script>
 
 </body>
