@@ -346,7 +346,18 @@ window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
 let hoje = new Date();
 hoje.setDate(hoje.getDate() + 1); // começa amanhã
 
-let minDate = hoje.toISOString().split("T")[0];
+// bloquear datas passadas + hoje (CORRETO)
+let hoje = new Date();
+hoje.setDate(hoje.getDate() + 1);
+
+// formata no padrão YYYY-MM-DD corretamente (sem bug de timezone)
+let ano = hoje.getFullYear();
+let mes = String(hoje.getMonth() + 1).padStart(2, '0');
+let dia = String(hoje.getDate()).padStart(2, '0');
+
+let minDate = `${ano}-${mes}-${dia}`;
+
+document.getElementById("dataInicio").setAttribute("min", minDate);
 
 document.getElementById("dataInicio").min = minDate;
 
