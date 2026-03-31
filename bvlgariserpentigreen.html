@@ -16,6 +16,7 @@ background:#faf9f7;
 font-family:'Cormorant Garamond', serif;
 }
 
+/* HEADER */
 header{
 width:100%;
 padding:18px;
@@ -63,6 +64,7 @@ line-height:1.6;
 margin-bottom:20px;
 }
 
+/* OPÇÕES */
 .opcao{
 border:1px solid #e5e5e5;
 padding:14px;
@@ -74,16 +76,33 @@ align-items:center;
 gap:10px;
 }
 
-input[type="date"], #cep{
-width:260px;
-padding:10px;
+.opcao:hover{
+border-color:#000;
+}
+
+/* DATA */
+input[type="date"]{
+width:220px;
+padding:8px;
 border:none;
 border-bottom:1px solid #ccc;
 background:transparent;
-font-size:14px;
+font-size:13px;
 margin-top:10px;
 }
 
+/* CEP */
+#cep{
+width:220px;
+padding:8px;
+border:none;
+border-bottom:1px solid #ccc;
+background:transparent;
+font-size:13px;
+margin-top:15px;
+}
+
+/* BOTÕES */
 .btn{
 display:block;
 margin-top:20px;
@@ -108,14 +127,18 @@ font-size:11px;
 cursor:pointer;
 }
 
+/* RESULTADO */
 #freteResultado{
 margin-top:10px;
 font-size:14px;
 color:#333;
 }
 
+/* MOBILE */
 @media(max-width:700px){
-.produto{grid-template-columns:1fr;}
+.produto{
+grid-template-columns:1fr;
+}
 }
 
 </style>
@@ -152,6 +175,7 @@ color:#333;
 <label class="opcao"><input type="radio" name="dias" value="30 dias - R$ 771,75">30 dias - R$ 771,75</label>
 
 <input type="date" id="data">
+
 <input type="text" id="cep" placeholder="Digite seu CEP">
 
 <button class="btn-frete" onclick="calcularFrete()">Calcular frete</button>
@@ -170,11 +194,11 @@ color:#333;
 
 async function calcularFrete(){
 
-let cep = document.getElementById("cep").value.replace(/\D/g, '');
+let cep = document.getElementById("cep").value;
 let resultado = document.getElementById("freteResultado");
 
-if(!cep || cep.length !== 8){
-resultado.innerHTML = "Digite um CEP válido";
+if(!cep){
+resultado.innerHTML = "Digite o CEP";
 return;
 }
 
@@ -187,31 +211,30 @@ method: "POST",
 headers: {
 "Content-Type": "application/json"
 },
-body: JSON.stringify({ cep })
+body: JSON.stringify({
+to: { postal_code: cep }
+})
 });
 
 let data = await response.json();
 
 console.log("FRETE:", data);
 
-if(Array.isArray(data) && data.length > 0){
+if(data && data.length > 0){
 
 let html = "";
 
 data.forEach(frete => {
-html += `${frete.name}: R$ ${frete.price} • ${frete.delivery_time} dias <br>`;
+html += `<b>${frete.name}</b>: R$ ${frete.price} • ${frete.delivery_time} dias<br>`;
 });
 
 resultado.innerHTML = html;
 
-}else if(data.error){
-resultado.innerHTML = data.error;
 }else{
 resultado.innerHTML = "Nenhuma opção encontrada";
 }
 
 }catch(e){
-console.error(e);
 resultado.innerHTML = "Erro ao calcular frete";
 }
 
