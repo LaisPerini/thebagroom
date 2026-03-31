@@ -298,27 +298,33 @@ document.getElementById('devolucao').innerHTML =
 `Devolução prevista: <strong>${formatada}</strong>`;
 }
 
-/* validação REAL (iphone fix) */
+let ultimaDataValida = "";
+
 document.getElementById('dataInicio').addEventListener('change', function(){
 
-if(!this.value) return;
+  if(!this.value) return;
 
-let hoje = new Date();
-hoje.setHours(0,0,0,0);
+  // evita bug do iPhone
+  if(this.value === ultimaDataValida) return;
 
-let dataSelecionada = new Date(this.value);
+  let hoje = new Date();
+  hoje.setHours(0,0,0,0);
 
-if(dataSelecionada < hoje){
+  let dataSelecionada = new Date(this.value);
 
-alert("Selecione hoje ou uma data futura");
+  if(dataSelecionada < hoje){
+    
+    alert("Selecione hoje ou uma data futura");
 
-this.value = "";
-document.getElementById('devolucao').innerHTML = "";
-return;
+    this.value = "";
+    document.getElementById('devolucao').innerHTML = "";
 
-}
+    return;
+  }
 
-atualizarDevolucao();
+  ultimaDataValida = this.value;
+
+  atualizarDevolucao();
 
 });
 
