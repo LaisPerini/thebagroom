@@ -17,6 +17,7 @@ font-family:'Playfair Display', serif;
 color:#111;
 }
 
+/* HEADER */
 header{
 width:100%;
 padding:18px;
@@ -56,7 +57,11 @@ width:100%;
 border-radius:10px;
 }
 
-.nome{font-size:28px;font-weight:500;}
+/* TEXTOS */
+.nome{
+font-size:28px;
+font-weight:500;
+}
 
 .preco{
 font-family:'Inter', sans-serif;
@@ -70,6 +75,7 @@ line-height:1.6;
 margin-bottom:20px;
 }
 
+/* OPÇÕES */
 .opcoes{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -90,9 +96,13 @@ align-items:center;
 transition:0.2s;
 }
 
-.opcao input{display:none;}
+.opcao input{
+display:none;
+}
 
-.opcao:hover{border-color:#000;}
+.opcao:hover{
+border-color:#000;
+}
 
 .opcao.active{
 background:#000;
@@ -100,6 +110,7 @@ color:#fff;
 border-color:#000;
 }
 
+/* INPUT */
 #dataInicio, #cep{
 width:220px;
 padding:8px;
@@ -111,6 +122,7 @@ margin-top:10px;
 font-family:'Inter', sans-serif;
 }
 
+/* DEVOLUÇÃO */
 #devolucao{
 margin-top:10px;
 font-size:14px;
@@ -118,6 +130,7 @@ font-family:'Inter', sans-serif;
 color:#444;
 }
 
+/* BOTÕES */
 .btn{
 display:block;
 margin-top:25px;
@@ -126,6 +139,7 @@ background:#000;
 color:#fff;
 border-radius:40px;
 text-align:center;
+text-decoration:none;
 letter-spacing:4px;
 font-size:12px;
 }
@@ -141,14 +155,18 @@ font-size:11px;
 cursor:pointer;
 }
 
+/* FRETE */
 #freteResultado{
 margin-top:15px;
 font-size:14px;
 font-family:'Inter', sans-serif;
 }
 
+/* MOBILE */
 @media(max-width:700px){
-.produto{grid-template-columns:1fr;}
+.produto{
+grid-template-columns:1fr;
+}
 }
 
 </style>
@@ -177,6 +195,7 @@ font-family:'Inter', sans-serif;
 Ícone da Bvlgari com fecho em formato de serpente, símbolo de elegância e poder.
 </div>
 
+<!-- OPÇÕES -->
 <div class="opcoes">
 
 <label class="opcao active">
@@ -211,12 +230,15 @@ font-family:'Inter', sans-serif;
 
 </div>
 
+<!-- DATA -->
 <div style="margin-top:20px;">
-<div style="font-family:'Inter'; font-size:12px; color:#888;">
+  
+<div style="font-family:'Inter', sans-serif; font-size:12px; color:#888;">
 Data de recebimento
 </div>
 
 <input type="date" id="dataInicio">
+
 </div>
 
 <div id="devolucao"></div>
@@ -246,30 +268,15 @@ document.querySelectorAll('.opcao').forEach(opcao => {
   });
 });
 
-// BLOQUEIO REAL (corrigido)
-document.getElementById('dataInicio').addEventListener('change', function(){
+/* bloquear passado (permitir hoje) */
+let hoje = new Date();
+let ano = hoje.getFullYear();
+let mes = String(hoje.getMonth() + 1).padStart(2, '0');
+let dia = String(hoje.getDate()).padStart(2, '0');
 
-  if(!this.value) return; // 🔥 ESSENCIAL (evita bug ao abrir)
+let minDate = `${ano}-${mes}-${dia}`;
 
-  let hoje = new Date();
-  hoje.setHours(0,0,0,0);
-  hoje.setDate(hoje.getDate() + 1);
-
-  let dataSelecionada = new Date(this.value);
-
-  if(dataSelecionada < hoje){
-    
-    alert("Selecione uma data futura");
-
-    this.value = "";
-    document.getElementById('devolucao').innerHTML = "";
-
-    return;
-  }
-
-  atualizarDevolucao();
-
-});
+document.getElementById("dataInicio").setAttribute("min", minDate);
 
 /* calcular devolução */
 function atualizarDevolucao(){
@@ -291,26 +298,31 @@ document.getElementById('devolucao').innerHTML =
 `Devolução prevista: <strong>${formatada}</strong>`;
 }
 
-/* evento data */
-document.getElementById('dataInicio').addEventListener('change', atualizarDevolucao);
+/* validação REAL (iphone fix) */
+document.getElementById('dataInicio').addEventListener('change', function(){
 
-/* BLOQUEAR DATAS PASSADAS */
-(function(){
+if(!this.value) return;
 
 let hoje = new Date();
-hoje.setDate(hoje.getDate() + 1);
+hoje.setHours(0,0,0,0);
 
-let ano = hoje.getFullYear();
-let mes = String(hoje.getMonth() + 1).padStart(2, '0');
-let dia = String(hoje.getDate()).padStart(2, '0');
+let dataSelecionada = new Date(this.value);
 
-let minDate = `${ano}-${mes}-${dia}`;
+if(dataSelecionada < hoje){
 
-document.getElementById("dataInicio").min = minDate;
+alert("Selecione hoje ou uma data futura");
 
-})();
+this.value = "";
+document.getElementById('devolucao').innerHTML = "";
+return;
 
-/* FRETE */
+}
+
+atualizarDevolucao();
+
+});
+
+/* frete */
 async function calcularFrete(){
 
 let cep = document.getElementById("cep").value;
@@ -324,6 +336,7 @@ return;
 resultado.innerHTML = "Calculando...";
 
 try{
+
 let response = await fetch("https://thebagroomtest.onrender.com/frete", {
 method:"POST",
 headers:{ "Content-Type":"application/json" },
@@ -338,7 +351,7 @@ data
 .filter(f => (f.name === "PAC" || f.name === "SEDEX"))
 .filter(f => f.price && f.delivery_time)
 .forEach(frete => {
-html += `<div>${frete.name} • R$ ${frete.price} • ${frete.delivery_time} dias</div>`;
+html += `<div>${frete.name} • R$ ${parseFloat(frete.price).toFixed(2)} • ${frete.delivery_time} dias</div>`;
 });
 
 resultado.innerHTML = html || "Nenhuma opção disponível";
@@ -349,7 +362,7 @@ resultado.innerHTML = "Erro ao calcular frete";
 
 }
 
-/* WHATSAPP */
+/* whatsapp */
 function alugar(){
 
 let dias = document.querySelector('input[name="dias"]:checked').value;
