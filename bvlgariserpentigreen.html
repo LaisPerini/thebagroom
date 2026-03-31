@@ -17,7 +17,6 @@ font-family:'Playfair Display', serif;
 color:#111;
 }
 
-/* HEADER */
 header{
 width:100%;
 padding:18px;
@@ -57,11 +56,7 @@ width:100%;
 border-radius:10px;
 }
 
-/* TEXTOS */
-.nome{
-font-size:28px;
-font-weight:500;
-}
+.nome{font-size:28px;font-weight:500;}
 
 .preco{
 font-family:'Inter', sans-serif;
@@ -75,7 +70,6 @@ line-height:1.6;
 margin-bottom:20px;
 }
 
-/* OPÇÕES */
 .opcoes{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -96,13 +90,9 @@ align-items:center;
 transition:0.2s;
 }
 
-.opcao input{
-display:none;
-}
+.opcao input{display:none;}
 
-.opcao:hover{
-border-color:#000;
-}
+.opcao:hover{border-color:#000;}
 
 .opcao.active{
 background:#000;
@@ -110,7 +100,6 @@ color:#fff;
 border-color:#000;
 }
 
-/* INPUT */
 #dataInicio, #cep{
 width:220px;
 padding:8px;
@@ -122,7 +111,6 @@ margin-top:10px;
 font-family:'Inter', sans-serif;
 }
 
-/* TEXTO DEVOLUÇÃO */
 #devolucao{
 margin-top:10px;
 font-size:14px;
@@ -130,7 +118,6 @@ font-family:'Inter', sans-serif;
 color:#444;
 }
 
-/* BOTÕES */
 .btn{
 display:block;
 margin-top:25px;
@@ -139,7 +126,6 @@ background:#000;
 color:#fff;
 border-radius:40px;
 text-align:center;
-text-decoration:none;
 letter-spacing:4px;
 font-size:12px;
 }
@@ -155,18 +141,14 @@ font-size:11px;
 cursor:pointer;
 }
 
-/* FRETE */
 #freteResultado{
 margin-top:15px;
 font-size:14px;
 font-family:'Inter', sans-serif;
 }
 
-/* MOBILE */
 @media(max-width:700px){
-.produto{
-grid-template-columns:1fr;
-}
+.produto{grid-template-columns:1fr;}
 }
 
 </style>
@@ -195,7 +177,6 @@ grid-template-columns:1fr;
 Ícone da Bvlgari com fecho em formato de serpente, símbolo de elegância e poder.
 </div>
 
-<!-- OPÇÕES -->
 <div class="opcoes">
 
 <label class="opcao active">
@@ -230,15 +211,12 @@ grid-template-columns:1fr;
 
 </div>
 
-<!-- DATA -->
 <div style="margin-top:20px;">
-  
-  <div style="font-family:'Inter', sans-serif; font-size:12px; color:#888;">
-    Data de recebimento
-  </div>
+<div style="font-family:'Inter'; font-size:12px; color:#888;">
+Data de recebimento
+</div>
 
-<input type="date" id="dataInicio" min="">
-
+<input type="date" id="dataInicio">
 </div>
 
 <div id="devolucao"></div>
@@ -288,11 +266,28 @@ document.getElementById('devolucao').innerHTML =
 `Devolução prevista: <strong>${formatada}</strong>`;
 }
 
-/* eventos */
+/* evento data */
 document.getElementById('dataInicio').addEventListener('change', atualizarDevolucao);
 
-/* frete (mantido igual) */
+/* BLOQUEAR DATAS PASSADAS */
+(function(){
+
+let hoje = new Date();
+hoje.setDate(hoje.getDate() + 1);
+
+let ano = hoje.getFullYear();
+let mes = String(hoje.getMonth() + 1).padStart(2, '0');
+let dia = String(hoje.getDate()).padStart(2, '0');
+
+let minDate = `${ano}-${mes}-${dia}`;
+
+document.getElementById("dataInicio").min = minDate;
+
+})();
+
+/* FRETE */
 async function calcularFrete(){
+
 let cep = document.getElementById("cep").value;
 let resultado = document.getElementById("freteResultado");
 
@@ -303,6 +298,7 @@ return;
 
 resultado.innerHTML = "Calculando...";
 
+try{
 let response = await fetch("https://thebagroomtest.onrender.com/frete", {
 method:"POST",
 headers:{ "Content-Type":"application/json" },
@@ -321,9 +317,14 @@ html += `<div>${frete.name} • R$ ${frete.price} • ${frete.delivery_time} dia
 });
 
 resultado.innerHTML = html || "Nenhuma opção disponível";
+
+}catch(e){
+resultado.innerHTML = "Erro ao calcular frete";
 }
 
-/* whatsapp */
+}
+
+/* WHATSAPP */
 function alugar(){
 
 let dias = document.querySelector('input[name="dias"]:checked').value;
@@ -341,25 +342,6 @@ Período: ${dias} dias`;
 window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
 
 }
-
-// bloquear datas passadas + hoje
-let hoje = new Date();
-hoje.setDate(hoje.getDate() + 1); // começa amanhã
-
-// bloquear datas passadas + hoje (CORRETO)
-let hoje = new Date();
-hoje.setDate(hoje.getDate() + 1);
-
-// formata no padrão YYYY-MM-DD corretamente (sem bug de timezone)
-let ano = hoje.getFullYear();
-let mes = String(hoje.getMonth() + 1).padStart(2, '0');
-let dia = String(hoje.getDate()).padStart(2, '0');
-
-let minDate = `${ano}-${mes}-${dia}`;
-
-document.getElementById("dataInicio").setAttribute("min", minDate);
-
-document.getElementById("dataInicio").min = minDate;
 
 </script>
 
