@@ -342,6 +342,14 @@ window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
 
 }
 
+// bloquear datas passadas + hoje
+let hoje = new Date();
+hoje.setDate(hoje.getDate() + 1); // começa amanhã
+
+let minDate = hoje.toISOString().split("T")[0];
+
+document.getElementById("dataInicio").min = minDate;
+
 </script>
 
 </body>
