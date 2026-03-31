@@ -14,7 +14,6 @@ body{
 margin:0;
 background:#faf9f7;
 font-family:'Cormorant Garamond', serif;
-color:#000;
 }
 
 /* HEADER */
@@ -37,86 +36,89 @@ font-size:22px;
 margin:0;
 }
 
-/* ESPAÇO TOPO */
-.top-space{
-height:70px;
-}
+.top-space{height:70px;}
 
-/* CONTAINER */
 .container{
 max-width:1100px;
-margin:0 auto;
+margin:auto;
 padding:20px;
 }
 
-/* GRID */
 .produto{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:40px;
-align-items:center;
 }
 
-/* IMAGEM */
 .produto img{
 width:100%;
-border-radius:6px;
 }
 
-/* TEXTO */
-.nome{
-font-size:32px;
-margin-bottom:10px;
-}
+.nome{font-size:30px;}
+.preco{font-size:20px;margin:10px 0;}
 
-.preco{
-font-size:22px;
+.desc{
+color:#444;
+line-height:1.6;
 margin-bottom:20px;
 }
 
-/* DESCRIÇÃO */
-.desc{
-font-size:16px;
-line-height:1.7;
-color:#444;
-margin-bottom:25px;
+/* ========================= */
+/* ALUGUEL */
+/* ========================= */
+
+.aluguel{
+margin-top:20px;
 }
 
-/* INFO */
-.info{
-font-size:14px;
-line-height:1.8;
-color:#555;
-margin-bottom:30px;
+.opcao{
+border:1px solid #ddd;
+padding:14px;
+margin-bottom:10px;
+border-radius:10px;
+cursor:pointer;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.opcao input{
+transform:scale(1.2);
+}
+
+.opcao:hover{
+border-color:#000;
+}
+
+/* DATA */
+input[type="date"]{
+width:100%;
+padding:12px;
+border:1px solid #ddd;
+border-radius:8px;
+margin-top:10px;
 }
 
 /* BOTÃO */
 .botao{
-display:inline-block;
+display:block;
+width:100%;
+margin-top:20px;
+padding:16px;
 background:#000;
 color:#fff;
-padding:14px 28px;
 border-radius:40px;
+text-align:center;
 text-decoration:none;
-font-size:12px;
 letter-spacing:2px;
-}
-
-.botao:hover{
-opacity:0.8;
+font-size:12px;
 }
 
 /* MOBILE */
 @media(max-width:700px){
-
 .produto{
 grid-template-columns:1fr;
 }
-
-.nome{
-font-size:26px;
-}
-
 }
 
 </style>
@@ -134,36 +136,83 @@ font-size:26px;
 
 <div class="produto">
 
-<!-- IMAGEM -->
 <img src="https://i.imgur.com/2nCt3Sbl.jpg">
 
-<!-- TEXTO -->
 <div>
 
 <div class="nome">Bvlgari Serpenti Verde</div>
-<div class="preco">R$ 290 / aluguel</div>
+<div class="preco">A partir de R$ 290</div>
 
 <div class="desc">
-Um ícone da Bvlgari, a Serpenti é reconhecida pelo seu fecho em formato de cabeça de serpente — símbolo de transformação e poder desde a antiguidade. Nesta versão em verde profundo, a peça traz sofisticação e presença em qualquer ocasião.
+Ícone da Bvlgari com fecho em formato de serpente, símbolo de elegância e poder.
 </div>
 
-<div class="info">
-• Couro: couro de bezerro legítimo<br>
-• Tamanho: médio (aprox. 20cm)<br>
-• Alça: corrente dourada ajustável<br>
-• Estado: excelente, sem marcas relevantes<br>
-• Acompanha: dust bag
+<!-- ========================= -->
+<!-- ALUGUEL -->
+<!-- ========================= -->
+
+<div class="aluguel">
+
+<label class="opcao">
+<input type="radio" name="dias" value="4 dias - R$ 418,95">
+4 dias - R$ 418,95
+</label>
+
+<label class="opcao">
+<input type="radio" name="dias" value="7 dias - R$ 485,10">
+7 dias - R$ 485,10
+</label>
+
+<label class="opcao">
+<input type="radio" name="dias" value="10 dias - R$ 540,75">
+10 dias - R$ 540,75
+</label>
+
+<label class="opcao">
+<input type="radio" name="dias" value="15 dias - R$ 639,45">
+15 dias - R$ 639,45
+</label>
+
+<label class="opcao">
+<input type="radio" name="dias" value="20 dias - R$ 705,60">
+20 dias - R$ 705,60
+</label>
+
+<label class="opcao">
+<input type="radio" name="dias" value="30 dias - R$ 771,75">
+30 dias - R$ 771,75
+</label>
+
+<!-- DATA -->
+<input type="date" id="data">
+
+<!-- BOTÃO -->
+<a class="botao" onclick="alugar()">ALUGAR AGORA</a>
+
 </div>
 
-<a class="botao" href="https://wa.me/5513996904227?text=Quero%20alugar%20a%20Bvlgari%20Serpenti%20Verde">
-ALUGAR AGORA
-</a>
-
 </div>
 
 </div>
 
 </div>
+
+<script>
+function alugar(){
+
+let dias = document.querySelector('input[name="dias"]:checked');
+let data = document.getElementById('data').value;
+
+if(!dias){
+alert("Selecione o período");
+return;
+}
+
+let mensagem = `Olá! Quero alugar a Bvlgari Serpenti Verde\n${dias.value}\nData: ${data}`;
+
+window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
+}
+</script>
 
 </body>
 </html>
