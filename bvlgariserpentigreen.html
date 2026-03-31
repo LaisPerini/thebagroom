@@ -332,7 +332,8 @@ resultado.innerHTML = "Erro ao calcular frete";
 function alugar(){
 
 let dias = document.querySelector('input[name="dias"]:checked');
-let data = document.getElementById('data').value;
+let inicio = document.getElementById('dataInicio').value;
+let fim = document.getElementById('dataFim').value;
 let cep = document.getElementById('cep').value;
 
 if(!dias){
@@ -340,11 +341,24 @@ alert("Selecione o período");
 return;
 }
 
-let mensagem = `Olá! Quero alugar a Bvlgari Serpenti Verde\n${dias.value}\nData: ${data}\nCEP: ${cep}`;
+if(!inicio || !fim){
+alert("Selecione as datas");
+return;
+}
+
+if(fim <= inicio){
+alert("A data de devolução deve ser após a retirada");
+return;
+}
+
+let mensagem = `Olá! Quero alugar a Bvlgari Serpenti Verde
+Período: ${inicio} até ${fim}
+${dias.value}
+CEP: ${cep}`;
 
 window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
-
 }
+
 
 </script>
 
