@@ -14,22 +14,7 @@ body{
 margin:0;
 background:#faf9f7;
 font-family: 'Playfair Display', serif;
-}
-
-/* PREÇOS (números bonitos) */
-.preco{
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-}
-
-/* OPÇÕES (dias + valores) */
-.opcao{
-  font-family: 'Inter', sans-serif;
-}
-
-/* FRETE */
-#freteResultado{
-  font-family: 'Inter', sans-serif;
+color:#111;
 }
 
 /* HEADER */
@@ -47,9 +32,10 @@ border-bottom:1px solid #eee;
 }
 
 header h1{
-letter-spacing:8px;
-font-size:22px;
+letter-spacing:6px;
+font-size:20px;
 margin:0;
+font-weight:500;
 }
 
 .top-space{height:70px;}
@@ -71,33 +57,67 @@ width:100%;
 border-radius:10px;
 }
 
-.nome{font-size:30px;}
-.preco{font-size:20px;margin:10px 0;}
+/* TEXTOS */
+.nome{
+font-size:28px;
+font-weight:500;
+}
+
+.preco{
+font-family:'Inter', sans-serif;
+font-size:18px;
+margin:10px 0;
+letter-spacing:0.5px;
+}
 
 .desc{
-color:#444;
+color:#555;
 line-height:1.6;
 margin-bottom:20px;
 }
 
-/* OPÇÕES */
-.opcao{
-border:1px solid #e5e5e5;
-padding:14px;
-margin-bottom:10px;
-border-radius:12px;
-cursor:pointer;
-display:flex;
-align-items:center;
+/* GRID OPÇÕES */
+.opcoes{
+display:grid;
+grid-template-columns:1fr 1fr;
 gap:10px;
+margin-top:15px;
 }
 
+/* BOTÃO OPÇÃO PREMIUM */
+.opcao{
+border:1px solid #e5e5e5;
+padding:12px;
+border-radius:12px;
+cursor:pointer;
+font-family:'Inter', sans-serif;
+font-size:14px;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+transition:0.2s;
+}
+
+/* ESCONDE RADIO */
+.opcao input{
+display:none;
+}
+
+/* HOVER */
 .opcao:hover{
 border-color:#000;
 }
 
-/* DATA */
-input[type="date"]{
+/* SELECIONADO */
+.opcao.active{
+background:#000;
+color:#fff;
+border-color:#000;
+}
+
+/* INPUTS */
+input[type="date"], #cep{
 width:220px;
 padding:8px;
 border:none;
@@ -105,36 +125,26 @@ border-bottom:1px solid #ccc;
 background:transparent;
 font-size:13px;
 margin-top:10px;
-}
-
-/* CEP */
-#cep{
-width:220px;
-padding:8px;
-border:none;
-border-bottom:1px solid #ccc;
-background:transparent;
-font-size:13px;
-margin-top:15px;
+font-family:'Inter', sans-serif;
 }
 
 /* BOTÕES */
 .btn{
 display:block;
-margin-top:20px;
-padding:16px;
+margin-top:25px;
+padding:18px;
 background:#000;
 color:#fff;
 border-radius:40px;
 text-align:center;
 text-decoration:none;
-letter-spacing:3px;
+letter-spacing:4px;
 font-size:12px;
 }
 
 .btn-frete{
-margin-top:10px;
-padding:10px 16px;
+margin-top:12px;
+padding:10px 18px;
 background:#000;
 color:#fff;
 border:none;
@@ -143,11 +153,12 @@ font-size:11px;
 cursor:pointer;
 }
 
-/* RESULTADO */
+/* FRETE */
 #freteResultado{
-margin-top:10px;
+margin-top:15px;
 font-size:14px;
-color:#333;
+font-family:'Inter', sans-serif;
+line-height:1.6;
 }
 
 /* MOBILE */
@@ -183,12 +194,40 @@ grid-template-columns:1fr;
 Ícone da Bvlgari com fecho em formato de serpente, símbolo de elegância e poder.
 </div>
 
-<label class="opcao"><input type="radio" name="dias" value="4 dias - R$ 418,95">4 dias - R$ 418,95</label>
-<label class="opcao"><input type="radio" name="dias" value="7 dias - R$ 485,10">7 dias - R$ 485,10</label>
-<label class="opcao"><input type="radio" name="dias" value="10 dias - R$ 540,75">10 dias - R$ 540,75</label>
-<label class="opcao"><input type="radio" name="dias" value="15 dias - R$ 639,45">15 dias - R$ 639,45</label>
-<label class="opcao"><input type="radio" name="dias" value="20 dias - R$ 705,60">20 dias - R$ 705,60</label>
-<label class="opcao"><input type="radio" name="dias" value="30 dias - R$ 771,75">30 dias - R$ 771,75</label>
+<!-- OPÇÕES PREMIUM -->
+<div class="opcoes">
+
+<label class="opcao active">
+<input type="radio" name="dias" value="4 dias - R$ 418,95" checked>
+4 dias • R$ 418,95
+</label>
+
+<label class="opcao">
+<input type="radio" name="dias" value="7 dias - R$ 485,10">
+7 dias • R$ 485,10
+</label>
+
+<label class="opcao">
+<input type="radio" name="dias" value="10 dias - R$ 540,75">
+10 dias • R$ 540,75
+</label>
+
+<label class="opcao">
+<input type="radio" name="dias" value="15 dias - R$ 639,45">
+15 dias • R$ 639,45
+</label>
+
+<label class="opcao">
+<input type="radio" name="dias" value="20 dias - R$ 705,60">
+20 dias • R$ 705,60
+</label>
+
+<label class="opcao">
+<input type="radio" name="dias" value="30 dias - R$ 771,75">
+30 dias • R$ 771,75
+</label>
+
+</div>
 
 <input type="date" id="data">
 
@@ -208,6 +247,15 @@ grid-template-columns:1fr;
 
 <script>
 
+/* SELEÇÃO VISUAL PREMIUM */
+document.querySelectorAll('.opcao').forEach(opcao => {
+  opcao.addEventListener('click', () => {
+    document.querySelectorAll('.opcao').forEach(o => o.classList.remove('active'));
+    opcao.classList.add('active');
+  });
+});
+
+/* FRETE */
 async function calcularFrete(){
 
 let cep = document.getElementById("cep").value;
@@ -234,27 +282,22 @@ to: { postal_code: cep }
 
 let data = await response.json();
 
-console.log("FRETE:", data);
-
 if(data && data.length > 0){
 
 let html = "";
 
+data
+.filter(f => (f.name === "PAC" || f.name === "SEDEX"))
+.filter(f => f.price && f.delivery_time)
+.sort((a,b) => a.name === "SEDEX" ? -1 : 1)
+.forEach(frete => {
 
-data.forEach(frete => {
-
-  // ❌ remove serviços sem preço
-  if(!frete.price || !frete.delivery_time) return;
-
-  // 🔥 mantém só correios
-  if(frete.name !== "PAC" && frete.name !== "SEDEX") return;
-
-  html += `${frete.name}: R$ ${parseFloat(frete.price).toFixed(2)} • ${frete.delivery_time} dias <br>`;
+html += `<div>
+<strong>${frete.name}</strong> • R$ ${parseFloat(frete.price).toFixed(2)} • ${frete.delivery_time} dias
+</div>`;
 });
 
-
-
-resultado.innerHTML = html;
+resultado.innerHTML = html || "Nenhuma opção disponível";
 
 }else{
 resultado.innerHTML = "Nenhuma opção encontrada";
@@ -266,6 +309,7 @@ resultado.innerHTML = "Erro ao calcular frete";
 
 }
 
+/* WHATSAPP */
 function alugar(){
 
 let dias = document.querySelector('input[name="dias"]:checked');
