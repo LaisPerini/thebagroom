@@ -224,12 +224,18 @@ if(data && data.length > 0){
 
 let html = "";
 
+
 data.forEach(frete => {
 
+  // ❌ remove serviços sem preço
   if(!frete.price || !frete.delivery_time) return;
+
+  // 🔥 mantém só correios
+  if(frete.name !== "PAC" && frete.name !== "SEDEX") return;
 
   html += `${frete.name}: R$ ${parseFloat(frete.price).toFixed(2)} • ${frete.delivery_time} dias <br>`;
 });
+
 
 
 resultado.innerHTML = html;
