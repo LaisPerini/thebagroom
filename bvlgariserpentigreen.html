@@ -161,10 +161,10 @@ color:#ccc;
 }
 
 .galeria{
-position:relative;
-overflow:hidden;
-border-radius:18px;
+max-width:420px;
+margin:auto;
 }
+
 
 .slider{
 display:flex;
@@ -177,6 +177,8 @@ padding-bottom:10px;
 
 .slider img{
 width:100%;
+aspect-ratio:4/5;
+object-fit:cover;
 flex-shrink:0;
 scroll-snap-align:center;
 border-radius:18px;
