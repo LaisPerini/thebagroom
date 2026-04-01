@@ -6,27 +6,28 @@
 
 <title>Bvlgari Serpenti Verde · The Bag Room</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
 
 <style>
-
 body{
 margin:0;
 background:#faf9f7;
 font-family:'Playfair Display', serif;
 color:#111;
+overflow-x:hidden;
 }
 
 header{
 padding:18px;
-text-align:center;
+display:flex;
+justify-content:center;
+background:rgba(255,255,255,0.95);
 position:fixed;
 width:100%;
-background:#fff;
 border-bottom:1px solid #eee;
 z-index:999;
 }
@@ -40,122 +41,250 @@ margin:0;
 .top-space{height:70px;}
 
 .container{
-max-width:520px;
+max-width:1100px;
 margin:auto;
 padding:20px;
 }
 
-/* IMAGEM */
-.galeria{
-border-radius:20px;
-overflow:hidden;
-margin-bottom:20px;
+.produto{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
 }
 
-.galeria img{
+.produto img{
 width:100%;
-aspect-ratio:4/5;
-object-fit:cover;
+border-radius:10px;
 }
 
-/* TEXTO */
 .nome{
-font-size:30px;
-margin-bottom:5px;
+font-size:32px;
+line-height:1.2;
+margin-top:10px;
+margin-bottom:8px;
 }
 
 .preco{
-font-family:'Inter';
-color:#666;
-margin-bottom:15px;
+font-family:'Inter', sans-serif;
+font-size:18px;
+margin:10px 0;
+letter-spacing:0.5px;
+color:#444;
 }
 
 .desc{
-color:#777;
+color:#555;
 line-height:1.6;
-margin-bottom:25px;
+margin-bottom:20px;
 }
 
-/* BOTÕES */
 .opcoes{
-display:flex;
-flex-direction:column;
+display:grid;
+grid-template-columns:1fr 1fr;
 gap:10px;
 }
 
 .opcao{
-border:1px solid #e8e8e8;
-padding:14px 16px;
-border-radius:14px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-font-family:'Inter';
+border:1px solid #e5e5e5;
+padding:12px;
+border-radius:12px;
 cursor:pointer;
-transition:0.2s;
-}
-
-.opcao.active{
-background:#000;
-color:#fff;
-border-color:#000;
-}
-
-.opcao span{
-color:#777;
-font-size:14px;
-}
-
-.opcao.active span{
-color:#fff;
+font-family:'Inter', sans-serif;
+display:flex;
+justify-content:center;
 }
 
 .opcao input{display:none;}
 
-/* INPUTS */
-input{
-width:100%;
-padding:14px 0;
-border:none;
-border-bottom:1px solid #ddd;
-background:transparent;
-font-family:'Inter';
-margin-top:15px;
+.opcao.active{
+background:#000;
+color:#fff;
 }
 
-/* FRETE */
-.frete-opcao{
-border:1px solid #eee;
-padding:12px;
-border-radius:10px;
-margin-top:8px;
+#dataInicio, #cep{
+width:220px;
+padding:10px;
+border:none;
+border-bottom:1px solid #ccc;
+background:transparent;
+font-family:'Inter';
+}
+
+#devolucao{
+margin-top:10px;
+font-family:'Inter';
+}
+
+.btn{
+margin-top:30px;
+padding:20px;
+background:linear-gradient(180deg,#111,#000);
+color:#fff;
+border-radius:50px;
 text-align:center;
+letter-spacing:6px;
+font-size:11px;
+cursor:pointer;
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+transition:0.3s;
+}
+
+.btn:active{
+transform:scale(0.97);
+}
+
+.btn-frete{
+margin-top:10px;
+padding:10px;
+background:#000;
+color:#fff;
+border-radius:20px;
+border:none;
+}
+
+.flatpickr-calendar{
+border-radius:16px;
+font-family:'Inter';
+}
+
+.flatpickr-day.selected{
+background:#000;
+border-color:#000;
+}
+
+.frete-opcao{
+border:1px solid #e5e5e5;
+padding:12px;
+margin-top:8px;
+border-radius:12px;
 cursor:pointer;
 font-family:'Inter';
+transition:0.2s;
+text-align:center;
 }
 
 .frete-opcao.active{
 background:#000;
 color:#fff;
+border-color:#000;
+transform:scale(0.98);
 }
 
-/* BOTÃO FIXO */
-.cta{
-position:fixed;
-bottom:20px;
-left:50%;
-transform:translateX(-50%);
-width:90%;
-max-width:500px;
+.flatpickr-day.disabled{
+color:#ccc;
+}
+
+.galeria{
+position:relative;
+overflow:hidden;
+border-radius:18px;
+width:100%;
+margin-top:10px;
+margin-bottom:20px;
+}
+
+
+.slider{
+display:flex;
+overflow-x:auto;
+scroll-snap-type:x mandatory;
+scroll-behavior:smooth;
+gap:12px;
+padding-bottom:10px;
+width:100%;
+max-width:100%;
+padding:0 5px;
+}
+
+.slider img{
+width:100%;
+max-width:100%;
+aspect-ratio:4/5;
+object-fit:cover;
+flex:0 0 100%;
+scroll-snap-align:center;
+border-radius:18px;
+transition:transform 0.4s ease;
+cursor:pointer;
+}
+
+.slider img:active{
+transform:scale(0.98);
+}
+
+.slider::-webkit-scrollbar{
+display:none;
+}
+
+/* DOTS CHANEL STYLE */
+.dots{
+display:flex;
+justify-content:center;
+gap:6px;
+margin-top:10px;
+}
+
+.dots span{
+width:6px;
+height:6px;
+background:#ccc;
+border-radius:50%;
+transition:0.3s;
+}
+
+.dots span.active{
 background:#000;
-color:#fff;
-padding:18px;
-text-align:center;
-border-radius:50px;
-letter-spacing:5px;
-font-size:12px;
+width:18px;
+border-radius:10px;
 }
 
+/* BRILHO SUAVE (luxo discreto) */
+.galeria::after{
+content:"";
+position:absolute;
+top:0;
+left:-120%;
+width:40%;
+height:100%;
+background:linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+transform:skewX(-20deg);
+animation:luxoBrilho 5s infinite;
+}
+
+@keyframes luxoBrilho{
+0%{left:-120%;}
+100%{left:140%;}
+}
+
+/* ZOOM PREMIUM */
+.zoom-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.92);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+animation:fadeIn 0.3s ease;
+}
+
+.zoom-overlay img{
+max-width:92%;
+max-height:92%;
+border-radius:14px;
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+@media(max-width:700px){
+.produto{grid-template-columns:1fr;}
+}
 </style>
 </head>
 
@@ -169,9 +298,25 @@ font-size:12px;
 
 <div class="container">
 
+<div class="produto">
+
 <div class="galeria">
-<img src="https://i.imgur.com/moxJous.jpg">
+
+  <div class="slider" id="slider">
+
+    <img src="https://i.imgur.com/moxJous.jpg">
+    <img src="https://i.imgur.com/moxJous.jpg">
+    <img src="https://i.imgur.com/moxJous.jpg">
+
+  </div>
+
+  <div class="dots" id="dots"></div>
+
 </div>
+
+</div>
+
+<div>
 
 <div class="nome">Bvlgari Serpenti Verde</div>
 <div class="preco">A partir de R$ 290</div>
@@ -181,149 +326,236 @@ font-size:12px;
 </div>
 
 <div class="opcoes">
-<label class="opcao active">
-<input type="radio" name="dias" value="4" checked>
-4 dias <span>R$ 418,95</span>
-</label>
-
-<label class="opcao">
-<input type="radio" name="dias" value="7">
-7 dias <span>R$ 485,10</span>
-</label>
-
-<label class="opcao">
-<input type="radio" name="dias" value="10">
-10 dias <span>R$ 540,75</span>
-</label>
-
-<label class="opcao">
-<input type="radio" name="dias" value="15">
-15 dias <span>R$ 639,45</span>
-</label>
-
-<label class="opcao">
-<input type="radio" name="dias" value="20">
-20 dias <span>R$ 705,60</span>
-</label>
-
-<label class="opcao">
-<input type="radio" name="dias" value="30">
-30 dias <span>R$ 771,75</span>
-</label>
+<label class="opcao active"><input type="radio" name="dias" value="4" checked>4 dias • R$ 418,95</label>
+<label class="opcao"><input type="radio" name="dias" value="7">7 dias • R$ 485,10</label>
+<label class="opcao"><input type="radio" name="dias" value="10">10 dias • R$ 540,75</label>
+<label class="opcao"><input type="radio" name="dias" value="15">15 dias • R$ 639,45</label>
+<label class="opcao"><input type="radio" name="dias" value="20">20 dias • R$705,60</label>
+<label class="opcao"><input type="radio" name="dias" value="30">30 dias • R$ 771,75</label>
 </div>
+
+<br>
 
 <input type="text" id="dataInicio" placeholder="Selecione a data">
+
 <div id="devolucao"></div>
 
+<br>
+
 <input type="text" id="cep" placeholder="Digite seu CEP">
-<button onclick="calcularFrete()">Calcular frete</button>
+
+<button class="btn-frete" onclick="calcularFrete()">Calcular frete</button>
 
 <div id="freteResultado"></div>
-<div id="freteSelecionado"></div>
+<div id="freteSelecionado" style="margin-top:10px; font-family:'Inter';"></div>
+
+<div class="btn" onclick="alugar()">ALUGAR AGORA</div>
 
 </div>
 
-<div class="cta" onclick="alugar()">ALUGAR AGORA</div>
+</div>
+
+</div>
 
 <script>
 
-/* seleção */
-document.querySelectorAll('.opcao').forEach(o=>{
-o.addEventListener('click',()=>{
-document.querySelectorAll('.opcao').forEach(x=>x.classList.remove('active'));
-o.classList.add('active');
-atualizarDevolucao();
-});
+
+/* seleção dias */
+document.querySelectorAll('.opcao').forEach(opcao => {
+  opcao.addEventListener('click', () => {
+    document.querySelectorAll('.opcao').forEach(o => o.classList.remove('active'));
+    opcao.classList.add('active');
+    atualizarDevolucao();
+  });
 });
 
-/* calendário */
-flatpickr("#dataInicio",{
-locale:"pt",
-dateFormat:"d/m/Y",
-minDate:new Date().fp_incr(3),
-onChange:()=>atualizarDevolucao()
-});
+/* 🔥 CALENDÁRIO */
+async function iniciarCalendario(){
+
+  let response = await fetch("https://thebagroomtest.onrender.com/datas/serpenti-verde");
+  let alugueis = await response.json();
+
+  let datasBloqueadas = [];
+
+  alugueis.forEach(a => {
+    let inicio = new Date(a.inicio);
+    let fim = new Date(a.fim);
+
+    for(let d = new Date(inicio); d <= fim; d.setDate(d.getDate()+1)){
+      datasBloqueadas.push(new Date(d));
+    }
+  });
+
+  flatpickr("#dataInicio", {
+    locale: "pt",
+    dateFormat: "d/m/Y",
+    minDate: new Date().fp_incr(3),
+    disableMobile: true,
+    disable: datasBloqueadas,
+    onChange: () => atualizarDevolucao()
+  });
+
+}
+
+iniciarCalendario();
 
 /* devolução */
 function atualizarDevolucao(){
-let dias=document.querySelector('input[name="dias"]:checked');
-let data=document.getElementById('dataInicio').value;
-if(!dias||!data)return;
 
-let [d,m,y]=data.split("/");
-let dt=new Date(y,m-1,d);
-dt.setDate(dt.getDate()+parseInt(dias.value));
+let dias = document.querySelector('input[name="dias"]:checked');
+let dataInput = document.getElementById('dataInicio').value;
 
-document.getElementById('devolucao').innerHTML=
-`Devolução prevista: <strong>${dt.toLocaleDateString('pt-BR')}</strong>`;
+if(!dias || !dataInput) return;
+
+let partes = dataInput.split("/");
+let data = new Date(partes[2], partes[1]-1, partes[0]);
+
+data.setDate(data.getDate() + parseInt(dias.value));
+
+document.getElementById('devolucao').innerHTML =
+`Devolução prevista: <strong>${data.toLocaleDateString('pt-BR')}</strong>`;
 }
 
-/* frete */
-let freteSelecionado=null;
+/* 🔥 FRETE COM SELEÇÃO */
+let freteSelecionado = null;
 
 async function calcularFrete(){
 
-let cep=document.getElementById("cep").value;
-let res=document.getElementById("freteResultado");
+let cep = document.getElementById("cep").value;
+let resultado = document.getElementById("freteResultado");
 
-res.innerHTML="Calculando...";
-
-let r=await fetch("https://thebagroomtest.onrender.com/frete",{
-method:"POST",
-headers:{ "Content-Type":"application/json"},
-body:JSON.stringify({to:{postal_code:cep}})
-});
-
-let data=await r.json();
-
-res.innerHTML="";
-
-data.forEach(f=>{
-let div=document.createElement("div");
-div.className="frete-opcao";
-div.innerHTML=`${f.name} • R$ ${parseFloat(f.price).toFixed(2)} • ${f.delivery_time} dias`;
-
-div.onclick=()=>{
-document.querySelectorAll('.frete-opcao').forEach(x=>x.classList.remove('active'));
-div.classList.add('active');
-freteSelecionado=f;
-
-document.getElementById("freteSelecionado").innerHTML=
-`Frete escolhido: ${f.name} • R$ ${parseFloat(f.price).toFixed(2)}`;
-};
-
-res.appendChild(div);
-});
-
-}
-
-/* whatsapp */
-function alugar(){
-
-let dias=document.querySelector('input[name="dias"]:checked').value;
-let data=document.getElementById('dataInicio').value;
-
-if(!data||!freteSelecionado){
-alert("Preencha tudo");
+if(!cep){
+resultado.innerHTML = "Digite o CEP";
 return;
 }
 
-let valor=document.querySelector('.opcao.active span').innerText;
+resultado.innerHTML = "Calculando...";
 
-let total=parseFloat(valor.replace("R$","").replace(",","."))
-+parseFloat(freteSelecionado.price);
+let response = await fetch("https://thebagroomtest.onrender.com/frete", {
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({ to:{ postal_code:cep } })
+});
 
-let msg=`Olá, quero alugar a Bvlgari Serpenti Verde
+let data = await response.json();
+
+let html = "";
+
+data
+.filter(f => (f.name === "PAC" || f.name === "SEDEX"))
+.filter(f => f.price && f.delivery_time)
+.forEach(frete => {
+
+html += `
+<div class="frete-opcao"
+onclick="selecionarFrete('${frete.name}', ${frete.price}, ${frete.delivery_time}, this)"
+style="border:1px solid #ddd;padding:10px;margin-top:8px;border-radius:10px;cursor:pointer;font-family:'Inter';">
+${frete.name} • R$ ${parseFloat(frete.price).toFixed(2)} • ${frete.delivery_time} dias
+</div>
+`;
+
+});
+
+resultado.innerHTML = html || "Nenhuma opção disponível";
+
+}
+
+function selecionarFrete(nome, preco, prazo, el){
+
+freteSelecionado = { nome, preco, prazo };
+
+// remove seleção de todos
+document.querySelectorAll('.frete-opcao').forEach(item=>{
+item.classList.remove('active');
+});
+
+// aplica no clicado
+el.classList.add('active');
+
+// texto abaixo
+document.getElementById("freteSelecionado").innerHTML =
+`Frete escolhido: <strong>${nome} • R$ ${preco.toFixed(2)}</strong>`;
+
+}
+
+/* 🔥 WHATSAPP COMPLETO */
+function alugar(){
+
+let diasSelecionado = document.querySelector('input[name="dias"]:checked');
+let data = document.getElementById('dataInicio').value;
+
+if(!data){
+alert("Escolha a data");
+return;
+}
+
+if(!freteSelecionado){
+alert("Escolha o frete");
+return;
+}
+
+// valor aluguel
+let textoOpcao = diasSelecionado.parentElement.innerText;
+let valorMatch = textoOpcao.match(/R\$ ([\d,]+)/);
+let valor = valorMatch ? parseFloat(valorMatch[1].replace(",", ".")) : 0;
+
+// total
+let total = valor + freteSelecionado.preco;
+let totalFormatado = total.toFixed(2).replace(".", ",");
+
+let mensagem = `Olá, quero alugar a 
+Bvlgari Serpenti Verde
 
 Data recebimento: ${data}
-Período: ${dias} dias
+Período: ${textoOpcao}
 
-Frete: ${freteSelecionado.name} • R$ ${freteSelecionado.price} • ${freteSelecionado.delivery_time} dias
+Frete: ${freteSelecionado.nome} • R$ ${freteSelecionado.preco.toFixed(2)} • ${freteSelecionado.prazo} dias
 
-Valor total: R$ ${total.toFixed(2).replace(".",",")}`;
+Valor total: R$ ${totalFormatado}`;
 
-window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(msg)}`);
+window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
+
 }
+
+/* ZOOM */
+let zoomOverlay = document.createElement("div");
+zoomOverlay.className = "zoom-overlay";
+zoomOverlay.innerHTML = "<img>";
+document.body.appendChild(zoomOverlay);
+
+let zoomImg = zoomOverlay.querySelector("img");
+
+document.querySelectorAll('.slider img').forEach(img => {
+  img.addEventListener('click', () => {
+    zoomImg.src = img.src;
+    zoomOverlay.style.display = "flex";
+  });
+});
+
+zoomOverlay.addEventListener('click', () => {
+  zoomOverlay.style.display = "none";
+});
+
+/* DOTS */
+let slider = document.getElementById("slider");
+let images = slider.querySelectorAll("img");
+let dotsContainer = document.getElementById("dots");
+
+images.forEach((_, i) => {
+  let dot = document.createElement("span");
+  if(i === 0) dot.classList.add("active");
+  dotsContainer.appendChild(dot);
+});
+
+let dots = dotsContainer.querySelectorAll("span");
+
+slider.addEventListener("scroll", () => {
+  let index = Math.round(slider.scrollLeft / slider.clientWidth);
+
+  dots.forEach(d => d.classList.remove("active"));
+  if(dots[index]) dots[index].classList.add("active");
+});
+
 
 </script>
 
