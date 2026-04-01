@@ -163,66 +163,99 @@ color:#ccc;
 .galeria{
 position:relative;
 overflow:hidden;
-border-radius:16px;
+border-radius:18px;
 }
 
 .slider{
 display:flex;
 overflow-x:auto;
 scroll-snap-type:x mandatory;
-gap:10px;
+scroll-behavior:smooth;
+gap:12px;
+padding-bottom:10px;
 }
 
 .slider img{
 width:100%;
 flex-shrink:0;
 scroll-snap-align:center;
-border-radius:16px;
-transition:0.3s;
-cursor:zoom-in;
+border-radius:18px;
+transition:transform 0.4s ease;
+cursor:pointer;
 }
 
-/* remove barra */
+.slider img:active{
+transform:scale(0.98);
+}
+
 .slider::-webkit-scrollbar{
 display:none;
 }
 
-/* efeito brilho luxo */
+/* DOTS CHANEL STYLE */
+.dots{
+display:flex;
+justify-content:center;
+gap:6px;
+margin-top:10px;
+}
+
+.dots span{
+width:6px;
+height:6px;
+background:#ccc;
+border-radius:50%;
+transition:0.3s;
+}
+
+.dots span.active{
+background:#000;
+width:18px;
+border-radius:10px;
+}
+
+/* BRILHO SUAVE (luxo discreto) */
 .galeria::after{
 content:"";
 position:absolute;
 top:0;
-left:-100%;
-width:60%;
+left:-120%;
+width:40%;
 height:100%;
-background:linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+background:linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
 transform:skewX(-20deg);
-animation:brilho 3s infinite;
+animation:luxoBrilho 5s infinite;
 }
 
-@keyframes brilho{
-0%{left:-100%;}
-100%{left:150%;}
+@keyframes luxoBrilho{
+0%{left:-120%;}
+100%{left:140%;}
 }
 
-/* zoom */
+/* ZOOM PREMIUM */
 .zoom-overlay{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.9);
+background:rgba(0,0,0,0.92);
 display:none;
 justify-content:center;
 align-items:center;
 z-index:9999;
+animation:fadeIn 0.3s ease;
 }
 
 .zoom-overlay img{
-max-width:90%;
-max-height:90%;
-border-radius:12px;
+max-width:92%;
+max-height:92%;
+border-radius:14px;
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
 }
 
 @media(max-width:700px){
@@ -245,12 +278,17 @@ border-radius:12px;
 
 <div class="galeria">
 
-  <div class="slider">
+  <div class="slider" id="slider">
 
+    <img src="https://i.imgur.com/moxJous.jpg">
     <img src="https://i.imgur.com/moxJous.jpg">
     <img src="https://i.imgur.com/moxJous.jpg">
 
   </div>
+
+  <div class="dots" id="dots"></div>
+
+</div>
 
 </div>
 
@@ -455,7 +493,7 @@ window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
 
 }
 
-// cria overlay
+/* ZOOM */
 let zoomOverlay = document.createElement("div");
 zoomOverlay.className = "zoom-overlay";
 zoomOverlay.innerHTML = "<img>";
@@ -463,7 +501,6 @@ document.body.appendChild(zoomOverlay);
 
 let zoomImg = zoomOverlay.querySelector("img");
 
-// abre zoom
 document.querySelectorAll('.slider img').forEach(img => {
   img.addEventListener('click', () => {
     zoomImg.src = img.src;
@@ -471,9 +508,28 @@ document.querySelectorAll('.slider img').forEach(img => {
   });
 });
 
-// fecha zoom
 zoomOverlay.addEventListener('click', () => {
   zoomOverlay.style.display = "none";
+});
+
+/* DOTS */
+let slider = document.getElementById("slider");
+let images = slider.querySelectorAll("img");
+let dotsContainer = document.getElementById("dots");
+
+images.forEach((_, i) => {
+  let dot = document.createElement("span");
+  if(i === 0) dot.classList.add("active");
+  dotsContainer.appendChild(dot);
+});
+
+let dots = dotsContainer.querySelectorAll("span");
+
+slider.addEventListener("scroll", () => {
+  let index = Math.round(slider.scrollLeft / slider.clientWidth);
+
+  dots.forEach(d => d.classList.remove("active"));
+  if(dots[index]) dots[index].classList.add("active");
 });
 
 
