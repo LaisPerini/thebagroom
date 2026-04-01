@@ -160,6 +160,71 @@ transform:scale(0.98);
 color:#ccc;
 }
 
+.galeria{
+position:relative;
+overflow:hidden;
+border-radius:16px;
+}
+
+.slider{
+display:flex;
+overflow-x:auto;
+scroll-snap-type:x mandatory;
+gap:10px;
+}
+
+.slider img{
+width:100%;
+flex-shrink:0;
+scroll-snap-align:center;
+border-radius:16px;
+transition:0.3s;
+cursor:zoom-in;
+}
+
+/* remove barra */
+.slider::-webkit-scrollbar{
+display:none;
+}
+
+/* efeito brilho luxo */
+.galeria::after{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:60%;
+height:100%;
+background:linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+transform:skewX(-20deg);
+animation:brilho 3s infinite;
+}
+
+@keyframes brilho{
+0%{left:-100%;}
+100%{left:150%;}
+}
+
+/* zoom */
+.zoom-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.zoom-overlay img{
+max-width:90%;
+max-height:90%;
+border-radius:12px;
+}
+
 @media(max-width:700px){
 .produto{grid-template-columns:1fr;}
 }
@@ -178,8 +243,16 @@ color:#ccc;
 
 <div class="produto">
 
-<img src="https://i.imgur.com/moxJous.jpg"
-style="width:100%; border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,0.08);">
+<div class="galeria">
+
+  <div class="slider">
+
+    <img src="https://i.imgur.com/moxJous.jpg">
+    <img src="https://i.imgur.com/moxJous.jpg">
+
+  </div>
+
+</div>
 
 <div>
 
@@ -381,6 +454,27 @@ Valor total: R$ ${totalFormatado}`;
 window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
 
 }
+
+// cria overlay
+let zoomOverlay = document.createElement("div");
+zoomOverlay.className = "zoom-overlay";
+zoomOverlay.innerHTML = "<img>";
+document.body.appendChild(zoomOverlay);
+
+let zoomImg = zoomOverlay.querySelector("img");
+
+// abre zoom
+document.querySelectorAll('.slider img').forEach(img => {
+  img.addEventListener('click', () => {
+    zoomImg.src = img.src;
+    zoomOverlay.style.display = "flex";
+  });
+});
+
+// fecha zoom
+zoomOverlay.addEventListener('click', () => {
+  zoomOverlay.style.display = "none";
+});
 
 
 </script>
