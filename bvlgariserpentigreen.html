@@ -6,16 +6,13 @@
 
 <title>Bvlgari Serpenti Verde · The Bag Room</title>
 
-<!-- FONTS -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-<!-- FLATPICKR -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
 
 <style>
-
 body{
 margin:0;
 background:#faf9f7;
@@ -23,7 +20,6 @@ font-family:'Playfair Display', serif;
 color:#111;
 }
 
-/* HEADER */
 header{
 padding:18px;
 display:flex;
@@ -61,6 +57,7 @@ border-radius:10px;
 }
 
 .nome{font-size:28px;}
+
 .preco{
 font-family:'Inter', sans-serif;
 font-size:18px;
@@ -73,7 +70,6 @@ line-height:1.6;
 margin-bottom:20px;
 }
 
-/* OPÇÕES */
 .opcoes{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -97,7 +93,6 @@ background:#000;
 color:#fff;
 }
 
-/* INPUT */
 #dataInicio, #cep{
 width:220px;
 padding:10px;
@@ -107,13 +102,11 @@ background:transparent;
 font-family:'Inter';
 }
 
-/* DEVOLUÇÃO */
 #devolucao{
 margin-top:10px;
 font-family:'Inter';
 }
 
-/* BOTÕES */
 .btn{
 margin-top:25px;
 padding:18px;
@@ -135,7 +128,6 @@ border-radius:20px;
 border:none;
 }
 
-/* FLATPICKR CUSTOM (luxo) */
 .flatpickr-calendar{
 border-radius:16px;
 font-family:'Inter';
@@ -146,10 +138,6 @@ background:#000;
 border-color:#000;
 }
 
-.flatpickr-day.today{
-border-color:#000;
-}
-
 .flatpickr-day.disabled{
 color:#ccc;
 }
@@ -157,7 +145,6 @@ color:#ccc;
 @media(max-width:700px){
 .produto{grid-template-columns:1fr;}
 }
-
 </style>
 </head>
 
@@ -184,7 +171,6 @@ color:#ccc;
 Ícone da Bvlgari com fecho em formato de serpente, símbolo de elegância e poder.
 </div>
 
-<!-- OPÇÕES -->
 <div class="opcoes">
 <label class="opcao active"><input type="radio" name="dias" value="4" checked>4 dias • R$ 418,95</label>
 <label class="opcao"><input type="radio" name="dias" value="7">7 dias • R$ 485,10</label>
@@ -227,16 +213,40 @@ document.querySelectorAll('.opcao').forEach(opcao => {
   });
 });
 
-/* calendário luxo */
-flatpickr("#dataInicio", {
-  locale: "pt",
-  dateFormat: "d/m/Y",
-  minDate: new Date().fp_incr(3),
-  disableMobile: true,
-  onChange: function(selectedDates) {
-    atualizarDevolucao();
-  }
-});
+/* 🔥 CALENDÁRIO COM BLOQUEIO AUTOMÁTICO */
+async function iniciarCalendario(){
+
+  let response = await fetch("https://thebagroomtest.onrender.com/datas/serpenti-verde");
+  let alugueis = await response.json();
+
+  let datasBloqueadas = [];
+
+  alugueis.forEach(a => {
+
+    let inicio = new Date(a.inicio);
+    let fim = new Date(a.fim);
+
+    for(let d = new Date(inicio); d <= fim; d.setDate(d.getDate()+1)){
+      datasBloqueadas.push(new Date(d));
+    }
+
+  });
+
+  flatpickr("#dataInicio", {
+    locale: "pt",
+    dateFormat: "d/m/Y",
+    minDate: new Date().fp_incr(3),
+    disableMobile: true,
+    disable: datasBloqueadas,
+
+    onChange: function(){
+      atualizarDevolucao();
+    }
+  });
+
+}
+
+iniciarCalendario();
 
 /* devolução */
 function atualizarDevolucao(){
