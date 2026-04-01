@@ -6,7 +6,7 @@
 
 <title>Bvlgari Serpenti Verde · The Bag Room</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -19,16 +19,14 @@ margin:0;
 background:#faf9f7;
 font-family:'Playfair Display', serif;
 color:#111;
-overflow-x:hidden;
 }
 
 header{
 padding:18px;
-display:flex;
-justify-content:center;
-background:rgba(255,255,255,0.95);
+text-align:center;
 position:fixed;
 width:100%;
+background:#fff;
 border-bottom:1px solid #eee;
 z-index:999;
 }
@@ -42,109 +40,82 @@ margin:0;
 .top-space{height:70px;}
 
 .container{
-max-width:1100px;
+max-width:520px;
 margin:auto;
 padding:20px;
 }
 
-.produto{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:40px;
+/* IMAGEM */
+.galeria{
+border-radius:20px;
+overflow:hidden;
+margin-bottom:20px;
 }
 
+.galeria img{
+width:100%;
+aspect-ratio:4/5;
+object-fit:cover;
+}
+
+/* TEXTO */
 .nome{
-font-size:32px;
-line-height:1.2;
-margin-bottom:8px;
+font-size:30px;
+margin-bottom:5px;
 }
 
 .preco{
 font-family:'Inter';
-font-size:16px;
-color:#444;
+color:#666;
 margin-bottom:15px;
 }
 
 .desc{
-color:#666;
+color:#777;
 line-height:1.6;
-margin-bottom:20px;
+margin-bottom:25px;
 }
 
-/* GALERIA */
-.galeria{
-overflow:hidden;
-border-radius:18px;
-margin-bottom:20px;
-}
-
-.slider{
+/* BOTÕES */
+.opcoes{
 display:flex;
-overflow-x:auto;
-scroll-snap-type:x mandatory;
+flex-direction:column;
 gap:10px;
 }
 
-.slider img{
-width:100%;
-aspect-ratio:4/5;
-object-fit:cover;
-flex:0 0 100%;
-scroll-snap-align:center;
-border-radius:18px;
-}
-
-.slider::-webkit-scrollbar{display:none;}
-
-.dots{
-display:flex;
-justify-content:center;
-gap:6px;
-margin-top:10px;
-}
-
-.dots span{
-width:6px;
-height:6px;
-background:#ccc;
-border-radius:50%;
-}
-
-.dots span.active{
-background:#000;
-width:18px;
-border-radius:10px;
-}
-
-/* 🔥 ESTILO DIOR */
-.periodos{
-border-top:1px solid #eee;
-margin-top:20px;
-}
-
-.periodo{
-padding:18px 0;
-border-bottom:1px solid #eee;
+.opcao{
+border:1px solid #e8e8e8;
+padding:14px 16px;
+border-radius:14px;
 display:flex;
 justify-content:space-between;
+align-items:center;
 font-family:'Inter';
-font-size:15px;
 cursor:pointer;
+transition:0.2s;
 }
 
-.periodo span{
+.opcao.active{
+background:#000;
+color:#fff;
+border-color:#000;
+}
+
+.opcao span{
 color:#777;
+font-size:14px;
 }
 
-.periodo.active{
-font-weight:500;
+.opcao.active span{
+color:#fff;
 }
+
+.opcao input{display:none;}
 
 /* INPUTS */
-#dataInicio, #cep{
+input{
 width:100%;
-padding:12px 0;
+padding:14px 0;
 border:none;
 border-bottom:1px solid #ddd;
 background:transparent;
@@ -152,25 +123,12 @@ font-family:'Inter';
 margin-top:15px;
 }
 
-/* BOTÃO */
-.btn{
-margin-top:30px;
-padding:20px;
-background:#000;
-color:#fff;
-border-radius:50px;
-text-align:center;
-letter-spacing:5px;
-font-size:12px;
-cursor:pointer;
-}
-
 /* FRETE */
 .frete-opcao{
 border:1px solid #eee;
 padding:12px;
-margin-top:8px;
 border-radius:10px;
+margin-top:8px;
 text-align:center;
 cursor:pointer;
 font-family:'Inter';
@@ -181,8 +139,21 @@ background:#000;
 color:#fff;
 }
 
-@media(max-width:700px){
-.produto{grid-template-columns:1fr;}
+/* BOTÃO FIXO */
+.cta{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+width:90%;
+max-width:500px;
+background:#000;
+color:#fff;
+padding:18px;
+text-align:center;
+border-radius:50px;
+letter-spacing:5px;
+font-size:12px;
 }
 
 </style>
@@ -198,17 +169,9 @@ color:#fff;
 
 <div class="container">
 
-<div class="produto">
-
 <div class="galeria">
-  <div class="slider" id="slider">
-    <img src="https://i.imgur.com/moxJous.jpg">
-    <img src="https://i.imgur.com/moxJous.jpg">
-  </div>
-  <div class="dots" id="dots"></div>
+<img src="https://i.imgur.com/moxJous.jpg">
 </div>
-
-<div>
 
 <div class="nome">Bvlgari Serpenti Verde</div>
 <div class="preco">A partir de R$ 290</div>
@@ -217,42 +180,37 @@ color:#fff;
 Ícone da Bvlgari com fecho em formato de serpente, símbolo de elegância e poder.
 </div>
 
-<!-- 🔥 NOVO MODELO -->
-<div class="periodos">
-
-<div class="periodo active" onclick="selecionarDias(4,this)">
+<div class="opcoes">
+<label class="opcao active">
+<input type="radio" name="dias" value="4" checked>
 4 dias <span>R$ 418,95</span>
-</div>
+</label>
 
-<div class="periodo" onclick="selecionarDias(7,this)">
+<label class="opcao">
+<input type="radio" name="dias" value="7">
 7 dias <span>R$ 485,10</span>
-</div>
+</label>
 
-<div class="periodo" onclick="selecionarDias(10,this)">
+<label class="opcao">
+<input type="radio" name="dias" value="10">
 10 dias <span>R$ 540,75</span>
-</div>
+</label>
 
-<div class="periodo" onclick="selecionarDias(15,this)">
+<label class="opcao">
+<input type="radio" name="dias" value="15">
 15 dias <span>R$ 639,45</span>
-</div>
+</label>
 
-<div class="periodo" onclick="selecionarDias(20,this)">
+<label class="opcao">
+<input type="radio" name="dias" value="20">
 20 dias <span>R$ 705,60</span>
-</div>
+</label>
 
-<div class="periodo" onclick="selecionarDias(30,this)">
+<label class="opcao">
+<input type="radio" name="dias" value="30">
 30 dias <span>R$ 771,75</span>
+</label>
 </div>
-
-</div>
-
-<!-- INPUT OCULTO -->
-<input type="radio" name="dias" value="4" checked hidden>
-<input type="radio" name="dias" value="7" hidden>
-<input type="radio" name="dias" value="10" hidden>
-<input type="radio" name="dias" value="15" hidden>
-<input type="radio" name="dias" value="20" hidden>
-<input type="radio" name="dias" value="30" hidden>
 
 <input type="text" id="dataInicio" placeholder="Selecione a data">
 <div id="devolucao"></div>
@@ -263,29 +221,23 @@ color:#fff;
 <div id="freteResultado"></div>
 <div id="freteSelecionado"></div>
 
-<div class="btn" onclick="alugar()">ALUGAR AGORA</div>
-
 </div>
 
-</div>
-
-</div>
+<div class="cta" onclick="alugar()">ALUGAR AGORA</div>
 
 <script>
 
-/* selecionar dias */
-function selecionarDias(dias, el){
-
-document.querySelectorAll('.periodo').forEach(p=>p.classList.remove('active'));
-el.classList.add('active');
-
-document.querySelector(`input[value="${dias}"]`).checked = true;
-
+/* seleção */
+document.querySelectorAll('.opcao').forEach(o=>{
+o.addEventListener('click',()=>{
+document.querySelectorAll('.opcao').forEach(x=>x.classList.remove('active'));
+o.classList.add('active');
 atualizarDevolucao();
-}
+});
+});
 
 /* calendário */
-flatpickr("#dataInicio", {
+flatpickr("#dataInicio",{
 locale:"pt",
 dateFormat:"d/m/Y",
 minDate:new Date().fp_incr(3),
@@ -294,16 +246,15 @@ onChange:()=>atualizarDevolucao()
 
 /* devolução */
 function atualizarDevolucao(){
-let dias = document.querySelector('input[name="dias"]:checked');
-let data = document.getElementById('dataInicio').value;
+let dias=document.querySelector('input[name="dias"]:checked');
+let data=document.getElementById('dataInicio').value;
+if(!dias||!data)return;
 
-if(!dias || !data) return;
-
-let [d,m,y] = data.split("/");
-let dt = new Date(y,m-1,d);
+let [d,m,y]=data.split("/");
+let dt=new Date(y,m-1,d);
 dt.setDate(dt.getDate()+parseInt(dias.value));
 
-document.getElementById('devolucao').innerHTML =
+document.getElementById('devolucao').innerHTML=
 `Devolução prevista: <strong>${dt.toLocaleDateString('pt-BR')}</strong>`;
 }
 
@@ -335,7 +286,6 @@ div.innerHTML=`${f.name} • R$ ${parseFloat(f.price).toFixed(2)} • ${f.delive
 div.onclick=()=>{
 document.querySelectorAll('.frete-opcao').forEach(x=>x.classList.remove('active'));
 div.classList.add('active');
-
 freteSelecionado=f;
 
 document.getElementById("freteSelecionado").innerHTML=
@@ -353,12 +303,12 @@ function alugar(){
 let dias=document.querySelector('input[name="dias"]:checked').value;
 let data=document.getElementById('dataInicio').value;
 
-if(!data || !freteSelecionado){
+if(!data||!freteSelecionado){
 alert("Preencha tudo");
 return;
 }
 
-let valor=document.querySelector('.periodo.active span').innerText;
+let valor=document.querySelector('.opcao.active span').innerText;
 
 let total=parseFloat(valor.replace("R$","").replace(",","."))
 +parseFloat(freteSelecionado.price);
@@ -368,28 +318,12 @@ let msg=`Olá, quero alugar a Bvlgari Serpenti Verde
 Data recebimento: ${data}
 Período: ${dias} dias
 
-Frete: ${freteSelecionado.name} • R$ ${freteSelecionado.price}
+Frete: ${freteSelecionado.name} • R$ ${freteSelecionado.price} • ${freteSelecionado.delivery_time} dias
 
 Valor total: R$ ${total.toFixed(2).replace(".",",")}`;
 
 window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(msg)}`);
 }
-
-/* dots */
-let slider=document.getElementById("slider");
-let dotsContainer=document.getElementById("dots");
-
-[...slider.children].forEach((_,i)=>{
-let d=document.createElement("span");
-if(i===0)d.classList.add("active");
-dotsContainer.appendChild(d);
-});
-
-slider.addEventListener("scroll",()=>{
-let i=Math.round(slider.scrollLeft/slider.clientWidth);
-dotsContainer.querySelectorAll("span").forEach(d=>d.classList.remove("active"));
-dotsContainer.children[i]?.classList.add("active");
-});
 
 </script>
 
