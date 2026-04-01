@@ -204,7 +204,8 @@ color:#ccc;
 
 <script>
 
-/* seleção */
+
+/* seleção dias */
 document.querySelectorAll('.opcao').forEach(opcao => {
   opcao.addEventListener('click', () => {
     document.querySelectorAll('.opcao').forEach(o => o.classList.remove('active'));
@@ -213,7 +214,7 @@ document.querySelectorAll('.opcao').forEach(opcao => {
   });
 });
 
-/* 🔥 CALENDÁRIO COM BLOQUEIO AUTOMÁTICO */
+/* 🔥 CALENDÁRIO */
 async function iniciarCalendario(){
 
   let response = await fetch("https://thebagroomtest.onrender.com/datas/serpenti-verde");
@@ -222,14 +223,12 @@ async function iniciarCalendario(){
   let datasBloqueadas = [];
 
   alugueis.forEach(a => {
-
     let inicio = new Date(a.inicio);
     let fim = new Date(a.fim);
 
     for(let d = new Date(inicio); d <= fim; d.setDate(d.getDate()+1)){
       datasBloqueadas.push(new Date(d));
     }
-
   });
 
   flatpickr("#dataInicio", {
@@ -238,10 +237,7 @@ async function iniciarCalendario(){
     minDate: new Date().fp_incr(3),
     disableMobile: true,
     disable: datasBloqueadas,
-
-    onChange: function(){
-      atualizarDevolucao();
-    }
+    onChange: () => atualizarDevolucao()
   });
 
 }
@@ -261,16 +257,13 @@ let data = new Date(partes[2], partes[1]-1, partes[0]);
 
 data.setDate(data.getDate() + parseInt(dias.value));
 
-let formatada = data.toLocaleDateString('pt-BR', {
-day:'2-digit',
-month:'long'
-});
-
 document.getElementById('devolucao').innerHTML =
-`Devolução prevista: <strong>${formatada}</strong>`;
+`Devolução prevista: <strong>${data.toLocaleDateString('pt-BR')}</strong>`;
 }
 
-/* frete */
+/* 🔥 FRETE COM SELEÇÃO */
+let freteSelecionado = null;
+
 async function calcularFrete(){
 
 let cep = document.getElementById("cep").value;
@@ -297,16 +290,43 @@ data
 .filter(f => (f.name === "PAC" || f.name === "SEDEX"))
 .filter(f => f.price && f.delivery_time)
 .forEach(frete => {
-html += `<div>${frete.name} • R$ ${parseFloat(frete.price).toFixed(2)} • ${frete.delivery_time} dias</div>`;
+
+html += `
+<div class="frete-opcao"
+onclick="selecionarFrete('${frete.name}', ${frete.price}, ${frete.delivery_time})"
+style="border:1px solid #ddd;padding:10px;margin-top:8px;border-radius:10px;cursor:pointer;font-family:'Inter';">
+${frete.name} • R$ ${parseFloat(frete.price).toFixed(2)} • ${frete.delivery_time} dias
+</div>
+`;
+
 });
 
 resultado.innerHTML = html || "Nenhuma opção disponível";
+
 }
 
-/* whatsapp */
+function selecionarFrete(nome, preco, prazo){
+
+freteSelecionado = { nome, preco, prazo };
+
+document.querySelectorAll('.frete-opcao').forEach(el=>{
+el.style.border = "1px solid #ddd";
+});
+
+event.currentTarget.style.border = "1px solid #000";
+
+document.getElementById("freteResultado").insertAdjacentHTML("beforeend",
+`<div id="freteEscolhido" style="margin-top:10px;font-family:'Inter';">
+Frete escolhido: <strong>${nome} • R$ ${preco.toFixed(2)}</strong>
+</div>`
+);
+
+}
+
+/* 🔥 WHATSAPP COMPLETO */
 function alugar(){
 
-let dias = document.querySelector('input[name="dias"]:checked').value;
+let diasSelecionado = document.querySelector('input[name="dias"]:checked');
 let data = document.getElementById('dataInicio').value;
 
 if(!data){
@@ -314,13 +334,34 @@ alert("Escolha a data");
 return;
 }
 
-let mensagem = `Olá! Quero alugar a Bvlgari Serpenti Verde
-Data: ${data}
-Período: ${dias} dias`;
+if(!freteSelecionado){
+alert("Escolha o frete");
+return;
+}
+
+// valor aluguel
+let textoOpcao = diasSelecionado.parentElement.innerText;
+let valorMatch = textoOpcao.match(/R\$ ([\d,]+)/);
+let valor = valorMatch ? parseFloat(valorMatch[1].replace(",", ".")) : 0;
+
+// total
+let total = valor + freteSelecionado.preco;
+let totalFormatado = total.toFixed(2).replace(".", ",");
+
+let mensagem = `Olá, quero alugar a 
+Bvlgari Serpenti Verde
+
+Data recebimento: ${data}
+Período: ${textoOpcao}
+
+Frete: ${freteSelecionado.nome} • R$ ${freteSelecionado.preco.toFixed(2)}
+
+Valor total: R$ ${totalFormatado}`;
 
 window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
 
 }
+
 
 </script>
 
