@@ -18,6 +18,7 @@ margin:0;
 background:#faf9f7;
 font-family:'Playfair Display', serif;
 color:#111;
+overflow-x:hidden;
 }
 
 header{
@@ -161,8 +162,10 @@ color:#ccc;
 }
 
 .galeria{
-max-width:420px;
-margin:auto;
+position:relative;
+overflow:hidden;
+border-radius:18px;
+width:100%;
 }
 
 
@@ -173,13 +176,17 @@ scroll-snap-type:x mandatory;
 scroll-behavior:smooth;
 gap:12px;
 padding-bottom:10px;
+width:100%;
+max-width:100%;
+padding:0 5px;
 }
 
 .slider img{
 width:100%;
+max-width:100%;
 aspect-ratio:4/5;
 object-fit:cover;
-flex-shrink:0;
+flex:0 0 100%;
 scroll-snap-align:center;
 border-radius:18px;
 transition:transform 0.4s ease;
