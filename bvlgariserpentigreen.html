@@ -316,11 +316,9 @@ el.style.border = "1px solid #ddd";
 
 event.currentTarget.style.border = "1px solid #000";
 
-document.getElementById("freteResultado").insertAdjacentHTML("beforeend",
-`<div id="freteEscolhido" style="margin-top:10px;font-family:'Inter';">
-Frete escolhido: <strong>${nome} • R$ ${preco.toFixed(2)}</strong>
-</div>`
-);
+document.getElementById("freteEscolhido").innerHTML =
+`Frete escolhido: <strong>${nome} • R$ ${preco.toFixed(2)}</strong>`;
+
 
 }
 
