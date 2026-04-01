@@ -231,7 +231,7 @@ document.querySelectorAll('.opcao').forEach(opcao => {
 flatpickr("#dataInicio", {
   locale: "pt",
   dateFormat: "d/m/Y",
-  minDate: "today",
+  minDate: new Date().fp_incr(3),
   disableMobile: true,
   onChange: function(selectedDates) {
     atualizarDevolucao();
