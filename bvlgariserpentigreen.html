@@ -6,7 +6,13 @@
 
 <title>Bvlgari Serpenti Verde · The Bag Room</title>
 
+<!-- FONTS -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- FLATPICKR -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
 
 <style>
 
@@ -19,23 +25,20 @@ color:#111;
 
 /* HEADER */
 header{
-width:100%;
 padding:18px;
 display:flex;
 justify-content:center;
-align-items:center;
 background:rgba(255,255,255,0.95);
 position:fixed;
-backdrop-filter:blur(10px);
-z-index:999;
+width:100%;
 border-bottom:1px solid #eee;
+z-index:999;
 }
 
 header h1{
 letter-spacing:6px;
 font-size:20px;
 margin:0;
-font-weight:500;
 }
 
 .top-space{height:70px;}
@@ -57,12 +60,7 @@ width:100%;
 border-radius:10px;
 }
 
-/* TEXTOS */
-.nome{
-font-size:28px;
-font-weight:500;
-}
-
+.nome{font-size:28px;}
 .preco{
 font-family:'Inter', sans-serif;
 font-size:18px;
@@ -80,7 +78,6 @@ margin-bottom:20px;
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:10px;
-margin-top:15px;
 }
 
 .opcao{
@@ -89,84 +86,76 @@ padding:12px;
 border-radius:12px;
 cursor:pointer;
 font-family:'Inter', sans-serif;
-font-size:14px;
 display:flex;
 justify-content:center;
-align-items:center;
-transition:0.2s;
 }
 
-.opcao input{
-display:none;
-}
-
-.opcao:hover{
-border-color:#000;
-}
+.opcao input{display:none;}
 
 .opcao.active{
 background:#000;
 color:#fff;
-border-color:#000;
 }
 
 /* INPUT */
 #dataInicio, #cep{
 width:220px;
-padding:8px;
+padding:10px;
 border:none;
 border-bottom:1px solid #ccc;
 background:transparent;
-font-size:13px;
-margin-top:10px;
-font-family:'Inter', sans-serif;
+font-family:'Inter';
 }
 
 /* DEVOLUÇÃO */
 #devolucao{
 margin-top:10px;
-font-size:14px;
-font-family:'Inter', sans-serif;
-color:#444;
+font-family:'Inter';
 }
 
 /* BOTÕES */
 .btn{
-display:block;
 margin-top:25px;
 padding:18px;
 background:#000;
 color:#fff;
 border-radius:40px;
 text-align:center;
-text-decoration:none;
 letter-spacing:4px;
 font-size:12px;
-}
-
-.btn-frete{
-margin-top:12px;
-padding:10px 18px;
-background:#000;
-color:#fff;
-border:none;
-border-radius:20px;
-font-size:11px;
 cursor:pointer;
 }
 
-/* FRETE */
-#freteResultado{
-margin-top:15px;
-font-size:14px;
-font-family:'Inter', sans-serif;
+.btn-frete{
+margin-top:10px;
+padding:10px;
+background:#000;
+color:#fff;
+border-radius:20px;
+border:none;
 }
 
-/* MOBILE */
-@media(max-width:700px){
-.produto{
-grid-template-columns:1fr;
+/* FLATPICKR CUSTOM (luxo) */
+.flatpickr-calendar{
+border-radius:16px;
+font-family:'Inter';
 }
+
+.flatpickr-day.selected{
+background:#000;
+border-color:#000;
+}
+
+.flatpickr-day.today{
+border-color:#000;
+}
+
+.flatpickr-day.disabled{
+color:#ccc;
+}
+
+@media(max-width:700px){
+.produto{grid-template-columns:1fr;}
 }
 
 </style>
@@ -197,51 +186,21 @@ grid-template-columns:1fr;
 
 <!-- OPÇÕES -->
 <div class="opcoes">
-
-<label class="opcao active">
-<input type="radio" name="dias" value="4" checked>
-4 dias • R$ 418,95
-</label>
-
-<label class="opcao">
-<input type="radio" name="dias" value="7">
-7 dias • R$ 485,10
-</label>
-
-<label class="opcao">
-<input type="radio" name="dias" value="10">
-10 dias • R$ 540,75
-</label>
-
-<label class="opcao">
-<input type="radio" name="dias" value="15">
-15 dias • R$ 639,45
-</label>
-
-<label class="opcao">
-<input type="radio" name="dias" value="20">
-20 dias • R$ 705,60
-</label>
-
-<label class="opcao">
-<input type="radio" name="dias" value="30">
-30 dias • R$ 771,75
-</label>
-
+<label class="opcao active"><input type="radio" name="dias" value="4" checked>4 dias • R$ 418,95</label>
+<label class="opcao"><input type="radio" name="dias" value="7">7 dias • R$ 485,10</label>
+<label class="opcao"><input type="radio" name="dias" value="10">10 dias • R$ 540,75</label>
+<label class="opcao"><input type="radio" name="dias" value="15">15 dias • R$ 639,45</label>
+<label class="opcao"><input type="radio" name="dias" value="20">20 dias • R$ 705,60</label>
+<label class="opcao"><input type="radio" name="dias" value="30">30 dias • R$ 771,75</label>
 </div>
 
-<!-- DATA -->
-<div style="margin-top:20px;">
-  
-<div style="font-family:'Inter', sans-serif; font-size:12px; color:#888;">
-Data de recebimento
-</div>
+<br>
 
-<input type="date" id="dataInicio">
-
-</div>
+<input type="text" id="dataInicio" placeholder="Selecione a data">
 
 <div id="devolucao"></div>
+
+<br>
 
 <input type="text" id="cep" placeholder="Digite seu CEP">
 
@@ -249,7 +208,7 @@ Data de recebimento
 
 <div id="freteResultado"></div>
 
-<a class="btn" onclick="alugar()">ALUGAR AGORA</a>
+<div class="btn" onclick="alugar()">ALUGAR AGORA</div>
 
 </div>
 
@@ -259,7 +218,7 @@ Data de recebimento
 
 <script>
 
-/* seleção visual */
+/* seleção */
 document.querySelectorAll('.opcao').forEach(opcao => {
   opcao.addEventListener('click', () => {
     document.querySelectorAll('.opcao').forEach(o => o.classList.remove('active'));
@@ -268,25 +227,28 @@ document.querySelectorAll('.opcao').forEach(opcao => {
   });
 });
 
-/* bloquear passado (permitir hoje) */
-let hoje = new Date();
-let ano = hoje.getFullYear();
-let mes = String(hoje.getMonth() + 1).padStart(2, '0');
-let dia = String(hoje.getDate()).padStart(2, '0');
+/* calendário luxo */
+flatpickr("#dataInicio", {
+  locale: "pt",
+  dateFormat: "d/m/Y",
+  minDate: "today",
+  disableMobile: true,
+  onChange: function(selectedDates) {
+    atualizarDevolucao();
+  }
+});
 
-let minDate = `${ano}-${mes}-${dia}`;
-
-document.getElementById("dataInicio").setAttribute("min", minDate);
-
-/* calcular devolução */
+/* devolução */
 function atualizarDevolucao(){
 
-let inicio = document.getElementById('dataInicio').value;
 let dias = document.querySelector('input[name="dias"]:checked');
+let dataInput = document.getElementById('dataInicio').value;
 
-if(!inicio || !dias) return;
+if(!dias || !dataInput) return;
 
-let data = new Date(inicio);
+let partes = dataInput.split("/");
+let data = new Date(partes[2], partes[1]-1, partes[0]);
+
 data.setDate(data.getDate() + parseInt(dias.value));
 
 let formatada = data.toLocaleDateString('pt-BR', {
@@ -297,36 +259,6 @@ month:'long'
 document.getElementById('devolucao').innerHTML =
 `Devolução prevista: <strong>${formatada}</strong>`;
 }
-
-let ultimaDataValida = "";
-
-document.getElementById('dataInicio').addEventListener('change', function(){
-
-  if(!this.value) return;
-
-  // evita bug do iPhone
-  if(this.value === ultimaDataValida) return;
-
-  let hoje = new Date();
-  hoje.setHours(0,0,0,0);
-
-  let dataSelecionada = new Date(this.value);
-
-  if(dataSelecionada < hoje){
-    
-    alert("Selecione hoje ou uma data futura");
-
-    this.value = "";
-    document.getElementById('devolucao').innerHTML = "";
-
-    return;
-  }
-
-  ultimaDataValida = this.value;
-
-  atualizarDevolucao();
-
-});
 
 /* frete */
 async function calcularFrete(){
@@ -340,8 +272,6 @@ return;
 }
 
 resultado.innerHTML = "Calculando...";
-
-try{
 
 let response = await fetch("https://thebagroomtest.onrender.com/frete", {
 method:"POST",
@@ -361,26 +291,21 @@ html += `<div>${frete.name} • R$ ${parseFloat(frete.price).toFixed(2)} • ${f
 });
 
 resultado.innerHTML = html || "Nenhuma opção disponível";
-
-}catch(e){
-resultado.innerHTML = "Erro ao calcular frete";
-}
-
 }
 
 /* whatsapp */
 function alugar(){
 
 let dias = document.querySelector('input[name="dias"]:checked').value;
-let inicio = document.getElementById('dataInicio').value;
+let data = document.getElementById('dataInicio').value;
 
-if(!inicio){
+if(!data){
 alert("Escolha a data");
 return;
 }
 
 let mensagem = `Olá! Quero alugar a Bvlgari Serpenti Verde
-Data: ${inicio}
+Data: ${data}
 Período: ${dias} dias`;
 
 window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
