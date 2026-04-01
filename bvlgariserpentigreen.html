@@ -310,15 +310,17 @@ function selecionarFrete(nome, preco, prazo){
 
 freteSelecionado = { nome, preco, prazo };
 
+// limpa bordas
 document.querySelectorAll('.frete-opcao').forEach(el=>{
 el.style.border = "1px solid #ddd";
 });
 
+// marca selecionado
 event.currentTarget.style.border = "1px solid #000";
 
+// 🔥 NÃO DUPLICA MAIS
 document.getElementById("freteEscolhido").innerHTML =
 `Frete escolhido: <strong>${nome} • R$ ${preco.toFixed(2)}</strong>`;
-
 
 }
 
