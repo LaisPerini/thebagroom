@@ -57,12 +57,19 @@ width:100%;
 border-radius:10px;
 }
 
-.nome{font-size:28px;}
+.nome{
+font-size:32px;
+line-height:1.2;
+margin-top:10px;
+margin-bottom:8px;
+}
 
 .preco{
 font-family:'Inter', sans-serif;
 font-size:18px;
 margin:10px 0;
+letter-spacing:0.5px;
+color:#444;
 }
 
 .desc{
@@ -109,15 +116,21 @@ font-family:'Inter';
 }
 
 .btn{
-margin-top:25px;
-padding:18px;
-background:#000;
+margin-top:30px;
+padding:20px;
+background:linear-gradient(180deg,#111,#000);
 color:#fff;
-border-radius:40px;
+border-radius:50px;
 text-align:center;
-letter-spacing:4px;
-font-size:12px;
+letter-spacing:6px;
+font-size:11px;
 cursor:pointer;
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+transition:0.3s;
+}
+
+.btn:active{
+transform:scale(0.97);
 }
 
 .btn-frete{
@@ -166,6 +179,8 @@ position:relative;
 overflow:hidden;
 border-radius:18px;
 width:100%;
+margin-top:10px;
+margin-bottom:20px;
 }
 
 
