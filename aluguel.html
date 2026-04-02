@@ -12,7 +12,7 @@
 
 body{
 margin:0;
-background:#faf9f7;
+background:#f6f5f3;
 font-family:'Cormorant Garamond', serif;
 color:#000;
 }
@@ -37,6 +37,7 @@ font-size:22px;
 margin:0;
 }
 
+/* ESPAÇO */
 .top-space{
 height:70px;
 }
@@ -51,15 +52,15 @@ max-width:1000px;
 margin:0 auto;
 }
 
-/* CARD CLICÁVEL */
+/* CARD */
 .card{
 text-decoration:none;
 color:inherit;
 display:block;
-transition:0.3s ease;
+transition:all 0.3s ease;
 }
 
-/* LEVE MOVIMENTO */
+/* MOVIMENTO LUXO */
 .card:hover{
 transform:translateY(-6px);
 }
@@ -68,14 +69,14 @@ transform:translateY(-6px);
 .img-box{
 position:relative;
 overflow:hidden;
-border-radius:6px;
+border-radius:10px;
 }
 
 .card img{
 width:100%;
 height:260px;
 object-fit:cover;
-transition:0.5s ease;
+transition:0.6s ease;
 }
 
 /* ZOOM SUAVE */
@@ -87,10 +88,11 @@ transform:scale(1.05);
 .nome{
 margin-top:12px;
 font-size:18px;
+letter-spacing:0.3px;
 }
 
 .preco{
-font-size:16px;
+font-size:15px;
 color:#666;
 margin-top:4px;
 }
@@ -100,11 +102,24 @@ margin-top:4px;
 position:absolute;
 top:10px;
 left:10px;
-font-size:12px;
-color:#999;
-background:rgba(255,255,255,0.8);
-padding:4px 8px;
+font-size:11px;
+color:#555;
+background:rgba(255,255,255,0.9);
+padding:5px 10px;
 border-radius:20px;
+backdrop-filter:blur(5px);
+}
+
+/* MOBILE */
+@media(max-width:700px){
+.grid{
+grid-template-columns:1fr 1fr;
+gap:18px;
+padding:15px;
+}
+.card img{
+height:200px;
+}
 }
 
 </style>
@@ -121,7 +136,7 @@ border-radius:20px;
 <div class="grid">
 
 <!-- PRODUTO 1 -->
-<a href="serpenti-verde.html" class="card">
+<a href="https://www.thebagroom.com.br/bvlgariserpentigreen.html" class="card">
 
 <div class="img-box">
 <span class="tag">Disponível</span>
@@ -134,7 +149,7 @@ border-radius:20px;
 </a>
 
 <!-- PRODUTO 2 -->
-<a href="chanel-classic.html" class="card">
+<a href="https://www.thebagroom.com.br/chanelclassic.html" class="card">
 
 <div class="img-box">
 <span class="tag">Disponível</span>
