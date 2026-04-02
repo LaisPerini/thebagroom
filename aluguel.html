@@ -12,14 +12,19 @@
 
 body{
 margin:0;
-background:#f7f6f4;
+background:#f5f4f2;
 font-family:'Playfair Display', serif;
 color:#111;
 }
 
-
+/* remove flash iOS */
 *{
 -webkit-tap-highlight-color:transparent;
+}
+
+/* scroll suave */
+html{
+scroll-behavior:smooth;
 }
 
 /* HEADER */
@@ -46,15 +51,19 @@ margin:0;
 max-width:900px;
 margin:auto;
 padding:20px;
+animation:fadeUp 0.6s ease;
 }
 
-/* HERO GRANDE */
+/* HERO */
 .hero{
-transition:all 0.4s ease;
 margin-bottom:50px;
-padding-bottom:10px;
 border-bottom:1px solid #eee;
-padding-bottom:1px;
+padding-bottom:10px;
+transition:transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero:active{
+transform:scale(0.97);
 }
 
 .hero img{
@@ -62,14 +71,18 @@ width:100%;
 border-radius:20px;
 aspect-ratio:4/5;
 object-fit:cover;
-transition:transform 0.6s ease;
+transition:transform 0.5s ease;
+}
+
+.hero:active img{
+transform:scale(0.98);
 }
 
 .hero .nome{
-font-size:18px;
+font-size:17px;
 font-weight:500;
-letter-spacing:0.5px;
-margin-top:14px
+letter-spacing:0.4px;
+margin-top:14px;
 }
 
 .hero .preco{
@@ -79,42 +92,41 @@ font-size:14px;
 margin-top:4px;
 }
 
-/* GRID MENOR */
+/* GRID */
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:28px 14px;
-margin-top:40px;
+margin-top:36px;
 }
 
-.card:active, .hero:active{
-transform:scale(0.97);
-}
-
-html{
-scroll-behavior:smooth;
-}
-
-
+/* CARD */
 .card{
 text-decoration:none;
 color:inherit;
 display:block;
-transition:all 0.4s ease;
+transition:transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.card:hover img{
-transform:scale(1.04);
+/* toque premium */
+.card:active{
+transform:scale(0.95);
 }
 
+/* imagem responde */
 .card img{
 width:100%;
 border-radius:16px;
 aspect-ratio:4/5;
 object-fit:cover;
-transition:transform 0.6s ease;
+transition:transform 0.45s ease;
 }
 
+.card:active img{
+transform:scale(0.97);
+}
+
+/* nome e preço */
 .nome{
 margin-top:12px;
 margin-bottom:4px;
@@ -136,39 +148,30 @@ position:absolute;
 top:10px;
 left:10px;
 font-size:10px;
-padding:5px 12px;
+padding:6px 14px;
 border-radius:20px;
-background:rgba(255,255,255,0.9);
-color:#666;
+background:rgba(255,255,255,0.85);
+color:#555;
+backdrop-filter:blur(6px);
 }
 
+/* imagem container */
 .img-box{
-transition:transform 0.4s ease;
+position:relative;
+overflow:hidden;
+border-radius:16px;
 }
 
-.card:active .img-box{
-transform:scale(0.98);
-}
-
-
-/* MOBILE */
-@media(max-width:700px){
-.hero .nome{font-size:18px;}
-}
-
+/* links limpos */
 a,
 a:visited,
 a:hover,
 a:active{
 color:#111;
 text-decoration:none;
--webkit-tap-highlight-color:transparent;
 }
 
-.container{
-animation:fadeUp 0.6s ease;
-}
-
+/* animação entrada */
 @keyframes fadeUp{
 from{
 opacity:0;
@@ -178,6 +181,11 @@ to{
 opacity:1;
 transform:translateY(0);
 }
+}
+
+/* MOBILE */
+@media(max-width:700px){
+.hero .nome{font-size:17px;}
 }
 
 </style>
@@ -193,7 +201,7 @@ transform:translateY(0);
 
 <div class="container">
 
-<!-- HERO (DESTAQUE) -->
+<!-- HERO -->
 <a href="https://www.thebagroom.com.br/bvlgariserpentigreen.html" class="hero">
 
   <div class="img-box">
@@ -206,7 +214,7 @@ transform:translateY(0);
 
 </a>
 
-<!-- RESTANTE -->
+<!-- GRID -->
 <div class="grid">
 
 <a href="https://www.thebagroom.com.br/bvlgariserpentigreen.html" class="card">
