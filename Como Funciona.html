@@ -17,6 +17,7 @@
 
 body{
 margin:0;
+padding: 0;
 background:#f5f4f2;
 font-family:'Playfair Display', serif;
 color:#111;
@@ -33,6 +34,11 @@ width:100%;
 align-items:center;
 border-bottom:1px solid #eee;
 z-index:999;
+padding-top: env(safe-area-inset-top);
+}
+
+.top-space{
+  height:90px;
 }
 
 header h1{
