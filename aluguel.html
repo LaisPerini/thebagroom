@@ -14,123 +14,114 @@ body{
 margin:0;
 background:#f7f6f4;
 font-family:'Playfair Display', serif;
-color:#000;
+color:#111;
 }
 
 /* HEADER */
 header{
-width:100%;
 padding:18px;
 display:flex;
 justify-content:center;
-align-items:center;
 background:rgba(255,255,255,0.95);
 position:fixed;
-backdrop-filter:blur(10px);
-z-index:999;
+width:100%;
 border-bottom:1px solid #eee;
+z-index:999;
 }
 
 header h1{
-letter-spacing:10px;
+letter-spacing:6px;
 font-size:20px;
 margin:0;
 }
 
-/* ESPAÇO */
-.top-space{
-height:70px;
+.top-space{height:70px;}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
 }
 
-.preco{
-font-family:'Inter', sans-serif;
-font-size:13px;
-color:#8a8a8a;
-margin-top:2px;
-letter-spacing:0.2px;
+/* HERO GRANDE */
+.hero{
+margin-bottom:40px;
 }
 
-.nome{
-margin-top:8px;
-font-size:16px;
-letter-spacing:0.2px;
-line-height:1.3;
+.hero img{
+width:100%;
+border-radius:20px;
+aspect-ratio:4/5;
+object-fit:cover;
+}
+
+.hero .nome{
+font-size:20px;
+margin-top:14px;
 font-weight:600;
 }
 
-/* GRID */
+.hero .preco{
+font-family:'Inter';
+color:#888;
+font-size:14px;
+margin-top:4px;
+}
+
+/* GRID MENOR */
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:36px;
-padding:16px 18px 40px;
-max-width:900px;
-margin:0 auto;
+gap:30px 18px;
 }
 
-/* CARD */
 .card{
 text-decoration:none;
 color:inherit;
 display:block;
-transition:all 0.3s ease;
-
-}
-
-/* MOVIMENTO LUXO */
-.card:hover{
-transform:translateY(-6px);
-}
-
-/* IMAGEM */
-.img-box{
-border-radius:14px;
-overflow:hidden;
-background:#fff;
-box-shadow:0 8px 30px rgba(0,0,0,0.05);
 }
 
 .card img{
 width:100%;
-height:260px;
-object-fit:cover;
-transition:0.6s ease;
-width:100%;
+border-radius:16px;
 aspect-ratio:4/5;
-
+object-fit:cover;
 }
 
-/* ZOOM SUAVE */
-.card:hover img{
-transform:scale(1.05);
+.nome{
+margin-top:10px;
+font-size:14px;
+font-weight:600;
 }
 
 .preco{
-font-size:15px;
-color:#666;
-margin-top:4px;
+font-family:'Inter';
+font-size:13px;
+color:#8a8a8a;
+margin-top:2px;
 }
 
 /* TAG */
 .tag{
+position:absolute;
+top:10px;
+left:10px;
 font-size:10px;
 padding:5px 12px;
 border-radius:20px;
-background:rgba(255,255,255,0.85);
+background:rgba(255,255,255,0.9);
 color:#666;
-backdrop-filter:blur(6px);
+}
+
+.img-box{
+position:relative;
+overflow:hidden;
+border-radius:16px;
 }
 
 /* MOBILE */
 @media(max-width:700px){
-.grid{
-grid-template-columns:1fr 1fr;
-gap:18px;
-padding:15px;
-}
-.card img{
-height:200px;
-}
+.hero .nome{font-size:18px;}
 }
 
 </style>
@@ -144,111 +135,61 @@ height:200px;
 
 <div class="top-space"></div>
 
+<div class="container">
+
+<!-- HERO (DESTAQUE) -->
+<a href="https://www.thebagroom.com.br/bvlgariserpentigreen.html" class="hero">
+
+  <div class="img-box">
+    <span class="tag">Destaque</span>
+    <img src="https://i.imgur.com/moxJous.jpg">
+  </div>
+
+  <div class="nome">Bvlgari Serpenti Verde</div>
+  <div class="preco">A partir de R$ 290</div>
+
+</a>
+
+<!-- RESTANTE -->
 <div class="grid">
 
-<!-- PRODUTO 1 -->
 <a href="https://www.thebagroom.com.br/bvlgariserpentigreen.html" class="card">
-
-<div class="img-box">
-<span class="tag">Disponível</span>
-<img src="https://i.imgur.com/moxJous.jpg">
-</div>
-
-<div class="nome">Bvlgari Serpenti Verde</div>
-<div class="preco">A partir de R$ 290</div>
-
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/moxJous.jpg">
+  </div>
+  <div class="nome">Bvlgari Serpenti Verde</div>
+  <div class="preco">A partir de R$ 290</div>
 </a>
 
-<!-- PRODUTO 2 -->
-<a href="https://www.thebagroom.com.br/chanelclassic.html" class="card">
-
-<div class="img-box">
-<span class="tag">Disponível</span>
-<img src="https://i.imgur.com/zYxDCQTl.jpg">
-</div>
-
-<div class="nome">Chanel Classic</div>
-<div class="preco">A partir de R$ 350</div>
-
+<a href="#" class="card">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/zYxDCQTl.jpg">
+  </div>
+  <div class="nome">Chanel Classic</div>
+  <div class="preco">A partir de R$ 350</div>
 </a>
 
-<!-- PRODUTO 3 -->
-<a href="https://www.thebagroom.com.br/bvlgariserpentigreen.html" class="card">
-
-<div class="img-box">
-<span class="tag">Disponível</span>
-<img src="https://i.imgur.com/moxJous.jpg">
-</div>
-
-<div class="nome">Bvlgari Serpenti Verde</div>
-<div class="preco">A partir de R$ 290</div>
-
+<a href="#" class="card">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/moxJous.jpg">
+  </div>
+  <div class="nome">Bvlgari Serpenti Verde</div>
+  <div class="preco">A partir de R$ 290</div>
 </a>
 
-<!-- PRODUTO 4 -->
-<a href="https://www.thebagroom.com.br/bvlgariserpentigreen.html" class="card">
-
-<div class="img-box">
-<span class="tag">Disponível</span>
-<img src="https://i.imgur.com/moxJous.jpg">
-</div>
-
-<div class="nome">Bvlgari Serpenti Verde</div>
-<div class="preco">A partir de R$ 290</div>
-
+<a href="#" class="card">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/moxJous.jpg">
+  </div>
+  <div class="nome">Bvlgari Serpenti Verde</div>
+  <div class="preco">A partir de R$ 290</div>
 </a>
 
-<!-- PRODUTO 5 -->
-<a href="https://www.thebagroom.com.br/bvlgariserpentigreen.html" class="card">
-
-<div class="img-box">
-<span class="tag">Disponível</span>
-<img src="https://i.imgur.com/moxJous.jpg">
 </div>
-
-<div class="nome">Bvlgari Serpenti Verde</div>
-<div class="preco">A partir de R$ 290</div>
-
-</a>
-
-<!-- PRODUTO 6 -->
-<a href="https://www.thebagroom.com.br/bvlgariserpentigreen.html" class="card">
-
-<div class="img-box">
-<span class="tag">Disponível</span>
-<img src="https://i.imgur.com/moxJous.jpg">
-</div>
-
-<div class="nome">Bvlgari Serpenti Verde</div>
-<div class="preco">A partir de R$ 290</div>
-
-</a>
-
-<!-- PRODUTO 7 -->
-<a href="https://www.thebagroom.com.br/bvlgariserpentigreen.html" class="card">
-
-<div class="img-box">
-<span class="tag">Disponível</span>
-<img src="https://i.imgur.com/moxJous.jpg">
-</div>
-
-<div class="nome">Bvlgari Serpenti Verde</div>
-<div class="preco">A partir de R$ 290</div>
-
-</a>
-
-<!-- PRODUTO 8 -->
-<a href="https://www.thebagroom.com.br/bvlgariserpentigreen.html" class="card">
-
-<div class="img-box">
-<span class="tag">Disponível</span>
-<img src="https://i.imgur.com/moxJous.jpg">
-</div>
-
-<div class="nome">Bvlgari Serpenti Verde</div>
-<div class="preco">A partir de R$ 290</div>
-
-</a>
 
 </div>
 
