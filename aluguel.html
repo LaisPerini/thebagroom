@@ -3,65 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como Funciona · The Bag Room</title>
 
-<title>Catálogo · The Bag Room</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 
+/* BASE */
+{box-sizing:border-box;}
 body{
 margin:0;
-background:#f5f4f2;
-font-family:'Playfair Display', serif;
-color:#111;
+background:#faf9f7;
+font-family:'Inter', sans-serif;
+color:#000;
 }
 
-{ -webkit-tap-highlight-color:transparent; }
-
-html{ scroll-behavior:smooth; }
-
-/ ================= HEADER ================= /
+/ HEADER /
 header{
+width:100%;
 padding:18px;
 display:flex;
 justify-content:center;
 align-items:center;
-background:rgba(255,255,255,0.95);
+background:rgba(255,255,255,0.96);
 position:fixed;
-width:100%;
-border-bottom:1px solid #eee;
 z-index:999;
+border-bottom:1px solid rgba(0,0,0,0.05);
+backdrop-filter:blur(10px);
 }
 
 header h1{
 letter-spacing:6px;
 font-family:'Cormorant Garamond', serif;
-font-size:20px;
+font-size:22px;
 margin:0;
 }
 
 / BOTÃO MENU /
 .menu-mobile-btn{
 position:absolute;
-left:16px;
+left:18px;
 top:50%;
 transform:translateY(-50%);
 font-size:22px;
 cursor:pointer;
 }
 
-/ MENU /
+/ MENU PREMIUM /
 .menu-mobile{
 position:fixed;
 top:0;
 left:-100%;
-width:80%;
+width:85%;
 max-width:320px;
 height:100vh;
 background:rgba(255,255,255,0.98);
 backdrop-filter:blur(14px);
-transition:0.4s cubic-bezier(0.22,1,0.36,1);
+transition:0.45s cubic-bezier(0.22,1,0.36,1);
 z-index:2000;
 padding-top:100px;
 }
@@ -70,10 +68,20 @@ padding-top:100px;
 left:0;
 }
 
+/ FECHAR /
+.close-menu{
+position:absolute;
+top:24px;
+right:24px;
+font-size:30px;
+cursor:pointer;
+}
+
+/ LINKS /
 .menu-mobile-inner{
 display:flex;
 flex-direction:column;
-gap:28px;
+gap:26px;
 padding-left:30px;
 }
 
@@ -83,170 +91,155 @@ font-size:22px;
 letter-spacing:1px;
 text-decoration:none;
 color:#000;
-}
-
-.close-menu{
-position:absolute;
-top:25px;
-right:25px;
-font-size:32px;
-cursor:pointer;
-}
-
-/ ================= CONTAINER ================= /
-.top-space{height:70px;}
-
-.container{
-max-width:900px;
-margin:auto;
-padding:20px;
-}
-
-/ ================= HERO ================= /
-.hero{
-margin-bottom:50px;
-border-bottom:1px solid #eee;
-padding-bottom:12px;
 transition:0.3s;
 }
 
-.hero:active{ transform:scale(0.97); }
+.menu-mobile-inner a:hover{
+opacity:0.6;
+}
 
-.hero img{
+/ HERO /
+.internal-title{
 width:100%;
-border-radius:20px;
-aspect-ratio:4/5;
-object-fit:cover;
-}
-
-.hero .nome{
-font-size:17px;
-margin-top:14px;
-font-weight:500;
-}
-
-.hero .preco{
-font-family:'Inter';
-color:#888;
-font-size:14px;
-}
-
-/ ================= GRID ================= /
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:28px 14px;
-}
-
-/ CARD /
-.card{
-text-decoration:none;
-color:inherit;
-display:block;
-transition:0.3s;
-}
-
-.card:active{ transform:scale(0.95); }
-
-.card img{
-width:100%;
-border-radius:16px;
-aspect-ratio:4/5;
-object-fit:cover;
-}
-
-.nome{
-margin-top:12px;
-font-size:13.5px;
-font-weight:600;
-}
-
-.preco{
-font-family:'Inter';
-font-size:13px;
-color:#8a8a8a;
-}
-
-/ TAG /
-.tag{
-position:absolute;
-top:10px;
-left:10px;
-font-size:10px;
-padding:6px 14px;
-border-radius:20px;
-background:rgba(255,255,255,0.9);
-}
-
-.img-box{
+height:60vh;
+background:url('https://i.imgur.com/cEmhXKD.jpeg') center/cover;
+display:flex;
+align-items:center;
+justify-content:center;
 position:relative;
 }
 
-/ LINKS */
-a{ text-decoration:none; color:#111; }
+.internal-title::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+}
+
+.internal-title h2{
+position:relative;
+z-index:2;
+font-family:'Cormorant Garamond', serif;
+font-size:36px;
+color:#fff;
+letter-spacing:4px;
+}
+
+/ CONTEÚDO /
+.page-wrapper{
+padding-top:80px;
+}
+
+.content-box{
+max-width:900px;
+margin:40px auto;
+padding:26px;
+background:#fff;
+border-radius:16px;
+box-shadow:0 4px 14px rgba(0,0,0,0.05);
+}
+
+.content-box h3{
+font-family:'Cormorant Garamond', serif;
+font-size:26px;
+margin-top:20px;
+}
+
+.step-number{
+font-size:34px;
+margin-right:10px;
+}
+
+.content-box p{
+line-height:1.7;
+}
+
+.content-box ul{
+padding-left:18px;
+}
+
+.content-box li{
+line-height:1.7;
+}
+
+/ BOTÃO /
+.whats-btn{
+display:block;
+background:#000;
+color:#fff;
+padding:20px;
+border-radius:40px;
+text-align:center;
+letter-spacing:6px;
+font-size:11px;
+margin:40px auto;
+max-width:300px;
+text-decoration:none;
+}
+
+/ FOOTER */
+footer{
+text-align:center;
+padding:30px;
+opacity:0.5;
+}
 
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header>
-  <h1>THE BAG ROOM</h1>
+<h1>THE BAG ROOM</h1>
+<div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
 
-  <div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
+<nav class="menu-mobile" id="menuMobile">
+<div class="close-menu" onclick="toggleMenuMobile()">×</div>
 
-  <nav class="menu-mobile" id="menuMobile">
-    <div class="close-menu" onclick="toggleMenuMobile()">×</div>
-
-    <div class="menu-mobile-inner">
-      <a href="index.html">Início</a>
-      <a href="catalogo.html">Catálogo</a>
-      <a href="Como Funciona.html">Como Desapegar</a>
-      <a href="autenticidade.html">Autenticidade</a>
-      <a href="quem-somos.html">Sobre</a>
-    </div>
-  </nav>
+<div class="menu-mobile-inner">
+<a href="index.html">Início</a>
+<a href="catalogo.html">Catálogo</a>
+<a href="Como Funciona.html">Como Desapegar</a>
+<a href="autenticidade.html">Autenticidade</a>
+<a href="quem-somos.html">Sobre</a>
+</div>
+</nav>
 </header>
 
-<div class="top-space"></div>
+<section class="internal-title">
+<h2>COMO DESAPEGAR</h2>
+</section>
 
-<div class="container">
+<div class="page-wrapper">
+<div class="content-box">
 
-<!-- HERO -->
-<a href="https://www.thebagroom.com.br/bvlgariserpentigreen.html" class="hero">
-  <div class="img-box">
-    <span class="tag">Destaque</span>
-    <img src="https://i.imgur.com/moxJous.jpg">
-  </div>
-  <div class="nome">Bvlgari Serpenti Verde</div>
-  <div class="preco">A partir de R$ 290</div>
-</a>
+<h3><span class="step-number">1</span> Entre em contato</h3>
+<p>Envie fotos e informações da peça pelo WhatsApp.</p>
 
-<!-- GRID -->
-<div class="grid">
+<h3><span class="step-number">2</span> Autenticidade</h3>
+<p>Todas as peças passam por análise completa.</p>
 
-<a href="https://www.thebagroom.com.br/bvlgariserpentigreen.html" class="card">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img src="https://i.imgur.com/moxJous.jpg">
-  </div>
-  <div class="nome">Bvlgari Serpenti Verde</div>
-  <div class="preco">A partir de R$ 290</div>
-</a>
+<h3><span class="step-number">3</span> Envio da peça</h3>
+<p>Você envia para nossa curadoria.</p>
 
-<a href="#" class="card">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img src="https://i.imgur.com/zYxDCQTl.jpg">
-  </div>
-  <div class="nome">Chanel Classic</div>
-  <div class="preco">A partir de R$ 350</div>
-</a>
+<h3><span class="step-number">4</span> Fotos profissionais</h3>
+<p>Produção padrão editorial.</p>
+
+<h3><span class="step-number">5</span> Divulgação</h3>
+<p>Publicamos no site e redes.</p>
+
+<h3><span class="step-number">6</span> Repasse</h3>
+<p>Pagamento em até 7 dias.</p>
 
 </div>
-
 </div>
+
+<a href="#" class="whats-btn">DESAPEGUE JÁ</a>
+
+<footer>
+© 2025 The Bag Room
+</footer>
 
 <script>
 function toggleMenuMobile(){
