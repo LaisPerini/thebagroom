@@ -188,13 +188,90 @@ transform:translateY(0);
 .hero .nome{font-size:17px;}
 }
 
+/* BOTÃO MENU */
+.menu-mobile-btn{
+position:absolute;
+left:16px;
+top:50%;
+transform:translateY(-50%);
+font-size:22px;
+cursor:pointer;
+}
+
+/* MENU LATERAL PREMIUM */
+.menu-mobile{
+position:fixed;
+top:0;
+left:-100%;
+width:85%;
+max-width:320px;
+height:100vh;
+background:rgba(255,255,255,0.98);
+backdrop-filter:blur(14px);
+transition:0.45s cubic-bezier(0.22,1,0.36,1);
+z-index:2000;
+padding-top:100px;
+}
+
+.menu-mobile.open{
+left:0;
+}
+
+/* FECHAR */
+.close-menu{
+position:absolute;
+top:24px;
+right:24px;
+font-size:30px;
+cursor:pointer;
+}
+
+/* LINKS */
+.menu-mobile-inner{
+display:flex;
+flex-direction:column;
+gap:26px;
+padding-left:30px;
+}
+
+.menu-mobile-inner a{
+font-family:'Cormorant Garamond', serif;
+font-size:22px;
+letter-spacing:1px;
+text-decoration:none;
+color:#000;
+transition:0.3s;
+}
+
+.menu-mobile-inner a:hover{
+opacity:0.6;
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>THE BAG ROOM</h1>
+  <h1>THE BAG ROOM</h1>
+
+  <!-- botão menu -->
+  <div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
+
+  <!-- menu lateral -->
+  <nav class="menu-mobile" id="menuMobile">
+
+    <div class="close-menu" onclick="toggleMenuMobile()">×</div>
+
+    <div class="menu-mobile-inner">
+      <a href="index.html">Início</a>
+      <a href="catalogo.html">Catálogo</a>
+      <a href="Como Funciona.html">Como Desapegar</a>
+      <a href="autenticidade.html">Autenticidade</a>
+      <a href="quem-somos.html">Sobre</a>
+    </div>
+
+  </nav>
 </header>
 
 <div class="top-space"></div>
@@ -256,6 +333,13 @@ transform:translateY(0);
 </div>
 
 </div>
+
+<script>
+function toggleMenuMobile(){
+  document.getElementById('menuMobile').classList.toggle('open');
+}
+</script>
+
 
 </body>
 </html>
