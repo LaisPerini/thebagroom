@@ -17,17 +17,9 @@ font-family:'Playfair Display', serif;
 color:#111;
 }
 
-/* remove flash iOS */
-*{
--webkit-tap-highlight-color:transparent;
-}
+{-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
 
-/* scroll suave */
-html{
-scroll-behavior:smooth;
-}
-
-/* HEADER */
 header{
 padding:18px;
 display:flex;
@@ -51,19 +43,10 @@ margin:0;
 max-width:900px;
 margin:auto;
 padding:20px;
-animation:fadeUp 0.6s ease;
 }
 
-/* HERO */
 .hero{
-margin-bottom:50px;
-border-bottom:1px solid #eee;
-padding-bottom:10px;
-transition:transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.hero:active{
-transform:scale(0.97);
+margin-bottom:40px;
 }
 
 .hero img{
@@ -71,245 +54,66 @@ width:100%;
 border-radius:20px;
 aspect-ratio:4/5;
 object-fit:cover;
-transition:transform 0.5s ease;
 }
 
-.hero:active img{
-transform:scale(0.98);
-}
-
-.hero .nome{
-font-size:17px;
-font-weight:500;
-letter-spacing:0.4px;
-margin-top:14px;
-}
-
-.hero .preco{
-font-family:'Inter';
-color:#888;
-font-size:14px;
-margin-top:4px;
-}
-
-/* GRID */
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:28px 14px;
-margin-top:36px;
+gap:25px 14px;
 }
 
-/* CARD */
 .card{
-text-decoration:none;
-color:inherit;
 display:block;
-transition:transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-display:flex;
-flex-direction:column;
+text-decoration:none;
+color:#111;
 }
 
-/* toque premium */
-.card:active{
-transform:scale(0.95);
-}
-
-/* imagem responde */
 .card img{
 width:100%;
 border-radius:16px;
 aspect-ratio:4/5;
 object-fit:cover;
-transition:transform 0.45s ease;
 }
 
-.card:active img{
-transform:scale(0.97);
-}
-
-/* nome e preço */
 .nome{
-margin-top:12px;
-margin-bottom:4px;
-font-size:13.5px;
-line-height:1.4;
+margin-top:10px;
+display:flex;
+flex-direction:column;
+}
+
+.marca{
+font-size:16px;
 font-weight:600;
+}
+
+.modelo{
+font-size:14px;
+color:#555;
 }
 
 .preco{
 font-family:'Inter';
 font-size:13px;
-color:#8a8a8a;
-margin-top:2px;
+color:#777;
 }
 
-/* TAG */
-.tag{
-position:absolute;
-top:12px;
-left:12px;
-
-background:rgba(255,255,255,0.85);
-color:#333;
-border:1px solid #e8e8e8;
-backdrop-filter:blur(6px);
-
-font-size:10px;
-padding:5px 10px;
-border-radius:8px;
-
-letter-spacing:0.3px;
-}
-
-/* imagem container */
-.img-box{
-position:relative;
-overflow:hidden;
-border-radius:16px;
-}
-
-/* links limpos */
-a,
-a:visited,
-a:hover,
-a:active{
-color:#111;
-text-decoration:none;
-}
-
-/* animação entrada */
-@keyframes fadeUp{
-from{
-opacity:0;
-transform:translateY(10px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* MOBILE */
-@media(max-width:700px){
-.hero .nome{font-size:17px;}
-}
-
-/* BOTÃO MENU */
-.menu-mobile-btn{
-position:absolute;
-left:16px;
-top:50%;
-transform:translateY(-50%);
-font-size:22px;
-cursor:pointer;
-}
-
-/* MENU LATERAL PREMIUM */
-.menu-mobile{
-position:fixed;
-top:0;
-left:-100%;
-width:85%;
-max-width:320px;
-height:100vh;
-background:rgba(255,255,255,0.98);
-backdrop-filter:blur(14px);
-transition:0.45s cubic-bezier(0.22,1,0.36,1);
-z-index:2000;
-padding-top:100px;
-}
-
-.menu-mobile.open{
-left:0;
-}
-
-/* FECHAR */
-.close-menu{
-position:absolute;
-top:24px;
-right:24px;
-font-size:30px;
-cursor:pointer;
-}
-
-/* LINKS */
-.menu-mobile-inner{
+/ ===== BARRA ===== /
+.barra-filtros{
 display:flex;
-flex-direction:column;
-gap:26px;
-padding-left:30px;
+gap:10px;
+margin-bottom:20px;
 }
 
-.menu-mobile-inner a{
-font-family:'Cormorant Garamond', serif;
-font-size:22px;
-letter-spacing:1px;
-text-decoration:none;
-color:#000;
-transition:0.3s;
+.barra-filtros button,
+.barra-filtros select{
+flex:1;
+padding:12px;
+border-radius:10px;
+border:1px solid #ddd;
+background:#fff;
 }
 
-.menu-mobile-inner a:hover{
-opacity:0.6;
-}
-
-/* ===== SLIDER PREMIUM ===== */
-.img-box.slider{
-position:relative;
-overflow:hidden;
-border-radius:20px;
-aspect-ratio:4/5;
-}
-
-/* slides */
-.slide{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-object-fit:cover;
-opacity:0;
-transition:opacity 1.2s ease, transform 6s ease;
-transform:scale(1);
-}
-
-/* slide ativo */
-.slide.active{
-opacity:1;
-z-index:2;
-animation:zoomSlow 6s ease forwards;
-}
-
-.nome{
-display:flex;
-flex-direction:column;
-margin-top:12px;
-line-height:1.3;
-min-height:44px; /* alinha todos */
-}
-
-/* MARCA */
-.marca{
-font-size:17px;
-font-weight:600;
-color:#111;
-}
-
-/* MODELO */
-.modelo{
-font-size:14px;
-color:#4a4a4a;
-font-weight:400;
-margin-top:2px;
-}
-
-/* PREÇO MAIS IMPORTANTE */
-.preco{
-font-family:'Inter';
-font-size :14px;
-}
+/ ===== FILTRO ===== */
 .filtro-modal{
 position:fixed;
 top:0;
@@ -319,8 +123,6 @@ height:100vh;
 background:#fff;
 z-index:3000;
 transition:0.4s;
-display:flex;
-flex-direction:column;
 }
 
 .filtro-modal.open{
@@ -330,53 +132,24 @@ left:0;
 .filtro-header{
 display:flex;
 justify-content:space-between;
-align-items:center;
 padding:20px;
 border-bottom:1px solid #eee;
 }
 
 .filtro-content{
 padding:20px;
-overflow-y:auto;
 }
 
-.grupo{
-margin-bottom:25px;
-}
-
-.grupo h4{
-margin-bottom:10px;
-font-size:14px;
-letter-spacing:1px;
-}
-
-.grupo label{
-display:flex;
-align-items:center;
-gap:10px;
-margin-bottom:10px;
-font-size:14px;
-cursor:pointer;
-}
-
-.grupo input{
-width:16px;
-height:16px;
-}
+.grupo{margin-bottom:20px;}
 
 .limpar{
 margin-top:20px;
+width:100%;
 padding:12px;
-border:none;
 background:#111;
 color:#fff;
+border:none;
 border-radius:8px;
-}
-
-/* efeito zoom leve (luxo) */
-@keyframes zoomSlow{
-from{ transform:scale(1); }
-to{ transform:scale(1.06); }
 }
 
 </style>
@@ -385,25 +158,7 @@ to{ transform:scale(1.06); }
 <body>
 
 <header>
-  <h1>THE BAG ROOM</h1>
-
-  <!-- botão menu -->
-  <div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
-
-  <!-- menu lateral -->
-  <nav class="menu-mobile" id="menuMobile">
-
-    <div class="close-menu" onclick="toggleMenuMobile()">×</div>
-
-    <div class="menu-mobile-inner">
-      <a href="index.html">Início</a>
-      <a href="aluguel.html">Alugar</a>
-      <a href="Como Funciona.html">Como Desapegar</a>
-      <a href="autenticidade.html">Autenticidade</a>
-      <a href="quem-somos.html">Sobre</a>
-    </div>
-
-  </nav>
+<h1>THE BAG ROOM</h1>
 </header>
 
 <div class="top-space"></div>
@@ -411,251 +166,118 @@ to{ transform:scale(1.06); }
 <div class="container">
 
 <!-- HERO -->
-<a href="https://www.thebagroom.com.br/bvlgariserpentigreen.html" class="hero">
-
-<div class="img-box slider">
-  <span class="tag">Destaque</span>
-
-  <img src="https://i.imgur.com/WmAbh2U.jpg" class="slide active">
-  <img src="https://i.imgur.com/F1HCbgn.jpg" class="slide">
-  <img src="https://i.imgur.com/kZqgQmI.jpg" class="slide">
-  <img src="https://i.imgur.com/fHw2ULR.jpg" class="slide">
-  <img src="https://i.imgur.com/Bv5Qk71.jpg" class="slide">
+<div class="hero">
+<img src="https://i.imgur.com/WmAbh2U.jpg">
 </div>
-<div class="nome">
-  <span class="marca">Dolce Gabanna</span>
-  <span class="modelo">Iguana Embossed Miss Sicily </span>
+
+<!-- BARRA -->
+<div class="barra-filtros">
+<button onclick="abrirFiltro()">☰ Filtrar</button>
+
+<select onchange="ordenar(this.value)">
+<option value="">Ordenar por</option>
+<option value="menor">Menor preço</option>
+<option value="maior">Maior preço</option>
+</select>
 </div>
-  <div class="preco">A partir de R$ 490</div>
 
-</a>
-
+<!-- FILTRO -->
 <div class="filtro-modal" id="filtroModal">
 
-  <div class="filtro-header">
-    <h3>Filtrar</h3>
-    <span onclick="abrirFiltro()">✕</span>
-  </div>
-
-  <div class="filtro-content">
-
-    <!-- MARCA -->
-    <div class="grupo">
-      <h4>Marca</h4>
-
-      <label><input type="checkbox" value="Bvlgari" class="filtro-marca"> Bvlgari</label>
-      <label><input type="checkbox" value="Gucci" class="filtro-marca"> Gucci</label>
-      <label><input type="checkbox" value="Dolce" class="filtro-marca"> Dolce & Gabbana</label>
-    </div>
-
-    <!-- COR -->
-    <div class="grupo">
-      <h4>Cores</h4>
-
-      <label><input type="checkbox" value="preto" class="filtro-cor"> Preto</label>
-      <label><input type="checkbox" value="verde" class="filtro-cor"> Verde</label>
-      <label><input type="checkbox" value="branco" class="filtro-cor"> Branco</label>
-    </div>
-
-    <button class="limpar" onclick="limparFiltros()">Limpar filtros</button>
-
-  </div>
-
+<div class="filtro-header">
+<h3>Filtrar</h3>
+<span onclick="abrirFiltro()">✕</span>
 </div>
 
+<div class="filtro-content">
 
+<div class="grupo">
+<h4>Marca</h4>
+<label><input type="checkbox" value="Bvlgari" class="filtro-marca"> Bvlgari</label>
+<label><input type="checkbox" value="Gucci" class="filtro-marca"> Gucci</label>
+</div>
+
+<div class="grupo">
+<h4>Cor</h4>
+<label><input type="checkbox" value="verde" class="filtro-cor"> Verde</label>
+<label><input type="checkbox" value="branco" class="filtro-cor"> Branco</label>
+</div>
+
+<button class="limpar" onclick="limparFiltros()">Limpar filtros</button>
+
+</div>
+</div>
 
 <!-- GRID -->
-<!-- Produto 1-->
 <div class="grid">
 
-<a href="https://www.thebagroom.com.br/bvlgariserpentigreen.html" class="card">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img src="https://i.imgur.com/27huvzI.jpg">
-  </div>
+<a class="card" data-marca="Bvlgari" data-cor="verde" data-preco="490">
+<img src="https://i.imgur.com/27huvzI.jpg">
 <div class="nome">
-  <span class="marca">Bvlgari</span>
-  <span class="modelo">Serpenti Forever</span>
+<span class="marca">Bvlgari</span>
+<span class="modelo">Serpenti Forever</span>
 </div>
-  <div class="preco">A partir de R$ 490</div>
-</a>
-<!-- Produto 2-->
-<a href="#" class="card">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img src="https://i.imgur.com/EQ5uxW0.jpeg">
-  </div>
-  <div class="nome">
-  <span class="marca">Gucci</span>
-  <span class="modelo">Rajah</span>
-</div>
-  <div class="preco">A partir de R$ 390</div>
-</a>
-<!-- Produto 3-->
-<a href="#" class="card">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img src="https://i.imgur.com/OzXr1SG.jpg">
-  </div>
-  <div class="nome">
-  <span class="marca">Bvlgari</span>
-  <span class="modelo">Serpenti Forever Leather Top Handle Bag  </span>
-</div>
-  <div class="preco">A partir de R$ 490</div>
-</a>
-<!-- Produto 4-->
-<a href="#" class="card">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img src="https://i.imgur.com/yDKUbXX.jpg">
-  </div>
-  <div class="nome">
-  <span class="marca">Carolina Herrera</span>
-  <span class="modelo">Victoria Insignia Mini Bag</span>
-</div>
-  <div class="preco">A partir de R$ 290</div>
-</a>
-<!-- Produto 5-->
-<a href="#" class="card">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img src="https://i.imgur.com/z3ha1C8.jpg">
-  </div>
-  <div class="nome">
-  <span class="marca">Marc Jacobs</span>
-  <span class="modelo"></span>
-</div>
-  <div class="preco">A partir de R$ 120</div>
-</a>
-<!-- Produto 5-->
-<a href="#" class="card">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img src="https://i.imgur.com/gq26Mwg.png">
-  </div>
-  <div class="nome">
-  <span class="marca">Fendi</span>
-  <span class="modelo">Zucchino Pochette</span>
-</div>
-  <div class="preco">A partir de R$ 120</div>
-</a>
-<!-- Produto 6-->
-<a href="#" class="card">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img src="https://i.imgur.com/Mg8j9dZ.jpg">
-  </div>
-  <div class="nome">
-  <span class="marca">Coach</span>
-  <span class="modelo">28 Brooklyn com logo gravado</span>
-</div>
-  <div class="preco">A partir de R$ 390</div>
-</a>
-<!-- Produto 7-->
-<a href="#" class="card">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img src="https://i.imgur.com/oULYZrQ.jpg">
-  </div>
-  <div class="nome">
-  <span class="marca">Gucci</span>
-  <span class="modelo">Sylvie Bee Star Small</span>
-</div>
-  <div class="preco">A partir de R$ 390</div>
-</a>
-<!-- Produto 8-->
-<a href="#" class="card">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img src="https://i.imgur.com/EFNislb.jpg">
-  </div>
-  <div class="nome">
-  <span class="marca">Kate Spade</span>
-  <span class="modelo">Carey Small</span>
-</div>
-  <div class="preco">A partir de R$ 390</div>
-</a>
-<!-- Produto 9-->
-<a href="#" class="card">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img src="https://i.imgur.com/DADPQrK.jpg">
-  </div>
-  <div class="nome">
-  <span class="marca">Kate Spade</span>
-  <span class="modelo">Turnlock Mini Flap Crossbody</span>
-</div>
-  <div class="preco">A partir de R$ 390</div>
+<div class="preco">R$ 490</div>
 </a>
 
-
+<a class="card" data-marca="Gucci" data-cor="branco" data-preco="390">
+<img src="https://i.imgur.com/EQ5uxW0.jpeg">
+<div class="nome">
+<span class="marca">Gucci</span>
+<span class="modelo">Rajah</span>
+</div>
+<div class="preco">R$ 390</div>
+</a>
 
 </div>
 
 </div>
-
-
-<script>
-function toggleMenuMobile(){
-  document.getElementById('menuMobile').classList.toggle('open');
-}
-</script>
-
-<script>
-window.addEventListener("load", function(){
-
-  const slides = document.querySelectorAll('.slide');
-  let index = 0;
-
-  setInterval(() => {
-    slides[index].classList.remove('active');
-
-    index = (index + 1) % slides.length;
-
-    slides[index].classList.add('active');
-  }, 4000); // mais lento = mais elegante
-
-});
-</script>
 
 <script>
 
 function abrirFiltro(){
-  document.getElementById('filtroModal').classList.toggle('open');
+document.getElementById('filtroModal').classList.toggle('open');
 }
 
 function limparFiltros(){
-  document.querySelectorAll('input[type=checkbox]').forEach(i => i.checked = false);
-  aplicarFiltros();
+document.querySelectorAll('input[type=checkbox]').forEach(i=>i.checked=false);
+aplicarFiltros();
 }
 
-document.querySelectorAll('input[type=checkbox]').forEach(input=>{
-  input.addEventListener('change', aplicarFiltros);
+document.querySelectorAll('input').forEach(i=>{
+i.addEventListener('change', aplicarFiltros);
 });
 
 function aplicarFiltros(){
 
-  const marcasSelecionadas = Array.from(document.querySelectorAll('.filtro-marca:checked')).map(i=>i.value);
-  const coresSelecionadas = Array.from(document.querySelectorAll('.filtro-cor:checked')).map(i=>i.value);
+const marcas = Array.from(document.querySelectorAll('.filtro-marca:checked')).map(i=>i.value);
+const cores = Array.from(document.querySelectorAll('.filtro-cor:checked')).map(i=>i.value);
 
-  const cards = document.querySelectorAll('.card');
+document.querySelectorAll('.card').forEach(card=>{
 
-  cards.forEach(card => {
+const okMarca = marcas.length===0 || marcas.includes(card.dataset.marca);
+const okCor = cores.length===0 || cores.includes(card.dataset.cor);
 
-    const marca = card.dataset.marca;
-    const cor = card.dataset.cor;
+card.style.display = (okMarca && okCor) ? 'block' : 'none';
 
-    const matchMarca = marcasSelecionadas.length === 0 || marcasSelecionadas.includes(marca);
-    const matchCor = coresSelecionadas.length === 0 || coresSelecionadas.includes(cor);
+});
 
-    if(matchMarca && matchCor){
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
+}
 
-  });
+function ordenar(tipo){
+
+const grid = document.querySelector('.grid');
+const cards = Array.from(document.querySelectorAll('.card'));
+
+cards.sort((a,b)=>{
+const aP = +a.dataset.preco;
+const bP = +b.dataset.preco;
+
+return tipo==="menor" ? aP-bP : bP-aP;
+});
+
+grid.innerHTML="";
+cards.forEach(c=>grid.appendChild(c));
 
 }
 
