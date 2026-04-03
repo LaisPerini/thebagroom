@@ -310,72 +310,67 @@ margin-top:2px;
 font-family:'Inter';
 font-size :14px;
 }
-
-.top-bar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
-gap:10px;
-}
-
-.btn-filtro{
-flex:1;
-padding:12px;
-border:1px solid #ddd;
-background:#fff;
-border-radius:10px;
-font-family:'Inter';
-font-size:14px;
-cursor:pointer;
-}
-
-.ordenar{
-flex:1;
-padding:12px;
-border:1px solid #ddd;
-border-radius:10px;
-font-family:'Inter';
-font-size:14px;
-background:#fff;
-}
-
-/* chips */
-.filtros-ativos{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-bottom:20px;
-}
-
-.chip{
-padding:6px 12px;
-border:1px solid #ddd;
-border-radius:20px;
-font-size:12px;
-background:#fff;
-}
-
-.chip.limpar{
-background:#111;
-color:#fff;
-border-color:#111;
-}
-
 .filtro-modal{
 position:fixed;
 top:0;
 left:-100%;
-width:80%;
+width:85%;
 height:100vh;
 background:#fff;
 z-index:3000;
 transition:0.4s;
-padding:20px;
+display:flex;
+flex-direction:column;
 }
 
 .filtro-modal.open{
 left:0;
+}
+
+.filtro-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px;
+border-bottom:1px solid #eee;
+}
+
+.filtro-content{
+padding:20px;
+overflow-y:auto;
+}
+
+.grupo{
+margin-bottom:25px;
+}
+
+.grupo h4{
+margin-bottom:10px;
+font-size:14px;
+letter-spacing:1px;
+}
+
+.grupo label{
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:10px;
+font-size:14px;
+cursor:pointer;
+}
+
+.grupo input{
+width:16px;
+height:16px;
+}
+
+.limpar{
+margin-top:20px;
+padding:12px;
+border:none;
+background:#111;
+color:#fff;
+border-radius:8px;
 }
 
 /* efeito zoom leve (luxo) */
@@ -435,41 +430,39 @@ to{ transform:scale(1.06); }
 
 </a>
 
-<div class="top-bar">
-
-  <button class="btn-filtro" onclick="abrirFiltro()">☰ Filtrar</button>
-
-  <select class="ordenar" id="ordenar">
-    <option value="">Ordenar por</option>
-    <option value="menor">Menor preço</option>
-    <option value="maior">Maior preço</option>
-  </select>
-
-</div>
-
-<!-- chips ativos -->
-<div class="filtros-ativos" id="filtrosAtivos"></div>
-
 <div class="filtro-modal" id="filtroModal">
+
+  <div class="filtro-header">
+    <h3>Filtrar</h3>
+    <span onclick="abrirFiltro()">✕</span>
+  </div>
 
   <div class="filtro-content">
 
-    <h3>Filtrar</h3>
+    <!-- MARCA -->
+    <div class="grupo">
+      <h4>Marca</h4>
 
-    <p>Marca</p>
-    <button onclick="filtrarMarca('Bvlgari')">Bvlgari</button>
-    <button onclick="filtrarMarca('Gucci')">Gucci</button>
+      <label><input type="checkbox" value="Bvlgari" class="filtro-marca"> Bvlgari</label>
+      <label><input type="checkbox" value="Gucci" class="filtro-marca"> Gucci</label>
+      <label><input type="checkbox" value="Dolce" class="filtro-marca"> Dolce & Gabbana</label>
+    </div>
 
-    <p>Cor</p>
-    <button onclick="filtrarCor('preto')">Preto</button>
-    <button onclick="filtrarCor('verde')">Verde</button>
+    <!-- COR -->
+    <div class="grupo">
+      <h4>Cores</h4>
 
-    <br><br>
-    <button onclick="limparFiltros()">Limpar filtros</button>
+      <label><input type="checkbox" value="preto" class="filtro-cor"> Preto</label>
+      <label><input type="checkbox" value="verde" class="filtro-cor"> Verde</label>
+      <label><input type="checkbox" value="branco" class="filtro-cor"> Branco</label>
+    </div>
+
+    <button class="limpar" onclick="limparFiltros()">Limpar filtros</button>
 
   </div>
 
 </div>
+
 
 
 <!-- GRID -->
@@ -628,31 +621,23 @@ window.addEventListener("load", function(){
 
 <script>
 
-let filtroAtual = {
-  marca:null,
-  cor:null
-};
-
 function abrirFiltro(){
   document.getElementById('filtroModal').classList.toggle('open');
 }
 
-function filtrarMarca(valor){
-  filtroAtual.marca = valor;
-  aplicarFiltros();
-}
-
-function filtrarCor(valor){
-  filtroAtual.cor = valor;
-  aplicarFiltros();
-}
-
 function limparFiltros(){
-  filtroAtual = {marca:null, cor:null};
+  document.querySelectorAll('input[type=checkbox]').forEach(i => i.checked = false);
   aplicarFiltros();
 }
+
+document.querySelectorAll('input[type=checkbox]').forEach(input=>{
+  input.addEventListener('change', aplicarFiltros);
+});
 
 function aplicarFiltros(){
+
+  const marcasSelecionadas = Array.from(document.querySelectorAll('.filtro-marca:checked')).map(i=>i.value);
+  const coresSelecionadas = Array.from(document.querySelectorAll('.filtro-cor:checked')).map(i=>i.value);
 
   const cards = document.querySelectorAll('.card');
 
@@ -661,8 +646,8 @@ function aplicarFiltros(){
     const marca = card.dataset.marca;
     const cor = card.dataset.cor;
 
-    const matchMarca = !filtroAtual.marca || marca === filtroAtual.marca;
-    const matchCor = !filtroAtual.cor || cor === filtroAtual.cor;
+    const matchMarca = marcasSelecionadas.length === 0 || marcasSelecionadas.includes(marca);
+    const matchCor = coresSelecionadas.length === 0 || coresSelecionadas.includes(cor);
 
     if(matchMarca && matchCor){
       card.style.display = "block";
@@ -672,44 +657,7 @@ function aplicarFiltros(){
 
   });
 
-  atualizarChips();
 }
-
-function atualizarChips(){
-
-  const container = document.getElementById('filtrosAtivos');
-  container.innerHTML = "";
-
-  if(filtroAtual.marca){
-    container.innerHTML += `<div class="chip">${filtroAtual.marca}</div>`;
-  }
-
-  if(filtroAtual.cor){
-    container.innerHTML += `<div class="chip">${filtroAtual.cor}</div>`;
-  }
-
-  if(filtroAtual.marca || filtroAtual.cor){
-    container.innerHTML += `<div class="chip limpar" onclick="limparFiltros()">Limpar</div>`;
-  }
-}
-
-/* ORDENAR */
-document.getElementById('ordenar').addEventListener('change', function(){
-
-  const tipo = this.value;
-  const grid = document.querySelector('.grid');
-  const cards = Array.from(document.querySelectorAll('.card'));
-
-  cards.sort((a,b)=>{
-    const pa = parseInt(a.dataset.preco);
-    const pb = parseInt(b.dataset.preco);
-
-    return tipo === "menor" ? pa - pb : pb - pa;
-  });
-
-  cards.forEach(c => grid.appendChild(c));
-
-});
 
 </script>
 
