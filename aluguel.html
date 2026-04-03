@@ -311,42 +311,71 @@ font-family:'Inter';
 font-size :14px;
 }
 
-/* container */
-.filtros{
-margin-bottom:25px;
-}
-
-/* grupo */
-.filtro-grupo{
+.top-bar{
 display:flex;
-gap:8px;
-overflow-x:auto;
-padding-bottom:5px;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+gap:10px;
 }
 
-/* botão */
-.filtro-btn{
-padding:8px 14px;
-border-radius:20px;
+.btn-filtro{
+flex:1;
+padding:12px;
 border:1px solid #ddd;
 background:#fff;
-font-size:12px;
+border-radius:10px;
 font-family:'Inter';
+font-size:14px;
 cursor:pointer;
-transition:all 0.25s ease;
-white-space:nowrap;
 }
 
-/* ativo */
-.filtro-btn.active{
+.ordenar{
+flex:1;
+padding:12px;
+border:1px solid #ddd;
+border-radius:10px;
+font-family:'Inter';
+font-size:14px;
+background:#fff;
+}
+
+/* chips */
+.filtros-ativos{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-bottom:20px;
+}
+
+.chip{
+padding:6px 12px;
+border:1px solid #ddd;
+border-radius:20px;
+font-size:12px;
+background:#fff;
+}
+
+.chip.limpar{
 background:#111;
 color:#fff;
 border-color:#111;
 }
 
-/* hover */
-.filtro-btn:active{
-transform:scale(0.95);
+.filtro-modal{
+position:fixed;
+top:0;
+left:-100%;
+width:80%;
+height:100vh;
+background:#fff;
+z-index:3000;
+transition:0.4s;
+padding:20px;
+}
+
+.filtro-modal.open{
+left:0;
 }
 
 /* efeito zoom leve (luxo) */
@@ -406,17 +435,42 @@ to{ transform:scale(1.06); }
 
 </a>
 
+<div class="top-bar">
 
-  <div class="filtros">
+  <button class="btn-filtro" onclick="abrirFiltro()">☰ Filtrar</button>
 
-  <div class="filtro-grupo">
-    <button class="filtro-btn active" data-filter="all">Todos</button>
-    <button class="filtro-btn" data-marca="Bvlgari">Bvlgari</button>
-    <button class="filtro-btn" data-marca="Gucci">Gucci</button>
-    <button class="filtro-btn" data-marca="Dolce">Dolce & Gabbana</button>
+  <select class="ordenar" id="ordenar">
+    <option value="">Ordenar por</option>
+    <option value="menor">Menor preço</option>
+    <option value="maior">Maior preço</option>
+  </select>
+
+</div>
+
+<!-- chips ativos -->
+<div class="filtros-ativos" id="filtrosAtivos"></div>
+
+<div class="filtro-modal" id="filtroModal">
+
+  <div class="filtro-content">
+
+    <h3>Filtrar</h3>
+
+    <p>Marca</p>
+    <button onclick="filtrarMarca('Bvlgari')">Bvlgari</button>
+    <button onclick="filtrarMarca('Gucci')">Gucci</button>
+
+    <p>Cor</p>
+    <button onclick="filtrarCor('preto')">Preto</button>
+    <button onclick="filtrarCor('verde')">Verde</button>
+
+    <br><br>
+    <button onclick="limparFiltros()">Limpar filtros</button>
+
   </div>
 
 </div>
+
 
 <!-- GRID -->
 <!-- Produto 1-->
@@ -574,40 +628,87 @@ window.addEventListener("load", function(){
 
 <script>
 
-const botoes = document.querySelectorAll('.filtro-btn');
-const cards = document.querySelectorAll('.card');
+let filtroAtual = {
+  marca:null,
+  cor:null
+};
 
-botoes.forEach(btn => {
-  btn.addEventListener('click', () => {
+function abrirFiltro(){
+  document.getElementById('filtroModal').classList.toggle('open');
+}
 
-    // ativa botão
-    botoes.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+function filtrarMarca(valor){
+  filtroAtual.marca = valor;
+  aplicarFiltros();
+}
 
-    const marca = btn.dataset.marca;
+function filtrarCor(valor){
+  filtroAtual.cor = valor;
+  aplicarFiltros();
+}
 
-    cards.forEach(card => {
+function limparFiltros(){
+  filtroAtual = {marca:null, cor:null};
+  aplicarFiltros();
+}
 
-      const cardMarca = card.dataset.marca;
+function aplicarFiltros(){
 
-      if(btn.dataset.filter === "all" || cardMarca === marca){
-        card.style.display = "block";
-        card.style.opacity = "0";
-        
-        setTimeout(()=>{
-          card.style.opacity = "1";
-        },50);
+  const cards = document.querySelectorAll('.card');
 
-      } else {
-        card.style.opacity = "0";
-        setTimeout(()=>{
-          card.style.display = "none";
-        },200);
-      }
+  cards.forEach(card => {
 
-    });
+    const marca = card.dataset.marca;
+    const cor = card.dataset.cor;
+
+    const matchMarca = !filtroAtual.marca || marca === filtroAtual.marca;
+    const matchCor = !filtroAtual.cor || cor === filtroAtual.cor;
+
+    if(matchMarca && matchCor){
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
 
   });
+
+  atualizarChips();
+}
+
+function atualizarChips(){
+
+  const container = document.getElementById('filtrosAtivos');
+  container.innerHTML = "";
+
+  if(filtroAtual.marca){
+    container.innerHTML += `<div class="chip">${filtroAtual.marca}</div>`;
+  }
+
+  if(filtroAtual.cor){
+    container.innerHTML += `<div class="chip">${filtroAtual.cor}</div>`;
+  }
+
+  if(filtroAtual.marca || filtroAtual.cor){
+    container.innerHTML += `<div class="chip limpar" onclick="limparFiltros()">Limpar</div>`;
+  }
+}
+
+/* ORDENAR */
+document.getElementById('ordenar').addEventListener('change', function(){
+
+  const tipo = this.value;
+  const grid = document.querySelector('.grid');
+  const cards = Array.from(document.querySelectorAll('.card'));
+
+  cards.sort((a,b)=>{
+    const pa = parseInt(a.dataset.preco);
+    const pb = parseInt(b.dataset.preco);
+
+    return tipo === "menor" ? pa - pb : pb - pa;
+  });
+
+  cards.forEach(c => grid.appendChild(c));
+
 });
 
 </script>
