@@ -769,7 +769,17 @@ function abrirFiltro(){
 }
 
 function limparFiltros(){
+
+  // limpa checkboxes
   document.querySelectorAll('input[type=checkbox]').forEach(i => i.checked = false);
+
+  // reseta preço
+  const range = document.getElementById('rangePreco');
+  const valor = document.getElementById('valorPreco');
+
+  range.value = 1000; // ou o máximo que você definiu
+  valor.innerText = "R$ " + range.value;
+
   aplicarFiltros();
 }
 
