@@ -309,8 +309,22 @@ margin-top:2px;
 .preco{
 font-family:'Inter';
 font-size :14px;
+}
 
+.filtros{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
 
+.filtros select{
+flex:1;
+padding:10px;
+border-radius:10px;
+border:1px solid #e5e5e5;
+background:#fff;
+font-family:'Inter';
+font-size:13px;
 }
 
 /* efeito zoom leve (luxo) */
@@ -369,6 +383,31 @@ to{ transform:scale(1.06); }
   <div class="preco">A partir de R$ 490</div>
 
 </a>
+
+<div class="filtros">
+
+  <select id="filtroMarca">
+    <option value="">Marca</option>
+    <option value="Bvlgari">Bvlgari</option>
+    <option value="Gucci">Gucci</option>
+    <option value="Dolce">Dolce Gabanna</option>
+  </select>
+
+  <select id="filtroPreco">
+    <option value="">Preço</option>
+    <option value="baixo">Até R$300</option>
+    <option value="medio">R$300 - R$500</option>
+    <option value="alto">Acima de R$500</option>
+  </select>
+
+  <select id="filtroCor">
+    <option value="">Cor</option>
+    <option value="verde">Verde</option>
+    <option value="preto">Preto</option>
+    <option value="branco">Branco</option>
+  </select>
+
+</div>
 
 <!-- GRID -->
 <!-- Produto 1-->
