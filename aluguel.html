@@ -445,6 +445,31 @@ border-radius:50%;
 cursor:pointer;
 }
 
+.grupo h4{
+display:flex;
+justify-content:space-between;
+align-items:center;
+cursor:pointer;
+}
+
+.grupo .conteudo{
+margin-top:10px;
+}
+
+/* fechado */
+.grupo.fechado .conteudo{
+display:none;
+}
+
+/* setinha girando */
+.grupo h4 span{
+transition:0.3s;
+}
+
+.grupo.fechado h4 span{
+transform:rotate(-90deg);
+}
+
 </style>
 </head>
 
@@ -507,7 +532,9 @@ cursor:pointer;
 
     <!-- MARCA -->
     <div class="grupo">
-      <h4>Marca</h4>
+<h4 onclick="toggleGrupo(this)">
+  Marca <span>⌄</span>
+</h4>
 
       <label><input type="checkbox" value="Bvlgari" class="filtro-marca"> Bvlgari</label>
       <label><input type="checkbox" value="Gucci" class="filtro-marca"> Gucci</label>
@@ -521,7 +548,9 @@ cursor:pointer;
 
     <!-- COR -->
     <div class="grupo">
-      <h4>Cores</h4>
+<h4 onclick="toggleGrupo(this)">
+  Cores <span>⌄</span>
+</h4>
 
       <label><input type="checkbox" value="Preto" class="filtro-cor"> Preto</label>
       <label><input type="checkbox" value="Verde" class="filtro-cor"> Verde</label>
@@ -793,6 +822,11 @@ function ordenarProdutos(tipo){
 function extrairPreco(card){
   const texto = card.querySelector('.preco').innerText;
   return Number(texto.replace(/[^\d]/g, ""));
+}
+
+function toggleGrupo(titulo){
+  const grupo = titulo.parentElement;
+  grupo.classList.toggle('fechado');
 }
 
 </script>
