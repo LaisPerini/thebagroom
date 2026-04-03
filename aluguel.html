@@ -311,20 +311,42 @@ font-family:'Inter';
 font-size :14px;
 }
 
+/* container */
 .filtros{
-display:flex;
-gap:10px;
-margin-bottom:20px;
+margin-bottom:25px;
 }
 
-.filtros select{
-flex:1;
-padding:10px;
-border-radius:10px;
-border:1px solid #e5e5e5;
+/* grupo */
+.filtro-grupo{
+display:flex;
+gap:8px;
+overflow-x:auto;
+padding-bottom:5px;
+}
+
+/* botão */
+.filtro-btn{
+padding:8px 14px;
+border-radius:20px;
+border:1px solid #ddd;
 background:#fff;
+font-size:12px;
 font-family:'Inter';
-font-size:13px;
+cursor:pointer;
+transition:all 0.25s ease;
+white-space:nowrap;
+}
+
+/* ativo */
+.filtro-btn.active{
+background:#111;
+color:#fff;
+border-color:#111;
+}
+
+/* hover */
+.filtro-btn:active{
+transform:scale(0.95);
 }
 
 /* efeito zoom leve (luxo) */
@@ -384,28 +406,15 @@ to{ transform:scale(1.06); }
 
 </a>
 
-<div class="filtros">
 
-  <select id="filtroMarca">
-    <option value="">Marca</option>
-    <option value="Bvlgari">Bvlgari</option>
-    <option value="Gucci">Gucci</option>
-    <option value="Dolce">Dolce Gabanna</option>
-  </select>
+  <div class="filtros">
 
-  <select id="filtroPreco">
-    <option value="">Preço</option>
-    <option value="baixo">Até R$300</option>
-    <option value="medio">R$300 - R$500</option>
-    <option value="alto">Acima de R$500</option>
-  </select>
-
-  <select id="filtroCor">
-    <option value="">Cor</option>
-    <option value="verde">Verde</option>
-    <option value="preto">Preto</option>
-    <option value="branco">Branco</option>
-  </select>
+  <div class="filtro-grupo">
+    <button class="filtro-btn active" data-filter="all">Todos</button>
+    <button class="filtro-btn" data-marca="Bvlgari">Bvlgari</button>
+    <button class="filtro-btn" data-marca="Gucci">Gucci</button>
+    <button class="filtro-btn" data-marca="Dolce">Dolce & Gabbana</button>
+  </div>
 
 </div>
 
@@ -562,38 +571,45 @@ window.addEventListener("load", function(){
 
 });
 </script>
-<script>
-const marca = document.getElementById('filtroMarca');
-const preco = document.getElementById('filtroPreco');
-const cor = document.getElementById('filtroCor');
 
+<script>
+
+const botoes = document.querySelectorAll('.filtro-btn');
 const cards = document.querySelectorAll('.card');
 
-function filtrar(){
+botoes.forEach(btn => {
+  btn.addEventListener('click', () => {
 
-  cards.forEach(card => {
+    // ativa botão
+    botoes.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
-    const m = card.dataset.marca;
-    const p = card.dataset.preco;
-    const c = card.dataset.cor;
+    const marca = btn.dataset.marca;
 
-    const matchMarca = !marca.value || m === marca.value;
-    const matchPreco = !preco.value || p === preco.value;
-    const matchCor = !cor.value || c === cor.value;
+    cards.forEach(card => {
 
-    if(matchMarca && matchPreco && matchCor){
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
+      const cardMarca = card.dataset.marca;
+
+      if(btn.dataset.filter === "all" || cardMarca === marca){
+        card.style.display = "block";
+        card.style.opacity = "0";
+        
+        setTimeout(()=>{
+          card.style.opacity = "1";
+        },50);
+
+      } else {
+        card.style.opacity = "0";
+        setTimeout(()=>{
+          card.style.display = "none";
+        },200);
+      }
+
+    });
 
   });
+});
 
-}
-
-marca.addEventListener('change', filtrar);
-preco.addEventListener('change', filtrar);
-cor.addEventListener('change', filtrar);
 </script>
 
 </body>
