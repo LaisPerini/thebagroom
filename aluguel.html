@@ -562,7 +562,39 @@ window.addEventListener("load", function(){
 
 });
 </script>
+<script>
+const marca = document.getElementById('filtroMarca');
+const preco = document.getElementById('filtroPreco');
+const cor = document.getElementById('filtroCor');
 
+const cards = document.querySelectorAll('.card');
+
+function filtrar(){
+
+  cards.forEach(card => {
+
+    const m = card.dataset.marca;
+    const p = card.dataset.preco;
+    const c = card.dataset.cor;
+
+    const matchMarca = !marca.value || m === marca.value;
+    const matchPreco = !preco.value || p === preco.value;
+    const matchCor = !cor.value || c === cor.value;
+
+    if(matchMarca && matchPreco && matchCor){
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+
+  });
+
+}
+
+marca.addEventListener('change', filtrar);
+preco.addEventListener('change', filtrar);
+cor.addEventListener('change', filtrar);
+</script>
 
 </body>
 </html>
