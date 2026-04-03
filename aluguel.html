@@ -531,7 +531,7 @@ transform:rotate(-90deg);
   <div class="filtro-content">
 
     <!-- MARCA -->
-    <div class="grupo">
+<div class="grupo fechado">
 <h4 onclick="toggleGrupo(this)">
   Marca <span>⌄</span>
 </h4>
@@ -547,7 +547,7 @@ transform:rotate(-90deg);
     </div>
 
     <!-- COR -->
-    <div class="grupo">
+<div class="grupo fechado">
 <h4 onclick="toggleGrupo(this)">
   Cores <span>⌄</span>
 </h4>
@@ -788,8 +788,8 @@ const matchPreco = preco <= precoMax;
     const matchMarca = marcasSelecionadas.length === 0 || marcasSelecionadas.includes(marca);
     const matchCor = coresSelecionadas.length === 0 || coresSelecionadas.includes(cor);
 
-    if(matchMarca && matchCor){
-      card.style.display = "block";
+    if(matchMarca && matchCor && matchPreco){
+      card.style.display = "flex";
     } else {
       card.style.display = "none";
     }
