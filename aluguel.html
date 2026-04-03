@@ -338,6 +338,8 @@ border-bottom:1px solid #eee;
 .filtro-content{
 padding:20px;
 overflow-y:auto;
+pointer-events:auto;
+
 }
 
 .grupo{
@@ -420,6 +422,8 @@ background:#ddd;
 border-radius:10px;
 outline:none;
 margin-top:10px;
+/* 👇 ESSENCIAL */
+touch-action: pan-x;
 }
 
 /* bolinha */
@@ -430,6 +434,7 @@ height:18px;
 background:#111;
 border-radius:50%;
 cursor:pointer;
+pointer-events:auto;
 }
 
 input[type=range]::-moz-range-thumb{
