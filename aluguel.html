@@ -412,6 +412,34 @@ appearance:none;
 -webkit-appearance:none;
 }
 
+input[type=range]{
+width:100%;
+appearance:none;
+height:4px;
+background:#ddd;
+border-radius:10px;
+outline:none;
+margin-top:10px;
+}
+
+/* bolinha */
+input[type=range]::-webkit-slider-thumb{
+appearance:none;
+width:18px;
+height:18px;
+background:#111;
+border-radius:50%;
+cursor:pointer;
+}
+
+input[type=range]::-moz-range-thumb{
+width:18px;
+height:18px;
+background:#111;
+border-radius:50%;
+cursor:pointer;
+}
+
 </style>
 </head>
 
@@ -497,6 +525,19 @@ appearance:none;
       <label><input type="checkbox" value="Rosa" class="filtro-cor">Rosa</label>
       
     </div>
+    
+    <div class="grupo">
+  <h4>Preço até: <span id="valorPreco">R$ 600</span></h4>
+
+  <input 
+    type="range" 
+    min="100" 
+    max="1000" 
+    step="50" 
+    value="600" 
+    id="rangePreco"
+  >
+</div>
 
     <button class="limpar" onclick="limparFiltros()">Limpar filtros</button>
 
@@ -670,6 +711,18 @@ window.addEventListener("load", function(){
 
 <script>
 
+const range = document.getElementById('rangePreco');
+const valor = document.getElementById('valorPreco');
+
+range.addEventListener('input', () => {
+  valor.innerText = "R$ " + range.value;
+  aplicarFiltros();
+});
+
+</script>
+
+<script>
+
 function abrirFiltro(){
   document.getElementById('filtroModal').classList.toggle('open');
 }
@@ -687,6 +740,7 @@ function aplicarFiltros(){
 
   const marcasSelecionadas = Array.from(document.querySelectorAll('.filtro-marca:checked')).map(i=>i.value);
   const coresSelecionadas = Array.from(document.querySelectorAll('.filtro-cor:checked')).map(i=>i.value);
+const precoMax = Number(document.getElementById('rangePreco').value);
 
   const cards = document.querySelectorAll('.card');
 
@@ -694,6 +748,8 @@ function aplicarFiltros(){
 
     const marca = card.dataset.marca;
     const cor = card.dataset.cor;
+    const preco = extrairPreco(card);
+const matchPreco = preco <= precoMax;
 
     const matchMarca = marcasSelecionadas.length === 0 || marcasSelecionadas.includes(marca);
     const matchCor = coresSelecionadas.length === 0 || coresSelecionadas.includes(cor);
