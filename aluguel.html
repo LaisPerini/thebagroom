@@ -380,18 +380,27 @@ to{ transform:scale(1.06); }
 }
 
 .barra-filtros{
+display:flex;
+gap:12px;
 margin:25px 0;
 }
 
-.barra-filtros button{
-width:100%;
+.barra-filtros button,
+.barra-filtros select{
+flex:1;
 padding:14px;
 border-radius:12px;
 border:1px solid #e5e5e5;
-background:#111;
-color:#fff;
+background:#fff;
 font-size:14px;
+color:#666;
 letter-spacing:0.5px;
+}
+
+/* remove estilo feio do select no iPhone */
+.barra-filtros select{
+appearance:none;
+-webkit-appearance:none;
 }
 
 </style>
@@ -480,7 +489,13 @@ letter-spacing:0.5px;
 
 <div class="barra-filtros">
 
-  <button onclick="abrirFiltro()">☰ Filtrar</button>
+  <button onclick="abrirFiltro()">Filtrar</button>
+
+  <select onchange="ordenarProdutos(this.value)">
+    <option value="">Ordenar</option>
+    <option value="menor">Menor preço</option>
+    <option value="maior">Maior preço</option>
+  </select>
 
 </div>
 
@@ -674,6 +689,32 @@ function aplicarFiltros(){
 
   });
 
+}
+
+function ordenarProdutos(tipo){
+
+  const grid = document.querySelector('.grid');
+  const cards = Array.from(document.querySelectorAll('.card'));
+
+  cards.sort((a,b)=>{
+
+    const precoA = extrairPreco(a);
+    const precoB = extrairPreco(b);
+
+    if(tipo === "menor"){
+      return precoA - precoB;
+    } else if(tipo === "maior"){
+      return precoB - precoA;
+    }
+
+  });
+
+  cards.forEach(card => grid.appendChild(card));
+}
+
+function extrairPreco(card){
+  const texto = card.querySelector('.preco').innerText;
+  return Number(texto.replace(/[^\d]/g, ""));
 }
 
 </script>
