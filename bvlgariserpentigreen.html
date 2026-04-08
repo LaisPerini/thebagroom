@@ -401,54 +401,58 @@ opacity:0.6;
 
 <div class="produto">
 
-<div class="galeria">
+  <!-- ESQUERDA (IMAGEM) -->
+  <div class="galeria">
 
-  <div class="slider" id="slider">
+    <div class="slider" id="slider">
+      <img src="https://i.imgur.com/27huvzI.jpg">
+      <img src="https://i.imgur.com/27huvzI.jpg">
+      <img src="https://i.imgur.com/27huvzI.jpg">
+    </div>
 
-    <img src="https://i.imgur.com/27huvzI.jpg">
-    <img src="https://i.imgur.com/27huvzI.jpg">
-    <img src="https://i.imgur.com/27huvzI.jpg">
+    <div class="dots" id="dots"></div>
 
   </div>
 
-  <div class="dots" id="dots"></div>
+  <!-- DIREITA (INFO + BOTÃO) -->
+  <div class="info">
+
+    <div class="nome">Bvlgari Serpenti Verde</div>
+    <div class="preco">A partir de R$ 490</div>
+
+    <div class="desc">
+      Ícone da Bvlgari com fecho em formato de serpente, símbolo de elegância e poder.
+    </div>
+
+    <div class="opcoes">
+      <label class="opcao active"><input type="radio" name="dias" value="4" checked>4 dias • R$ 490</label>
+      <label class="opcao"><input type="radio" name="dias" value="7">7 dias • R$ 690</label>
+      <label class="opcao"><input type="radio" name="dias" value="10">10 dias • R$ 890</label>
+      <label class="opcao"><input type="radio" name="dias" value="15">15 dias • R$ 1.090</label>
+      <label class="opcao"><input type="radio" name="dias" value="20">20 dias • R$1.290</label>
+      <label class="opcao"><input type="radio" name="dias" value="30">30 dias • R$1.690</label>
+    </div>
+
+    <br>
+
+    <input type="text" id="dataInicio" placeholder="Selecione a data">
+
+    <div id="devolucao"></div>
+
+    <br>
+
+    <input type="text" id="cep" placeholder="Digite seu CEP">
+
+    <button class="btn-frete" onclick="calcularFrete()">Calcular frete</button>
+
+    <div id="freteResultado"></div>
+    <div id="freteSelecionado" style="margin-top:10px; font-family:'Inter';"></div>
+
+    <div class="btn" onclick="alugar()">ALUGAR AGORA</div>
+
+  </div>
 
 </div>
-
-</div>
-
-<div>
-
-<div class="nome">Bvlgari Serpenti Verde</div>
-<div class="preco">A partir de R$ 490</div>
-
-<div class="desc">
-Ícone da Bvlgari com fecho em formato de serpente, símbolo de elegância e poder.
-</div>
-
-<div class="opcoes">
-<label class="opcao active"><input type="radio" name="dias" value="4" checked>4 dias • R$ 490</label>
-<label class="opcao"><input type="radio" name="dias" value="7">7 dias • R$ 690</label>
-<label class="opcao"><input type="radio" name="dias" value="10">10 dias • R$ 890</label>
-<label class="opcao"><input type="radio" name="dias" value="15">15 dias • R$ 1.090</label>
-<label class="opcao"><input type="radio" name="dias" value="20">20 dias • R$1.290</label>
-<label class="opcao"><input type="radio" name="dias" value="30">30 dias • R$1.690</label>
-</div>
-
-<br>
-
-<input type="text" id="dataInicio" placeholder="Selecione a data">
-
-<div id="devolucao"></div>
-
-<br>
-
-<input type="text" id="cep" placeholder="Digite seu CEP">
-
-<button class="btn-frete" onclick="calcularFrete()">Calcular frete</button>
-
-<div id="freteResultado"></div>
-<div id="freteSelecionado" style="margin-top:10px; font-family:'Inter';"></div>
 
 <div class="btn" onclick="alugar()">ALUGAR AGORA</div>
 
