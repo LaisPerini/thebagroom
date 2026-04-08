@@ -492,50 +492,54 @@ transform:rotate(-90deg);
 }
 
   /* ===== DESKTOP ===== */
+
 @media(min-width:1024px){
+
+  body{
+    background:#fff;
+  }
 
   .container{
     max-width:1200px;
     padding:40px 20px;
   }
 
-  /* HERO maior e mais impactante */
-  .hero img{
-    aspect-ratio:16/10;
+  .hero{
+    max-width:100%;
+    margin:0 auto 60px;
+    padding:0;
+  }
+
+  /* 🔥 CONTROLE REAL DO TAMANHO */
+  .img-box.slider{
+    max-width:550px;
+    margin:0 auto;
+    aspect-ratio:4/5;
   }
 
   .hero .nome{
     font-size:22px;
+    text-align:center;
   }
 
   .hero .preco{
     font-size:16px;
+    text-align:center;
   }
 
-  /* GRID mais elegante */
   .grid{
     grid-template-columns:repeat(3, 1fr);
     gap:40px 24px;
   }
 
-  /* cards mais sofisticados */
   .card img{
     border-radius:18px;
   }
 
-  .marca{
-    font-size:18px;
-  }
+  .marca{ font-size:18px; }
+  .modelo{ font-size:15px; }
+  .preco{ font-size:15px; }
 
-  .modelo{
-    font-size:15px;
-  }
-
-  .preco{
-    font-size:15px;
-  }
-
-  /* hover luxo (MUITO importante no desktop) */
   .card:hover{
     transform:translateY(-6px);
   }
@@ -545,30 +549,6 @@ transform:rotate(-90deg);
   }
 
 }
-
-@media(min-width:1024px){
-
-  /* fundo geral branco */
-  body{
-    background:#fff;
-  }
-
-  /* hero ocupa largura total */
-  .hero{
-    max-width:100%;
-    margin:0 auto 60px;
-    padding:0;
-  }
-
-  /* imagem centralizada com respiro lateral */
-  .img-box.slider{
-    max-width:650px;
-    margin:0 auto;
-    aspect-ratio:4/5;
-  }
-
-}
-
 
 
 </style>
