@@ -491,6 +491,61 @@ transform:rotate(-90deg);
   pointer-events:auto;
 }
 
+  /* ===== DESKTOP ===== */
+@media(min-width:1024px){
+
+  .container{
+    max-width:1200px;
+    padding:40px 20px;
+  }
+
+  /* HERO maior e mais impactante */
+  .hero img{
+    aspect-ratio:16/10;
+  }
+
+  .hero .nome{
+    font-size:22px;
+  }
+
+  .hero .preco{
+    font-size:16px;
+  }
+
+  /* GRID mais elegante */
+  .grid{
+    grid-template-columns:repeat(3, 1fr);
+    gap:40px 24px;
+  }
+
+  /* cards mais sofisticados */
+  .card img{
+    border-radius:18px;
+  }
+
+  .marca{
+    font-size:18px;
+  }
+
+  .modelo{
+    font-size:15px;
+  }
+
+  .preco{
+    font-size:15px;
+  }
+
+  /* hover luxo (MUITO importante no desktop) */
+  .card:hover{
+    transform:translateY(-6px);
+  }
+
+  .card:hover img{
+    transform:scale(1.03);
+  }
+
+}
+
 
 </style>
 </head>
