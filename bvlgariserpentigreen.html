@@ -642,62 +642,14 @@ document.getElementById('devolucao').innerHTML =
 /* 🔥 FRETE COM SELEÇÃO */
 let freteSelecionado = null;
 
-const meuCep = "11060-003"; // coloca o seu real
-
 async function calcularFrete(){
 
 let cep = document.getElementById("cep").value;
 let resultado = document.getElementById("freteResultado");
 
 if(!cep){
-  resultado.innerHTML = "Digite o CEP";
-  return;
-}
-
-resultado.innerHTML = "Calculando...";
-
-// 🔥 IDA
-let ida = await fetch("https://thebagroomtest.onrender.com/frete", {
-  method:"POST",
-  headers:{ "Content-Type":"application/json" },
-  body: JSON.stringify({ 
-    from:{ postal_code: "13000-000" }, 
-    to:{ postal_code: cep } 
-  })
-});
-
-let idaData = await ida.json();
-
-// 🔥 VOLTA
-let volta = await fetch("https://thebagroomtest.onrender.com/frete", {
-  method:"POST",
-  headers:{ "Content-Type":"application/json" },
-  body: JSON.stringify({ 
-    from:{ postal_code: cep }, 
-    to:{ postal_code: "13000-000" } 
-  })
-});
-
-let voltaData = await volta.json();
-
-let html = "";
-
-idaData.forEach((frete, i) => {
-
-  let precoIda = parseFloat(frete.price || 0);
-  let precoVolta = parseFloat(voltaData[i]?.price || 0);
-
-  let total = precoIda + precoVolta;
-
-  html += `
-  <div class="frete-opcao"
-  onclick="selecionarFrete('${frete.name}', ${total}, ${frete.delivery_time}, this)">
-  ${frete.name} • R$ ${total.toFixed(2)} (ida + volta)
-  </div>
-  `;
-});
-
-resultado.innerHTML = html || "Nenhuma opção disponível";
+resultado.innerHTML = "Digite o CEP";
+return;
 }
 
 resultado.innerHTML = "Calculando...";
