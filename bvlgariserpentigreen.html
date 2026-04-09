@@ -663,7 +663,10 @@ const meuCep = "11060-003"; // seu CEP
 let idaResponse = await fetch("https://thebagroomtest.onrender.com/frete", {
 method:"POST",
 headers:{ "Content-Type":"application/json" },
-body: JSON.stringify({ to:{ postal_code:cep } })
+body: JSON.stringify({ 
+  from:{ postal_code:cep }, 
+  to:{ postal_code:meuCep } 
+})
 });
 
 let idaData = await idaResponse.json();
