@@ -372,6 +372,43 @@ opacity:0.6;
     max-width:400px;
   }
   
+  /* seta estilo Farfetch */
+.seta{
+  display:none;
+}
+
+  .seta{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+
+    font-size:28px;
+    color:#aaa;
+
+    cursor:pointer;
+    z-index:10;
+
+    transition:all 0.25s ease;
+    opacity:0;
+  }
+
+  .galeria:hover .seta{
+    opacity:1;
+  }
+
+  .seta:hover{
+    color:#000;
+    transform:translateY(-50%) scale(1.15);
+  }
+
+  .seta.esquerda{
+    left:-30px;
+  }
+
+  .seta.direita{
+    right:-30px;
+  }
+  
 }
 
 </style>
@@ -415,6 +452,9 @@ opacity:0.6;
       <img src="https://i.imgur.com/27huvzI.jpg">
       <img src="https://i.imgur.com/27huvzI.jpg">
     </div>
+    
+    <div class="seta esquerda" onclick="slide(-1)">❮</div>
+<div class="seta direita" onclick="slide(1)">❯</div>
 
     <div class="dots" id="dots"></div>
 
@@ -672,6 +712,21 @@ slider.addEventListener("scroll", () => {
   if(dots[index]) dots[index].classList.add("active");
 });
 
+
+function slide(direction){
+  const slider = document.getElementById("slider");
+  const slide = slider.querySelector("img");
+
+  const style = getComputedStyle(slider);
+  const gap = parseInt(style.gap) || 0;
+
+  const largura = slide.clientWidth + gap;
+
+  slider.scrollBy({
+    left: direction * largura,
+    behavior: "smooth"
+  });
+}
 
 </script>
 
