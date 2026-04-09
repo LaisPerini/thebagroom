@@ -685,7 +685,8 @@ idaData
 .forEach((frete, i) => {
 
 let precoIda = parseFloat(frete.price);
-let precoVolta = parseFloat(voltaData[i]?.price || 0);
+let voltaMatch = voltaData.find(v => v.name === frete.name);
+let precoVolta = parseFloat(voltaMatch?.price || 0);
 
 html = `
 <div style="margin-top:10px; font-family:'Inter'">
