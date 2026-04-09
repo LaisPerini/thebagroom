@@ -373,41 +373,28 @@ opacity:0.6;
   }
   
   /* seta estilo Farfetch */
-.seta{
-  display:none;
+/* FORÇA SETA APARECER (teste definitivo) */
+.galeria{
+  position:relative; /* 🔥 ESSENCIAL */
 }
 
-  .seta{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
+.seta{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:32px;
+  color:red;
+  cursor:pointer;
+  z-index:9999;
+}
 
-    font-size:28px;
-    color:#aaa;
+.seta.esquerda{
+  left:10px;
+}
 
-    cursor:pointer;
-    z-index:10;
-
-    transition:all 0.25s ease;
-    opacity:0;
-  }
-
-  .galeria:hover .seta{
-    opacity:1;
-  }
-
-  .seta:hover{
-    color:#000;
-    transform:translateY(-50%) scale(1.15);
-  }
-
-  .seta.esquerda{
-    left:-30px;
-  }
-
-  .seta.direita{
-    right:-30px;
-  }
+.seta.direita{
+  right:10px;
+}
   
 }
 
