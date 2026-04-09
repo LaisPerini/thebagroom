@@ -657,7 +657,7 @@ return;
 
 resultado.innerHTML = "Calculando...";
 
-const meuCep = "11060-003"; // seu CEP
+const meuCep = "11060-003";
 
 // IDA
 let idaResponse = await fetch("https://thebagroomtest.onrender.com/frete", {
@@ -682,7 +682,13 @@ let voltaData = await voltaResponse.json();
 
 let html = "";
 
+// 🔥 pega só SEDEX
 let frete = idaData.find(f => f.name === "SEDEX");
+
+if(!frete){
+  resultado.innerHTML = "Frete indisponível";
+  return;
+}
 
 let precoIda = parseFloat(frete.price);
 let voltaMatch = voltaData.find(v => v.name === frete.name);
@@ -715,6 +721,9 @@ Retirar no showroom • Grátis
 
 </div>
 `;
+
+resultado.innerHTML = html;
+}
 
 <br>
 
@@ -791,6 +800,7 @@ Devolução: ${freteVoltaSelecionado.nome} • R$ ${freteVoltaSelecionado.preco.
 }
 
 /* 🔥 WHATSAPP COMPLETO */
+
 function alugar(){
 
 let diasSelecionado = document.querySelector('input[name="dias"]:checked');
@@ -811,10 +821,18 @@ let textoOpcao = diasSelecionado.parentElement.innerText;
 let valorMatch = textoOpcao.match(/R\$ ([\d,]+)/);
 let valor = valorMatch ? parseFloat(valorMatch[1].replace(",", ".")) : 0;
 
-// total
+// frete
 let totalFrete = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
+
+// total
 let total = valor + totalFrete;
 let totalFormatado = total.toFixed(2).replace(".", ",");
+
+// texto frete
+let freteTexto = `
+Entrega: ${freteIdaSelecionado.nome} • R$ ${freteIdaSelecionado.preco.toFixed(2)}
+Devolução: ${freteVoltaSelecionado.nome} • R$ ${freteVoltaSelecionado.preco.toFixed(2)}
+`;
 
 let mensagem = `Olá, quero alugar a 
 Bvlgari Serpenti Verde
@@ -822,16 +840,14 @@ Bvlgari Serpenti Verde
 Data recebimento: ${data}
 Período: ${textoOpcao}
 
-let freteTexto = `
-Entrega: ${freteIdaSelecionado.nome} • R$ ${freteIdaSelecionado.preco.toFixed(2)}
-Devolução: ${freteVoltaSelecionado.nome} • R$ ${freteVoltaSelecionado.preco.toFixed(2)}
-`;
+${freteTexto}
 
 Valor total: R$ ${totalFormatado}`;
 
 window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
-
 }
+
+
 
 let imagens = document.querySelectorAll('#slider img');
 let indexAtual = 0;
