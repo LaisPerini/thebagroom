@@ -735,11 +735,10 @@ window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
 
 }
 
-/* ZOOM */
+let imagens = document.querySelectorAll('#slider img');
+let indexAtual = 0;
 
-function atualizarZoom(){
-  zoomImg.src = imagens[indexAtual].src;
-}
+/* ZOOM */
 
 let zoomOverlay = document.createElement("div");
 zoomOverlay.className = "zoom-overlay";
@@ -763,6 +762,10 @@ zoomOverlay.querySelector('.esquerda').onclick = (e) => {
 };
 
 let zoomImg = zoomOverlay.querySelector("img");
+
+function atualizarZoom(){
+  zoomImg.src = imagens[indexAtual].src;
+}
 
 document.querySelectorAll('.slider img').forEach((img, index) => {
   img.addEventListener('click', () => {
