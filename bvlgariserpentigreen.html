@@ -654,26 +654,42 @@ return;
 
 resultado.innerHTML = "Calculando...";
 
-let response = await fetch("https://thebagroomtest.onrender.com/frete", {
+const meuCep = "11060-003"; // seu CEP
+
+// IDA
+let idaResponse = await fetch("https://thebagroomtest.onrender.com/frete", {
 method:"POST",
 headers:{ "Content-Type":"application/json" },
 body: JSON.stringify({ to:{ postal_code:cep } })
 });
 
-let data = await response.json();
+let idaData = await idaResponse.json();
+
+// VOLTA
+let voltaResponse = await fetch("https://thebagroomtest.onrender.com/frete", {
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({ to:{ postal_code:meuCep } })
+});
+
+let voltaData = await voltaResponse.json();
 
 let html = "";
 
-data
+idaData
 .filter(f => (f.name === "PAC" || f.name === "SEDEX"))
 .filter(f => f.price && f.delivery_time)
-.forEach(frete => {
+.forEach((frete, i) => {
+
+let precoIda = parseFloat(frete.price);
+let precoVolta = parseFloat(voltaData[i]?.price || 0);
+
+let total = precoIda + precoVolta;
 
 html += `
 <div class="frete-opcao"
-onclick="selecionarFrete('${frete.name}', ${frete.price}, ${frete.delivery_time}, this)"
-style="border:1px solid #ddd;padding:10px;margin-top:8px;border-radius:10px;cursor:pointer;font-family:'Inter';">
-${frete.name} • R$ ${parseFloat(frete.price).toFixed(2)} • ${frete.delivery_time} dias
+onclick="selecionarFrete('${frete.name}', ${total}, ${frete.delivery_time}, this)">
+${frete.name} • R$ ${total.toFixed(2)} (ida + volta)
 </div>
 `;
 
