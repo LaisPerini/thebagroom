@@ -420,10 +420,18 @@ opacity:0.6;
   
 /* seta abertura imagem  */
 .zoom-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+
   display:flex;
   justify-content:center;
-  align-items:center;
-  position:relative;
+  align-items:center; /* 🔥 ISSO É O QUE FALTA */
+
+  background:rgba(0,0,0,0.92);
+  z-index:9999;
 }
 
 .zoom-seta.esquerda{
