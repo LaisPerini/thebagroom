@@ -345,31 +345,6 @@ transition:0.3s;
 opacity:0.6;
 }
 
-  .seta{
-  display:none;
-}
-
-/* botao seta quando clica na foto */
-.zoom-seta{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:40px;
-  color:#fff;
-  cursor:pointer;
-  padding:20px;
-  user-select:none;
-}
-
-.zoom-seta.esquerda{
-  left:20px;
-}
-
-.zoom-seta.direita{
-  right:20px;
-}
-  
-
 /* DESKTOP */
 @media(min-width:1024px){
   
@@ -396,35 +371,6 @@ opacity:0.6;
     flex:1;
     max-width:400px;
   }
-
-    .seta{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:rgba(255,255,255,0.9);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px;
-  cursor:pointer;
-  z-index:10;
-  transition:0.3s;
-}
-
-.seta:hover{
-  background:#fff;
-}
-
-.seta.esquerda{
-  left:10px;
-}
-
-.seta.direita{
-  right:10px;
-}
   
 }
 
@@ -469,9 +415,6 @@ opacity:0.6;
       <img src="https://i.imgur.com/27huvzI.jpg">
       <img src="https://i.imgur.com/27huvzI.jpg">
     </div>
-
-    <div class="seta esquerda" onclick="slide(-1)">‹</div>
-    <div class="seta direita" onclick="slide(1)">›</div>
 
     <div class="dots" id="dots"></div>
 
@@ -691,50 +634,22 @@ window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
 }
 
 /* ZOOM */
-let imagens = document.querySelectorAll('.slider img');
-let indexAtual = 0;
-
 let zoomOverlay = document.createElement("div");
 zoomOverlay.className = "zoom-overlay";
-zoomOverlay.innerHTML = `
-  <div class="zoom-seta esquerda">‹</div>
-  <img>
-  <div class="zoom-seta direita">›</div>
-`;
+zoomOverlay.innerHTML = "<img>";
 document.body.appendChild(zoomOverlay);
 
 let zoomImg = zoomOverlay.querySelector("img");
 
-// abrir zoom
-imagens.forEach((img, index) => {
+document.querySelectorAll('.slider img').forEach(img => {
   img.addEventListener('click', () => {
-    indexAtual = index;
-    atualizarZoom();
+    zoomImg.src = img.src;
     zoomOverlay.style.display = "flex";
   });
 });
 
-// função atualizar imagem
-function atualizarZoom(){
-  zoomImg.src = imagens[indexAtual].src;
-}
-
-// setas
-zoomOverlay.querySelector('.direita').onclick = () => {
-  indexAtual = (indexAtual + 1) % imagens.length;
-  atualizarZoom();
-};
-
-zoomOverlay.querySelector('.esquerda').onclick = () => {
-  indexAtual = (indexAtual - 1 + imagens.length) % imagens.length;
-  atualizarZoom();
-};
-
-// fechar ao clicar fora
-zoomOverlay.addEventListener('click', (e) => {
-  if(e.target === zoomOverlay){
-    zoomOverlay.style.display = "none";
-  }
+zoomOverlay.addEventListener('click', () => {
+  zoomOverlay.style.display = "none";
 });
 
 /* DOTS */
@@ -756,19 +671,6 @@ slider.addEventListener("scroll", () => {
   dots.forEach(d => d.classList.remove("active"));
   if(dots[index]) dots[index].classList.add("active");
 });
-
-  function slide(direction){
-  const slider = document.getElementById("slider");
-  const slide = slider.querySelector("img");
-
-  const largura = slide.clientWidth + 12; // 🔥 inclui o gap
-
-  slider.scrollBy({
-    left: direction * largura,
-    behavior: "smooth"
-  });
-}
-}
 
 
 </script>
