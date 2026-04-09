@@ -419,6 +419,7 @@ opacity:0.6;
   
   
 /* seta abertura imagem  */
+
 .zoom-overlay{
   position:fixed;
   top:0;
@@ -428,15 +429,10 @@ opacity:0.6;
 
   display:flex;
   justify-content:center;
-  align-items:center; /* 🔥 ISSO É O QUE FALTA */
-}
+  align-items:center; /* 🔥 ISSO CENTRALIZA VERTICAL */
 
-.zoom-seta.esquerda{
-  left:calc(50% - 300px); /* ajusta fino */
-}
-
-.zoom-seta.direita{
-  right:calc(50% - 300px);
+  background:rgba(0,0,0,0.92);
+  z-index:9999;
 }
   
 }
