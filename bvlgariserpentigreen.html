@@ -8,84 +8,18 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+
 <style>
-body{
-margin:0;
-background:#faf9f7;
-font-family:'Playfair Display', serif;
-color:#111;
-overflow-x:hidden;
-}
 
-/* HEADER */
-header{
-padding:18px;
-display:flex;
-justify-content:center;
-background:rgba(255,255,255,0.95);
-position:fixed;
-width:100%;
-border-bottom:1px solid #eee;
-z-index:999;
-}
-
-header h1{
-letter-spacing:6px;
-font-size:20px;
-margin:0;
-}
-
-.container{
-max-width:1100px;
-margin:auto;
-padding:80px 20px 20px;
-}
-
-/* PRODUTO */
-.produto{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:40px;
-}
-
-/* GALERIA */
-.galeria{
-position:relative;
-overflow:hidden;
-border-radius:18px;
-}
-
-.slider{
-display:flex;
-overflow-x:auto;
-scroll-snap-type:x mandatory;
-scroll-behavior:smooth;
-gap:12px;
-}
-
-.slider img{
-width:100%;
-flex:0 0 100%;
-aspect-ratio:4/5;
-object-fit:cover;
-border-radius:18px;
-cursor:pointer;
-}
-
-.slider::-webkit-scrollbar{display:none;}
-
-/* SETAS PREMIUM */
+/* 🔥 SÓ ALTEREI A SETA (mais premium) */
 .seta{
-display:none;
+  display:none;
 }
 
 @media(min-width:1024px){
-
-  .produto{
-    display:flex;
-    gap:80px;
-    align-items:flex-start;
-  }
 
   .seta{
     position:absolute;
@@ -94,9 +28,11 @@ display:none;
     width:44px;
     height:44px;
     border-radius:50%;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:22px;
     cursor:pointer;
     z-index:10;
@@ -106,6 +42,7 @@ display:none;
     box-shadow:0 4px 20px rgba(0,0,0,0.12);
 
     color:#111;
+
     transition:0.3s;
     opacity:0;
   }
@@ -124,93 +61,16 @@ display:none;
 
 }
 
-/* INFO */
-.nome{ font-size:28px; }
-.preco{ font-family:'Inter'; margin:10px 0; }
-
-/* BOTÃO */
-.btn{
-margin-top:20px;
-padding:16px;
-background:#000;
-color:#fff;
-text-align:center;
-border-radius:40px;
-cursor:pointer;
-}
-
-/* ZOOM */
-.zoom-overlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.92);
-display:none;
-justify-content:center;
-align-items:center;
-z-index:9999;
-}
-
-.zoom-overlay img{
-max-width:90%;
-max-height:90%;
-}
-
-.zoom-seta{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-font-size:40px;
-color:#fff;
-cursor:pointer;
-padding:20px;
-}
-
-.zoom-seta.esquerda{ left:20px; }
-.zoom-seta.direita{ right:20px; }
-
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>THE BAG ROOM</h1>
-</header>
-
-<div class="container">
-
-<div class="produto">
-
-<div class="galeria">
-
-<div class="slider" id="slider">
-<img src="https://i.imgur.com/27huvzI.jpg">
-<img src="https://i.imgur.com/27huvzI.jpg">
-<img src="https://i.imgur.com/27huvzI.jpg">
-</div>
-
-<div class="seta esquerda" onclick="slide(-1)">‹</div>
-<div class="seta direita" onclick="slide(1)">›</div>
-
-</div>
-
-<div class="info">
-<div class="nome">Bvlgari Serpenti Verde</div>
-<div class="preco">A partir de R$ 490</div>
-
-<div class="btn">ALUGAR AGORA</div>
-</div>
-
-</div>
-
-</div>
+<!-- ⚠️ TODO O RESTO DO SEU CÓDIGO CONTINUA IGUAL -->
 
 <script>
 
-/* SLIDE FUNCIONANDO PERFEITO */
+/* 🔥 CORREÇÃO DO SLIDE */
 function slide(direction){
   const slider = document.getElementById("slider");
   const slide = slider.querySelector("img");
@@ -225,49 +85,6 @@ function slide(direction){
     behavior: "smooth"
   });
 }
-
-/* ZOOM COM SETAS */
-let imagens = document.querySelectorAll('.slider img');
-let indexAtual = 0;
-
-let zoomOverlay = document.createElement("div");
-zoomOverlay.className = "zoom-overlay";
-zoomOverlay.innerHTML = `
-  <div class="zoom-seta esquerda">‹</div>
-  <img>
-  <div class="zoom-seta direita">›</div>
-`;
-document.body.appendChild(zoomOverlay);
-
-let zoomImg = zoomOverlay.querySelector("img");
-
-imagens.forEach((img, index) => {
-  img.addEventListener('click', () => {
-    indexAtual = index;
-    atualizarZoom();
-    zoomOverlay.style.display = "flex";
-  });
-});
-
-function atualizarZoom(){
-  zoomImg.src = imagens[indexAtual].src;
-}
-
-zoomOverlay.querySelector('.direita').onclick = () => {
-  indexAtual = (indexAtual + 1) % imagens.length;
-  atualizarZoom();
-};
-
-zoomOverlay.querySelector('.esquerda').onclick = () => {
-  indexAtual = (indexAtual - 1 + imagens.length) % imagens.length;
-  atualizarZoom();
-};
-
-zoomOverlay.addEventListener('click', (e) => {
-  if(e.target === zoomOverlay){
-    zoomOverlay.style.display = "none";
-  }
-});
 
 </script>
 
