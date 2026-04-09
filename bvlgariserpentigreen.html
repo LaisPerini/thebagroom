@@ -682,10 +682,7 @@ let voltaData = await voltaResponse.json();
 
 let html = "";
 
-idaData
-.filter(f => (f.name === "PAC" || f.name === "SEDEX"))
-.filter(f => f.price && f.delivery_time)
-.forEach((frete, i) => {
+let frete = idaData.find(f => f.name === "SEDEX");
 
 let precoIda = parseFloat(frete.price);
 let voltaMatch = voltaData.find(v => v.name === frete.name);
@@ -696,11 +693,11 @@ html = `
 
 <strong>Entrega</strong>
 
-<div class="frete-opcao" onclick="selecionarFreteIda('SEDEX', ${precoIda}, ${frete.delivery_time}, this)">
+<div class="frete-opcao frete-ida" onclick="selecionarFreteIda('SEDEX', ${precoIda}, ${frete.delivery_time}, this)">
 SEDEX • R$ ${precoIda.toFixed(2)}
 </div>
 
-<div class="frete-opcao" onclick="selecionarFreteIda('Retirar', 0, 0, this)">
+<div class="frete-opcao frete-ida" onclick="selecionarFreteIda('Retirar', 0, 0, this)">
 Retirar no showroom • Grátis
 </div>
 
@@ -708,11 +705,26 @@ Retirar no showroom • Grátis
 
 <strong>Devolução</strong>
 
-<div class="frete-opcao" onclick="selecionarFreteVolta('SEDEX', ${precoVolta}, ${frete.delivery_time}, this)">
+<div class="frete-opcao frete-volta" onclick="selecionarFreteVolta('SEDEX', ${precoVolta}, ${frete.delivery_time}, this)">
 SEDEX • R$ ${precoVolta.toFixed(2)}
 </div>
 
-<div class="frete-opcao" onclick="selecionarFreteVolta('Retirar', 0, 0, this)">
+<div class="frete-opcao frete-volta" onclick="selecionarFreteVolta('Retirar', 0, 0, this)">
+Retirar no showroom • Grátis
+</div>
+
+</div>
+`;
+
+<br>
+
+<strong>Devolução</strong>
+
+<div class="frete-opcao frete-volta">onclick="selecionarFreteVolta('SEDEX', ${precoVolta}, ${frete.delivery_time}, this)">
+SEDEX • R$ ${precoVolta.toFixed(2)}
+</div>
+
+<div class="frete-opcao frete-volta"> onclick="selecionarFreteVolta('Retirar', 0, 0, this)">
 Retirar no showroom • Grátis
 </div>
 
@@ -728,10 +740,6 @@ function selecionarFrete(nome, preco, prazo, el){
 
 freteSelecionado = { nome, preco, prazo };
 
-// remove seleção de todos
-document.querySelectorAll('.frete-opcao').forEach(item=>{
-item.classList.remove('active');
-});
 
 // aplica no clicado
 el.classList.add('active');
@@ -744,24 +752,30 @@ document.getElementById("freteSelecionado").innerHTML =
 
 function selecionarFreteIda(nome, preco, prazo, el){
 
-freteIdaSelecionado = { nome, preco, prazo };
+  freteIdaSelecionado = { nome, preco, prazo };
 
-document.querySelectorAll('.frete-opcao').forEach(item=>{
-item.classList.remove('active');
-});
+  // remove só ida
+  document.querySelectorAll('.frete-ida').forEach(item=>{
+    item.classList.remove('active');
+  });
 
-el.classList.add('active');
+  el.classList.add('active');
 
-atualizarResumoFrete();
+  atualizarResumoFrete();
 }
 
 function selecionarFreteVolta(nome, preco, prazo, el){
 
-freteVoltaSelecionado = { nome, preco, prazo };
+  freteVoltaSelecionado = { nome, preco, prazo };
 
-el.classList.add('active');
+  // remove só volta
+  document.querySelectorAll('.frete-volta').forEach(item=>{
+    item.classList.remove('active');
+  });
 
-atualizarResumoFrete();
+  el.classList.add('active');
+
+  atualizarResumoFrete();
 }
 
 function atualizarResumoFrete(){
@@ -808,7 +822,10 @@ Bvlgari Serpenti Verde
 Data recebimento: ${data}
 Período: ${textoOpcao}
 
-Frete: ${freteSelecionado.nome} • R$ ${freteSelecionado.preco.toFixed(2)} • ${freteSelecionado.prazo} dias
+let freteTexto = `
+Entrega: ${freteIdaSelecionado.nome} • R$ ${freteIdaSelecionado.preco.toFixed(2)}
+Devolução: ${freteVoltaSelecionado.nome} • R$ ${freteVoltaSelecionado.preco.toFixed(2)}
+`;
 
 Valor total: R$ ${totalFormatado}`;
 
