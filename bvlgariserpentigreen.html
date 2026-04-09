@@ -759,12 +759,15 @@ slider.addEventListener("scroll", () => {
 
   function slide(direction){
   const slider = document.getElementById("slider");
-  const largura = slider.clientWidth;
+  const slide = slider.querySelector("img");
+
+  const largura = slide.clientWidth + 12; // 🔥 inclui o gap
 
   slider.scrollBy({
     left: direction * largura,
     behavior: "smooth"
   });
+}
 }
 
 
