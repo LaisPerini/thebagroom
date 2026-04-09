@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,7 +14,6 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
 
 <style>
-/* (SEU CSS INTEIRO — NÃO ALTERADO) */
 body{
 margin:0;
 background:#faf9f7;
@@ -184,6 +184,7 @@ margin-top:10px;
 margin-bottom:20px;
 }
 
+
 .slider{
 display:flex;
 overflow-x:auto;
@@ -216,6 +217,7 @@ transform:scale(0.98);
 display:none;
 }
 
+/* DOTS CHANEL STYLE */
 .dots{
 display:flex;
 justify-content:center;
@@ -237,6 +239,7 @@ width:18px;
 border-radius:10px;
 }
 
+/* BRILHO SUAVE (luxo discreto) */
 .galeria::after{
 content:"";
 position:absolute;
@@ -254,6 +257,7 @@ animation:luxoBrilho 5s infinite;
 100%{left:140%;}
 }
 
+/* ZOOM PREMIUM */
 .zoom-overlay{
 position:fixed;
 top:0;
@@ -283,6 +287,7 @@ to{opacity:1;}
 .produto{grid-template-columns:1fr;}
 }
 
+/* BOTÃO MENU */
 .menu-mobile-btn{
 position:absolute;
 left:16px;
@@ -292,6 +297,7 @@ font-size:22px;
 cursor:pointer;
 }
 
+/* MENU LATERAL PREMIUM */
 .menu-mobile{
 position:fixed;
 top:0;
@@ -310,6 +316,7 @@ padding-top:100px;
 left:0;
 }
 
+/* FECHAR */
 .close-menu{
 position:absolute;
 top:24px;
@@ -318,6 +325,7 @@ font-size:30px;
 cursor:pointer;
 }
 
+/* LINKS */
 .menu-mobile-inner{
 display:flex;
 flex-direction:column;
@@ -338,62 +346,89 @@ transition:0.3s;
 opacity:0.6;
 }
 
-.seta{display:none;}
+  .seta{
+  display:none;
+}
 
+/* botao seta quando clica na foto */
 .zoom-seta{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-font-size:40px;
-color:#fff;
-cursor:pointer;
-padding:20px;
-user-select:none;
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:40px;
+  color:#fff;
+  cursor:pointer;
+  padding:20px;
+  user-select:none;
 }
 
-.zoom-seta.esquerda{left:20px;}
-.zoom-seta.direita{right:20px;}
+.zoom-seta.esquerda{
+  left:20px;
+}
 
+.zoom-seta.direita{
+  right:20px;
+}
+  
+
+/* DESKTOP */
 @media(min-width:1024px){
-
+  
 .top-space{
-height:1px;
-display:none;
-}
-
-.produto{
-display:flex;
-gap:80px;
-max-width:1100px;
-margin:50px auto 60px;
-align-items:flex-start;
-}
-
-.galeria{flex:1;max-width:600px;}
-.info{flex:1;max-width:400px;}
-
-.seta{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-width:40px;
-height:40px;
-border-radius:50%;
-background:rgba(255,255,255,0.9);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-cursor:pointer;
-z-index:10;
-transition:0.3s;
-}
-
-.seta:hover{background:#fff;}
-.seta.esquerda{left:10px;}
-.seta.direita{right:10px;}
+  height:1px;
+  display:none;
 
 }
+
+  .produto{
+    display:flex;
+    gap:80px;
+    max-width:1100px;
+    margin:50px auto 60px;
+    align-items:flex-start;
+  }
+
+  .galeria{
+    flex:1;
+    max-width:600px;
+  }
+
+  .info{
+    flex:1;
+    max-width:400px;
+  }
+
+    .seta{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.9);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  cursor:pointer;
+  z-index:10;
+  transition:0.3s;
+}
+
+.seta:hover{
+  background:#fff;
+}
+
+.seta.esquerda{
+  left:10px;
+}
+
+.seta.direita{
+  right:10px;
+}
+  
+}
+
 </style>
 </head>
 
@@ -401,89 +436,341 @@ transition:0.3s;
 
 <header>
 <h1>THE BAG ROOM</h1>
-<div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
-<nav class="menu-mobile" id="menuMobile">
-<div class="close-menu" onclick="toggleMenuMobile()">×</div>
-<div class="menu-mobile-inner">
-<a href="index.html">Início</a>
-<a href="aluguel.html">Alugar </a>
-<a href="Como Funciona.html">Como Desapegar</a>
-<a href="autenticidade.html">Autenticidade</a>
-<a href="quem-somos.html">Sobre</a>
-</div>
-</nav>
+
+  <!-- botão menu -->
+  <div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
+
+  <!-- menu lateral -->
+  <nav class="menu-mobile" id="menuMobile">
+
+    <div class="close-menu" onclick="toggleMenuMobile()">×</div>
+
+    <div class="menu-mobile-inner">
+      <a href="index.html">Início</a>
+      <a href="aluguel.html">Alugar </a>
+      <a href="Como Funciona.html">Como Desapegar</a>
+      <a href="autenticidade.html">Autenticidade</a>
+      <a href="quem-somos.html">Sobre</a>
+    </div>
+
+  </nav>
 </header>
 
 <div class="top-space"></div>
 
 <div class="container">
+
 <div class="produto">
 
-<div class="galeria">
-<div class="slider" id="slider">
-<img src="https://i.imgur.com/27huvzI.jpg">
-<img src="https://i.imgur.com/27huvzI.jpg">
-<img src="https://i.imgur.com/27huvzI.jpg">
+  <!-- ESQUERDA (IMAGEM) -->
+  <div class="galeria">
+
+    <div class="slider" id="slider">
+      <img src="https://i.imgur.com/27huvzI.jpg">
+      <img src="https://i.imgur.com/27huvzI.jpg">
+      <img src="https://i.imgur.com/27huvzI.jpg">
+    </div>
+
+    <div class="seta esquerda" onclick="slide(-1)">‹</div>
+    <div class="seta direita" onclick="slide(1)">›</div>
+
+    <div class="dots" id="dots"></div>
+
+  </div>
+
+  <!-- DIREITA (INFO + BOTÃO) -->
+  <div class="info">
+
+    <div class="nome">Bvlgari Serpenti Verde</div>
+    <div class="preco">A partir de R$ 490</div>
+
+    <div class="desc">
+      Ícone da Bvlgari com fecho em formato de serpente, símbolo de elegância e poder.
+    </div>
+
+    <div class="opcoes">
+      <label class="opcao active"><input type="radio" name="dias" value="4" checked>4 dias • R$ 490</label>
+      <label class="opcao"><input type="radio" name="dias" value="7">7 dias • R$ 690</label>
+      <label class="opcao"><input type="radio" name="dias" value="10">10 dias • R$ 890</label>
+      <label class="opcao"><input type="radio" name="dias" value="15">15 dias • R$ 1.090</label>
+      <label class="opcao"><input type="radio" name="dias" value="20">20 dias • R$1.290</label>
+      <label class="opcao"><input type="radio" name="dias" value="30">30 dias • R$1.690</label>
+    </div>
+
+    <br>
+
+    <input type="text" id="dataInicio" placeholder="Selecione a data">
+
+    <div id="devolucao"></div>
+
+    <br>
+
+    <input type="text" id="cep" placeholder="Digite seu CEP">
+
+    <button class="btn-frete" onclick="calcularFrete()">Calcular frete</button>
+
+    <div id="freteResultado"></div>
+    <div id="freteSelecionado" style="margin-top:10px; font-family:'Inter';"></div>
+
+    <div class="btn" onclick="alugar()">ALUGAR AGORA</div>
+
+  </div>
+
 </div>
 
-<div class="seta esquerda" onclick="slide(-1)">‹</div>
-<div class="seta direita" onclick="slide(1)">›</div>
+ <!-- <div class="btn" onclick="alugar()">ALUGAR AGORA</div> -->
 
-<div class="dots" id="dots"></div>
-</div>
-
-<div class="info">
-<div class="nome">Bvlgari Serpenti Verde</div>
-<div class="preco">A partir de R$ 490</div>
-<div class="desc">
-Ícone da Bvlgari com fecho em formato de serpente, símbolo de elegância e poder.
-</div>
-
-<div class="opcoes">
-<label class="opcao active"><input type="radio" name="dias" value="4" checked>4 dias • R$ 490</label>
-<label class="opcao"><input type="radio" name="dias" value="7">7 dias • R$ 690</label>
-<label class="opcao"><input type="radio" name="dias" value="10">10 dias • R$ 890</label>
-<label class="opcao"><input type="radio" name="dias" value="15">15 dias • R$ 1.090</label>
-<label class="opcao"><input type="radio" name="dias" value="20">20 dias • R$1.290</label>
-<label class="opcao"><input type="radio" name="dias" value="30">30 dias • R$1.690</label>
-</div>
-
-<br>
-
-<input type="text" id="dataInicio" placeholder="Selecione a data">
-<div id="devolucao"></div>
-
-<br>
-
-<input type="text" id="cep" placeholder="Digite seu CEP">
-<button class="btn-frete" onclick="calcularFrete()">Calcular frete</button>
-
-<div id="freteResultado"></div>
-<div id="freteSelecionado" style="margin-top:10px; font-family:'Inter';"></div>
-
-<div class="btn" onclick="alugar()">ALUGAR AGORA</div>
 </div>
 
 </div>
+
 </div>
 
 <script>
 
-/* 🔥 CORRIGIDO */
-function slide(direction){
+function toggleMenuMobile(){
+  document.getElementById('menuMobile').classList.toggle('open');
+}
+
+
+
+/* seleção dias */
+document.querySelectorAll('.opcao').forEach(opcao => {
+  opcao.addEventListener('click', () => {
+    document.querySelectorAll('.opcao').forEach(o => o.classList.remove('active'));
+    opcao.classList.add('active');
+    atualizarDevolucao();
+  });
+});
+
+/* 🔥 CALENDÁRIO */
+async function iniciarCalendario(){
+
+  let response = await fetch("https://thebagroomtest.onrender.com/datas/serpenti-verde");
+  let alugueis = await response.json();
+
+  let datasBloqueadas = [];
+
+  alugueis.forEach(a => {
+    let inicio = new Date(a.inicio);
+    let fim = new Date(a.fim);
+
+    for(let d = new Date(inicio); d <= fim; d.setDate(d.getDate()+1)){
+      datasBloqueadas.push(new Date(d));
+    }
+  });
+
+  flatpickr("#dataInicio", {
+    locale: "pt",
+    dateFormat: "d/m/Y",
+    minDate: new Date().fp_incr(3),
+    disableMobile: true,
+    disable: datasBloqueadas,
+    onChange: () => atualizarDevolucao()
+  });
+
+}
+
+iniciarCalendario();
+
+/* devolução */
+function atualizarDevolucao(){
+
+let dias = document.querySelector('input[name="dias"]:checked');
+let dataInput = document.getElementById('dataInicio').value;
+
+if(!dias || !dataInput) return;
+
+let partes = dataInput.split("/");
+let data = new Date(partes[2], partes[1]-1, partes[0]);
+
+data.setDate(data.getDate() + parseInt(dias.value));
+
+document.getElementById('devolucao').innerHTML =
+`Devolução prevista: <strong>${data.toLocaleDateString('pt-BR')}</strong>`;
+}
+
+/* 🔥 FRETE COM SELEÇÃO */
+let freteSelecionado = null;
+
+async function calcularFrete(){
+
+let cep = document.getElementById("cep").value;
+let resultado = document.getElementById("freteResultado");
+
+if(!cep){
+resultado.innerHTML = "Digite o CEP";
+return;
+}
+
+resultado.innerHTML = "Calculando...";
+
+let response = await fetch("https://thebagroomtest.onrender.com/frete", {
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({ to:{ postal_code:cep } })
+});
+
+let data = await response.json();
+
+let html = "";
+
+data
+.filter(f => (f.name === "PAC" || f.name === "SEDEX"))
+.filter(f => f.price && f.delivery_time)
+.forEach(frete => {
+
+html += `
+<div class="frete-opcao"
+onclick="selecionarFrete('${frete.name}', ${frete.price}, ${frete.delivery_time}, this)"
+style="border:1px solid #ddd;padding:10px;margin-top:8px;border-radius:10px;cursor:pointer;font-family:'Inter';">
+${frete.name} • R$ ${parseFloat(frete.price).toFixed(2)} • ${frete.delivery_time} dias
+</div>
+`;
+
+});
+
+resultado.innerHTML = html || "Nenhuma opção disponível";
+
+}
+
+function selecionarFrete(nome, preco, prazo, el){
+
+freteSelecionado = { nome, preco, prazo };
+
+// remove seleção de todos
+document.querySelectorAll('.frete-opcao').forEach(item=>{
+item.classList.remove('active');
+});
+
+// aplica no clicado
+el.classList.add('active');
+
+// texto abaixo
+document.getElementById("freteSelecionado").innerHTML =
+`Frete escolhido: <strong>${nome} • R$ ${preco.toFixed(2)}</strong>`;
+
+}
+
+/* 🔥 WHATSAPP COMPLETO */
+function alugar(){
+
+let diasSelecionado = document.querySelector('input[name="dias"]:checked');
+let data = document.getElementById('dataInicio').value;
+
+if(!data){
+alert("Escolha a data");
+return;
+}
+
+if(!freteSelecionado){
+alert("Escolha o frete");
+return;
+}
+
+// valor aluguel
+let textoOpcao = diasSelecionado.parentElement.innerText;
+let valorMatch = textoOpcao.match(/R\$ ([\d,]+)/);
+let valor = valorMatch ? parseFloat(valorMatch[1].replace(",", ".")) : 0;
+
+// total
+let total = valor + freteSelecionado.preco;
+let totalFormatado = total.toFixed(2).replace(".", ",");
+
+let mensagem = `Olá, quero alugar a 
+Bvlgari Serpenti Verde
+
+Data recebimento: ${data}
+Período: ${textoOpcao}
+
+Frete: ${freteSelecionado.nome} • R$ ${freteSelecionado.preco.toFixed(2)} • ${freteSelecionado.prazo} dias
+
+Valor total: R$ ${totalFormatado}`;
+
+window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
+
+}
+
+/* ZOOM */
+let imagens = document.querySelectorAll('.slider img');
+let indexAtual = 0;
+
+let zoomOverlay = document.createElement("div");
+zoomOverlay.className = "zoom-overlay";
+zoomOverlay.innerHTML = `
+  <div class="zoom-seta esquerda">‹</div>
+  <img>
+  <div class="zoom-seta direita">›</div>
+`;
+document.body.appendChild(zoomOverlay);
+
+let zoomImg = zoomOverlay.querySelector("img");
+
+// abrir zoom
+imagens.forEach((img, index) => {
+  img.addEventListener('click', () => {
+    indexAtual = index;
+    atualizarZoom();
+    zoomOverlay.style.display = "flex";
+  });
+});
+
+// função atualizar imagem
+function atualizarZoom(){
+  zoomImg.src = imagens[indexAtual].src;
+}
+
+// setas
+zoomOverlay.querySelector('.direita').onclick = () => {
+  indexAtual = (indexAtual + 1) % imagens.length;
+  atualizarZoom();
+};
+
+zoomOverlay.querySelector('.esquerda').onclick = () => {
+  indexAtual = (indexAtual - 1 + imagens.length) % imagens.length;
+  atualizarZoom();
+};
+
+// fechar ao clicar fora
+zoomOverlay.addEventListener('click', (e) => {
+  if(e.target === zoomOverlay){
+    zoomOverlay.style.display = "none";
+  }
+});
+
+/* DOTS */
+let slider = document.getElementById("slider");
+let images = slider.querySelectorAll("img");
+let dotsContainer = document.getElementById("dots");
+
+images.forEach((_, i) => {
+  let dot = document.createElement("span");
+  if(i === 0) dot.classList.add("active");
+  dotsContainer.appendChild(dot);
+});
+
+let dots = dotsContainer.querySelectorAll("span");
+
+slider.addEventListener("scroll", () => {
+  let index = Math.round(slider.scrollLeft / slider.clientWidth);
+
+  dots.forEach(d => d.classList.remove("active"));
+  if(dots[index]) dots[index].classList.add("active");
+});
+
+  function slide(direction){
   const slider = document.getElementById("slider");
   const slide = slider.querySelector("img");
 
-  const style = getComputedStyle(slider);
-  const gap = parseInt(style.gap) || 0;
-
-  const largura = slide.clientWidth + gap;
+  const largura = slide.clientWidth + 12; // 🔥 inclui o gap
 
   slider.scrollBy({
     left: direction * largura,
     behavior: "smooth"
   });
 }
+}
+
 
 </script>
 
