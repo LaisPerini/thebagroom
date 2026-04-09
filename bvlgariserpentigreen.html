@@ -13,64 +13,463 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
 
 <style>
-
-/* 🔥 SÓ ALTEREI A SETA (mais premium) */
-.seta{
-  display:none;
+/* (SEU CSS INTEIRO — NÃO ALTERADO) */
+body{
+margin:0;
+background:#faf9f7;
+font-family:'Playfair Display', serif;
+color:#111;
+overflow-x:hidden;
 }
+
+header{
+padding:18px;
+display:flex;
+justify-content:center;
+background:rgba(255,255,255,0.95);
+position:fixed;
+width:100%;
+border-bottom:1px solid #eee;
+z-index:999;
+}
+
+header h1{
+letter-spacing:6px;
+font-size:20px;
+margin:0;
+}
+
+.top-space{height:50px;}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:20px;
+}
+
+.produto{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+}
+
+.produto img{
+width:100%;
+border-radius:10px;
+}
+
+.nome{
+font-size:32px;
+line-height:1.2;
+margin-top:10px;
+margin-bottom:8px;
+}
+
+.preco{
+font-family:'Inter', sans-serif;
+font-size:18px;
+margin:10px 0;
+letter-spacing:0.5px;
+color:#444;
+}
+
+.desc{
+color:#555;
+line-height:1.6;
+margin-bottom:20px;
+}
+
+.opcoes{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.opcao{
+border:1px solid #e5e5e5;
+padding:12px;
+border-radius:12px;
+cursor:pointer;
+font-family:'Inter', sans-serif;
+display:flex;
+justify-content:center;
+}
+
+.opcao input{display:none;}
+
+.opcao.active{
+background:#000;
+color:#fff;
+}
+
+#dataInicio, #cep{
+width:220px;
+padding:10px;
+border:none;
+border-bottom:1px solid #ccc;
+background:transparent;
+font-family:'Inter';
+}
+
+#devolucao{
+margin-top:10px;
+font-family:'Inter';
+}
+
+.btn{
+margin-top:30px;
+padding:20px;
+background:linear-gradient(180deg,#111,#000);
+color:#fff;
+border-radius:50px;
+text-align:center;
+letter-spacing:6px;
+font-size:11px;
+cursor:pointer;
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+transition:0.3s;
+}
+
+.btn:active{
+transform:scale(0.97);
+}
+
+.btn-frete{
+margin-top:10px;
+padding:10px;
+background:#000;
+color:#fff;
+border-radius:20px;
+border:none;
+}
+
+.flatpickr-calendar{
+border-radius:16px;
+font-family:'Inter';
+}
+
+.flatpickr-day.selected{
+background:#000;
+border-color:#000;
+}
+
+.frete-opcao{
+border:1px solid #e5e5e5;
+padding:12px;
+margin-top:8px;
+border-radius:12px;
+cursor:pointer;
+font-family:'Inter';
+transition:0.2s;
+text-align:center;
+}
+
+.frete-opcao.active{
+background:#000;
+color:#fff;
+border-color:#000;
+transform:scale(0.98);
+}
+
+.flatpickr-day.disabled{
+color:#ccc;
+}
+
+.galeria{
+position:relative;
+overflow:hidden;
+border-radius:18px;
+width:100%;
+margin-top:10px;
+margin-bottom:20px;
+}
+
+.slider{
+display:flex;
+overflow-x:auto;
+scroll-snap-type:x mandatory;
+scroll-behavior:smooth;
+gap:12px;
+padding-bottom:10px;
+width:100%;
+max-width:100%;
+padding:0 5px;
+}
+
+.slider img{
+width:100%;
+max-width:100%;
+aspect-ratio:4/5;
+object-fit:cover;
+flex:0 0 100%;
+scroll-snap-align:center;
+border-radius:18px;
+transition:transform 0.4s ease;
+cursor:pointer;
+}
+
+.slider img:active{
+transform:scale(0.98);
+}
+
+.slider::-webkit-scrollbar{
+display:none;
+}
+
+.dots{
+display:flex;
+justify-content:center;
+gap:6px;
+margin-top:10px;
+}
+
+.dots span{
+width:6px;
+height:6px;
+background:#ccc;
+border-radius:50%;
+transition:0.3s;
+}
+
+.dots span.active{
+background:#000;
+width:18px;
+border-radius:10px;
+}
+
+.galeria::after{
+content:"";
+position:absolute;
+top:0;
+left:-120%;
+width:40%;
+height:100%;
+background:linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+transform:skewX(-20deg);
+animation:luxoBrilho 5s infinite;
+}
+
+@keyframes luxoBrilho{
+0%{left:-120%;}
+100%{left:140%;}
+}
+
+.zoom-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.92);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+animation:fadeIn 0.3s ease;
+}
+
+.zoom-overlay img{
+max-width:92%;
+max-height:92%;
+border-radius:14px;
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+@media(max-width:700px){
+.produto{grid-template-columns:1fr;}
+}
+
+.menu-mobile-btn{
+position:absolute;
+left:16px;
+top:50%;
+transform:translateY(-50%);
+font-size:22px;
+cursor:pointer;
+}
+
+.menu-mobile{
+position:fixed;
+top:0;
+left:-100%;
+width:85%;
+max-width:320px;
+height:100vh;
+background:rgba(255,255,255,0.98);
+backdrop-filter:blur(14px);
+transition:0.45s cubic-bezier(0.22,1,0.36,1);
+z-index:2000;
+padding-top:100px;
+}
+
+.menu-mobile.open{
+left:0;
+}
+
+.close-menu{
+position:absolute;
+top:24px;
+right:24px;
+font-size:30px;
+cursor:pointer;
+}
+
+.menu-mobile-inner{
+display:flex;
+flex-direction:column;
+gap:26px;
+padding-left:30px;
+}
+
+.menu-mobile-inner a{
+font-family:'Cormorant Garamond', serif;
+font-size:22px;
+letter-spacing:1px;
+text-decoration:none;
+color:#000;
+transition:0.3s;
+}
+
+.menu-mobile-inner a:hover{
+opacity:0.6;
+}
+
+.seta{display:none;}
+
+.zoom-seta{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+font-size:40px;
+color:#fff;
+cursor:pointer;
+padding:20px;
+user-select:none;
+}
+
+.zoom-seta.esquerda{left:20px;}
+.zoom-seta.direita{right:20px;}
 
 @media(min-width:1024px){
 
-  .seta{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    width:44px;
-    height:44px;
-    border-radius:50%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:22px;
-    cursor:pointer;
-    z-index:10;
-
-    background:rgba(255,255,255,0.6);
-    backdrop-filter:blur(10px);
-    box-shadow:0 4px 20px rgba(0,0,0,0.12);
-
-    color:#111;
-
-    transition:0.3s;
-    opacity:0;
-  }
-
-  .galeria:hover .seta{
-    opacity:1;
-  }
-
-  .seta:hover{
-    background:#fff;
-    transform:translateY(-50%) scale(1.05);
-  }
-
-  .seta.esquerda{ left:12px; }
-  .seta.direita{ right:12px; }
-
+.top-space{
+height:1px;
+display:none;
 }
 
+.produto{
+display:flex;
+gap:80px;
+max-width:1100px;
+margin:50px auto 60px;
+align-items:flex-start;
+}
+
+.galeria{flex:1;max-width:600px;}
+.info{flex:1;max-width:400px;}
+
+.seta{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+width:40px;
+height:40px;
+border-radius:50%;
+background:rgba(255,255,255,0.9);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+cursor:pointer;
+z-index:10;
+transition:0.3s;
+}
+
+.seta:hover{background:#fff;}
+.seta.esquerda{left:10px;}
+.seta.direita{right:10px;}
+
+}
 </style>
 </head>
 
 <body>
 
-<!-- ⚠️ TODO O RESTO DO SEU CÓDIGO CONTINUA IGUAL -->
+<header>
+<h1>THE BAG ROOM</h1>
+<div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
+<nav class="menu-mobile" id="menuMobile">
+<div class="close-menu" onclick="toggleMenuMobile()">×</div>
+<div class="menu-mobile-inner">
+<a href="index.html">Início</a>
+<a href="aluguel.html">Alugar </a>
+<a href="Como Funciona.html">Como Desapegar</a>
+<a href="autenticidade.html">Autenticidade</a>
+<a href="quem-somos.html">Sobre</a>
+</div>
+</nav>
+</header>
+
+<div class="top-space"></div>
+
+<div class="container">
+<div class="produto">
+
+<div class="galeria">
+<div class="slider" id="slider">
+<img src="https://i.imgur.com/27huvzI.jpg">
+<img src="https://i.imgur.com/27huvzI.jpg">
+<img src="https://i.imgur.com/27huvzI.jpg">
+</div>
+
+<div class="seta esquerda" onclick="slide(-1)">‹</div>
+<div class="seta direita" onclick="slide(1)">›</div>
+
+<div class="dots" id="dots"></div>
+</div>
+
+<div class="info">
+<div class="nome">Bvlgari Serpenti Verde</div>
+<div class="preco">A partir de R$ 490</div>
+<div class="desc">
+Ícone da Bvlgari com fecho em formato de serpente, símbolo de elegância e poder.
+</div>
+
+<div class="opcoes">
+<label class="opcao active"><input type="radio" name="dias" value="4" checked>4 dias • R$ 490</label>
+<label class="opcao"><input type="radio" name="dias" value="7">7 dias • R$ 690</label>
+<label class="opcao"><input type="radio" name="dias" value="10">10 dias • R$ 890</label>
+<label class="opcao"><input type="radio" name="dias" value="15">15 dias • R$ 1.090</label>
+<label class="opcao"><input type="radio" name="dias" value="20">20 dias • R$1.290</label>
+<label class="opcao"><input type="radio" name="dias" value="30">30 dias • R$1.690</label>
+</div>
+
+<br>
+
+<input type="text" id="dataInicio" placeholder="Selecione a data">
+<div id="devolucao"></div>
+
+<br>
+
+<input type="text" id="cep" placeholder="Digite seu CEP">
+<button class="btn-frete" onclick="calcularFrete()">Calcular frete</button>
+
+<div id="freteResultado"></div>
+<div id="freteSelecionado" style="margin-top:10px; font-family:'Inter';"></div>
+
+<div class="btn" onclick="alugar()">ALUGAR AGORA</div>
+</div>
+
+</div>
+</div>
 
 <script>
 
-/* 🔥 CORREÇÃO DO SLIDE */
+/* 🔥 CORRIGIDO */
 function slide(direction){
   const slider = document.getElementById("slider");
   const slide = slider.querySelector("img");
