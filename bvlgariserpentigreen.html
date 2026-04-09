@@ -683,8 +683,22 @@ window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
 /* ZOOM */
 let zoomOverlay = document.createElement("div");
 zoomOverlay.className = "zoom-overlay";
-zoomOverlay.innerHTML = "<img>";
+zoomOverlay.innerHTML = `
+  <div class="zoom-seta esquerda">❮</div>
+  <img>
+  <div class="zoom-seta direita">❯</div>
+`;
 document.body.appendChild(zoomOverlay);
+
+zoomOverlay.querySelector('.direita').onclick = () => {
+  indexAtual = (indexAtual + 1) % imagens.length;
+  atualizarZoom();
+};
+
+zoomOverlay.querySelector('.esquerda').onclick = () => {
+  indexAtual = (indexAtual - 1 + imagens.length) % imagens.length;
+  atualizarZoom();
+};
 
 let zoomImg = zoomOverlay.querySelector("img");
 
