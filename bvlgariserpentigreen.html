@@ -418,24 +418,19 @@ opacity:0.6;
   
   
 /* seta abertura imagem  */
-  .zoom-seta{
-  position:absolute !important;
-  top:50% !important;
-  transform:translateY(-50%) !important;
-
-  font-size:40px !important;
-  color:red !important;
-
-  z-index:99999 !important;
-  cursor:pointer !important;
+.zoom-overlay{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
 }
 
 .zoom-seta.esquerda{
- left:calc(50% - 350px); 
+  left:calc(50% - 300px); /* ajusta fino */
 }
 
 .zoom-seta.direita{
- left:calc(50% - 350px); 
+  right:calc(50% - 300px);
 }
   
 }
