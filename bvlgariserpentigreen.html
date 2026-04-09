@@ -764,9 +764,10 @@ zoomOverlay.querySelector('.esquerda').onclick = (e) => {
 
 let zoomImg = zoomOverlay.querySelector("img");
 
-document.querySelectorAll('.slider img').forEach(img => {
+document.querySelectorAll('.slider img').forEach((img, index) => {
   img.addEventListener('click', () => {
-    zoomImg.src = img.src;
+    indexAtual = index; // 🔥 ESSENCIAL
+    atualizarZoom();
     zoomOverlay.style.display = "flex";
   });
 });
