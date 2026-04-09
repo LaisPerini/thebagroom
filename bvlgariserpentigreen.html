@@ -464,11 +464,11 @@ opacity:0.6;
 }
 
 .zoom-seta.esquerda{
-  left:20px;
+  left:calc(50% - 260px);
 }
 
 .zoom-seta.direita{
-  right:20px;
+  right:calc(50% - 260px);
 }
   
 }
@@ -736,6 +736,11 @@ window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
 }
 
 /* ZOOM */
+
+function atualizarZoom(){
+  zoomImg.src = imagens[indexAtual].src;
+}
+
 let zoomOverlay = document.createElement("div");
 zoomOverlay.className = "zoom-overlay";
 zoomOverlay.innerHTML = `
@@ -745,12 +750,14 @@ zoomOverlay.innerHTML = `
 `;
 document.body.appendChild(zoomOverlay);
 
-zoomOverlay.querySelector('.direita').onclick = () => {
+zoomOverlay.querySelector('.direita').onclick = (e) => {
+  e.stopPropagation(); // 🔥 MUITO IMPORTANTE
   indexAtual = (indexAtual + 1) % imagens.length;
   atualizarZoom();
 };
 
-zoomOverlay.querySelector('.esquerda').onclick = () => {
+zoomOverlay.querySelector('.esquerda').onclick = (e) => {
+  e.stopPropagation(); // 🔥 MUITO IMPORTANTE
   indexAtual = (indexAtual - 1 + imagens.length) % imagens.length;
   atualizarZoom();
 };
