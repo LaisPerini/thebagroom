@@ -642,6 +642,9 @@ document.getElementById('devolucao').innerHTML =
 /* 🔥 FRETE COM SELEÇÃO */
 let freteSelecionado = null;
 
+let freteIdaSelecionado = null;
+let freteVoltaSelecionado = null;
+
 async function calcularFrete(){
 
 let cep = document.getElementById("cep").value;
@@ -684,15 +687,33 @@ idaData
 let precoIda = parseFloat(frete.price);
 let precoVolta = parseFloat(voltaData[i]?.price || 0);
 
-let total = precoIda + precoVolta;
+html = `
+<div style="margin-top:10px; font-family:'Inter'">
 
-html += `
-<div class="frete-opcao"
-onclick="selecionarFrete('${frete.name}', ${total}, ${frete.delivery_time}, this)">
-${frete.name} • R$ ${total.toFixed(2)} (ida + volta)
+<strong>Entrega</strong>
+
+<div class="frete-opcao" onclick="selecionarFreteIda('SEDEX', ${precoIda}, ${frete.delivery_time}, this)">
+SEDEX • R$ ${precoIda.toFixed(2)}
+</div>
+
+<div class="frete-opcao" onclick="selecionarFreteIda('Retirar', 0, 0, this)">
+Retirar no showroom • Grátis
+</div>
+
+<br>
+
+<strong>Devolução</strong>
+
+<div class="frete-opcao" onclick="selecionarFreteVolta('SEDEX', ${precoVolta}, ${frete.delivery_time}, this)">
+SEDEX • R$ ${precoVolta.toFixed(2)}
+</div>
+
+<div class="frete-opcao" onclick="selecionarFreteVolta('Retirar', 0, 0, this)">
+Retirar no showroom • Grátis
+</div>
+
 </div>
 `;
-
 });
 
 resultado.innerHTML = html || "Nenhuma opção disponível";
@@ -717,6 +738,40 @@ document.getElementById("freteSelecionado").innerHTML =
 
 }
 
+function selecionarFreteIda(nome, preco, prazo, el){
+
+freteIdaSelecionado = { nome, preco, prazo };
+
+document.querySelectorAll('.frete-opcao').forEach(item=>{
+item.classList.remove('active');
+});
+
+el.classList.add('active');
+
+atualizarResumoFrete();
+}
+
+function selecionarFreteVolta(nome, preco, prazo, el){
+
+freteVoltaSelecionado = { nome, preco, prazo };
+
+el.classList.add('active');
+
+atualizarResumoFrete();
+}
+
+function atualizarResumoFrete(){
+
+if(!freteIdaSelecionado || !freteVoltaSelecionado) return;
+
+let total = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
+
+document.getElementById("freteSelecionado").innerHTML =
+`Entrega: ${freteIdaSelecionado.nome} • R$ ${freteIdaSelecionado.preco.toFixed(2)}<br>
+Devolução: ${freteVoltaSelecionado.nome} • R$ ${freteVoltaSelecionado.preco.toFixed(2)}<br>
+<strong>Total frete: R$ ${total.toFixed(2)}</strong>`;
+}
+
 /* 🔥 WHATSAPP COMPLETO */
 function alugar(){
 
@@ -728,8 +783,8 @@ alert("Escolha a data");
 return;
 }
 
-if(!freteSelecionado){
-alert("Escolha o frete");
+if(!freteIdaSelecionado || !freteVoltaSelecionado){
+alert("Escolha entrega e devolução");
 return;
 }
 
@@ -739,7 +794,8 @@ let valorMatch = textoOpcao.match(/R\$ ([\d,]+)/);
 let valor = valorMatch ? parseFloat(valorMatch[1].replace(",", ".")) : 0;
 
 // total
-let total = valor + freteSelecionado.preco;
+let totalFrete = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
+let total = valor + totalFrete;
 let totalFormatado = total.toFixed(2).replace(".", ",");
 
 let mensagem = `Olá, quero alugar a 
