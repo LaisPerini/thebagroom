@@ -349,6 +349,27 @@ opacity:0.6;
   display:none;
 }
 
+/* botao seta quando clica na foto */
+.zoom-seta{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:40px;
+  color:#fff;
+  cursor:pointer;
+  padding:20px;
+  user-select:none;
+}
+
+.zoom-seta.esquerda{
+  left:20px;
+}
+
+.zoom-seta.direita{
+  right:20px;
+}
+  
+
 /* DESKTOP */
 @media(min-width:1024px){
   
@@ -670,22 +691,50 @@ window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
 }
 
 /* ZOOM */
+let imagens = document.querySelectorAll('.slider img');
+let indexAtual = 0;
+
 let zoomOverlay = document.createElement("div");
 zoomOverlay.className = "zoom-overlay";
-zoomOverlay.innerHTML = "<img>";
+zoomOverlay.innerHTML = `
+  <div class="zoom-seta esquerda">‹</div>
+  <img>
+  <div class="zoom-seta direita">›</div>
+`;
 document.body.appendChild(zoomOverlay);
 
 let zoomImg = zoomOverlay.querySelector("img");
 
-document.querySelectorAll('.slider img').forEach(img => {
+// abrir zoom
+imagens.forEach((img, index) => {
   img.addEventListener('click', () => {
-    zoomImg.src = img.src;
+    indexAtual = index;
+    atualizarZoom();
     zoomOverlay.style.display = "flex";
   });
 });
 
-zoomOverlay.addEventListener('click', () => {
-  zoomOverlay.style.display = "none";
+// função atualizar imagem
+function atualizarZoom(){
+  zoomImg.src = imagens[indexAtual].src;
+}
+
+// setas
+zoomOverlay.querySelector('.direita').onclick = () => {
+  indexAtual = (indexAtual + 1) % imagens.length;
+  atualizarZoom();
+};
+
+zoomOverlay.querySelector('.esquerda').onclick = () => {
+  indexAtual = (indexAtual - 1 + imagens.length) % imagens.length;
+  atualizarZoom();
+};
+
+// fechar ao clicar fora
+zoomOverlay.addEventListener('click', (e) => {
+  if(e.target === zoomOverlay){
+    zoomOverlay.style.display = "none";
+  }
 });
 
 /* DOTS */
