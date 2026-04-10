@@ -661,12 +661,12 @@ const meuCep = "11060-003";
 
 // IDA
 let idaResponse = await fetch("https://thebagroomtest.onrender.com/frete", {
-method:"POST",
-headers:{ "Content-Type":"application/json" },
-body: JSON.stringify({ 
-  from:{ postal_code:cep }, 
-  to:{ postal_code:meuCep } 
-})
+  method:"POST",
+  headers:{ "Content-Type":"application/json" },
+  body: JSON.stringify({ 
+    from:{ postal_code: meuCep },   // você
+    to:{ postal_code: cep }         // cliente
+  })
 });
 
 let idaData = await idaResponse.json();
@@ -677,8 +677,8 @@ let voltaResponse = await fetch("https://thebagroomtest.onrender.com/frete", {
   method:"POST",
   headers:{ "Content-Type":"application/json" },
   body: JSON.stringify({ 
-    from:{ postal_code:meuCep },   // origem = você
-    to:{ postal_code:cep }         // destino = cliente
+    from:{ postal_code: cep },      // cliente
+    to:{ postal_code: meuCep }      // você
   })
 });
 
