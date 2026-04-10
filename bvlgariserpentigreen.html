@@ -672,10 +672,14 @@ body: JSON.stringify({
 let idaData = await idaResponse.json();
 
 // VOLTA
+// VOLTA (CORRIGIDO)
 let voltaResponse = await fetch("https://thebagroomtest.onrender.com/frete", {
-method:"POST",
-headers:{ "Content-Type":"application/json" },
-body: JSON.stringify({ to:{ postal_code:meuCep } })
+  method:"POST",
+  headers:{ "Content-Type":"application/json" },
+  body: JSON.stringify({ 
+    from:{ postal_code:meuCep },   // origem = você
+    to:{ postal_code:cep }         // destino = cliente
+  })
 });
 
 let voltaData = await voltaResponse.json();
