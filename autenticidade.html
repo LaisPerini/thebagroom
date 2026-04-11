@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Autenticidade · The Bag Room</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
+
+/* BASE */
+*{box-sizing:border-box;}
 
 body{
 margin:0;
@@ -17,11 +19,13 @@ font-family:'Playfair Display', serif;
 color:#111;
 }
 
+/* HEADER */
 header{
 padding:18px;
 display:flex;
 justify-content:center;
-background:#fff;
+align-items:center;
+background:rgba(255,255,255,0.95);
 position:fixed;
 width:100%;
 border-bottom:1px solid #eee;
@@ -34,70 +38,153 @@ font-size:20px;
 margin:0;
 }
 
-.top-space{height:60px;}
+.top-space{height:70px;}
 
-.container{
-max-width:800px;
-margin:auto;
-padding:30px 20px;
+/* MENU */
+.menu-mobile-btn{
+position:absolute;
+left:16px;
+top:50%;
+transform:translateY(-50%);
+font-size:22px;
+cursor:pointer;
 }
 
-h2{
-font-size:32px;
-margin-bottom:20px;
+.menu-mobile{
+position:fixed;
+top:0;
+left:-100%;
+width:85%;
+max-width:320px;
+height:100vh;
+background:#fff;
+transition:0.4s;
+z-index:2000;
+padding-top:100px;
 }
 
-p{
-font-family:'Inter';
-line-height:1.7;
-color:#555;
-margin-bottom:20px;
+.menu-mobile.open{
+left:0;
 }
 
-.bloco{
-margin-top:40px;
+.close-menu{
+position:absolute;
+top:24px;
+right:24px;
+font-size:30px;
+cursor:pointer;
 }
 
-.item{
+.menu-mobile-inner{
 display:flex;
-gap:12px;
-margin-bottom:20px;
-font-family:'Inter';
+flex-direction:column;
+gap:26px;
+padding-left:30px;
 }
 
-.icon{
-width:18px;
-height:18px;
-opacity:0.6;
-}
-
-strong{
+.menu-mobile-inner a{
+font-size:22px;
+text-decoration:none;
 color:#000;
 }
 
+/* HERO */
+.internal-title{
+width:100%;
+height:26vh;
+background:url('https://i.imgur.com/cEmhXKD.jpeg') center/cover;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+}
+
+.internal-title::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+}
+
+.internal-title h2{
+position:relative;
+color:#fff;
+letter-spacing:5px;
+font-size:30px;
+}
+
+/* CONTENT */
+.content-box{
+max-width:900px;
+margin:40px auto;
+padding:28px;
+background:#fff;
+border-radius:18px;
+}
+
+.content-box h3{
+font-size:28px;
+margin-top:30px;
+}
+
+.step-number{
+font-family:'Inter';
+font-size:30px;
+margin-right:10px;
+}
+
+.content-box p{
+font-family:'Inter';
+color:#555;
+line-height:1.7;
+}
+
+.content-box ul{
+padding-left:20px;
+}
+
+.content-box li{
+margin-bottom:8px;
+}
+
+/* BOTÃO */
+.whats-btn{
+display:block;
+margin:40px auto;
+background:#000;
+color:#fff;
+padding:18px;
+border-radius:40px;
+text-align:center;
+letter-spacing:4px;
+text-decoration:none;
+width:80%;
+}
+
+/* FOOTER */
 .footer-luxo{
 margin-top:60px;
 border-top:1px solid #eee;
+font-family:'Inter';
 }
 
 .footer-item{
-padding:18px;
+padding:20px;
 border-bottom:1px solid #eee;
 display:flex;
 justify-content:space-between;
 cursor:pointer;
-font-family:'Inter';
-font-size:14px;
 }
 
 .footer-content{
 display:none;
-padding:0 18px 18px;
+padding:10px 20px;
 font-size:13px;
 color:#555;
 }
 
-.footer-item.active + .footer-content{
+.footer-item.active .footer-content{
 display:block;
 }
 
@@ -113,73 +200,90 @@ color:#777;
 
 <body>
 
+<!-- HEADER -->
 <header>
 <h1>THE BAG ROOM</h1>
+
+<div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
+
+<nav class="menu-mobile" id="menuMobile">
+<div class="close-menu" onclick="toggleMenuMobile()">×</div>
+
+<div class="menu-mobile-inner">
+<a href="index.html">Início</a>
+<a href="aluguel.html">Alugar</a>
+<a href="Como Funciona.html">Como Desapegar</a>
+<a href="autenticidade.html">Autenticidade</a>
+<a href="quem-somos.html">Sobre</a>
+</div>
+
+</nav>
 </header>
 
 <div class="top-space"></div>
 
-<div class="container">
+<!-- HERO -->
+<section class="internal-title">
+<h2>AUTENTICIDADE</h2>
+</section>
 
-<h2>Autenticidade</h2>
+<!-- CONTEÚDO -->
+<div class="content-box">
 
-<p>
-Na The Bag Room, cada peça passa por um rigoroso processo de curadoria e verificação. Trabalhamos exclusivamente com itens originais, garantindo segurança, procedência e qualidade em cada detalhe.
-</p>
+<h3><span class="step-number">1</span> Curadoria rigorosa</h3>
+<p>Todas as peças passam por uma seleção criteriosa antes de entrarem no acervo da The Bag Room.</p>
 
-<div class="bloco">
+<h3><span class="step-number">2</span> Verificação de autenticidade</h3>
+<p>Analisamos cada detalhe da peça:</p>
+<ul>
+<li>Costuras e acabamento</li>
+<li>Ferragens e gravações</li>
+<li>Materiais e textura</li>
+<li>Padrões da marca</li>
+</ul>
 
-<div class="item">
-<i data-lucide="shield-check" class="icon"></i>
-<div><strong>Verificação especializada</strong><br>
-Todas as peças são analisadas por especialistas em autenticidade.</div>
-</div>
+<h3><span class="step-number">3</span> Procedência</h3>
+<p>Quando disponível, avaliamos:</p>
+<ul>
+<li>Nota fiscal</li>
+<li>Cartões</li>
+<li>Dust bag</li>
+</ul>
 
-<div class="item">
-<i data-lucide="search" class="icon"></i>
-<div><strong>Análise detalhada</strong><br>
-Avaliamos costuras, materiais, ferragens, gravações e acabamento.</div>
-</div>
+<h3><span class="step-number">4</span> Qualidade</h3>
+<p>Somente peças em excelente estado entram no catálogo.</p>
 
-<div class="item">
-<i data-lucide="file-check" class="icon"></i>
-<div><strong>Histórico e procedência</strong><br>
-Sempre que possível, verificamos notas, dust bags e origem da peça.</div>
-</div>
+<h3><span class="step-number">5</span> Garantia</h3>
+<p>Todas as peças são 100% originais ou não são aceitas.</p>
 
-<div class="item">
-<i data-lucide="lock" class="icon"></i>
-<div><strong>Compra segura</strong><br>
-Garantimos que você receba exatamente o que está sendo apresentado.</div>
-</div>
-
-</div>
-
-<p>
-Nosso compromisso é oferecer uma experiência confiável e sofisticada, conectando você ao luxo com total transparência.
-</p>
+<h3><span class="step-number">6</span> Transparência</h3>
+<p>Você sabe exatamente o estado da peça antes de alugar.</p>
 
 </div>
 
-<!-- FOOTER LUXO -->
+<!-- BOTÃO -->
+<a href="https://wa.me/5513996904227" class="whats-btn">
+FALE CONOSCO
+</a>
+
+<!-- FOOTER -->
 <div class="footer-luxo">
 
 <div class="footer-item" onclick="toggleFooter(this)">
 PRECISA DE AJUDA?
 <span>▾</span>
-</div>
 <div class="footer-content">
-Fale conosco pelo WhatsApp<br>
-(13) 99690-4227
+WhatsApp: (13) 99690-4227
+</div>
 </div>
 
 <div class="footer-item" onclick="toggleFooter(this)">
 ENDEREÇO
 <span>▾</span>
-</div>
 <div class="footer-content">
 Av. Ana Costa, 471 – Gonzaga<br>
 Santos – SP
+</div>
 </div>
 
 <div class="footer-bottom">
@@ -188,12 +292,14 @@ Santos – SP
 
 </div>
 
-<script src="https://unpkg.com/lucide@latest"></script>
+<!-- SCRIPTS -->
 <script>
-lucide.createIcons();
+function toggleMenuMobile(){
+document.getElementById('menuMobile').classList.toggle('open');
+}
 
 function toggleFooter(el){
-  el.classList.toggle('active');
+el.classList.toggle('active');
 }
 </script>
 
