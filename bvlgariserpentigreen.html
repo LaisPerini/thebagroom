@@ -280,6 +280,15 @@ display:none;
   display:none !important;
 }
 
+.icon{
+  width:16px;
+  height:16px;
+  margin-right:8px;
+  stroke-width:1.5;
+  vertical-align:middle;
+  opacity:0.7;
+}
+
 /* DOTS CHANEL STYLE */
 .dots{
 display:flex;
@@ -625,7 +634,7 @@ Modelo elegante, estruturado e atemporal.
 <strong>Categoria:</strong> Transpassada<br>
 <strong>Material:</strong> Couro de novilho (calf leather)<br>
 <strong>Marca:</strong> Bvlgari<br>
-<strong>Cor:</strong> Verde<br>
+<i data-lucide="palette" class="icon"></i> Cor: Verde
 <strong>Dimensões (L x A):</strong> 19 x 13 cm<br>
 <strong>Valor do caução:</strong> R$ 1.000,00
 </p>
@@ -1059,11 +1068,17 @@ function atualizarTotal(){
 
 </script>
 
+<script>
+  lucide.createIcons();
+</script>
+
 <div class="social-bar">
   <a href="https://wa.me/5513996904227" target="_blank">
     <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
   </a>
 </div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
 
 </body>
 </html>
