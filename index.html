@@ -274,11 +274,43 @@ font-size: 36px;
 color: rgb(255, 255, 255);
 }
 
-footer {
-text-align: center;
-padding: 40px;
-font-size: 14px;
-opacity: 0.5;
+.footer-luxo {
+  margin-top: 80px;
+  border-top: 1px solid #eaeaea;
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-item {
+  padding: 20px;
+  border-bottom: 1px solid #eaeaea;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.footer-item span {
+  opacity: 0.6;
+}
+
+.footer-content {
+  display: none;
+  padding-top: 10px;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.footer-item.active .footer-content {
+  display: block;
+}
+
+.footer-bottom {
+  padding: 30px 20px;
+  font-size: 12px;
+  color: #777;
+  text-align: center;
 }
 
 /* =============================== */
@@ -1055,17 +1087,47 @@ Você recebe até 7 dias após a venda.
 </a>
 </div>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <p>© 2025 The Bag Room · thebagroom.com.br</p>
-    <nav class="footer-nav">
-      <a href="politica-privacidade.html">Política de Privacidade</a>
-      <a href="politica-devolucao.html">Política de Devolução</a>
-      <a href="politica-consignacao.html">Política de Consignação</a>
-      <a href="termos-uso.html">Termos de Uso</a>
-    </nav>
+<div class="footer-luxo">
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    PRECISA DE AJUDA?
+    <span>▾</span>
+    <div class="footer-content">
+      Fale conosco pelo WhatsApp<br>
+      (13) 99690-4227
+    </div>
   </div>
-</footer>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    EMPRESA
+    <span>▾</span>
+    <div class="footer-content">
+      The Bag Room<br>
+      Curadoria de luxo e consignação
+    </div>
+  </div>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    ENDEREÇO
+    <span>▾</span>
+    <div class="footer-content">
+      Av. Ana Costa, 471 – Gonzaga<br>
+      Santos – SP
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 The Bag Room<br>
+    Santos – SP
+  </div>
+
+</div>
+
+<script>
+function toggleFooter(el){
+  el.classList.toggle('active');
+}
+</script>
 
 <script>
 let currentSlide = 0;
