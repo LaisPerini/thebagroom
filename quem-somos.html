@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Autenticidade · The Bag Room</title>
+<title>Sobre · The Bag Room</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
@@ -92,7 +92,7 @@ color:#000;
 .internal-title{
 width:100%;
 height:26vh;
-background:url('https://i.imgur.com/cEmhXKD.jpeg') center/cover;
+background:url('https://i.imgur.com/T97Bcx9.jpeg') center/cover;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -118,48 +118,27 @@ font-size:30px;
 .content-box{
 max-width:900px;
 margin:40px auto;
-padding:28px;
+padding:32px;
 background:#fff;
 border-radius:18px;
-}
-
-.content-box h3{
-font-size:28px;
-margin-top:30px;
-}
-
-.step-number{
-font-family:'Inter';
-font-size:30px;
-margin-right:10px;
+line-height:1.8;
 }
 
 .content-box p{
 font-family:'Inter';
 color:#555;
-line-height:1.7;
+margin-bottom:18px;
 }
 
-.content-box ul{
-padding-left:20px;
-}
-
-.content-box li{
-margin-bottom:8px;
-}
-
-/* BOTÃO */
-.whats-btn{
-display:block;
-margin:40px auto;
-background:#000;
-color:#fff;
-padding:18px;
-border-radius:40px;
-text-align:center;
-letter-spacing:4px;
-text-decoration:none;
-width:80%;
+/* destaque */
+.destaque{
+margin-top:25px;
+padding:20px;
+border:1px solid #eee;
+border-radius:14px;
+background:#fafafa;
+font-family:'Inter';
+font-size:14px;
 }
 
 /* FOOTER */
@@ -200,7 +179,6 @@ color:#777;
 
 <body>
 
-<!-- HEADER -->
 <header>
 <h1>THE BAG ROOM</h1>
 
@@ -216,57 +194,40 @@ color:#777;
 <a href="autenticidade.html">Autenticidade</a>
 <a href="quem-somos.html">Sobre</a>
 </div>
-
 </nav>
+
 </header>
 
 <div class="top-space"></div>
 
-<!-- HERO -->
 <section class="internal-title">
-<h2>AUTENTICIDADE</h2>
+<h2>SOBRE</h2>
 </section>
 
-<!-- CONTEÚDO -->
 <div class="content-box">
 
-<h3><span class="step-number">1</span> Curadoria rigorosa</h3>
-<p>Todas as peças passam por uma seleção criteriosa antes de entrarem no acervo da The Bag Room.</p>
+<p>
+A The Bag Room nasceu com o propósito de redefinir a forma como você consome luxo. Acreditamos que peças icônicas não precisam ser apenas posse — elas podem ser vividas, experimentadas e integradas a diferentes momentos da sua vida.
+</p>
 
-<h3><span class="step-number">2</span> Verificação de autenticidade</h3>
-<p>Analisamos cada detalhe da peça:</p>
-<ul>
-<li>Costuras e acabamento</li>
-<li>Ferragens e gravações</li>
-<li>Materiais e textura</li>
-<li>Padrões da marca</li>
-</ul>
+<p>
+Nossa curadoria é construída com um olhar criterioso, selecionando bolsas de grife que carregam identidade, elegância e história. Cada peça é escolhida pensando em estilo, versatilidade e na experiência que ela proporciona.
+</p>
 
-<h3><span class="step-number">3</span> Procedência</h3>
-<p>Quando disponível, avaliamos:</p>
-<ul>
-<li>Nota fiscal</li>
-<li>Cartões</li>
-<li>Dust bag</li>
-</ul>
+<p>
+Mais do que um acervo, criamos uma conexão entre você e o universo do luxo consciente. Aqui, cada bolsa acompanha momentos, destinos e histórias — seja em uma viagem, um evento especial ou no seu dia a dia.
+</p>
 
-<h3><span class="step-number">4</span> Qualidade</h3>
-<p>Somente peças em excelente estado entram no catálogo.</p>
+<p>
+Aliamos sofisticação, autenticidade e praticidade, oferecendo uma experiência segura, transparente e cuidadosamente pensada em cada detalhe.
+</p>
 
-<h3><span class="step-number">5</span> Garantia</h3>
-<p>Todas as peças são 100% originais ou não são aceitas.</p>
-
-<h3><span class="step-number">6</span> Transparência</h3>
-<p>Você sabe exatamente o estado da peça antes de alugar.</p>
+<div class="destaque">
+Luxo consciente • Curadoria exclusiva • Experiência única
+</div>
 
 </div>
 
-<!-- BOTÃO -->
-<a href="https://wa.me/5513996904227" class="whats-btn">
-FALE CONOSCO
-</a>
-
-<!-- FOOTER -->
 <div class="footer-luxo">
 
 <div class="footer-item" onclick="toggleFooter(this)">
@@ -292,7 +253,6 @@ Santos – SP
 
 </div>
 
-<!-- SCRIPTS -->
 <script>
 function toggleMenuMobile(){
 document.getElementById('menuMobile').classList.toggle('open');
@@ -305,4 +265,3 @@ el.classList.toggle('active');
 
 </body>
 </html>
-
