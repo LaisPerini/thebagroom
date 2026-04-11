@@ -802,6 +802,9 @@ return;
 
 // valor aluguel
 let textoOpcao = diasSelecionado.parentElement.innerText;
+
+let valorMatch = textoOpcao.match(/R\$ ([\d.,]+)/);
+
 let valor = valorMatch 
   ? parseFloat(valorMatch[1].replace(/\./g, '').replace(',', '.')) 
   : 0;
