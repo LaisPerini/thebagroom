@@ -561,6 +561,15 @@ opacity:0.6;
     <div id="freteResultado"></div>
     <div id="freteSelecionado" style="margin-top:10px; font-family:'Inter';"></div>
 
+<div id="totalBox" style="
+  margin-top:15px;
+  font-family:'Inter';
+  font-size:16px;
+  font-weight:500;
+">
+  Total: R$ 0,00
+</div>
+
     <div class="btn" onclick="alugar()">ALUGAR AGORA</div>
 
   </div>
@@ -589,6 +598,7 @@ document.querySelectorAll('.opcao').forEach(opcao => {
     document.querySelectorAll('.opcao').forEach(o => o.classList.remove('active'));
     opcao.classList.add('active');
     atualizarDevolucao();
+    atualizarTotal();
   });
 });
 
@@ -755,6 +765,7 @@ function selecionarFreteIda(nome, preco, prazo, el){
   el.classList.add('active');
 
   atualizarResumoFrete();
+  atualizarTotal();
 }
 
 function selecionarFreteVolta(nome, preco, prazo, el){
@@ -769,6 +780,7 @@ function selecionarFreteVolta(nome, preco, prazo, el){
   el.classList.add('active');
 
   atualizarResumoFrete();
+  atualizarTotal();
 }
 
 function atualizarResumoFrete(){
@@ -916,6 +928,35 @@ function slide(direction){
     left: direction * largura,
     behavior: "smooth"
   });
+}
+
+function atualizarTotal(){
+
+  let diasSelecionado = document.querySelector('input[name="dias"]:checked');
+  if(!diasSelecionado) return;
+
+  let textoOpcao = diasSelecionado.parentElement.innerText;
+
+  let valorMatch = textoOpcao.match(/R\$\s*([\d.,]+)/);
+
+  let valor = valorMatch 
+    ? parseFloat(valorMatch[1].replace(/\./g, '').replace(',', '.')) 
+    : 0;
+
+  let frete = 0;
+
+  if(freteIdaSelecionado && freteVoltaSelecionado){
+    frete = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
+  }
+
+  let total = valor + frete;
+
+  let totalFormatado = total
+    .toFixed(2)
+    .replace(".", ",");
+
+  document.getElementById("totalBox").innerHTML =
+    `Total: <strong>R$ ${totalFormatado}</strong>`;
 }
 
 </script>
