@@ -8,12 +8,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-
-/* BASE */
-*{box-sizing:border-box;}
+/* ========================= */
+/* BASE DO SITE */
+/* ========================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
 body{
 margin:0;
+padding: 0;
 background:#f5f4f2;
 font-family:'Playfair Display', serif;
 color:#111;
@@ -24,12 +28,17 @@ header{
 padding:18px;
 display:flex;
 justify-content:center;
-align-items:center;
 background:rgba(255,255,255,0.95);
 position:fixed;
 width:100%;
+align-items:center;
 border-bottom:1px solid #eee;
 z-index:999;
+padding-top: env(safe-area-inset-top);
+}
+
+.top-space{
+  height:90px;
 }
 
 header h1{
@@ -38,7 +47,64 @@ font-size:20px;
 margin:0;
 }
 
-.top-space{height:70px;}
+/* ========================= */
+/* TÍTULO */
+/* ========================= */
+.internal-title {
+width: 100%;
+height: 80vh;
+background-image: url('https://i.imgur.com/T97Bcx9.jpeg');
+background-size: cover;
+background-position: center;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+}
+
+.internal-title::after {
+content: "";
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+background: rgba(0,0,0,0.45);
+}
+
+.internal-title h2 {
+position:relative;
+z-index:3;
+font-size:45px;
+font-weight:800;
+color:white;
+letter-spacing:5px;
+text-align:center;
+text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+/* ========================= */
+/* CONTEÚDO */
+/* ========================= */
+.page-wrapper {
+  padding-top: 6px;
+  padding-bottom: 30px;
+}
+
+.content-box {
+  max-width: 900px;
+  margin: 40px auto 100px;
+  padding: 28px 26px;
+  background: #ffffff;
+  border: 1px solid #d4d3d3;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+}
+
+.content-box p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 18px;
+  font-family:'Inter';
+}
 
 /* MENU */
 .menu-mobile-btn{
@@ -57,8 +123,9 @@ left:-100%;
 width:85%;
 max-width:320px;
 height:100vh;
-background:#fff;
-transition:0.4s;
+background:rgba(255,255,255,0.98);
+backdrop-filter:blur(14px);
+transition:0.45s cubic-bezier(0.22,1,0.36,1);
 z-index:2000;
 padding-top:100px;
 }
@@ -83,95 +150,45 @@ padding-left:30px;
 }
 
 .menu-mobile-inner a{
+font-family:'Cormorant Garamond', serif;
 font-size:22px;
+letter-spacing:1px;
 text-decoration:none;
 color:#000;
 }
 
-/* HERO */
-.internal-title{
-width:100%;
-height:26vh;
-background:url('https://i.imgur.com/T97Bcx9.jpeg') center/cover;
-display:flex;
-align-items:center;
-justify-content:center;
-position:relative;
-}
-
-.internal-title::after{
-content:"";
-position:absolute;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.45);
-}
-
-.internal-title h2{
-position:relative;
-color:#fff;
-letter-spacing:5px;
-font-size:30px;
-}
-
-/* CONTENT */
-.content-box{
-max-width:900px;
-margin:40px auto;
-padding:32px;
-background:#fff;
-border-radius:18px;
-line-height:1.8;
-}
-
-.content-box p{
-font-family:'Inter';
-color:#555;
-margin-bottom:18px;
-}
-
-/* destaque */
-.destaque{
-margin-top:25px;
-padding:20px;
-border:1px solid #eee;
-border-radius:14px;
-background:#fafafa;
-font-family:'Inter';
-font-size:14px;
-}
-
 /* FOOTER */
-.footer-luxo{
-margin-top:60px;
-border-top:1px solid #eee;
-font-family:'Inter';
+.footer-luxo {
+  margin-top: 80px;
+  border-top: 1px solid #eaeaea;
+  font-family: 'Inter', sans-serif;
 }
 
-.footer-item{
-padding:20px;
-border-bottom:1px solid #eee;
-display:flex;
-justify-content:space-between;
-cursor:pointer;
+.footer-item {
+  padding: 20px;
+  border-bottom: 1px solid #eaeaea;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
 }
 
-.footer-content{
-display:none;
-padding:10px 20px;
-font-size:13px;
-color:#555;
+.footer-content {
+  display: none;
+  padding-top: 10px;
+  font-size: 13px;
+  color: #555;
 }
 
-.footer-item.active .footer-content{
-display:block;
+.footer-item.active .footer-content {
+  display: block;
 }
 
-.footer-bottom{
-text-align:center;
-padding:30px;
-font-size:12px;
-color:#777;
+.footer-bottom {
+  padding: 30px 20px;
+  font-size: 12px;
+  color: #777;
+  text-align: center;
 }
 
 </style>
@@ -180,86 +197,90 @@ color:#777;
 <body>
 
 <header>
-<h1>THE BAG ROOM</h1>
+  <h1>THE BAG ROOM</h1>
 
-<div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
+  <div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
 
-<nav class="menu-mobile" id="menuMobile">
-<div class="close-menu" onclick="toggleMenuMobile()">×</div>
+  <nav class="menu-mobile" id="menuMobile">
+    <div class="close-menu" onclick="toggleMenuMobile()">×</div>
 
-<div class="menu-mobile-inner">
-<a href="index.html">Início</a>
-<a href="aluguel.html">Alugar</a>
-<a href="Como Funciona.html">Como Desapegar</a>
-<a href="autenticidade.html">Autenticidade</a>
-<a href="quem-somos.html">Sobre</a>
-</div>
-</nav>
-
+    <div class="menu-mobile-inner">
+      <a href="index.html">Início</a>
+      <a href="aluguel.html">Alugar</a>
+      <a href="Como Funciona.html">Como Desapegar</a>
+      <a href="autenticidade.html">Autenticidade</a>
+      <a href="quem-somos.html">Sobre</a>
+    </div>
+  </nav>
 </header>
 
 <div class="top-space"></div>
 
 <section class="internal-title">
-<h2>SOBRE</h2>
+  <h2>SOBRE</h2>
 </section>
 
-<div class="content-box">
+<div class="page-wrapper">
+  <div class="content-box">
 
-<p>
-A The Bag Room nasceu com o propósito de redefinir a forma como você consome luxo. Acreditamos que peças icônicas não precisam ser apenas posse — elas podem ser vividas, experimentadas e integradas a diferentes momentos da sua vida.
-</p>
+    <p>
+    A The Bag Room nasceu com o propósito de redefinir a forma de consumir luxo. Acreditamos que peças icônicas não precisam ser apenas posse — elas podem ser vividas, experimentadas e acompanharem diferentes momentos da sua vida.
+    </p>
 
-<p>
-Nossa curadoria é construída com um olhar criterioso, selecionando bolsas de grife que carregam identidade, elegância e história. Cada peça é escolhida pensando em estilo, versatilidade e na experiência que ela proporciona.
-</p>
+    <p>
+    Nossa curadoria reúne bolsas de grife selecionadas com olhar criterioso, valorizando elegância, autenticidade e versatilidade. Cada peça carrega história, identidade e presença.
+    </p>
 
-<p>
-Mais do que um acervo, criamos uma conexão entre você e o universo do luxo consciente. Aqui, cada bolsa acompanha momentos, destinos e histórias — seja em uma viagem, um evento especial ou no seu dia a dia.
-</p>
+    <p>
+    Mais do que um acervo, criamos uma experiência. Conectamos você ao universo do luxo de forma acessível, consciente e sofisticada — seja em uma viagem, um evento ou no seu dia a dia.
+    </p>
 
-<p>
-Aliamos sofisticação, autenticidade e praticidade, oferecendo uma experiência segura, transparente e cuidadosamente pensada em cada detalhe.
-</p>
+    <p>
+    Trabalhamos com um padrão rigoroso de seleção e autenticidade, garantindo segurança, transparência e confiança em cada detalhe.
+    </p>
 
-<div class="destaque">
-Luxo consciente • Curadoria exclusiva • Experiência única
+    <p>
+    The Bag Room é sobre viver o luxo — não apenas possuir.
+    </p>
+
+  </div>
 </div>
 
-</div>
+<script>
+function toggleMenuMobile() {
+  document.getElementById('menuMobile').classList.toggle('open');
+}
+</script>
 
 <div class="footer-luxo">
 
-<div class="footer-item" onclick="toggleFooter(this)">
-PRECISA DE AJUDA?
-<span>▾</span>
-<div class="footer-content">
-WhatsApp: (13) 99690-4227
-</div>
-</div>
+  <div class="footer-item" onclick="toggleFooter(this)">
+    PRECISA DE AJUDA?
+    <span>▾</span>
+    <div class="footer-content">
+      Fale conosco pelo WhatsApp<br>
+      (13) 99690-4227
+    </div>
+  </div>
 
-<div class="footer-item" onclick="toggleFooter(this)">
-ENDEREÇO
-<span>▾</span>
-<div class="footer-content">
-Av. Ana Costa, 471 – Gonzaga<br>
-Santos – SP
-</div>
-</div>
+  <div class="footer-item" onclick="toggleFooter(this)">
+    ENDEREÇO
+    <span>▾</span>
+    <div class="footer-content">
+      Av. Ana Costa, 471 – Gonzaga<br>
+      Santos – SP
+    </div>
+  </div>
 
-<div class="footer-bottom">
-© 2026 The Bag Room
-</div>
+  <div class="footer-bottom">
+    © 2026 The Bag Room
+  </div>
 
 </div>
 
 <script>
-function toggleMenuMobile(){
-document.getElementById('menuMobile').classList.toggle('open');
-}
-
 function toggleFooter(el){
-el.classList.toggle('active');
+  el.classList.toggle('active');
 }
 </script>
 
