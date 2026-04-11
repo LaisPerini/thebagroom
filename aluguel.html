@@ -17,8 +17,6 @@ font-family:'Playfair Display', serif;
 color:#111;
 }
 
-<div id="overlay"></div>
-
 
 /* remove flash iOS */
 *{
@@ -600,7 +598,7 @@ transform:rotate(-90deg);
 </head>
 
 <body>
-
+<div id="overlay"></div>
 <header>
   <h1>THE BAG ROOM</h1>
 
@@ -852,6 +850,48 @@ data-cor="Verde">
 
 </div>
 
+<div class="footer-luxo">
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    PRECISA DE AJUDA?
+    <span>▾</span>
+    <div class="footer-content">
+      Fale conosco pelo WhatsApp<br>
+      (13) 99690-4227
+    </div>
+  </div>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    EMPRESA
+    <span>▾</span>
+    <div class="footer-content">
+      The Bag Room<br>
+      Curadoria de luxo e consignação
+    </div>
+  </div>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    ENDEREÇO
+    <span>▾</span>
+    <div class="footer-content">
+      Av. Ana Costa, 471 – Gonzaga<br>
+      Santos – SP
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 The Bag Room<br>
+    Santos – SP
+  </div>
+
+</div>
+
+<script>
+function toggleFooter(el){
+  el.classList.toggle('active');
+}
+</script>
+
 
 <script>
 function toggleMenuMobile(){
@@ -989,47 +1029,6 @@ if(overlay){
     document.getElementById('filtroModal').classList.remove('open');
     overlay.classList.remove('active');
   });
-}
-
-<div class="footer-luxo">
-
-  <div class="footer-item" onclick="toggleFooter(this)">
-    PRECISA DE AJUDA?
-    <span>▾</span>
-    <div class="footer-content">
-      Fale conosco pelo WhatsApp<br>
-      (13) 99690-4227
-    </div>
-  </div>
-
-  <div class="footer-item" onclick="toggleFooter(this)">
-    EMPRESA
-    <span>▾</span>
-    <div class="footer-content">
-      The Bag Room<br>
-      Curadoria de luxo e consignação
-    </div>
-  </div>
-
-  <div class="footer-item" onclick="toggleFooter(this)">
-    ENDEREÇO
-    <span>▾</span>
-    <div class="footer-content">
-      Av. Ana Costa, 471 – Gonzaga<br>
-      Santos – SP
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    © 2026 The Bag Room<br>
-    Santos – SP
-  </div>
-
-</div>
-
-<script>
-function toggleFooter(el){
-  el.classList.toggle('active');
 }
 </script>
 
