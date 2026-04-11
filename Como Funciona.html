@@ -47,6 +47,45 @@ font-size:20px;
 margin:0;
 }
 
+.footer-luxo {
+  margin-top: 80px;
+  border-top: 1px solid #eaeaea;
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-item {
+  padding: 20px;
+  border-bottom: 1px solid #eaeaea;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.footer-item span {
+  opacity: 0.6;
+}
+
+.footer-content {
+  display: none;
+  padding-top: 10px;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.footer-item.active .footer-content {
+  display: block;
+}
+
+.footer-bottom {
+  padding: 30px 20px;
+  font-size: 12px;
+  color: #777;
+  text-align: center;
+}
+
 .top-space{height:70px;}
 
 .container{
@@ -643,9 +682,47 @@ font-family:'Inter', sans-serif;
 <!-- ========================= -->
 <!-- RODAPÉ -->
 <!-- ========================= -->
-<footer>
-  © 2025 The Bag Room · thebagroom.com.br
-</footer>
+<div class="footer-luxo">
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    PRECISA DE AJUDA?
+    <span>▾</span>
+    <div class="footer-content">
+      Fale conosco pelo WhatsApp<br>
+      (13) 99690-4227
+    </div>
+  </div>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    EMPRESA
+    <span>▾</span>
+    <div class="footer-content">
+      The Bag Room<br>
+      Curadoria de luxo e consignação
+    </div>
+  </div>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    ENDEREÇO
+    <span>▾</span>
+    <div class="footer-content">
+      Av. Ana Costa, 471 – Gonzaga<br>
+      Santos – SP
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 The Bag Room<br>
+    Santos – SP
+  </div>
+
+</div>
+
+<script>
+function toggleFooter(el){
+  el.classList.toggle('active');
+}
+</script>
 
 <!-- ========================= -->
 <!-- SCRIPT DO MENU -->
