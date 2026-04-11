@@ -161,6 +161,40 @@ background:#000;
 border-color:#000;
 }
 
+.info-final {
+  margin-top: 80px;
+  padding: 30px 20px;
+  background: #f5f4f2;
+  border-top: 1px solid #eaeaea;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  font-family: 'Inter', sans-serif;
+  color: #111;
+  font-size: 14px;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.6;
+}
+
+.item strong {
+  font-weight: 500;
+}
+
+.item a {
+  color: #000;
+  text-decoration: none;
+}
+
 .social-bar {
   position: fixed;
   right: 10px;
@@ -1105,6 +1139,38 @@ function atualizarTotal(){
 <script>
   lucide.createIcons();
 </script>
+
+<div class="info-final">
+
+  <div class="item">
+    <i data-lucide="map-pin" class="icon"></i>
+    <div>
+      <strong>Endereço</strong><br>
+      Av. Ana Costa, 471 – Gonzaga<br>
+      Santos – SP, 11060-003
+    </div>
+  </div>
+
+  <div class="item">
+    <i data-lucide="message-circle" class="icon"></i>
+    <div>
+      <strong>WhatsApp</strong><br>
+      <a href="https://wa.me/5513996904227" target="_blank">
+        (13) 99690-4227
+      </a>
+    </div>
+  </div>
+
+  <div class="item">
+    <i data-lucide="clock" class="icon"></i>
+    <div>
+      <strong>Horário</strong><br>
+      Seg a Sex: 09h às 18h<br>
+      Sáb: 09h às 13h
+    </div>
+  </div>
+
+</div>
 
 </body>
 </html>
