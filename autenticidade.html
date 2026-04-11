@@ -118,34 +118,27 @@ font-size:30px;
 .content-box{
 max-width:900px;
 margin:40px auto;
-padding:28px;
+padding:32px;
 background:#fff;
 border-radius:18px;
-}
-
-.content-box h3{
-font-size:28px;
-margin-top:30px;
-}
-
-.step-number{
-font-family:'Inter';
-font-size:30px;
-margin-right:10px;
+line-height:1.8;
 }
 
 .content-box p{
 font-family:'Inter';
 color:#555;
-line-height:1.7;
+margin-bottom:18px;
 }
 
-.content-box ul{
-padding-left:20px;
-}
-
-.content-box li{
-margin-bottom:8px;
+/* destaque elegante */
+.destaque{
+margin-top:25px;
+padding:20px;
+border:1px solid #eee;
+border-radius:14px;
+background:#fafafa;
+font-family:'Inter';
+font-size:14px;
 }
 
 /* BOTÃO */
@@ -200,7 +193,6 @@ color:#777;
 
 <body>
 
-<!-- HEADER -->
 <header>
 <h1>THE BAG ROOM</h1>
 
@@ -222,51 +214,40 @@ color:#777;
 
 <div class="top-space"></div>
 
-<!-- HERO -->
 <section class="internal-title">
 <h2>AUTENTICIDADE</h2>
 </section>
 
-<!-- CONTEÚDO -->
 <div class="content-box">
 
-<h3><span class="step-number">1</span> Curadoria rigorosa</h3>
-<p>Todas as peças passam por uma seleção criteriosa antes de entrarem no acervo da The Bag Room.</p>
+<p>
+Na The Bag Room, autenticidade não é apenas um compromisso — é a base de tudo. Cada peça do nosso acervo passa por um processo rigoroso de curadoria e verificação, garantindo que você tenha acesso apenas a itens originais, selecionados com critério e atenção aos mínimos detalhes.
+</p>
 
-<h3><span class="step-number">2</span> Verificação de autenticidade</h3>
-<p>Analisamos cada detalhe da peça:</p>
-<ul>
-<li>Costuras e acabamento</li>
-<li>Ferragens e gravações</li>
-<li>Materiais e textura</li>
-<li>Padrões da marca</li>
-</ul>
+<p>
+Analisamos cuidadosamente acabamento, costuras, ferragens, materiais e todos os elementos que definem a identidade de cada marca. Além disso, sempre que possível, avaliamos a procedência da peça e seus itens complementares, como dust bag e cartões.
+</p>
 
-<h3><span class="step-number">3</span> Procedência</h3>
-<p>Quando disponível, avaliamos:</p>
-<ul>
-<li>Nota fiscal</li>
-<li>Cartões</li>
-<li>Dust bag</li>
-</ul>
+<p>
+Para elevar ainda mais o nível de segurança, trabalhamos com plataformas reconhecidas internacionalmente, como <strong>Entrupy</strong> e <strong>Real Authentication</strong>, referências globais em verificação de autenticidade no mercado de luxo.
+</p>
 
-<h3><span class="step-number">4</span> Qualidade</h3>
-<p>Somente peças em excelente estado entram no catálogo.</p>
+<p>
+Todas as peças acompanham <strong>certificado de autenticidade</strong>, garantindo total transparência e confiança em cada aluguel.
+</p>
 
-<h3><span class="step-number">5</span> Garantia</h3>
-<p>Todas as peças são 100% originais ou não são aceitas.</p>
-
-<h3><span class="step-number">6</span> Transparência</h3>
-<p>Você sabe exatamente o estado da peça antes de alugar.</p>
+<div class="destaque">
+✔ 100% original garantido<br>
+✔ Curadoria especializada<br>
+✔ Processo profissional de autenticação
+</div>
 
 </div>
 
-<!-- BOTÃO -->
 <a href="https://wa.me/5513996904227" class="whats-btn">
 FALE CONOSCO
 </a>
 
-<!-- FOOTER -->
 <div class="footer-luxo">
 
 <div class="footer-item" onclick="toggleFooter(this)">
@@ -292,7 +273,6 @@ Santos – SP
 
 </div>
 
-<!-- SCRIPTS -->
 <script>
 function toggleMenuMobile(){
 document.getElementById('menuMobile').classList.toggle('open');
