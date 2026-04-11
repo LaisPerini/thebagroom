@@ -152,6 +152,36 @@ background:#000;
 border-color:#000;
 }
 
+.whatsapp-float{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+  width: 60px;
+  height: 60px;
+
+  background: #fff;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
+  z-index: 9999;
+  transition: 0.3s;
+}
+
+.whatsapp-float img{
+  width: 30px;
+  height: 30px;
+}
+
+.whatsapp-float:hover{
+  transform: scale(1.08);
+}
+
 .frete-opcao{
 border:1px solid #e5e5e5;
 padding:12px;
@@ -963,6 +993,12 @@ function atualizarTotal(){
   
 
 </script>
+
+<a href="https://wa.me/5513996904227" 
+   class="whatsapp-float" 
+   target="_blank">
+  <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" />
+</a>
 
 </body>
 </html>
