@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Autenticidade · The Bag Room</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+background:#f5f4f2;
+font-family:'Playfair Display', serif;
+color:#111;
+}
+
+header{
+padding:18px;
+display:flex;
+justify-content:center;
+background:#fff;
+position:fixed;
+width:100%;
+border-bottom:1px solid #eee;
+z-index:999;
+}
+
+header h1{
+letter-spacing:6px;
+font-size:20px;
+margin:0;
+}
+
+.top-space{height:60px;}
+
+.container{
+max-width:800px;
+margin:auto;
+padding:30px 20px;
+}
+
+h2{
+font-size:32px;
+margin-bottom:20px;
+}
+
+p{
+font-family:'Inter';
+line-height:1.7;
+color:#555;
+margin-bottom:20px;
+}
+
+.bloco{
+margin-top:40px;
+}
+
+.item{
+display:flex;
+gap:12px;
+margin-bottom:20px;
+font-family:'Inter';
+}
+
+.icon{
+width:18px;
+height:18px;
+opacity:0.6;
+}
+
+strong{
+color:#000;
+}
+
+.footer-luxo{
+margin-top:60px;
+border-top:1px solid #eee;
+}
+
+.footer-item{
+padding:18px;
+border-bottom:1px solid #eee;
+display:flex;
+justify-content:space-between;
+cursor:pointer;
+font-family:'Inter';
+font-size:14px;
+}
+
+.footer-content{
+display:none;
+padding:0 18px 18px;
+font-size:13px;
+color:#555;
+}
+
+.footer-item.active + .footer-content{
+display:block;
+}
+
+.footer-bottom{
+text-align:center;
+padding:30px;
+font-size:12px;
+color:#777;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>THE BAG ROOM</h1>
+</header>
+
+<div class="top-space"></div>
+
+<div class="container">
+
+<h2>Autenticidade</h2>
+
+<p>
+Na The Bag Room, cada peça passa por um rigoroso processo de curadoria e verificação. Trabalhamos exclusivamente com itens originais, garantindo segurança, procedência e qualidade em cada detalhe.
+</p>
+
+<div class="bloco">
+
+<div class="item">
+<i data-lucide="shield-check" class="icon"></i>
+<div><strong>Verificação especializada</strong><br>
+Todas as peças são analisadas por especialistas em autenticidade.</div>
+</div>
+
+<div class="item">
+<i data-lucide="search" class="icon"></i>
+<div><strong>Análise detalhada</strong><br>
+Avaliamos costuras, materiais, ferragens, gravações e acabamento.</div>
+</div>
+
+<div class="item">
+<i data-lucide="file-check" class="icon"></i>
+<div><strong>Histórico e procedência</strong><br>
+Sempre que possível, verificamos notas, dust bags e origem da peça.</div>
+</div>
+
+<div class="item">
+<i data-lucide="lock" class="icon"></i>
+<div><strong>Compra segura</strong><br>
+Garantimos que você receba exatamente o que está sendo apresentado.</div>
+</div>
+
+</div>
+
+<p>
+Nosso compromisso é oferecer uma experiência confiável e sofisticada, conectando você ao luxo com total transparência.
+</p>
+
+</div>
+
+<!-- FOOTER LUXO -->
+<div class="footer-luxo">
+
+<div class="footer-item" onclick="toggleFooter(this)">
+PRECISA DE AJUDA?
+<span>▾</span>
+</div>
+<div class="footer-content">
+Fale conosco pelo WhatsApp<br>
+(13) 99690-4227
+</div>
+
+<div class="footer-item" onclick="toggleFooter(this)">
+ENDEREÇO
+<span>▾</span>
+</div>
+<div class="footer-content">
+Av. Ana Costa, 471 – Gonzaga<br>
+Santos – SP
+</div>
+
+<div class="footer-bottom">
+© 2026 The Bag Room
+</div>
+
+</div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+lucide.createIcons();
+
+function toggleFooter(el){
+  el.classList.toggle('active');
+}
+</script>
+
+</body>
+</html>
