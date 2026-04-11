@@ -1,1 +1,1188 @@
-aa
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gucci Rajah · The Bag Room</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+
+<style>
+body{
+margin:0;
+background:#faf9f7;
+font-family:'Playfair Display', serif;
+color:#111;
+overflow-x:hidden;
+}
+
+header{
+padding:18px;
+display:flex;
+justify-content:center;
+background:rgba(255,255,255,0.95);
+position:fixed;
+width:100%;
+border-bottom:1px solid #eee;
+z-index:999;
+}
+
+header h1{
+letter-spacing:6px;
+font-size:20px;
+margin:0;
+}
+
+.top-space{height:50px;}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:20px;
+}
+
+.produto{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+}
+
+.produto img{
+width:100%;
+border-radius:10px;
+}
+
+.nome{
+font-size:32px;
+line-height:1.2;
+margin-top:10px;
+margin-bottom:8px;
+}
+
+.preco{
+font-family:'Inter', sans-serif;
+font-size:18px;
+margin:10px 0;
+letter-spacing:0.5px;
+color:#444;
+}
+
+.desc{
+  color:#555;
+  line-height:1.7;
+  font-size:15px;
+}
+
+.desc p{
+  margin-bottom:18px; /* 👈 espaço entre blocos */
+}
+
+.desc strong{
+  color:#111;
+  font-weight:500;
+}
+
+.opcoes{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.opcao{
+border:1px solid #e5e5e5;
+padding:12px;
+border-radius:12px;
+cursor:pointer;
+font-family:'Inter', sans-serif;
+display:flex;
+justify-content:center;
+}
+
+.opcao input{display:none;}
+
+.opcao.active{
+background:#000;
+color:#fff;
+}
+
+#dataInicio, #cep{
+width:220px;
+padding:10px;
+border:none;
+border-bottom:1px solid #ccc;
+background:transparent;
+font-family:'Inter';
+}
+
+#devolucao{
+margin-top:10px;
+font-family:'Inter';
+}
+
+.btn{
+margin-top:30px;
+padding:20px;
+background:linear-gradient(180deg,#111,#000);
+color:#fff;
+border-radius:50px;
+text-align:center;
+letter-spacing:6px;
+font-size:11px;
+cursor:pointer;
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+transition:0.3s;
+}
+
+.btn:active{
+transform:scale(0.97);
+}
+
+.btn-frete{
+margin-top:10px;
+padding:10px;
+background:#000;
+color:#fff;
+border-radius:20px;
+border:none;
+}
+
+.flatpickr-calendar{
+border-radius:16px;
+font-family:'Inter';
+}
+
+.flatpickr-day.selected{
+background:#000;
+border-color:#000;
+}
+
+.footer-luxo {
+  margin-top: 80px;
+  border-top: 1px solid #eaeaea;
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-item {
+  padding: 20px;
+  border-bottom: 1px solid #eaeaea;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.footer-item span {
+  opacity: 0.6;
+}
+
+.footer-content {
+  display: none;
+  padding-top: 10px;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.footer-item.active .footer-content {
+  display: block;
+}
+
+.footer-bottom {
+  padding: 30px 20px;
+  font-size: 12px;
+  color: #777;
+  text-align: center;
+}
+
+.social-bar {
+  position: fixed;
+  right: 10px;
+  bottom: 20px; /* 👈 aqui controla altura */
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 99999;
+}
+
+.social-bar a {
+background: #ffffff;
+padding: 10px;
+border-radius: 50%;
+width: 46px;
+height: 46px;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+border: 1px solid #ddd;
+animation: float 4s ease-in-out infinite;
+transition: 0.2s;
+}
+
+.social-bar a:hover {
+transform: scale(1.1);
+box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.social-bar img {
+width: 24px;
+height: 24px;
+}
+
+@keyframes float {
+0% { transform: translateY(0); }
+50% { transform: translateY(-8px); }
+100% { transform: translateY(0); }
+}
+
+.social-btn img{
+  width: 26px;
+  height: 26px;
+}
+
+.social-btn:hover{
+  transform: scale(1.1);
+}
+
+
+.frete-opcao{
+border:1px solid #e5e5e5;
+padding:12px;
+margin-top:8px;
+border-radius:12px;
+cursor:pointer;
+font-family:'Inter';
+transition:0.2s;
+text-align:center;
+}
+
+.frete-opcao.active{
+background:#000;
+color:#fff;
+border-color:#000;
+transform:scale(0.98);
+}
+
+.flatpickr-day.disabled{
+color:#ccc;
+}
+
+.galeria{
+position:relative;
+overflow:hidden;
+border-radius:18px;
+width:100%;
+margin-top:10px;
+margin-bottom:20px;
+}
+
+
+.slider{
+display:flex;
+overflow-x:auto;
+scroll-snap-type:x mandatory;
+scroll-behavior:smooth;
+gap:12px;
+padding-bottom:10px;
+width:100%;
+max-width:100%;
+padding:0 5px;
+}
+
+.slider img{
+width:100%;
+max-width:100%;
+aspect-ratio:4/5;
+object-fit:cover;
+flex:0 0 100%;
+scroll-snap-align:center;
+border-radius:18px;
+transition:transform 0.4s ease;
+cursor:pointer;
+}
+
+.slider img:active{
+transform:scale(0.98);
+}
+
+.slider::-webkit-scrollbar{
+display:none;
+}
+
+.seta{
+  display:none !important;
+}
+
+.detalhes p{
+  margin:10px 0;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.icon{
+  width:16px;
+  height:16px;
+  stroke-width:1.3;
+  opacity:0.6;
+}
+
+/* DOTS CHANEL STYLE */
+.dots{
+display:flex;
+justify-content:center;
+gap:6px;
+margin-top:10px;
+}
+
+.dots span{
+width:6px;
+height:6px;
+background:#ccc;
+border-radius:50%;
+transition:0.3s;
+}
+
+.dots span.active{
+background:#000;
+width:18px;
+border-radius:10px;
+}
+
+/* BRILHO SUAVE (luxo discreto) */
+.galeria::after{
+content:"";
+position:absolute;
+top:0;
+left:-120%;
+width:40%;
+height:100%;
+background:linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+transform:skewX(-20deg);
+animation:luxoBrilho 5s infinite;
+}
+
+@keyframes luxoBrilho{
+0%{left:-120%;}
+100%{left:140%;}
+}
+
+/* ZOOM PREMIUM */
+.zoom-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.92);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+animation:fadeIn 0.3s ease;
+}
+
+.zoom-overlay img{
+  max-width:500px;
+  width:100%;
+  max-height:80vh;
+  object-fit:contain;
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+@media(max-width:700px){
+.produto{grid-template-columns:1fr;}
+}
+
+/* BOTÃO MENU */
+.menu-mobile-btn{
+position:absolute;
+left:16px;
+top:50%;
+transform:translateY(-50%);
+font-size:22px;
+cursor:pointer;
+}
+
+/* MENU LATERAL PREMIUM */
+.menu-mobile{
+position:fixed;
+top:0;
+left:-100%;
+width:85%;
+max-width:320px;
+height:100vh;
+background:rgba(255,255,255,0.98);
+backdrop-filter:blur(14px);
+transition:0.45s cubic-bezier(0.22,1,0.36,1);
+z-index:2000;
+padding-top:100px;
+}
+
+.menu-mobile.open{
+left:0;
+}
+
+/* FECHAR */
+.close-menu{
+position:absolute;
+top:24px;
+right:24px;
+font-size:30px;
+cursor:pointer;
+}
+
+/* LINKS */
+.menu-mobile-inner{
+display:flex;
+flex-direction:column;
+gap:26px;
+padding-left:30px;
+}
+
+.menu-mobile-inner a{
+font-family:'Cormorant Garamond', serif;
+font-size:22px;
+letter-spacing:1px;
+text-decoration:none;
+color:#000;
+transition:0.3s;
+}
+
+.menu-mobile-inner a:hover{
+opacity:0.6;
+}
+
+/* DESKTOP */
+@media(min-width:1024px){
+  
+.top-space{
+  height:1px;
+  display:none;
+
+}
+
+  .produto{
+    display:flex;
+    gap:80px;
+    max-width:1100px;
+    margin:50px auto 60px;
+    align-items:flex-start;
+  }
+
+  .galeria{
+    flex:1;
+    max-width:520px;
+  }
+
+  .info{
+    flex:1;
+    max-width:400px;
+  }
+  
+  /* seta estilo Farfetch */
+/* garante posição */
+.galeria{
+  position:relative;
+}
+
+.seta{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  display:flex !important;
+
+  font-size:28px;
+  color:#b5b5b5; /* cinza elegante */
+
+  cursor:pointer;
+  z-index:10;
+
+  opacity:0;
+  transition:all 0.25s ease;
+}
+
+/* aparece só no hover */
+.galeria:hover .seta{
+  opacity:1;
+}
+
+/* hover refinado */
+.seta:hover{
+  color:#000;
+  transform:translateY(-50%) scale(1.15);
+}
+
+/* posição */
+.seta.esquerda{
+  left:10px;
+}
+
+.seta.direita{
+  right:10px;
+}
+  .seta{
+    display:block;
+  }
+  
+  
+/* seta abertura imagem  */
+
+.zoom-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+
+  display:none;
+  justify-content:center;
+  align-items:center; /* 🔥 ISSO CENTRALIZA VERTICAL */
+
+  background:rgba(0,0,0,0.92);
+  z-index:9999;
+}
+
+.zoom-seta{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  
+  width:50px;
+  height:50px;
+  border-radius:50%;
+
+  background:rgba(0,0,0,0.5); /* 🔥 contraste */
+  color:#fff;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:22px;
+  cursor:pointer;
+
+  z-index:10000; /* 🔥 MUITO IMPORTANTE */
+  backdrop-filter: blur(6px);
+  transition:0.3s;
+}
+
+.zoom-seta:hover{
+  background:#000;
+}
+
+.zoom-seta.esquerda{
+  left:calc(50% - 260px);
+}
+
+.zoom-seta.direita{
+  right:calc(50% - 260px);
+}
+
+.btn-frete{
+  cursor: pointer;
+}
+
+button,
+.btn,
+.btn-frete,
+.opcao,
+.frete-opcao {
+  cursor: pointer;
+}
+  
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>THE BAG ROOM</h1>
+
+  <!-- botão menu -->
+  <div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
+
+  <!-- menu lateral -->
+  <nav class="menu-mobile" id="menuMobile">
+
+    <div class="close-menu" onclick="toggleMenuMobile()">×</div>
+
+    <div class="menu-mobile-inner">
+      <a href="index.html">Início</a>
+      <a href="aluguel.html">Alugar </a>
+      <a href="Como Funciona.html">Como Desapegar</a>
+      <a href="autenticidade.html">Autenticidade</a>
+      <a href="quem-somos.html">Sobre</a>
+    </div>
+
+  </nav>
+</header>
+
+<div class="top-space"></div>
+
+<div class="container">
+
+<div class="produto">
+
+  <!-- ESQUERDA (IMAGEM) -->
+  <div class="galeria">
+
+    <div class="slider" id="slider">
+      <img src="https://i.imgur.com/27huvzI.jpg">
+      <img src="https://i.imgur.com/27huvzI.jpg">
+      <img src="https://i.imgur.com/Bv5Qk71.jpg">
+    </div>
+    
+    <div class="seta esquerda" onclick="slide(-1)">❮</div>
+<div class="seta direita" onclick="slide(1)">❯</div>
+
+    <div class="dots" id="dots"></div>
+
+  </div>
+
+  <!-- DIREITA (INFO + BOTÃO) -->
+  <div class="info">
+
+    <div class="nome">Gucci Rajah</div>
+    <div class="preco">A partir de R$ 490</div>
+
+<div class="desc">
+
+<p>
+Confeccionada em couro na cor branca, com ferragens douradas, a Rajah possui aba frontal com aplicação do icônico tigre esmaltado, com detalhe de pedra vermelha nos olhos, além da clássica faixa Web em vermelho e azul. Conta com alça em corrente metálica, permitindo uso no ombro ou transversal. Modelo elegante e marcante, com identidade forte da Gucci.
+</p>
+
+<p>
+</p>
+
+<p>
+<strong>Estado da bolsa:</strong> Muito bom, com leves sinais de uso no couro
+</p>
+
+<div class="detalhes">
+
+<p>
+  <i data-lucide="handbag" class="icon"></i>
+  <strong>Categoria:</strong> Transpassada/Clutch
+</p>
+<p>
+  <i data-lucide="spool" class="icon"></i>
+  <strong>Material:</strong> Couro de bezerro (calf leather)
+</p>
+<p>
+  <i data-lucide="tag" class="icon"></i>
+  <strong>Marca:</strong> Gucci
+</p>
+<p>
+  <i data-lucide="palette" class="icon"></i>
+  <strong>Cor:</strong> Branco
+</p>
+<p>
+  <i data-lucide="ruler" class="icon"></i>
+  <strong>Dimensões (L x A):</strong> 22 x 14 cm 
+</p>
+<p>
+  <i data-lucide="credit-card" class="icon"></i>
+  <strong>Valor do caução:</strong>R$ 1.000,00
+</p>
+
+</div>
+
+</div>
+
+    <div class="opcoes">
+      <label class="opcao active"><input type="radio" name="dias" value="4" checked>4 dias • R$ 490</label>
+      <label class="opcao"><input type="radio" name="dias" value="7">7 dias • R$ 690</label>
+      <label class="opcao"><input type="radio" name="dias" value="10">10 dias • R$ 890</label>
+      <label class="opcao"><input type="radio" name="dias" value="15">15 dias • R$ 1.090</label>
+      <label class="opcao"><input type="radio" name="dias" value="20">20 dias • R$1.290</label>
+      <label class="opcao"><input type="radio" name="dias" value="30">30 dias • R$1.690</label>
+    </div>
+
+    <br>
+
+    <input type="text" id="dataInicio" placeholder="Selecione a data">
+
+    <div id="devolucao"></div>
+
+    <br>
+
+    <input type="text" id="cep" placeholder="Digite seu CEP">
+
+    <button class="btn-frete" onclick="calcularFrete()">Calcular frete</button>
+
+    <div id="freteResultado"></div>
+    <div id="freteSelecionado" style="margin-top:10px; font-family:'Inter';"></div>
+
+<div id="totalBox" style="
+  margin-top:15px;
+  font-family:'Inter';
+  font-size:16px;
+  font-weight:500;
+  display:none;
+">
+</div>
+
+    <div class="btn" onclick="alugar()">ALUGAR AGORA</div>
+
+  </div>
+
+</div>
+
+ <!-- <div class="btn" onclick="alugar()">ALUGAR AGORA</div> -->
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function toggleMenuMobile(){
+  document.getElementById('menuMobile').classList.toggle('open');
+}
+
+
+
+/* seleção dias */
+document.querySelectorAll('.opcao').forEach(opcao => {
+  opcao.addEventListener('click', () => {
+    document.querySelectorAll('.opcao').forEach(o => o.classList.remove('active'));
+    opcao.classList.add('active');
+    atualizarDevolucao();
+    atualizarTotal();
+  });
+});
+
+/* 🔥 CALENDÁRIO */
+async function iniciarCalendario(){
+
+  let response = await fetch("https://thebagroomtest.onrender.com/datas/serpenti-verde");
+  let alugueis = await response.json();
+
+  let datasBloqueadas = [];
+
+  alugueis.forEach(a => {
+    let inicio = new Date(a.inicio);
+    let fim = new Date(a.fim);
+
+    for(let d = new Date(inicio); d <= fim; d.setDate(d.getDate()+1)){
+      datasBloqueadas.push(new Date(d));
+    }
+  });
+
+  flatpickr("#dataInicio", {
+    locale: "pt",
+    dateFormat: "d/m/Y",
+    minDate: new Date().fp_incr(3),
+    disableMobile: true,
+    disable: datasBloqueadas,
+    onChange: () => atualizarDevolucao()
+  });
+
+}
+
+iniciarCalendario();
+
+/* devolução */
+function atualizarDevolucao(){
+
+let dias = document.querySelector('input[name="dias"]:checked');
+let dataInput = document.getElementById('dataInicio').value;
+
+if(!dias || !dataInput) return;
+
+let partes = dataInput.split("/");
+let data = new Date(partes[2], partes[1]-1, partes[0]);
+
+data.setDate(data.getDate() + parseInt(dias.value));
+
+document.getElementById('devolucao').innerHTML =
+`Devolução prevista: <strong>${data.toLocaleDateString('pt-BR')}</strong>`;
+}
+
+/* 🔥 FRETE COM SELEÇÃO */
+let freteSelecionado = null;
+
+let freteIdaSelecionado = null;
+let freteVoltaSelecionado = null;
+
+async function calcularFrete(){
+
+let cep = document.getElementById("cep").value;
+let resultado = document.getElementById("freteResultado");
+
+if(!cep){
+resultado.innerHTML = "Digite o CEP";
+return;
+}
+
+resultado.innerHTML = "Calculando...";
+
+const meuCep = "11060-003";
+
+// IDA
+let idaResponse = await fetch("https://thebagroomtest.onrender.com/frete", {
+  method:"POST",
+  headers:{ "Content-Type":"application/json" },
+  body: JSON.stringify({ 
+    from:{ postal_code: meuCep },   // você
+    to:{ postal_code: cep }         // cliente
+  })
+});
+
+let idaData = await idaResponse.json();
+
+// VOLTA
+// VOLTA (CORRIGIDO)
+let voltaResponse = await fetch("https://thebagroomtest.onrender.com/frete", {
+  method:"POST",
+  headers:{ "Content-Type":"application/json" },
+  body: JSON.stringify({ 
+    from:{ postal_code: cep },      // cliente
+    to:{ postal_code: meuCep }      // você
+  })
+});
+
+let voltaData = await voltaResponse.json();
+
+let html = "";
+
+// 🔥 pega só SEDEX
+let frete = idaData.find(f => f.name === "SEDEX");
+
+if(!frete){
+  resultado.innerHTML = "Frete indisponível";
+  return;
+}
+
+let precoIda = parseFloat(frete.price);
+let voltaMatch = voltaData.find(v => v.name === frete.name);
+let precoVolta = parseFloat(voltaMatch?.price || 0);
+
+html = `
+<div style="margin-top:10px; font-family:'Inter'">
+
+<strong>Entrega</strong>
+
+<div class="frete-opcao frete-ida" onclick="selecionarFreteIda('SEDEX', ${precoIda}, ${frete.delivery_time}, this)">
+SEDEX • R$ ${precoIda.toFixed(2)}
+</div>
+
+<div class="frete-opcao frete-ida" onclick="selecionarFreteIda('Retirar', 0, 0, this)">
+Retirar no showroom • Grátis
+</div>
+
+<br>
+
+<strong>Devolução</strong>
+
+<div class="frete-opcao frete-volta" onclick="selecionarFreteVolta('SEDEX', ${precoVolta}, ${frete.delivery_time}, this)">
+SEDEX • R$ ${precoVolta.toFixed(2)}
+</div>
+
+<div class="frete-opcao frete-volta" onclick="selecionarFreteVolta('Retirar', 0, 0, this)">
+Entregar no showroom • Grátis
+</div>
+
+</div>
+`;
+
+resultado.innerHTML = html;
+}
+
+function selecionarFrete(nome, preco, prazo, el){
+
+freteSelecionado = { nome, preco, prazo };
+
+
+// aplica no clicado
+el.classList.add('active');
+
+// texto abaixo
+document.getElementById("freteSelecionado").innerHTML =
+`Frete escolhido: <strong>${nome} • R$ ${preco.toFixed(2)}</strong>`;
+
+}
+
+function selecionarFreteIda(nome, preco, prazo, el){
+
+  freteIdaSelecionado = { nome, preco, prazo };
+
+  // remove só ida
+  document.querySelectorAll('.frete-ida').forEach(item=>{
+    item.classList.remove('active');
+  });
+
+  el.classList.add('active');
+
+  atualizarResumoFrete();
+  atualizarTotal();
+}
+
+function selecionarFreteVolta(nome, preco, prazo, el){
+
+  freteVoltaSelecionado = { nome, preco, prazo };
+
+  // remove só volta
+  document.querySelectorAll('.frete-volta').forEach(item=>{
+    item.classList.remove('active');
+  });
+
+  el.classList.add('active');
+
+  atualizarResumoFrete();
+  atualizarTotal();
+}
+
+function atualizarResumoFrete(){
+
+if(!freteIdaSelecionado || !freteVoltaSelecionado) return;
+
+let total = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
+
+document.getElementById("freteSelecionado").innerHTML =
+`Entrega: ${freteIdaSelecionado.nome} • R$ ${freteIdaSelecionado.preco.toFixed(2)}<br>
+Devolução: ${freteVoltaSelecionado.nome} • R$ ${freteVoltaSelecionado.preco.toFixed(2)}<br>
+<strong>Total frete: R$ ${total.toFixed(2)}</strong>`;
+}
+
+/* 🔥 WHATSAPP COMPLETO */
+
+function alugar(){
+
+let diasSelecionado = document.querySelector('input[name="dias"]:checked');
+let data = document.getElementById('dataInicio').value;
+
+if(!data){
+alert("Escolha a data");
+return;
+}
+
+if(!freteIdaSelecionado || !freteVoltaSelecionado){
+alert("Escolha entrega e devolução");
+return;
+}
+
+// valor aluguel
+let textoOpcao = diasSelecionado.parentElement.innerText;
+
+let valorMatch = textoOpcao.match(/R\$\s*([\d.,]+)/);
+
+let valor = valorMatch 
+  ? parseFloat(valorMatch[1].replace(/\./g, '').replace(',', '.')) 
+  : 0;
+
+
+// frete
+let totalFrete = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
+
+// total
+let total = valor + totalFrete;
+let totalFormatado = total.toFixed(2).replace(".", ",");
+
+// texto frete
+let freteTexto = `
+Entrega: ${freteIdaSelecionado.nome} • R$ ${freteIdaSelecionado.preco.toFixed(2)}
+Devolução: ${freteVoltaSelecionado.nome} • R$ ${freteVoltaSelecionado.preco.toFixed(2)}
+`;
+
+let mensagem = `Olá, quero alugar a 
+Gucci Rajah
+
+Data recebimento: ${data}
+Período: ${textoOpcao}
+
+${freteTexto}
+
+Valor total: R$ ${totalFormatado}`;
+
+window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
+}
+
+
+
+let imagens = document.querySelectorAll('#slider img');
+let indexAtual = 0;
+
+/* ZOOM */
+
+let zoomOverlay = document.createElement("div");
+zoomOverlay.className = "zoom-overlay";
+zoomOverlay.innerHTML = `
+  <div class="zoom-seta esquerda">❮</div>
+  <img>
+  <div class="zoom-seta direita">❯</div>
+`;
+document.body.appendChild(zoomOverlay);
+
+zoomOverlay.querySelector('.direita').onclick = (e) => {
+  e.stopPropagation(); // 🔥 MUITO IMPORTANTE
+  indexAtual = (indexAtual + 1) % imagens.length;
+  atualizarZoom();
+};
+
+zoomOverlay.querySelector('.esquerda').onclick = (e) => {
+  e.stopPropagation(); // 🔥 MUITO IMPORTANTE
+  indexAtual = (indexAtual - 1 + imagens.length) % imagens.length;
+  atualizarZoom();
+};
+
+let zoomImg = zoomOverlay.querySelector("img");
+
+function atualizarZoom(){
+  zoomImg.src = imagens[indexAtual].src;
+}
+
+document.querySelectorAll('.slider img').forEach((img, index) => {
+  img.addEventListener('click', () => {
+    indexAtual = index; // 🔥 ESSENCIAL
+    atualizarZoom();
+    zoomOverlay.style.display = "flex";
+  });
+});
+
+zoomOverlay.addEventListener('click', () => {
+  zoomOverlay.style.display = "none";
+});
+
+/* DOTS */
+let slider = document.getElementById("slider");
+let images = document.querySelectorAll("#slider img");
+let dotsContainer = document.getElementById("dots");
+
+images.forEach((_, i) => {
+  let dot = document.createElement("span");
+  if(i === 0) dot.classList.add("active");
+  dotsContainer.appendChild(dot);
+});
+
+let dots = dotsContainer.querySelectorAll("span");
+
+slider.addEventListener("scroll", () => {
+  let index = Math.round(slider.scrollLeft / slider.clientWidth);
+
+  dots.forEach(d => d.classList.remove("active"));
+  if(dots[index]) dots[index].classList.add("active");
+});
+
+
+function slide(direction){
+  const slider = document.getElementById("slider");
+  const slide = slider.querySelector("img");
+
+  const style = getComputedStyle(slider);
+  const gap = parseInt(style.gap) || 0;
+
+  const largura = slide.clientWidth + gap;
+
+  slider.scrollBy({
+    left: direction * largura,
+    behavior: "smooth"
+  });
+}
+
+function atualizarTotal(){
+
+  let diasSelecionado = document.querySelector('input[name="dias"]:checked');
+  if(!diasSelecionado) return;
+
+  // 👉 só mostra se já escolheu frete
+  if(!freteIdaSelecionado || !freteVoltaSelecionado){
+    document.getElementById("totalBox").style.display = "none";
+    return;
+  }
+
+  let textoOpcao = diasSelecionado.parentElement.innerText;
+
+  let valorMatch = textoOpcao.match(/R\$\s*([\d.,]+)/);
+
+  let valor = valorMatch 
+    ? parseFloat(valorMatch[1].replace(/\./g, '').replace(',', '.')) 
+    : 0;
+
+  let frete = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
+
+  let total = valor + frete;
+
+  let totalFormatado = total.toFixed(2).replace(".", ",");
+
+  let box = document.getElementById("totalBox");
+
+  box.style.display = "block"; // 👈 aparece só aqui
+  box.innerHTML = `Total: <strong>R$ ${totalFormatado}</strong>`;
+}
+  
+
+</script>
+
+
+<div class="social-bar">
+  <a href="https://wa.me/5513996904227" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+  </a>
+</div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+  lucide.createIcons();
+</script>
+
+<div class="footer-luxo">
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    PRECISA DE AJUDA?
+    <span>▾</span>
+    <div class="footer-content">
+      Fale conosco pelo WhatsApp<br>
+      (13) 99690-4227
+    </div>
+  </div>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    EMPRESA
+    <span>▾</span>
+    <div class="footer-content">
+      The Bag Room<br>
+      Curadoria de luxo e consignação
+    </div>
+  </div>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    ENDEREÇO
+    <span>▾</span>
+    <div class="footer-content">
+      Av. Ana Costa, 471 – Gonzaga<br>
+      Santos – SP
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 The Bag Room<br>
+    Santos – SP
+  </div>
+
+</div>
+
+<script>
+function toggleFooter(el){
+  el.classList.toggle('active');
+}
+</script>
+
+</body>
+</html>
