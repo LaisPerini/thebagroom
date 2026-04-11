@@ -152,42 +152,46 @@ background:#000;
 border-color:#000;
 }
 
-.social-float{
-  position: fixed;
-  right: 15px;
-  bottom: 100px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  z-index: 9999;
+.social-bar {
+position: fixed;
+right: 10px;
+top: 50%;
+transform: translateY(-50%);
+display: flex;
+flex-direction: column;
+gap: 14px;
+z-index: 99999;
 }
 
-.social-btn{
-  animation: float 3s ease-in-out infinite;
+.social-bar a {
+background: #ffffff;
+padding: 10px;
+border-radius: 50%;
+width: 46px;
+height: 46px;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+border: 1px solid #ddd;
+animation: float 4s ease-in-out infinite;
+transition: 0.2s;
 }
 
-@keyframes float{
-  0%{transform:translateY(0);}
-  50%{transform:translateY(-5px);}
-  100%{transform:translateY(0);}
+.social-bar a:hover {
+transform: scale(1.1);
+box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
 
-.social-btn{
-  width: 55px;
-  height: 55px;
+.social-bar img {
+width: 24px;
+height: 24px;
+}
 
-  background: #fff;
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-
-  transition: 0.3s;
+@keyframes float {
+0% { transform: translateY(0); }
+50% { transform: translateY(-8px); }
+100% { transform: translateY(0); }
 }
 
 .social-btn img{
@@ -1012,11 +1016,10 @@ function atualizarTotal(){
 
 </script>
 
-<div class="social-float">
-  <a href="https://wa.me/5513996904227" target="_blank" class="social-btn">
-    <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png">
+<div class="social-bar">
+  <a href="https://wa.me/5513996904227" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
   </a>
-
 </div>
 
 </body>
