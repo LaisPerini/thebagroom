@@ -566,8 +566,8 @@ opacity:0.6;
   font-family:'Inter';
   font-size:16px;
   font-weight:500;
+  display:none;
 ">
-  Total: R$ 0,00
 </div>
 
     <div class="btn" onclick="alugar()">ALUGAR AGORA</div>
@@ -935,6 +935,12 @@ function atualizarTotal(){
   let diasSelecionado = document.querySelector('input[name="dias"]:checked');
   if(!diasSelecionado) return;
 
+  // 👉 só mostra se já escolheu frete
+  if(!freteIdaSelecionado || !freteVoltaSelecionado){
+    document.getElementById("totalBox").style.display = "none";
+    return;
+  }
+
   let textoOpcao = diasSelecionado.parentElement.innerText;
 
   let valorMatch = textoOpcao.match(/R\$\s*([\d.,]+)/);
@@ -943,21 +949,18 @@ function atualizarTotal(){
     ? parseFloat(valorMatch[1].replace(/\./g, '').replace(',', '.')) 
     : 0;
 
-  let frete = 0;
-
-  if(freteIdaSelecionado && freteVoltaSelecionado){
-    frete = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
-  }
+  let frete = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
 
   let total = valor + frete;
 
-  let totalFormatado = total
-    .toFixed(2)
-    .replace(".", ",");
+  let totalFormatado = total.toFixed(2).replace(".", ",");
 
-  document.getElementById("totalBox").innerHTML =
-    `Total: <strong>R$ ${totalFormatado}</strong>`;
+  let box = document.getElementById("totalBox");
+
+  box.style.display = "block"; // 👈 aparece só aqui
+  box.innerHTML = `Total: <strong>R$ ${totalFormatado}</strong>`;
 }
+  
 
 </script>
 
