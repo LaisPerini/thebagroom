@@ -150,7 +150,7 @@ background:#fafafa;
 
 /* BOTÃO */
 .btn{
-margin-top:20px;
+margin-top:25px;
 width:100%;
 padding:18px;
 background:#000;
@@ -160,6 +160,12 @@ border-radius:40px;
 letter-spacing:4px;
 font-size:12px;
 cursor:pointer;
+transition:0.3s;
+}
+
+.btn:hover{
+background:#1a1a1a;
+transform:scale(1.02);
 }
 
 /* TEXTO LGPD */
@@ -236,7 +242,12 @@ line-height:1.6;
 
 <div class="content-box">
 
-<form action="https://formsubmit.co/seuemail@gmail.com" method="POST" enctype="multipart/form-data">
+<form action="https://formsubmit.co/thebagroom.br@gmail.com" method="POST" enctype="multipart/form-data">
+
+<!-- CONFIG -->
+<input type="hidden" name="_subject" value="Novo cadastro - The Bag Room">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_template" value="table">
 
 <div class="form-group">
 <label>Nome completo</label>
@@ -307,7 +318,8 @@ WhatsApp: (13) 99690-4227
 ENDEREÇO
 <span>▾</span>
 <div class="footer-content">
-Av. Ana Costa, 471 – Santos
+Av. Ana Costa, 471 – Gonzaga<br>
+Santos – SP
 </div>
 </div>
 
