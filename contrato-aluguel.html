@@ -25,10 +25,10 @@ header{
 padding:18px;
 display:flex;
 justify-content:center;
+align-items:center;
 background:rgba(255,255,255,0.95);
 position:fixed;
 width:100%;
-align-items:center;
 border-bottom:1px solid #eee;
 z-index:999;
 }
@@ -88,7 +88,7 @@ text-decoration:none;
 color:#000;
 }
 
-/* HERO IGUAL */
+/* HERO */
 .internal-title{
 width:100%;
 height:80vh;
@@ -118,7 +118,7 @@ letter-spacing:5px;
 text-align:center;
 }
 
-/* CONTEÚDO */
+/* CONTENT */
 .page-wrapper{
 padding-top:6px;
 padding-bottom:40px;
@@ -134,8 +134,8 @@ border:1px solid #e5e5e5;
 }
 
 .content-box h3{
-font-size:22px;
-margin-top:30px;
+font-size:20px;
+margin-top:28px;
 letter-spacing:1px;
 }
 
@@ -144,17 +144,6 @@ font-family:'Inter', sans-serif;
 color:#555;
 line-height:1.8;
 margin-bottom:14px;
-}
-
-/* DESTAQUE */
-.destaque{
-margin-top:30px;
-padding:20px;
-border:1px solid #eee;
-border-radius:14px;
-background:#fafafa;
-font-family:'Inter';
-font-size:14px;
 }
 
 /* BOTÃO */
@@ -186,10 +175,7 @@ font-size:12px;
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  letter-spacing: 1px;
 }
-
-.footer-item span { opacity: 0.6; }
 
 .footer-content {
   display: none;
@@ -214,7 +200,6 @@ font-size:12px;
 
 <body>
 
-<!-- HEADER -->
 <header>
 <h1>THE BAG ROOM</h1>
 
@@ -230,66 +215,52 @@ font-size:12px;
 <a href="autenticidade.html">Autenticidade</a>
 <a href="quem-somos.html">Sobre</a>
 </div>
-
 </nav>
 </header>
 
 <div class="top-space"></div>
 
-<!-- HERO -->
 <section class="internal-title">
 <h2>TERMOS DE USO</h2>
 </section>
 
-<!-- CONTEÚDO -->
 <div class="page-wrapper">
 <div class="content-box">
 
-<p>
-Ao utilizar a The Bag Room, você concorda com os termos abaixo. Recomendamos a leitura completa antes de prosseguir.
-</p>
+<p>Ao utilizar a The Bag Room, você concorda com os termos abaixo.</p>
 
-<h3>Sobre a plataforma</h3>
-<p>
-A The Bag Room é uma curadoria de bolsas e acessórios de luxo originais, oferecendo locação com segurança, autenticidade e experiência premium.
-</p>
+<h3>1. Sobre a plataforma</h3>
+<p>A The Bag Room atua na curadoria e locação de bolsas e acessórios de luxo originais.</p>
 
-<h3>Cadastro</h3>
-<p>
-Para utilizar nossos serviços, é necessário fornecer informações verdadeiras e atualizadas, podendo ser solicitados documentos para validação de identidade.
-</p>
+<h3>2. Cadastro</h3>
+<p>O usuário deve fornecer dados verdadeiros e poderá ser solicitado envio de documentos para validação.</p>
 
-<h3>Autenticidade</h3>
-<p>
-Todas as peças passam por verificação rigorosa e são autenticadas por plataformas reconhecidas internacionalmente, como Entrupy e Real Authentication. 
-Cada item acompanha certificado de autenticidade.
-</p>
+<h3>3. Autenticidade</h3>
+<p>Todas as peças são verificadas por especialistas e plataformas como Entrupy e Real Authentication.</p>
 
-<h3>Condição das peças</h3>
-<p>
-Os itens podem apresentar leves sinais de uso. Garantimos que todas as peças estão em excelente estado e passam por curadoria e higienização.
-</p>
+<h3>4. Condição dos produtos</h3>
+<p>Os itens podem apresentar sinais de uso, mantendo padrão premium de conservação.</p>
 
-<h3>Uso e devolução</h3>
-<p>
-O cliente se compromete a devolver a peça na data acordada e nas mesmas condições em que foi recebida.
-</p>
+<h3>5. Locação</h3>
+<p>O uso é temporário e a devolução deve ocorrer na data acordada.</p>
 
-<h3>Caução</h3>
-<p>
-O valor da caução será devolvido caso a peça retorne sem danos. Em caso de avarias, poderá ser retido parcial ou integralmente.
-</p>
+<h3>6. Atrasos</h3>
+<p>Poderão ser cobradas taxas adicionais por atraso na devolução.</p>
 
-<h3>Responsabilidade</h3>
-<p>
-O cliente é responsável pelo uso adequado da peça durante todo o período da locação.
-</p>
+<h3>7. Caução</h3>
+<p>A caução será devolvida se a peça retornar em perfeito estado, podendo ser retida em caso de danos.</p>
 
-<div class="destaque">
-✔ Peças 100% originais<br>
-✔ Certificação profissional<br>
-✔ Segurança e transparência em todas as locações
-</div>
+<h3>8. Responsabilidade</h3>
+<p>O usuário é responsável pelo uso adequado durante o período da locação.</p>
+
+<h3>9. Pagamento</h3>
+<p>Os pagamentos são realizados por meios seguros e não armazenamos dados sensíveis.</p>
+
+<h3>10. Privacidade</h3>
+<p>Os dados são utilizados apenas para segurança e execução do serviço.</p>
+
+<h3>11. Foro</h3>
+<p>Fica eleito o foro da comarca de Santos – SP.</p>
 
 </div>
 </div>
@@ -298,7 +269,6 @@ O cliente é responsável pelo uso adequado da peça durante todo o período da 
 FALE CONOSCO
 </a>
 
-<!-- FOOTER -->
 <div class="footer-luxo">
 
 <div class="footer-item" onclick="toggleFooter(this)">
@@ -313,8 +283,7 @@ WhatsApp: (13) 99690-4227
 EMPRESA
 <span>▾</span>
 <div class="footer-content">
-The Bag Room<br>
-Curadoria de luxo
+The Bag Room
 </div>
 </div>
 
