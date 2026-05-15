@@ -464,23 +464,53 @@ transition:0.3s;
 opacity:0.6;
 }
 
-.auth-badge{
-position:absolute;
-bottom:18px;
-right:18px;
-z-index:20;
-}
+.auth-info{
+display:flex;
+align-items:center;
+gap:14px;
 
-.auth-badge img{
-width:70px;
-height:70px;
-object-fit:contain;
-filter:drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+margin-top:18px;
+padding:14px 16px;
+
+background:#fff;
+border:1px solid #ececec;
+border-radius:16px;
+
+text-decoration:none;
+color:#111;
+
 transition:0.3s;
 }
 
-.auth-badge img:hover{
-transform:scale(1.08);
+.auth-info:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(0,0,0,0.06);
+}
+
+.auth-selo{
+width:58px;
+height:58px;
+object-fit:contain;
+flex-shrink:0;
+}
+
+.auth-text{
+display:flex;
+flex-direction:column;
+}
+
+.auth-text strong{
+font-family:'Inter', sans-serif;
+font-size:14px;
+letter-spacing:0.3px;
+margin-bottom:4px;
+}
+
+.auth-text span{
+font-family:'Inter', sans-serif;
+font-size:13px;
+line-height:1.5;
+color:#666;
 }
 
 /* DESKTOP */
@@ -621,23 +651,53 @@ button,
   cursor: pointer;
 }
 
-.auth-badge{
-position:absolute;
-bottom:18px;
-right:18px;
-z-index:20;
-}
+.auth-info{
+display:flex;
+align-items:center;
+gap:14px;
 
-.auth-badge img{
-width:70px;
-height:70px;
-object-fit:contain;
-filter:drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+margin-top:18px;
+padding:14px 16px;
+
+background:#fff;
+border:1px solid #ececec;
+border-radius:16px;
+
+text-decoration:none;
+color:#111;
+
 transition:0.3s;
 }
 
-.auth-badge img:hover{
-transform:scale(1.08);
+.auth-info:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(0,0,0,0.06);
+}
+
+.auth-selo{
+width:58px;
+height:58px;
+object-fit:contain;
+flex-shrink:0;
+}
+
+.auth-text{
+display:flex;
+flex-direction:column;
+}
+
+.auth-text strong{
+font-family:'Inter', sans-serif;
+font-size:14px;
+letter-spacing:0.3px;
+margin-bottom:4px;
+}
+
+.auth-text span{
+font-family:'Inter', sans-serif;
+font-size:13px;
+line-height:1.5;
+color:#666;
 }
   
 }
@@ -677,19 +737,21 @@ transform:scale(1.08);
 
   <!-- ESQUERDA (IMAGEM) -->
   <div class="galeria">
-    
-      <!-- selo -->
-
-  <a href="autenticidade.html" class="auth-badge">
-    <img src="selo-auth.PNG">
-  </a>
-
     <div class="slider" id="slider">
       <img src="https://i.imgur.com/t38otvi.jpg">
       <img src="https://i.imgur.com/ZpFC4hw.jpg">
       <img src="https://i.imgur.com/WczlkQ4.jpg">
                                         
     </div>
+    
+    <a href="autenticidade.html" class="auth-info">
+  <img src="selo-auth.PNG" class="auth-selo">
+  <div class="auth-text">
+    <strong>Produto autenticado</strong>
+    <span>Clique para saber mais sobre nosso processo de autenticação</span>
+  </div>
+</a>
+    
     
     <div class="seta esquerda" onclick="slide(-1)">❮</div>
 <div class="seta direita" onclick="slide(1)">❯</div>
