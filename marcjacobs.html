@@ -487,29 +487,30 @@ transform:translateY(-2px);
 box-shadow:0 8px 20px rgba(0,0,0,0.06);
 }
 
-.auth-selo{
-width:58px;
-height:58px;
-object-fit:contain;
-flex-shrink:0;
-}
 
-.auth-text{
+.auth-selo-link{
 display:flex;
-flex-direction:column;
+justify-content:flex-start;
+align-items:center;
+gap:10px;
+
+margin-top:14px;
+margin-bottom:8px;
+
+text-decoration:none;
 }
 
-.auth-text strong{
-font-family:'Inter', sans-serif;
-font-size:14px;
-letter-spacing:0.3px;
-margin-bottom:4px;
+.auth-selo{
+width:52px;
+height:52px;
+object-fit:contain;
 }
 
-.auth-text span{
+.auth-label{
 font-family:'Inter', sans-serif;
-font-size:13px;
-line-height:1.5;
+font-size:12px;
+letter-spacing:1px;
+text-transform:uppercase;
 color:#666;
 }
 
@@ -674,29 +675,29 @@ transform:translateY(-2px);
 box-shadow:0 8px 20px rgba(0,0,0,0.06);
 }
 
-.auth-selo{
-width:58px;
-height:58px;
-object-fit:contain;
-flex-shrink:0;
-}
-
-.auth-text{
+.auth-selo-link{
 display:flex;
-flex-direction:column;
+justify-content:flex-start;
+align-items:center;
+gap:10px;
+
+margin-top:14px;
+margin-bottom:8px;
+
+text-decoration:none;
 }
 
-.auth-text strong{
-font-family:'Inter', sans-serif;
-font-size:14px;
-letter-spacing:0.3px;
-margin-bottom:4px;
+.auth-selo{
+width:52px;
+height:52px;
+object-fit:contain;
 }
 
-.auth-text span{
+.auth-label{
 font-family:'Inter', sans-serif;
-font-size:13px;
-line-height:1.5;
+font-size:12px;
+letter-spacing:1px;
+text-transform:uppercase;
 color:#666;
 }
   
@@ -753,8 +754,11 @@ color:#666;
   </div>
   
       
- <a href="autenticidade.html" class="auth-selo-link">
-  <img src="selo-auth.PNG" class="auth-selo">
+<a href="autenticidade.html" class="auth-selo-link">
+  <img src="selo-auth.png" class="auth-selo">
+  <span class="auth-label">
+    Produto autenticado
+  </span>
 </a>
 
   <!-- DIREITA (INFO + BOTÃO) -->
