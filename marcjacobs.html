@@ -508,6 +508,16 @@ height:auto !important;
 display:block;
 }
 
+/* efeito hover */
+.auth-selo-link:hover .auth-selo{
+transform:scale(1.06);
+filter:brightness(1.05);
+}
+
+/* clique */
+.auth-selo-link:active .auth-selo{
+transform:scale(0.96);
+
 
 /* DESKTOP */
 @media(min-width:1024px){
@@ -691,6 +701,16 @@ width:110px !important;
 height:auto !important;
 display:block;
 }
+
+/* efeito hover */
+.auth-selo-link:hover .auth-selo{
+transform:scale(1.06);
+filter:brightness(1.05);
+}
+
+/* clique */
+.auth-selo-link:active .auth-selo{
+transform:scale(0.96);
   
 }
 
@@ -745,7 +765,9 @@ display:block;
   </div>
   
       
-<a href="autenticidade.html" class="auth-selo-link">
+<a href="autenticidade.html"
+   class="auth-selo-link"
+   title="Clique para verificar nossa autenticidade">
   <img src="selo-auth.jpg" class="auth-selo">
 </a>
 
