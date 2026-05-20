@@ -489,34 +489,47 @@ box-shadow:0 8px 20px rgba(0,0,0,0.06);
 
 .auth-selo-link{
 position:absolute;
-bottom:100px;
-left:80px;
-transform:translateX(-50%);
-z-index:20;
-text-decoration:none;
+bottom:62px;
+left:22px;
 
-display:inline-block;
-width:auto;
-height:auto;
-background:none;
-padding:0;
+display:flex;
+align-items:center;
+gap:8px;
+
+padding:8px 14px;
+
+background:rgba(255,255,255,0.92);
+backdrop-filter:blur(8px);
+
+border-radius:999px;
+
+box-shadow:0 4px 14px rgba(0,0,0,0.08);
+
+text-decoration:none;
+z-index:20;
+
+transition:0.25s ease;
+}
+
+.auth-selo-link:hover{
+transform:translateY(-1px);
+box-shadow:0 8px 20px rgba(0,0,0,0.12);
 }
 
 .auth-selo{
-width:110px !important;
+width:26px !important;
 height:auto !important;
 display:block;
 }
 
-/* efeito hover */
-.auth-selo-link:hover .auth-selo{
-transform:scale(1.06);
-filter:brightness(1.05);
+.auth-text{
+font-family:'Inter', sans-serif;
+font-size:11px;
+letter-spacing:1px;
+color:#111;
+text-transform:uppercase;
 }
 
-/* clique */
-.auth-selo-link:active .auth-selo{
-transform:scale(0.96);
 
 
 /* DESKTOP */
@@ -683,35 +696,47 @@ box-shadow:0 8px 20px rgba(0,0,0,0.06);
 
 .auth-selo-link{
 position:absolute;
-bottom:100px;
-left:80px;
-transform:translateX(-50%);
-z-index:20;
-text-decoration:none;
+bottom:62px;
+left:22px;
 
-display:inline-block;
-width:auto;
-height:auto;
-background:none;
-padding:0;
+display:flex;
+align-items:center;
+gap:8px;
+
+padding:8px 14px;
+
+background:rgba(255,255,255,0.92);
+backdrop-filter:blur(8px);
+
+border-radius:999px;
+
+box-shadow:0 4px 14px rgba(0,0,0,0.08);
+
+text-decoration:none;
+z-index:20;
+
+transition:0.25s ease;
+}
+
+.auth-selo-link:hover{
+transform:translateY(-1px);
+box-shadow:0 8px 20px rgba(0,0,0,0.12);
 }
 
 .auth-selo{
-width:110px !important;
+width:26px !important;
 height:auto !important;
 display:block;
 }
 
-/* efeito hover */
-.auth-selo-link:hover .auth-selo{
-transform:scale(1.06);
-filter:brightness(1.05);
+.auth-text{
+font-family:'Inter', sans-serif;
+font-size:11px;
+letter-spacing:1px;
+color:#111;
+text-transform:uppercase;
 }
 
-/* clique */
-.auth-selo-link:active .auth-selo{
-transform:scale(0.96);
-  
 }
 
 </style>
@@ -765,10 +790,11 @@ transform:scale(0.96);
   </div>
   
       
-<a href="autenticidade.html"
-   class="auth-selo-link"
-   title="Clique para verificar nossa autenticidade">
+<a href="autenticidade.html" class="auth-selo-link">
   <img src="selo-auth.jpg" class="auth-selo">
+  <span class="auth-text">
+    Verificar autenticidade
+  </span>
 </a>
 
   <!-- DIREITA (INFO + BOTÃO) -->
