@@ -487,25 +487,27 @@ transform:translateY(-2px);
 box-shadow:0 8px 20px rgba(0,0,0,0.06);
 }
 
-
 .auth-selo-link{
 position:absolute;
-bottom:8px;
-left:12px;
+bottom:12px;
+left:50%;
+transform:translateX(-50%);
 z-index:20;
 text-decoration:none;
+
+display:inline-block;
+width:auto;
+height:auto;
+background:none;
+padding:0;
 }
 
 .auth-selo{
-width:72px !important;
-height:72px !important;
-object-fit:contain;
-background:red;
+width:140px;
+height:auto;
+display:block;
 }
 
-.auth-selo:hover{
-transform:scale(1.05);
-}
 
 /* DESKTOP */
 @media(min-width:1024px){
@@ -671,21 +673,23 @@ box-shadow:0 8px 20px rgba(0,0,0,0.06);
 
 .auth-selo-link{
 position:absolute;
-bottom:8px;
-left:12px;
+bottom:12px;
+left:50%;
+transform:translateX(-50%);
 z-index:20;
 text-decoration:none;
+
+display:inline-block;
+width:auto;
+height:auto;
+background:none;
+padding:0;
 }
 
 .auth-selo{
-width:72px !important;
-height:72px !important;
-object-fit:contain;
-background:red;
-}
-
-.auth-selo:hover{
-transform:scale(1.05);
+width:140px;
+height:auto;
+display:block;
 }
   
 }
