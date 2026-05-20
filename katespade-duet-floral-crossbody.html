@@ -464,6 +464,39 @@ transition:0.3s;
 opacity:0.6;
 }
 
+.auth-selo-link{
+position:absolute;
+bottom:90px;
+left:20px;
+display:flex;
+align-items:center;
+gap:8px;
+text-decoration:none;
+z-index:20;
+transition:0.25s ease;
+}
+
+.auth-selo-link:hover{
+transform:translateY(-1px);
+box-shadow:0 6px 16px rgba(0,0,0,0.12);
+}
+
+.auth-selo{
+width:110px !important;
+height:auto !important;
+display:block;
+}
+
+.auth-text{
+font-family:'Inter', sans-serif;
+font-size:10px;
+letter-spacing:1.5px;
+text-transform:uppercase;
+color:#111;
+opacity:0.75;
+white-space:nowrap;
+}
+
 /* DESKTOP */
 @media(min-width:1024px){
   
@@ -601,7 +634,38 @@ button,
 .frete-opcao {
   cursor: pointer;
 }
-  
+  .auth-selo-link{
+position:absolute;
+bottom:90px;
+left:20px;
+display:flex;
+align-items:center;
+gap:8px;
+text-decoration:none;
+z-index:20;
+transition:0.25s ease;
+}
+
+.auth-selo-link:hover{
+transform:translateY(-1px);
+box-shadow:0 6px 16px rgba(0,0,0,0.12);
+}
+
+.auth-selo{
+width:110px !important;
+height:auto !important;
+display:block;
+}
+
+.auth-text{
+font-family:'Inter', sans-serif;
+font-size:10px;
+letter-spacing:1.5px;
+text-transform:uppercase;
+color:#111;
+opacity:0.75;
+white-space:nowrap;
+}
 }
 
 </style>
@@ -654,6 +718,10 @@ button,
     <div class="dots" id="dots"></div>
 
   </div>
+  
+  <a href="autenticidade.html" class="auth-selo-link">
+  <img src="selo-auth.jpg" class="auth-selo">
+</a>
 
   <!-- DIREITA (INFO + BOTÃO) -->
   <div class="info">
