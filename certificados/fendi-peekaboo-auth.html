@@ -315,6 +315,32 @@ display:block;
 margin-top:35px;
 }
 
+.auth-buttons{
+display:flex;
+gap:12px;
+margin-top:22px;
+margin-bottom:28px;
+flex-wrap:wrap;
+}
+
+.auth-btn{
+padding:10px 18px;
+border-radius:30px;
+background:#fff;
+border:1px solid #ddd;
+text-decoration:none;
+font-family:'Inter',sans-serif;
+font-size:12px;
+letter-spacing:2px;
+color:#111;
+transition:0.3s;
+}
+
+.auth-btn:hover{
+background:#111;
+color:#fff;
+}
+
 </style>
 </head>
 
@@ -373,6 +399,15 @@ sua autenticidade foi confirmada através das certificações apresentadas abaix
 Clique nos selos de autenticação para visualizar os certificados completos.
 </p>
 
+<div class="auth-buttons">
+<a href="#poizon" class="auth-btn">
+POIZON
+</a>
+<a href="#nota" class="auth-btn">
+NOTA FISCAL
+</a>
+</div>
+
 
 <div class="info-box">
 
@@ -387,13 +422,10 @@ Clique nos selos de autenticação para visualizar os certificados completos.
 <div class="top-space"></div>
 
 <div class="content-box">
-
-<div class="certificate-card">
-
-  <img src="https://i.imgur.com/xBPsxIa.jpg" class="certificate-image">
-
+  
+  <div id="poizon">
+<img src="https://i.imgur.com/xBPsxIa.jpg" class="certificado-img">
 </div>
-
 </div>
 
 </div>
