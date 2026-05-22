@@ -20,16 +20,12 @@
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ========================= */
-/* BASE DO SITE */
-/* ========================= */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+
+/* BASE */
+*{box-sizing:border-box;}
 
 body{
 margin:0;
-padding: 0;
 background:#f5f4f2;
 font-family:'Playfair Display', serif;
 color:#111;
@@ -55,6 +51,136 @@ margin:0;
 
 .top-space{height:70px;}
 
+/* MENU */
+.menu-mobile-btn{
+position:absolute;
+left:16px;
+top:50%;
+transform:translateY(-50%);
+font-size:22px;
+cursor:pointer;
+}
+
+.menu-mobile{
+position:fixed;
+top:0;
+left:-100%;
+width:85%;
+max-width:320px;
+height:100vh;
+background:rgba(255,255,255,0.98);
+backdrop-filter:blur(14px);
+transition:0.45s cubic-bezier(0.22,1,0.36,1);
+z-index:2000;
+padding-top:100px;
+}
+
+.menu-mobile.open{
+left:0;
+}
+
+.close-menu{
+position:absolute;
+top:24px;
+right:24px;
+font-size:30px;
+cursor:pointer;
+}
+
+.menu-mobile-inner{
+display:flex;
+flex-direction:column;
+gap:26px;
+padding-left:30px;
+}
+
+.menu-mobile-inner a{
+font-family:'Cormorant Garamond', serif;
+font-size:22px;
+letter-spacing:1px;
+text-decoration:none;
+color:#000;
+transition:0.3s;
+}
+
+.menu-mobile-inner a:hover{
+opacity:0.6;
+}
+
+/* HERO */
+.internal-title{
+width:100%;
+height:26vh;
+background:url('https://i.imgur.com/cEmhXKD.jpeg') center/cover;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+}
+
+.internal-title::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+}
+
+.internal-title h2{
+  position:relative;
+  z-index:3;
+  font-size:30px;
+  font-weight:600;
+  color:#fff;
+  letter-spacing:6px;
+  text-align:center;
+  text-shadow: 0 6px 20px rgba(0,0,0,0.7);
+}
+
+/* CONTENT */
+.content-box{
+max-width:900px;
+margin:40px auto;
+padding:32px;
+background:#fff;
+border-radius:18px;
+line-height:1.8;
+}
+
+.content-box p {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  color: #444;
+}
+
+/* destaque elegante */
+.destaque{
+margin-top:25px;
+padding:20px;
+border:1px solid #eee;
+border-radius:14px;
+background:#fafafa;
+font-family:'Inter';
+font-size:14px;
+}
+
+/* BOTÃO */
+.whats-btn{
+display:block;
+margin:40px auto;
+background:#000;
+color:#fff;
+padding:18px;
+border-radius:40px;
+text-align:center;
+letter-spacing:4px;
+text-decoration:none;
+width:80%;
+}
+
+/* FOOTER */
 .footer-luxo {
   margin-top: 80px;
   border-top: 1px solid #eaeaea;
@@ -94,517 +220,13 @@ margin:0;
   text-align: center;
 }
 
-.top-space{height:70px;}
 
-.container{
-max-width:900px;
-margin:auto;
-padding:20px;
-animation:fadeUp 0.6s ease;
-}
 
-/* BOTÃO “X” PARA FECHAR */
-.close-menu {
-  position: absolute;
-  top: 26px;
-  right: 30px;
-  font-size: 34px;
-  cursor: pointer;
-  color: #000;
-  z-index: 2004;
-  user-select: none;
-  opacity: 0.8;
-}
 
-.close-menu:hover {
-  opacity: 0.5;
-}
 
-/* ========================= */
-/* TÍTULO PRINCIPAL (HERO) */
-/* ========================= */
-/* HERO */
-.internal-title{
-width:100%;
-height:26vh;
-background:url('https://i.imgur.com/cEmhXKD.jpeg') center/cover;
-display:flex;
-align-items:center;
-justify-content:center;
-position:relative;
-}
 
-.internal-title::after{
-content:"";
-position:absolute;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.45);
-}
 
-.internal-title h2{
-  position:relative;
-  z-index:3;
-  font-size:30px;
-  font-weight:600;
-  color:#fff;
-  letter-spacing:6px;
-  text-align:center;
-  text-shadow: 0 6px 20px rgba(0,0,0,0.7);
-}
 
-/* ========================= */
-/* CAIXA DE CONTEÚDO */
-/* ========================= */
-.page-wrapper {
-  padding-top: 6px;
-  padding-bottom: 30px;
-}
-
-.content-box {
-  max-width: 900px;
-  margin: 40px auto 100px;
-  padding: 28px 26px;
-  background: #ffffff;
-  border: 1px solid #d4d3d3;
-  border-radius: 18px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-}
-
-/* TÍTULOS DO PASSO A PASSO */
-.content-box h3 {
-  font-size: 30px;
-  letter-spacing: 1px;
-  font-weight: 400;
-  margin-top: 0;
-  position: relative;
-  padding-top: 30px;
-}
-
-.content-box h3::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 60px;
-  height: 1px;
-  background: #ddd;
-}
-
-/* NÚMERO DO PASSO */
-.step-number {
-font-family: 'Inter', sans-serif;
-  font-size: 42px;
-  font-weight: 300;
-  margin-right: 10px;
-  color: #000;
-}
-
-/* LISTA */
-.content-box ul {
-  padding-left: 20px;
-}
-
-.content-box ul li {
-  list-style: none;
-  position: relative;
-  padding-left: 18px;
-  font-size: 16px;
-  line-height: 1.7;
-}
-
-.content-box ul li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: #777;
-  font-size: 18px;
-}
-
-.content-box p {
-  font-size: 15px;
-  line-height: 1.6;
-  margin-bottom: 14px;
-  color: #444;
-}
-
-/* ========================= */
-/* RODAPÉ */
-/* ========================= */
-footer {
-  text-align: center;
-  padding: 40px;
-  font-size: 14px;
-  opacity: 0.5;
-  border-top: 1px solid #e5e5e5;
-}
-
-
-/* BOTÃO MENU */
-.menu-mobile-btn{
-position:absolute;
-left:16px;
-top:50%;
-transform:translateY(-50%);
-font-size:22px;
-cursor:pointer;
-}
-
-/* MENU LATERAL PREMIUM */
-.menu-mobile{
-position:fixed;
-top:0;
-left:-100%;
-width:85%;
-max-width:320px;
-height:100vh;
-background:rgba(255,255,255,0.98);
-backdrop-filter:blur(14px);
-transition:0.45s cubic-bezier(0.22,1,0.36,1);
-z-index:2000;
-padding-top:100px;
-}
-
-.menu-mobile.open{
-left:0;
-}
-
-/* FECHAR */
-.close-menu{
-position:absolute;
-top:24px;
-right:24px;
-font-size:30px;
-cursor:pointer;
-}
-
-/* LINKS */
-.menu-mobile-inner{
-display:flex;
-flex-direction:column;
-gap:26px;
-padding-left:30px;
-}
-
-.menu-mobile-inner a{
-font-family:'Cormorant Garamond', serif;
-font-size:22px;
-letter-spacing:1px;
-text-decoration:none;
-color:#000;
-transition:0.3s;
-}
-
-.menu-mobile-inner a:hover{
-opacity:0.6;
-}
-
-
-/* SOCIAL BAR FLUTUANTE */
-
-.social-bar {
-position: fixed;
-right: 10px;
-top: 50%;
-transform: translateY(-50%);
-display: flex;
-flex-direction: column;
-gap: 14px;
-z-index: 99999;
-}
-
-.social-bar a {
-background: #ffffff;
-padding: 10px;
-border-radius: 50%;
-width: 46px;
-height: 46px;
-display: flex;
-align-items: center;
-justify-content: center;
-box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-border: 1px solid #ddd;
-animation: float 4s ease-in-out infinite;
-transition: 0.2s;
-}
-
-.social-bar a:hover {
-transform: scale(1.1);
-box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-}
-
-.whats-btn {
-  display: inline-block;
-  background-color: #000;
-  color: #fff;
-  padding: 25px 50px;
-  border-radius: 40px;
-  letter-spacing: 10px;
-  font-size: 10px;
-  text-decoration: none;
-  transition: 0.3s;
-  margin:-100px ;
-  text-align: center;
-  display: block;
-  
- 
-}
-
-.whats-btn:hover {
-  background-color: #1a1a1a;
-  transform: scale(1.04);
-  
-}
-
-
-
-@keyframes float {
-0% { transform: translateY(0); }
-50% { transform: translateY(-8px); }
-100% { transform: translateY(0); }
-}
-
-.social-bar img {
-width: 24px;
-height: 24px;
-}
-
-/* ========================= */
-/* MOBILE */
-/* ========================= */
-@media (max-width: 600px) {
-
-.internal-title {
-width: 100%;
-height: 26vh;
-background-image: url('https://i.imgur.com/cEmhXKD.jpeg');
-background-size: cover;
-background-position: center;
-display: flex;
-align-items: center;
-justify-content: center;
-position: relative;
-margin-bottom: -90px;
-text-align: center;
-padding: 0;
-}
-
-.internal-title::after {
-content: "";
-position: absolute;
-top: 0; left: 0;
-width: 100%; height: 100%;
-background: rgba(0,0,0,0.45);
-backdrop-filter: blur(1px);
-}
-
-
-.internal-title h2 {
-  position:relative;
-  z-index:2;
-  font-size:30px;
-  font-weight:700;
-  color:white;
-  letter-spacing:5px;
-  text-align:center;
-  width: auto;
-  margin: 0;
-  margin-top: 30px;
-  text-shadow: 0 4px 15px rgba(0,0,0,0.7);
-}
-
-/* ========================= */
-/* CAIXA DE CONTEÚDO */
-/* ========================= */
-.page-wrapper {
-  padding-top: 6px;
-  padding-bottom: 30px;
-}
-
-.content-box {
-  max-width: 900px;
-  margin: 40px auto 100px;
-  padding: 28px 26px;
-  background: #ffffff;
-  border: 0px solid #d4d3d3;
-  border-radius: 18px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-}
-
-/* TÍTULOS DO PASSO A PASSO */
-.content-box h3 {
-  font-size: 30px;
-  letter-spacing: 1px;
-  font-weight: 400;
-  margin-top: 0;
-  position: relative;
-  padding-top: 30px;
-}
-
-.content-box h3::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 60px;
-  height: 1px;
-  background: #ddd;
-}
-
-/* NÚMERO DO PASSO */
-.step-number {
-font-family:'Inter';
-  font-size: 35px;
-  font-weight: 300;
-  margin-right: 10px;
-  color: #000;
-}
-
-/* LISTA */
-.content-box ul {
-  padding-left: 20px;
-}
-
-.content-box ul li {
-  list-style: none;
-  position: relative;
-  padding-left: 18px;
-  font-size: 16px;
-  line-height: 1.7;
-}
-
-.content-box ul li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: #777;
-  font-size: 18px;
-}
-
-.content-box p {
-  font-size: 15px;
-  line-height: 1.6;
-  margin-bottom: 14px;
-  color: #444;
-}
-
-/* ========================= */
-/* RODAPÉ */
-/* ========================= */
-footer {
-  text-align: center;
-  padding: 40px;
-  font-size: 14px;
-  opacity: 0.5;
-  border-top: 1px solid #e5e5e5;
-}
-
-
-
-
-   .page-wrapper {
-    padding-top: 60px;
-  }
-
-  .section.desapegar-bg {
-    width: 100%;
-    margin: 0 auto;
-   padding-left: 16px;
-   padding-right: 16px;
-  }
-
-  .desapegar-container {
-  margin: 0 auto;
-  padding: 0 16px;
-}
-
-
-.about-wrapper {
-flex-direction: column;
-padding: 60px 20px 40px;
-}
-
-.slider {
-width: 280px;
-height: 300px;
-}
-
-
-header {
-padding: 14px 16px;
-height: 56px;
-}
-
-.about-wrapper{
-  padding: 40px 16px;
-}
-
-.section{
-  padding: 60px 16px;
-}
-
-.section p {
-  width: 100%;
-}
-
-.section.desapegar-bg{
-padding-top: 70px;
-padding-bottom: 90px;
-}
-
-.section.desapegar-bg h3 {
-font-size: 28px;
-margin-bottom: 30px;
-}
-
-.social-bar{
-  right: 6px;
-}
-
-
-.menu-mobile{
-  width: 100%;
-  max-width: 320px;
-}
-
-header h1{
-letter-spacing:6px;
-font-size:20px;
-margin:0;
-}
-
-.hero {
-height: 40vh; /* reduz a altura da imagem */
-background-position: center top;
-}
-
-.whats-btn {
-    display: inline-block;
-  background-color: #000;
-  color: #fff;
-  padding: 25px 50px;
-  border-radius: 40px;
-font-family:'Inter', sans-serif;
-  letter-spacing: 10px;
-  font-size: 10px;
-  text-decoration: none;
-  transition: 0.3s;
-  margin: -100px auto 60px ;
-  text-align: center;
-  display: block;
-  width: 85%;
-}
-
-.whats-btn:hover {
-  background-color: #1a1a1a;
-  transform: scale(1.04);
-}
-
-
-
-}
 
 
 </style>
