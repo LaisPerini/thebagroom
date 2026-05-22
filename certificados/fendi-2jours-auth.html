@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KPVTBY5VK8"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-KPVTBY5VK8');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Certificado · The Bag Room</title>
+
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* BASE */
+*{
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
+
+body{
+margin:0;
+background:#f5f4f2;
+font-family:'Playfair Display', serif;
+color:#111;
+overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+padding:18px;
+display:flex;
+justify-content:center;
+background:rgba(255,255,255,0.96);
+position:fixed;
+width:100%;
+border-bottom:1px solid #eee;
+z-index:999;
+backdrop-filter:blur(12px);
+}
+
+header h1{
+letter-spacing:6px;
+font-size:20px;
+margin:0;
+font-weight:500;
+}
+
+.top-space{
+height:65px;
+}
+
+/* MENU */
+.menu-mobile-btn{
+position:absolute;
+left:16px;
+top:50%;
+transform:translateY(-50%);
+font-size:22px;
+cursor:pointer;
+}
+
+.menu-mobile{
+position:fixed;
+top:0;
+left:-100%;
+width:85%;
+max-width:320px;
+height:100vh;
+background:rgba(255,255,255,0.98);
+backdrop-filter:blur(14px);
+transition:0.45s cubic-bezier(0.22,1,0.36,1);
+z-index:2000;
+padding-top:100px;
+}
+
+.menu-mobile.open{
+left:0;
+}
+
+.close-menu{
+position:absolute;
+top:24px;
+right:24px;
+font-size:30px;
+cursor:pointer;
+}
+
+.menu-mobile-inner{
+display:flex;
+flex-direction:column;
+gap:26px;
+padding-left:30px;
+}
+
+.menu-mobile-inner a{
+font-family:'Cormorant Garamond', serif;
+font-size:22px;
+letter-spacing:1px;
+text-decoration:none;
+color:#000;
+transition:0.3s;
+}
+
+.menu-mobile-inner a:hover{
+opacity:0.6;
+}
+
+/* HERO */
+.internal-title{
+width:100%;
+height:38vh;
+background:url('https://i.imgur.com/bUaENpx.jpg') center/cover;
+display:flex;
+align-items:flex-start;
+justify-content:flex-start;
+position:relative;
+overflow:hidden;
+padding:22px;
+}
+
+.internal-title::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+top:0;
+left:0;
+background:rgba(0,0,0,0.10);
+}
+
+.hero-content{
+position:relative;
+z-index:5;
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+gap:10px;
+margin-top:10px;
+}
+
+.verified-badge{
+display:inline-block;
+padding:10px 18px;
+border-radius:30px;
+background:rgba(0,0,0,0.30);
+border:1px solid rgba(255,255,255,0.18);
+font-family:'Inter', sans-serif;
+font-size:10px;
+font-weight:500;
+letter-spacing:2px;
+color:#fff;
+backdrop-filter:blur(10px);
+}
+
+.hero-subtitle{
+display:inline-block;
+padding:10px 18px;
+border-radius:30px;
+background:rgba(0,0,0,0.48);
+font-family:'Inter', sans-serif;
+font-size:11px;
+font-weight:600;
+letter-spacing:4px;
+color:#fff;
+backdrop-filter:blur(10px);
+}
+
+/* CONTENT */
+.content-box{
+max-width:920px;
+margin:0 auto;
+padding:32px 24px;
+}
+
+.auth-brand{
+font-size:54px;
+margin:0 0 30px;
+font-weight:600;
+letter-spacing:2px;
+}
+
+.auth-text{
+font-family:'Inter', sans-serif;
+font-size:16px;
+line-height:2;
+color:#444;
+margin-bottom:24px;
+}
+
+/* BUTTONS */
+.auth-buttons{
+display:flex;
+gap:12px;
+margin-top:30px;
+margin-bottom:32px;
+flex-wrap:wrap;
+}
+
+.auth-btn{
+padding:12px 20px;
+border-radius:40px;
+background:#fff;
+border:1px solid #ddd;
+text-decoration:none;
+font-family:'Inter', sans-serif;
+font-size:12px;
+font-weight:600;
+letter-spacing:2px;
+color:#111;
+transition:0.3s;
+}
+
+.auth-btn:hover{
+background:#111;
+color:#fff;
+}
+
+/* INFO BOX */
+.info-box{
+margin-top:20px;
+padding:24px;
+border:1px solid #ececec;
+border-radius:26px;
+background:#fafafa;
+}
+
+.info-box p{
+font-family:'Inter', sans-serif;
+font-size:15px;
+line-height:1.9;
+margin:0 0 12px;
+color:#222;
+}
+
+/* CERTIFICATE CARD */
+.certificate-card{
+background:#fff;
+border-radius:34px;
+padding:22px;
+box-shadow:0 10px 40px rgba(0,0,0,0.06);
+margin-top:40px;
+}
+
+.certificate-image{
+width:100%;
+display:block;
+border-radius:22px;
+}
+
+/* BUTTON */
+.whats-btn{
+display:block;
+margin:50px auto;
+background:#000;
+color:#fff;
+padding:18px;
+border-radius:40px;
+text-align:center;
+letter-spacing:4px;
+text-decoration:none;
+width:80%;
+font-size:12px;
+font-family:'Inter', sans-serif;
+}
+
+/* FOOTER */
+.footer-luxo{
+margin-top:80px;
+border-top:1px solid #eaeaea;
+font-family:'Inter', sans-serif;
+}
+
+.footer-item{
+padding:20px;
+border-bottom:1px solid #eaeaea;
+cursor:pointer;
+display:flex;
+justify-content:space-between;
+font-size:14px;
+letter-spacing:1px;
+flex-wrap:wrap;
+}
+
+.footer-item span{
+opacity:0.6;
+}
+
+.footer-content{
+display:none;
+padding-top:12px;
+font-size:13px;
+color:#555;
+line-height:1.8;
+width:100%;
+margin-left:120px;
+}
+
+.footer-item.active .footer-content{
+display:block;
+}
+
+.footer-bottom{
+padding:30px 20px;
+font-size:12px;
+color:#777;
+text-align:center;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.auth-brand{
+font-size:42px;
+margin-bottom:24px;
+}
+
+.auth-text{
+font-size:15px;
+line-height:1.9;
+}
+
+.content-box{
+padding:28px 22px;
+}
+
+.internal-title{
+height:34vh;
+padding:18px;
+}
+
+.hero-content{
+margin-top:4px;
+}
+
+.hero-subtitle{
+font-size:10px;
+letter-spacing:3px;
+}
+
+.footer-content{
+margin-left:0;
+}
+
+.hero-seal{
+position:absolute;
+inset:0;
+z-index:5;
+display:flex;
+align-items:center;
+justify-content:center;
+pointer-events:none;
+opacity:0.18;
+overflow:hidden;
+}
+
+.hero-seal img{
+width:390px;
+max-width:none;
+display:block;
+object-fit:contain;
+filter:none;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>THE BAG ROOM</h1>
+
+<div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
+
+<nav class="menu-mobile" id="menuMobile">
+
+<div class="close-menu" onclick="toggleMenuMobile()">×</div>
+
+<div class="menu-mobile-inner">
+<a href="/index.html">Início</a>
+<a href="/aluguel.html">Alugar</a>
+<a href="/Como Funciona.html">Como Desapegar</a>
+<a href="/autenticidade.html">Autenticidade</a>
+<a href="/quem-somos.html">Sobre</a>
+</div>
+
+</nav>
+</header>
+
+<div class="top-space"></div>
+
+<!-- HERO -->
+
+<section class="internal-title">
+<div class="hero-seal">
+  <img src="IMG_3237.jpeg" alt="Certified Authentic">
+</div>
+</section>
+
+<!-- CONTENT -->
+
+<div class="content-box">
+
+<h3 class="auth-brand">FENDI</h3>
+
+<p class="auth-text">
+Na The Bag Room, a confiança na autenticidade de cada peça é construída através de um processo rigoroso de verificação e curadoria especializada.
+</p>
+
+<p class="auth-text">
+Nossa análise considera diferentes fatores que reforçam a procedência e originalidade de cada item, incluindo documentação original, como nota fiscal de compra, histórico da peça e certificações emitidas por plataformas internacionais reconhecidas no mercado de luxo.
+</p>
+
+<p class="auth-text">
+No caso desta peça específica, a nossa segurança quanto a autenticidade veio através do(s) seguinte(s) indicador(es):
+</p>
+
+<p class="auth-text">
+Sua autenticidade foi confirmada através das certificações apresentadas abaixo, garantindo conformidade com os padrões originais da marca e oferecendo ainda mais segurança e transparência ao cliente.
+</p>
+
+<p class="auth-text">
+Clique nos selos de autenticação para visualizar os certificados completos.
+</p>
+
+<!-- BOTÕES -->
+
+<div class="auth-buttons">
+
+<a href="#poizon" class="auth-btn">
+VER CERTIFICADO DIGITAL POIZON
+</a>
+
+
+</div>
+
+<!-- INFO BOX -->
+
+<div class="info-box">
+
+<p><strong>Número do certificado:</strong> 1508216392</p>
+
+<p><strong>Data da autenticação:</strong> 13/05/2026</p>
+
+<p><strong>Plataforma:</strong> POIZON Authentication</p>
+
+</div>
+
+<!-- CERTIFICADO -->
+
+<div id="poizon" class="certificate-card">
+
+<img src="https://i.imgur.com/xBPsxIa.jpg" class="certificate-image">
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer-luxo">
+
+<div class="footer-item" onclick="toggleFooter(this)">
+PRECISA DE AJUDA?
+<span>▾</span>
+
+<div class="footer-content">
+Fale conosco pelo WhatsApp<br>
+(13) 99690-4227
+</div>
+</div>
+
+<div class="footer-item" onclick="toggleFooter(this)">
+EMPRESA
+<span>▾</span>
+
+<div class="footer-content">
+The Bag Room<br>
+Curadoria, aluguel e consignação de luxo
+</div>
+</div>
+
+<div class="footer-item" onclick="toggleFooter(this)">
+ENDEREÇO
+<span>▾</span>
+
+<div class="footer-content">
+Av. Ana Costa, 471 – Gonzaga<br>
+Santos – SP
+</div>
+</div>
+
+<div class="footer-bottom">
+© 2026 The Bag Room<br>
+Santos – SP
+</div>
+
+</div>
+
+<script>
+
+function toggleMenuMobile(){
+document.getElementById('menuMobile').classList.toggle('open');
+}
+
+function toggleFooter(el){
+el.classList.toggle('active');
+}
+
+</script>
+
+</body>
+</html>
