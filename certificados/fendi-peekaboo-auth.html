@@ -356,16 +356,21 @@ margin-left:0;
 
 .hero-seal{
 position:absolute;
-bottom:18px;
-right:18px;
-z-index:20;
-opacity:0.72;
+inset:0;
+z-index:5;
+display:flex;
+align-items:center;
+justify-content:center;
+pointer-events:none;
+opacity:0.10;
 }
 
 .hero-seal img{
-width:150px;
+width:85%;
+max-width:none;
 display:block;
-filter:drop-shadow(0 8px 18px rgba(0,0,0,0.18));
+object-fit:contain;
+filter:none;
 }
 
 }
