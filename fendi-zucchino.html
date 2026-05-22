@@ -476,38 +476,28 @@ transition:0.3s;
 .menu-mobile-inner a:hover{
 opacity:0.6;
 }
+
 .auth-selo-link{
 position:absolute;
-bottom:90px;
-left:20px;
-display:flex;
-align-items:center;
-gap:8px;
-text-decoration:none;
-z-index:20;
-transition:0.25s ease;
-}
-
-.auth-selo-link:hover{
-transform:translateY(-1px);
-box-shadow:0 6px 16px rgba(0,0,0,0.12);
+top:22px;
+left:28px;
+z-index:30;
+display:block;
+width:115px;
+height:28px;
+overflow:hidden;
 }
 
 .auth-selo{
-width:110px !important;
-height:auto !important;
+width:115px;
+height:28px;
+object-fit:contain;
 display:block;
+opacity:0.75;
 }
 
-.auth-text{
-font-family:'Inter', sans-serif;
-font-size:10px;
-letter-spacing:1.5px;
-text-transform:uppercase;
-color:#111;
-opacity:0.75;
-white-space:nowrap;
-}
+
+
 
 /* DESKTOP */
 @media(min-width:1024px){
@@ -661,14 +651,10 @@ white-space:nowrap;
 position:absolute;
 top:22px;
 left:28px;
-
 z-index:30;
-
 display:block;
-
 width:115px;
 height:28px;
-
 overflow:hidden;
 }
 
@@ -737,10 +723,6 @@ opacity:0.75;
     <div class="dots" id="dots"></div>
 
   </div>
-  
-  <a href="/certificados/fendi-zucchino-auth.html" class="auth-selo-link">
-  <img src="selo-auth.jpg" class="auth-selo">
-</a>
 
   <!-- DIREITA (INFO + BOTÃO) -->
   <div class="info">
