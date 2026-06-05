@@ -474,7 +474,35 @@ formulario.addEventListener('submit', function(e){
 
 e.preventDefault();
 
-alert('Integração iniciada.');
+const nome = document.querySelector('[name="nome_completo"]').value;
+const email = document.querySelector('[name="email"]').value;
+const celular = document.querySelector('[name="celular"]').value;
+const instagram = document.querySelector('[name="instagram"]').value;
+const cep = document.querySelector('[name="cep"]').value;
+const endereco = document.querySelector('[name="endereco"]').value;
+const estado = document.querySelector('[name="estado"]').value;
+
+const { data, error } = await supabaseClient
+.from('validacao_clientes')
+.insert([
+{
+nome_completo: nome,
+email: email,
+celular: celular,
+instagram: instagram,
+cep: cep,
+endereco: endereco,
+estado: estado,
+status: 'pendente'
+}
+]);
+
+if(error){
+alert('Erro: ' + error.message);
+return;
+}
+
+alert('Cadastro enviado com sucesso!');
 
 });
 
