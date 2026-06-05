@@ -329,41 +329,41 @@ Cadastro de Locação
 Para garantir a segurança de todas as locações, precisamos validar seus dados antes da aprovação do cadastro.
 </p>
 
-<form>
+<form id="cadastroForm">
 
 <div class="form-group">
 <label>Nome completo</label>
-<input type="text" required>
+<input type="text" name="nome_completo" required>
 </div>
 
 <div class="form-group">
 <label>E-mail</label>
-<input type="email" required>
+<input type="email" name="email" required>
 </div>
 
 <div class="form-group">
 <label>Celular</label>
-<input type="tel" required>
+<input type="tel" name="celular" required>
 </div>
 
 <div class="form-group">
 <label>Instagram</label>
-<input type="text">
+<input type="text" name="instagram">
 </div>
 
 <div class="form-group">
 <label>CEP</label>
-<input type="text" required>
+<input type="text" name="cep" required>
 </div>
 
 <div class="form-group">
 <label>Endereço completo</label>
-<textarea required></textarea>
+<textarea name="endereco" required></textarea>
 </div>
 
 <div class="form-group">
 <label>Estado</label>
-<input type="text" required>
+<input type="text" name="estado" required>
 </div>
 
 <div class="form-group">
@@ -371,7 +371,7 @@ Para garantir a segurança de todas as locações, precisamos validar seus dados
 <div class="upload-box">
 Selecione o arquivo
 <br><br>
-<input type="file">
+<input type="file" id="documento">
 </div>
 </div>
 
@@ -380,7 +380,7 @@ Selecione o arquivo
 <div class="upload-box">
 Selecione o arquivo
 <br><br>
-<input type="file">
+<input type="file"  id="selfie">
 </div>
 </div>
 
@@ -389,7 +389,7 @@ Selecione o arquivo
 <div class="upload-box">
 Selecione o arquivo
 <br><br>
-<input type="file">
+<input type="file" id="comprovante">
 </div>
 </div>
 
@@ -452,6 +452,34 @@ function toggleFooter(el){
 el.classList.toggle('active');
 }
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+document
+.getElementById(“cadastroForm”)
+.addEventListener(“submit”, async function(e){
+
+e.preventDefault();
+
+alert(“Integração iniciada.”);
+
+});
+
+
+<script>
+
+const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co/rest/v1/";
+const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
+
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+</script>
+
+
+
 
 </body>
 </html>
