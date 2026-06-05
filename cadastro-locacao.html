@@ -455,16 +455,6 @@ el.classList.toggle('active');
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-document
-.getElementById(“cadastroForm”)
-.addEventListener(“submit”, async function(e){
-
-e.preventDefault();
-
-alert(“Integração iniciada.”);
-
-});
-
 
 <script>
 
@@ -475,6 +465,21 @@ const supabaseClient = supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
+
+window.addEventListener(‘load’, function(){
+
+const formulario =
+document.getElementById(‘cadastroForm’);
+
+formulario.addEventListener(‘submit’, function(e){
+
+e.preventDefault();
+
+alert(‘Integração iniciada.’);
+
+});
+
+});
 
 </script>
 
