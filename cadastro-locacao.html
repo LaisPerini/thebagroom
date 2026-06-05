@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KPVTBY5VK8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KPVTBY5VK8');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autenticidade · The Bag Room</title>
+
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+/* BASE */
+*{box-sizing:border-box;}
+
+body{
+margin:0;
+background:#f5f4f2;
+font-family:'Playfair Display', serif;
+color:#111;
+}
+
+/* HEADER */
+header{
+padding:18px;
+display:flex;
+justify-content:center;
+background:rgba(255,255,255,0.95);
+position:fixed;
+width:100%;
+border-bottom:1px solid #eee;
+z-index:999;
+}
+
+header h1{
+letter-spacing:6px;
+font-size:20px;
+margin:0;
+}
+
+.top-space{height:65px;}
+
+/* MENU */
+.menu-mobile-btn{
+position:absolute;
+left:16px;
+top:50%;
+transform:translateY(-50%);
+font-size:22px;
+cursor:pointer;
+}
+
+.menu-mobile{
+position:fixed;
+top:0;
+left:-100%;
+width:85%;
+max-width:320px;
+height:100vh;
+background:rgba(255,255,255,0.98);
+backdrop-filter:blur(14px);
+transition:0.45s cubic-bezier(0.22,1,0.36,1);
+z-index:2000;
+padding-top:100px;
+}
+
+.menu-mobile.open{
+left:0;
+}
+
+.close-menu{
+position:absolute;
+top:24px;
+right:24px;
+font-size:30px;
+cursor:pointer;
+}
+
+.menu-mobile-inner{
+display:flex;
+flex-direction:column;
+gap:26px;
+padding-left:30px;
+}
+
+.menu-mobile-inner a{
+font-family:'Cormorant Garamond', serif;
+font-size:22px;
+letter-spacing:1px;
+text-decoration:none;
+color:#000;
+transition:0.3s;
+}
+
+.menu-mobile-inner a:hover{
+opacity:0.6;
+}
+
+/* HERO */
+.internal-title{
+width:100%;
+height:32vh;
+background:url('https://i.imgur.com/cEmhXKD.jpeg') center/cover;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+}
+
+.internal-title::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+}
+
+.internal-title h2{
+  position:relative;
+  z-index:3;
+  font-size:30px;
+  font-weight:600;
+  color:#fff;
+  letter-spacing:6px;
+  text-align:center;
+  text-shadow: 0 6px 20px rgba(0,0,0,0.7);
+}
+
+/* CONTENT */
+.content-box{
+max-width:900px;
+margin:3px auto;
+padding:32px;
+border-radius:18px;
+line-height:1.8;
+}
+
+.content-box p {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  color: #444;
+}
+
+/* destaque elegante */
+.destaque{
+margin-top:25px;
+padding:20px;
+border:1px solid #eee;
+border-radius:14px;
+background:#fafafa;
+font-family:'Inter';
+font-size:14px;
+}
+
+/* BOTÃO */
+.whats-btn{
+display:block;
+margin:40px auto;
+background:#000;
+color:#fff;
+padding:18px;
+border-radius:40px;
+text-align:center;
+letter-spacing:4px;
+text-decoration:none;
+width:80%;
+}
+
+/* FOOTER */
+.footer-luxo {
+  margin-top: 80px;
+  border-top: 1px solid #eaeaea;
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-item {
+  padding: 20px;
+  border-bottom: 1px solid #eaeaea;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.footer-item span {
+  opacity: 0.6;
+}
+
+.footer-content {
+  display: none;
+  padding-top: 10px;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.footer-item.active .footer-content {
+  display: block;
+}
+
+.footer-bottom {
+  padding: 30px 20px;
+  font-size: 12px;
+  color: #777;
+  text-align: center;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>THE BAG ROOM</h1>
+
+<div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
+
+<nav class="menu-mobile" id="menuMobile">
+<div class="close-menu" onclick="toggleMenuMobile()">×</div>
+
+<div class="menu-mobile-inner">
+<a href="index.html">Início</a>
+<a href="aluguel.html">Alugar</a>
+<a href="Como Funciona.html">Como Desapegar</a>
+<a href="autenticidade.html">Autenticidade</a>
+<a href="quem-somos.html">Sobre</a>
+</div>
+
+</nav>
+</header>
+
+<div class="top-space"></div>
+
+<section class="internal-title">
+<h2>AUTENTICIDADE</h2>
+</section>
+
+<div class="content-box">
+
+<p>
+Na The Bag Room, autenticidade não é apenas um compromisso — é a base de tudo. Cada peça do nosso acervo passa por um processo rigoroso de curadoria e verificação, garantindo que você tenha acesso apenas a itens originais, selecionados com critério e atenção aos mínimos detalhes.
+</p>
+
+<p>
+Analisamos cuidadosamente acabamento, costuras, ferragens, materiais e todos os elementos que definem a identidade de cada marca. Além disso, sempre que possível, avaliamos a procedência da peça e seus itens complementares, como dust bag e cartões.
+</p>
+
+<p>
+Para elevar ainda mais o nível de segurança, trabalhamos com plataformas reconhecidas internacionalmente, como <strong>Entrupy</strong> e <strong>Real Authentication</strong>, referências globais em verificação de autenticidade no mercado de luxo.
+</p>
+
+<p>
+Todas as peças acompanham <strong>certificado de autenticidade</strong>, garantindo total transparência e confiança.
+</p>
+
+<div class="destaque">
+✔ 100% original garantido<br>
+✔ Curadoria especializada<br>
+✔ Processo profissional de autenticação
+</div>
+
+</div>
+
+<a href="https://wa.me/5513996904227" class="whats-btn">
+FALE CONOSCO
+</a>
+
+
+<div class="footer-luxo">
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    PRECISA DE AJUDA?
+    <span>▾</span>
+    <div class="footer-content">
+      Fale conosco pelo WhatsApp<br>
+      (13) 99690-4227
+    </div>
+  </div>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    EMPRESA
+    <span>▾</span>
+    <div class="footer-content">
+      The Bag Room<br>
+      Curadoria, aluguel e consignação de luxo
+    </div>
+  </div>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    ENDEREÇO
+    <span>▾</span>
+    <div class="footer-content">
+      Av. Ana Costa, 471 – Gonzaga<br>
+      Santos – SP
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 The Bag Room<br>
+    Santos – SP
+  </div>
+
+</div>
+
+
+<script>
+function toggleMenuMobile(){
+document.getElementById('menuMobile').classList.toggle('open');
+}
+
+function toggleFooter(el){
+el.classList.toggle('active');
+}
+</script>
+
+</body>
+</html>
