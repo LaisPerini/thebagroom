@@ -188,6 +188,33 @@ margin-bottom:25px;
 font-size:14px;
 }
 
+.resumo{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-bottom:25px;
+}
+
+.box-resumo{
+background:#fff;
+padding:20px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+.numero{
+font-size:28px;
+font-weight:700;
+margin-bottom:6px;
+}
+
+.texto{
+font-size:13px;
+color:#777;
+letter-spacing:1px;
+}
+
 </style>
 </head>
 <body>
@@ -243,6 +270,25 @@ class="campo-busca"
 
 
 <div id="listaClientes"></div>
+
+</div>
+
+<div class="resumo">
+
+<div class="box-resumo">
+<div class="numero" id="totalPendentes">0</div>
+<div class="texto">Pendentes</div>
+</div>
+
+<div class="box-resumo">
+<div class="numero" id="totalAprovados">0</div>
+<div class="texto">Aprovados</div>
+</div>
+
+<div class="box-resumo">
+<div class="numero" id="totalReprovados">0</div>
+<div class="texto">Reprovados</div>
+</div>
 
 </div>
 
@@ -468,6 +514,24 @@ return;
 }
 
 todosClientes = data;
+
+const pendentes =
+data.filter(c => c.status === 'pendente').length;
+
+const aprovados =
+data.filter(c => c.status === 'aprovado').length;
+
+const reprovados =
+data.filter(c => c.status === 'reprovado').length;
+
+document.getElementById('totalPendentes').innerText =
+pendentes;
+
+document.getElementById('totalAprovados').innerText =
+aprovados;
+
+document.getElementById('totalReprovados').innerText =
+reprovados;
 
 
 const lista =
