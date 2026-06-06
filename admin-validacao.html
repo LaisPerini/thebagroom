@@ -100,14 +100,46 @@ background:#e7e7e7;
 </style>
 </head>
 <body>
+  <script>
+
+const senha = prompt("Digite a senha administrativa");
+
+if(senha !== "lais@2203"){
+document.body.innerHTML = "";
+alert("Acesso negado");
+window.location.href = "/";
+}
+
+</script>
 <header>
 <h1>THE BAG ROOM</h1>
 </header>
 <div class="container">
+
 <h2 class="titulo">
 Validação de Clientes
 </h2>
+
+<div style="margin-bottom:20px;">
+<button onclick="filtrarStatus('pendente')">
+Pendentes
+</button>
+
+<button onclick="filtrarStatus('aprovado')">
+Aprovados
+</button>
+
+<button onclick="filtrarStatus('reprovado')">
+Reprovados
+</button>
+
+<button onclick="filtrarStatus('todos')">
+Todos
+</button>
+</div>
+
 <div id="listaClientes"></div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
