@@ -120,17 +120,11 @@ SUPABASE_URL,
 SUPABASE_KEY
 );
 function getImagemUrl(caminho){
-
   if(!caminho) return "#";
-
   const { data } =
   supabaseClient.storage
   .from('documentos-clientes')
   .getPublicUrl(caminho);
-
-  console.log(caminho);
-  console.log(data.publicUrl);
-
   return data.publicUrl;
 }
 
@@ -155,7 +149,7 @@ lista.innerHTML='';
 data.forEach(cliente=>{
 const documentoUrl =
 getImagemUrl(cliente.documento);
-alert(documentoUrl);
+
 
 const selfieUrl =
 getImagemUrl(cliente.selfie);
@@ -181,7 +175,7 @@ ${cliente.status}
 </div>
 <div class="links">
 <a href="${documentoUrl}" target="_blank">
-Documento
+${documentoUrl}
 </a>
 <a href="${selfieUrl}" target="_blank">
 Selfie
