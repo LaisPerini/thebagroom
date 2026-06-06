@@ -198,11 +198,11 @@ async function alterarStatus(id,status){
 
 const { error } =
 await supabaseClient
-.from(‘validacao_clientes’)
+.from('validacao_clientes')
 .update({
 status:status
 })
-.eq(‘id’,id);
+.eq('id',id);
 
 if(error){
 alert(error.message);
