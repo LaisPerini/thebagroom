@@ -133,6 +133,12 @@ await supabaseClient
 .from('validacao_clientes')
 .select('*')
 .order('id',{ascending:false});
+if(error){
+alert(error.message);
+console.log(error);
+return;
+}
+alert('Clientes encontrados: ' + data.length);
 const lista =
 document.getElementById('listaClientes');
 lista.innerHTML='';
