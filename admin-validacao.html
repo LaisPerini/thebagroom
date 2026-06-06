@@ -120,18 +120,21 @@ SUPABASE_URL,
 SUPABASE_KEY
 );
 function getImagemUrl(caminho){
-if(!caminho) return "#";
-const { data } =
-supabaseClient.storage
-.from('documentos-clientes')
-.getPublicUrl(caminho);
 
-console.log(caminho);
-console.log(data.publicUrl);
+  if(!caminho) return "#";
 
+  const { data } =
+  supabaseClient.storage
+  .from('documentos-clientes')
+  .getPublicUrl(caminho);
 
-return data.publicUrl;
+  console.log(caminho);
+  console.log(data.publicUrl);
+
+  return data.publicUrl;
 }
+
+
 async function carregarClientes(){
 const { data, error } =
 await supabaseClient
@@ -152,6 +155,8 @@ lista.innerHTML='';
 data.forEach(cliente=>{
 const documentoUrl =
 getImagemUrl(cliente.documento);
+alert(documentoUrl);
+
 const selfieUrl =
 getImagemUrl(cliente.selfie);
 const comprovanteUrl =
