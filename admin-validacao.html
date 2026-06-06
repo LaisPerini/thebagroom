@@ -242,6 +242,25 @@ Validação de Clientes
 Gerencie aprovações, documentos e histórico de clientes.
 </p>
 
+<div class="resumo">
+
+<div class="box-resumo">
+<div class="numero" id="totalPendentes">0</div>
+<div class="texto">Pendentes</div>
+</div>
+
+<div class="box-resumo">
+<div class="numero" id="totalAprovados">0</div>
+<div class="texto">Aprovados</div>
+</div>
+
+<div class="box-resumo">
+<div class="numero" id="totalReprovados">0</div>
+<div class="texto">Reprovados</div>
+</div>
+
+</div>
+
 <div class="filtros">
 <button class="filtro-btn" onclick="filtrarStatus('pendente')">
 Pendentes
@@ -273,24 +292,6 @@ class="campo-busca"
 
 </div>
 
-<div class="resumo">
-
-<div class="box-resumo">
-<div class="numero" id="totalPendentes">0</div>
-<div class="texto">Pendentes</div>
-</div>
-
-<div class="box-resumo">
-<div class="numero" id="totalAprovados">0</div>
-<div class="texto">Aprovados</div>
-</div>
-
-<div class="box-resumo">
-<div class="numero" id="totalReprovados">0</div>
-<div class="texto">Reprovados</div>
-</div>
-
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -561,7 +562,7 @@ ${cliente.celular}
 <strong>Instagram:</strong>
 ${cliente.instagram ? '@' + cliente.instagram : '-'}
 </div>
-<div class="status">
+<div class="status ${cliente.status}">
 ${cliente.status}
 </div>
 <div class="miniaturas">
