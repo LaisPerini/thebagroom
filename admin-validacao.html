@@ -252,21 +252,6 @@ lista.innerHTML += `
 
 }
 
-
-
-
-async function carregarClientes(){
-const { data, error } =
-await supabaseClient
-.from('validacao_clientes')
-.select('*')
-.order('id',{ascending:false});
-if(error){
-alert(error.message);
-console.log(error);
-return;
-}
-
 let todosClientes = [];
 
 function filtrarStatus(status){
@@ -285,9 +270,93 @@ cliente.status === status
 );
 }
 
-renderizarClientes(clientesFiltrados);
+clientesFiltrados.forEach(cliente=>{
+
+const documentoUrl =
+getImagemUrl(cliente.documento);
+
+const selfieUrl =
+getImagemUrl(cliente.selfie);
+
+const comprovanteUrl =
+getImagemUrl(cliente.comprovante);
+
+lista.innerHTML += `
+<div class="card">
+<h3>${cliente.nome_completo}</h3>
+
+<div class="info">
+<strong>E-mail:</strong>
+${cliente.email}
+</div>
+
+<div class="info">
+<strong>Celular:</strong>
+${cliente.celular}
+</div>
+
+<div class="info">
+<strong>Instagram:</strong>
+${cliente.instagram || '-'}
+</div>
+
+<div class="status ${cliente.status}">
+${cliente.status}
+</div>
+
+<div class="miniaturas">
+
+<a href="${documentoUrl}" target="_blank">
+<img src="${documentoUrl}" class="thumb">
+</a>
+
+<a href="${selfieUrl}" target="_blank">
+<img src="${selfieUrl}" class="thumb">
+</a>
+
+<a href="${comprovanteUrl}" target="_blank">
+<img src="${comprovanteUrl}" class="thumb">
+</a>
+
+</div>
+
+<div class="botoes">
+
+<button
+class="btn aprovar"
+onclick="alterarStatus(${cliente.id},'aprovado')">
+APROVAR
+</button>
+
+<button
+class="btn reprovar"
+onclick="alterarStatus(${cliente.id},'reprovado')">
+REPROVAR
+</button>
+
+</div>
+</div>
+`;
+});
 
 }
+
+
+
+
+async function carregarClientes(){
+const { data, error } =
+await supabaseClient
+.from('validacao_clientes')
+.select('*')
+.order('id',{ascending:false});
+if(error){
+alert(error.message);
+console.log(error);
+return;
+}
+
+todosClientes = data;
 
 
 const lista =
@@ -371,6 +440,7 @@ return;
 carregarClientes();
 
 }
+
 
 carregarClientes();
 
