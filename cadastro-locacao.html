@@ -482,7 +482,60 @@ const cep = document.querySelector('[name="cep"]').value;
 const endereco = document.querySelector('[name="endereco"]').value;
 const estado = document.querySelector('[name="estado"]').value;
 
-const { data, error } = await supabaseClient
+const documentoFile =
+document.getElementById('documento').files[0];
+
+const selfieFile =
+document.getElementById('selfie').files[0];
+
+const comprovanteFile =
+document.getElementById('comprovante').files[0];
+
+const documentoPath =
+`documentos/${Date.now()}-${documentoFile.name}`;
+
+const selfiePath =
+`selfies/${Date.now()}-${selfieFile.name}`;
+
+const comprovantePath =
+`comprovantes/${Date.now()}-${comprovanteFile.name}`;
+
+// Upload Documento
+const { error: documentoError } =
+await supabaseClient.storage
+.from('documentos-clientes')
+.upload(documentoPath, documentoFile);
+
+if(documentoError){
+alert('Erro ao enviar documento: ' + documentoError.message);
+return;
+}
+
+// Upload Selfie
+const { error: selfieError } =
+await supabaseClient.storage
+.from('documentos-clientes')
+.upload(selfiePath, selfieFile);
+
+if(selfieError){
+alert('Erro ao enviar selfie: ' + selfieError.message);
+return;
+}
+
+// Upload Comprovante
+const { error: comprovanteError } =
+await supabaseClient.storage
+.from('documentos-clientes')
+.upload(comprovantePath, comprovanteFile);
+
+if(comprovanteError){
+alert('Erro ao enviar comprovante: ' + comprovanteError.message);
+return;
+}
+
+// Salvar dados na tabela
+const { data, error } =
+await supabaseClient
 .from('validacao_clientes')
 .insert([
 {
@@ -493,6 +546,9 @@ instagram: instagram,
 cep: cep,
 endereco: endereco,
 estado: estado,
+documento: documentoPath,
+selfie: selfiePath,
+comprovante: comprovantePath,
 status: 'pendente'
 }
 ]);
@@ -504,8 +560,8 @@ return;
 
 alert('Cadastro enviado com sucesso!');
 
-});
 
+});
 });
 
 </script>
