@@ -1,1 +1,215 @@
-a
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Validação • The Bag Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+body{
+background:#f5f4f2;
+font-family:'Inter',sans-serif;
+color:#111;
+}
+header{
+background:#fff;
+padding:20px;
+text-align:center;
+border-bottom:1px solid #eee;
+position:sticky;
+top:0;
+z-index:999;
+}
+header h1{
+font-family:'Playfair Display',serif;
+letter-spacing:6px;
+font-size:24px;
+}
+.container{
+max-width:1200px;
+margin:auto;
+padding:30px 20px;
+}
+.titulo{
+font-family:'Playfair Display',serif;
+font-size:32px;
+margin-bottom:25px;
+}
+.card{
+background:#fff;
+border-radius:18px;
+padding:25px;
+margin-bottom:20px;
+box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+.card h3{
+font-size:22px;
+margin-bottom:15px;
+}
+.info{
+margin-bottom:8px;
+}
+.status{
+display:inline-block;
+padding:8px 14px;
+border-radius:30px;
+font-size:12px;
+letter-spacing:1px;
+margin-top:12px;
+background:#f3f3f3;
+}
+.links{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:20px;
+}
+.links a{
+background:#111;
+color:#fff;
+padding:12px 18px;
+border-radius:30px;
+text-decoration:none;
+font-size:13px;
+}
+.botoes{
+display:flex;
+gap:12px;
+margin-top:20px;
+}
+.btn{
+border:none;
+padding:14px 20px;
+border-radius:30px;
+cursor:pointer;
+font-size:13px;
+letter-spacing:1px;
+}
+.aprovar{
+background:#111;
+color:#fff;
+}
+.reprovar{
+background:#e7e7e7;
+}
+</style>
+</head>
+<body>
+<header>
+<h1>THE BAG ROOM</h1>
+</header>
+<div class="container">
+<h2 class="titulo">
+Validação de Clientes
+</h2>
+<div id="listaClientes"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "SUA_URL";
+const SUPABASE_KEY = "SUA_PUBLISHABLE_KEY";
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+function getImagemUrl(caminho){
+if(!caminho) return "#";
+const { data } =
+supabaseClient.storage
+.from('documentos-clientes')
+.getPublicUrl(caminho);
+return data.publicUrl;
+}
+async function carregarClientes(){
+const { data, error } =
+await supabaseClient
+.from('validacao_clientes')
+.select('*')
+.order('id',{ascending:false});
+const lista =
+document.getElementById('listaClientes');
+lista.innerHTML='';
+data.forEach(cliente=>{
+const documentoUrl =
+getImagemUrl(cliente.documento);
+const selfieUrl =
+getImagemUrl(cliente.selfie);
+const comprovanteUrl =
+getImagemUrl(cliente.comprovante);
+lista.innerHTML += `
+<div class="card">
+<h3>${cliente.nome_completo}</h3>
+<div class="info">
+<strong>E-mail:</strong>
+${cliente.email}
+</div>
+<div class="info">
+<strong>Celular:</strong>
+${cliente.celular}
+</div>
+<div class="info">
+<strong>Instagram:</strong>
+${cliente.instagram || '-'}
+</div>
+<div class="status">
+${cliente.status}
+</div>
+<div class="links">
+<a href="${documentoUrl}" target="_blank">
+Documento
+</a>
+<a href="${selfieUrl}" target="_blank">
+Selfie
+</a>
+<a href="${comprovanteUrl}" target="_blank">
+Comprovante
+</a>
+</div>
+<div class="botoes">
+<button
+class="btn aprovar"
+onclick="alterarStatus(${cliente.id},'aprovado')">
+APROVAR
+</button>
+<button
+class="btn reprovar"
+onclick="alterarStatus(${cliente.id},'reprovado')">
+REPROVAR
+</button>
+</div>
+</div>
+`;
+});
+}
+async function alterarStatus(id,status){
+
+const { error } =
+await supabaseClient
+.from(‘validacao_clientes’)
+.update({
+status:status
+})
+.eq(‘id’,id);
+
+if(error){
+alert(error.message);
+return;
+}
+
+carregarClientes();
+
+}
+
+carregarClientes();
+
+</script>
+</body>
+</html>
+
