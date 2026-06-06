@@ -161,6 +161,17 @@ transition:.3s;
 transform:scale(1.05);
 }
 
+.campo-busca{
+width:100%;
+padding:15px 20px;
+border:none;
+border-radius:18px;
+background:#fff;
+margin-bottom:25px;
+font-size:15px;
+box-shadow:0 4px 12px rgba(0,0,0,.05);
+outline:none;
+}
 
 </style>
 </head>
@@ -202,6 +213,15 @@ Reprovados
 Todos
 </button>
 </div>
+
+<input
+type="text"
+id="buscaCliente"
+placeholder="Buscar por nome, e-mail ou Instagram..."
+onkeyup="buscarCliente()"
+class="campo-busca"
+>
+
 
 <div id="listaClientes"></div>
 
@@ -341,6 +361,37 @@ REPROVAR
 
 }
 
+function buscarCliente(){
+
+const termo =
+document.getElementById('buscaCliente')
+.value
+.toLowerCase();
+
+const clientesFiltrados =
+todosClientes.filter(cliente =>
+
+(cliente.nome_completo || '')
+.toLowerCase()
+.includes(termo)
+
+||
+
+(cliente.email || '')
+.toLowerCase()
+.includes(termo)
+
+||
+
+(cliente.instagram || '')
+.toLowerCase()
+.includes(termo)
+
+);
+
+renderizarLista(clientesFiltrados);
+
+}
 
 
 
