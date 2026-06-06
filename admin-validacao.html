@@ -16,6 +16,19 @@ background:#f5f4f2;
 font-family:'Inter',sans-serif;
 color:#111;
 }
+
+.hero{
+background:
+linear-gradient(
+rgba(0,0,0,.55),
+rgba(0,0,0,.55)
+),
+url('https://imagem.jpg');
+
+background-size:cover;
+background-position:center;
+}
+
 header{
 background:#fff;
 padding:20px;
@@ -545,8 +558,6 @@ lista.innerHTML='';
 data.forEach(cliente=>{
 const documentoUrl =
 getImagemUrl(cliente.documento);
-
-
 const selfieUrl =
 getImagemUrl(cliente.selfie);
 const comprovanteUrl =
@@ -566,6 +577,23 @@ ${cliente.celular}
 <strong>Instagram:</strong>
 ${cliente.instagram ? '@' + cliente.instagram : '-'}
 </div>
+<div class="info">
+<strong>CEP:</strong>
+${cliente.cep || '-'}
+</div>
+<div class="info">
+<strong>Endereço:</strong>
+${cliente.endereco || '-'}
+</div>
+<div class="info">
+<strong>Estado:</strong>
+${cliente.estado || '-'}
+</div>
+<div class="info">
+<strong>Cadastro:</strong>
+${new Date(cliente.created_at).toLocaleString('pt-BR')}
+</div>
+
 <div class="status ${cliente.status}">
 ${cliente.status}
 </div>
