@@ -159,6 +159,35 @@ function getImagemUrl(caminho){
   .getPublicUrl(caminho);
   return data.publicUrl;
 }
+function renderizarClientes(clientes){
+
+const lista =
+document.getElementById('listaClientes');
+
+lista.innerHTML='';
+
+clientes.forEach(cliente=>{
+
+const documentoUrl =
+getImagemUrl(cliente.documento);
+
+const selfieUrl =
+getImagemUrl(cliente.selfie);
+
+const comprovanteUrl =
+getImagemUrl(cliente.comprovante);
+
+lista.innerHTML += `
+<div class="card">
+...
+</div>
+`;
+
+});
+
+}
+
+
 
 
 async function carregarClientes(){
@@ -173,6 +202,27 @@ console.log(error);
 return;
 }
 
+let todosClientes = [];
+
+function filtrarStatus(status){
+
+const lista =
+document.getElementById('listaClientes');
+
+lista.innerHTML = '';
+
+let clientesFiltrados = todosClientes;
+
+if(status !== 'todos'){
+clientesFiltrados =
+todosClientes.filter(cliente =>
+cliente.status === status
+);
+}
+
+renderizarClientes(clientesFiltrados);
+
+}
 
 
 const lista =
