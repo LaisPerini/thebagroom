@@ -320,6 +320,28 @@ ${cliente.celular}
 ${cliente.instagram || '-'}
 </div>
 
+<div class="info">
+<strong>CEP:</strong>
+${cliente.cep || '-'}
+</div>
+
+<div class="info">
+<strong>Endereço:</strong>
+${cliente.endereco || '-'}
+</div>
+
+<div class="info">
+<strong>Estado:</strong>
+${cliente.estado || '-'}
+</div>
+
+<div class="info">
+<strong>Cadastro:</strong>
+${new Date(cliente.created_date)
+.toLocaleString('pt-BR')}
+</div>
+
+
 <div class="status ${cliente.status}">
 ${cliente.status}
 </div>
