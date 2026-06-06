@@ -125,6 +125,11 @@ const { data } =
 supabaseClient.storage
 .from('documentos-clientes')
 .getPublicUrl(caminho);
+
+console.log(caminho);
+console.log(data.publicUrl);
+
+
 return data.publicUrl;
 }
 async function carregarClientes(){
