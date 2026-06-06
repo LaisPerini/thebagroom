@@ -161,6 +161,14 @@ transition:.3s;
 transform:scale(1.05);
 }
 
+.thumb-label{
+font-size:12px;
+font-weight:600;
+margin-bottom:6px;
+text-align:center;
+color:#666;
+}
+
 .campo-busca{
 width:100%;
 padding:15px 20px;
@@ -171,6 +179,13 @@ margin-bottom:25px;
 font-size:15px;
 box-shadow:0 4px 12px rgba(0,0,0,.05);
 outline:none;
+}
+
+.subtitulo{
+color:#777;
+margin-top:-15px;
+margin-bottom:25px;
+font-size:14px;
 }
 
 </style>
@@ -195,6 +210,10 @@ window.location.href = "/";
 <h2 class="titulo">
 Validação de Clientes
 </h2>
+
+<p class="subtitulo">
+Gerencie aprovações, documentos e histórico de clientes.
+</p>
 
 <div class="filtros">
 <button class="filtro-btn" onclick="filtrarStatus('pendente')">
@@ -337,28 +356,47 @@ ${cliente.estado || '-'}
 
 <div class="info">
 <strong>Cadastro:</strong>
-${new Date(cliente.created_date)
-.toLocaleString('pt-BR')}
+${new Date(cliente.created_at).toLocaleDateString('pt-BR')}
+às
+${new Date(cliente.created_at).toLocaleTimeString('pt-BR',{
+hour:'2-digit',
+minute:'2-digit'
+})}
 </div>
 
 
 <div class="status ${cliente.status}">
-${cliente.status}
+${
+cliente.status === 'aprovado'
+? '✅ APROVADO'
+: cliente.status === 'reprovado'
+? '❌ REPROVADO'
+: '⏳ PENDENTE'
+}
 </div>
 
 <div class="miniaturas">
 
+<div>
+<p class="thumb-label">Documento</p>
 <a href="${documentoUrl}" target="_blank">
 <img src="${documentoUrl}" class="thumb">
 </a>
+</div>
 
+<div>
+<p class="thumb-label">Selfie</p>
 <a href="${selfieUrl}" target="_blank">
 <img src="${selfieUrl}" class="thumb">
 </a>
+</div>
 
+<div>
+<p class="thumb-label">Comprovante</p>
 <a href="${comprovanteUrl}" target="_blank">
 <img src="${comprovanteUrl}" class="thumb">
 </a>
+</div>
 
 </div>
 
@@ -457,7 +495,7 @@ ${cliente.celular}
 </div>
 <div class="info">
 <strong>Instagram:</strong>
-${cliente.instagram || '-'}
+${cliente.instagram ? '@' + cliente.instagram : '-'}
 </div>
 <div class="status">
 ${cliente.status}
