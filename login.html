@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Minha Conta • The Bag Room</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#f5f4f2;
+font-family:'Inter',sans-serif;
+color:#111;
+}
+
+header{
+padding:20px;
+background:#fff;
+border-bottom:1px solid #eee;
+text-align:center;
+}
+
+header h1{
+font-family:'Playfair Display',serif;
+letter-spacing:6px;
+font-size:22px;
+}
+
+.hero{
+padding:80px 30px 40px;
+text-align:center;
+}
+
+.hero h2{
+font-family:'Playfair Display',serif;
+font-size:42px;
+margin-bottom:15px;
+}
+
+.hero p{
+max-width:450px;
+margin:auto;
+line-height:1.7;
+color:#666;
+}
+
+.login-box{
+max-width:500px;
+margin:20px auto 60px;
+background:#fff;
+padding:35px;
+border-radius:24px;
+box-shadow:0 10px 30px rgba(0,0,0,.05);
+}
+
+.form-group{
+margin-bottom:18px;
+}
+
+.form-group label{
+display:block;
+margin-bottom:8px;
+font-size:12px;
+letter-spacing:2px;
+text-transform:uppercase;
+}
+
+.form-group input{
+width:100%;
+height:56px;
+padding:0 16px;
+border:1px solid #ddd;
+border-radius:12px;
+font-size:15px;
+}
+
+.btn{
+width:100%;
+height:58px;
+border:none;
+border-radius:40px;
+background:#111;
+color:#fff;
+cursor:pointer;
+letter-spacing:3px;
+font-size:13px;
+margin-top:10px;
+}
+
+.links{
+text-align:center;
+margin-top:20px;
+}
+
+.links a{
+display:block;
+color:#666;
+text-decoration:none;
+margin-top:10px;
+}
+
+.status-box{
+background:#fafafa;
+border:1px solid #eee;
+padding:20px;
+border-radius:16px;
+margin-bottom:25px;
+text-align:center;
+font-size:14px;
+line-height:1.7;
+}
+
+</style>
+
+</head>
+<body>
+
+<header>
+<h1>THE BAG ROOM</h1>
+</header>
+
+<section class="hero">
+
+<h2>Minha Conta</h2>
+
+<p>
+Acompanhe o status do seu cadastro e futuras locações.
+</p>
+
+</section>
+
+<div class="login-box">
+
+<div class="status-box">
+✨ Área exclusiva para clientes aprovadas da The Bag Room.
+</div>
+
+<div class="form-group">
+<label>E-mail</label>
+<input
+type="email"
+id="email"
+placeholder="Digite seu e-mail">
+</div>
+
+<div class="form-group">
+<label>Senha</label>
+<input
+type="password"
+id="senha"
+placeholder="Digite sua senha">
+</div>
+
+<button
+class="btn"
+onclick="login()">
+
+ENTRAR
+
+</button>
+
+<div class="links">
+
+<a href="#">
+Esqueci minha senha
+</a>
+
+<a href="cadastro.html">
+Ainda não tenho cadastro
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+function login(){
+
+alert(
+'Próximo passo: conectar ao Supabase Auth'
+);
+
+}
+
+</script>
+
+</body>
+</html>
