@@ -287,6 +287,16 @@ margin-bottom:35px;
 text-align:center;
 }
 
+.form-group select{
+width:100%;
+padding:16px;
+border:1px solid #ddd;
+border-radius:12px;
+background:#fff;
+font-family:'Inter',sans-serif;
+font-size:14px;
+}
+
 </style>
 </head>
 
@@ -326,14 +336,28 @@ Cadastro de Locação
 </h3>
 
 <p class="form-info">
-Para garantir a segurança de todas as locações, precisamos validar seus dados antes da aprovação do cadastro.
+Preencha seus dados para aprovação e liberação das locações The Bag Room.
 </p>
 
 <form id="cadastroForm">
+  
+<h4 style="margin:30px 0 15px;font-family:'Inter';letter-spacing:2px;">
+DADOS PESSOAIS
+</h4>
 
 <div class="form-group">
 <label>Nome completo</label>
 <input type="text" name="nome_completo" required>
+</div>
+
+<div class="form-group">
+<label>CPF</label>
+<input type="text" name="cpf" required>
+</div>
+
+<div class="form-group">
+<label>Data de nascimento</label>
+<input type="date" name="data_nascimento" required>
 </div>
 
 <div class="form-group">
@@ -351,6 +375,10 @@ Para garantir a segurança de todas as locações, precisamos validar seus dados
 <input type="text" name="instagram">
 </div>
 
+<h4 style="margin:35px 0 15px;font-family:'Inter';letter-spacing:2px;">
+ENDEREÇO
+</h4>
+
 <div class="form-group">
 <label>CEP</label>
 <input type="text" name="cep" required>
@@ -362,9 +390,55 @@ Para garantir a segurança de todas as locações, precisamos validar seus dados
 </div>
 
 <div class="form-group">
+<label>Número</label>
+<input type="text" name="numero_endereco" required>
+</div>
+
+<div class="form-group">
+<label>Complemento</label>
+<input type="text" name="complemento_endereco">
+</div>
+
+<div class="form-group">
+<label>Bairro</label>
+<input type="text" name="bairro" required>
+</div>
+
+<div class="form-group">
+<label>Cidade</label>
+<input type="text" name="cidade" required>
+</div>
+
+<div class="form-group">
 <label>Estado</label>
 <input type="text" name="estado" required>
 </div>
+
+<h4 style="margin:35px 0 15px;font-family:'Inter';letter-spacing:2px;">
+LOCAÇÃO
+</h4>
+
+<div class="form-group">
+<label>Motivo da locação</label>
+
+<select name="motivo_locacao" required>
+
+<option value="">
+Selecione
+</option>
+
+<option>Casamento</option>
+<option>Viagem</option>
+<option>Formatura</option>
+<option>Aniversário</option>
+<option>Jantar</option>
+<option>Evento</option>
+<option>Outro</option>
+
+</select>
+
+</div>
+
 
 <div class="form-group">
 <label>Documento (RG, CNH ou Passaporte)</label>
@@ -475,24 +549,23 @@ formulario.addEventListener('submit', async function(e){
 e.preventDefault();
 
 const nome = document.querySelector('[name="nome_completo"]').value;
+const cpf = document.querySelector('[name="cpf"]').value;
+const dataNascimento = document.querySelector('[name="data_nascimento"]').value;
 const email = document.querySelector('[name="email"]').value;
 const celular = document.querySelector('[name="celular"]').value;
 const instagram = document.querySelector('[name="instagram"]').value;
 const cep = document.querySelector('[name="cep"]').value;
 const endereco = document.querySelector('[name="endereco"]').value;
+const numeroEndereco = document.querySelector('[name="numero_endereco"]').value;
+const complementoEndereco = document.querySelector('[name="complemento_endereco"]').value;
+const bairro = document.querySelector('[name="bairro"]').value;
+const cidade = document.querySelector('[name="cidade"]').value;
 const estado = document.querySelector('[name="estado"]').value;
-
-const documentoFile =
-document.getElementById('documento').files[0];
-
-const selfieFile =
-document.getElementById('selfie').files[0];
-
-const comprovanteFile =
-document.getElementById('comprovante').files[0];
-
-const documentoPath =
-`documentos/${Date.now()}-${documentoFile.name}`;
+const motivoLocacao = document.querySelector('[name="motivo_locacao"]').value;
+const documentoFile = document.getElementById('documento').files[0];
+const selfieFile = document.getElementById('selfie').files[0];
+const comprovanteFile =document.getElementById('comprovante').files[0];
+const documentoPath =`documentos/${Date.now()}-${documentoFile.name}`;
 
 const selfiePath =
 `selfies/${Date.now()}-${selfieFile.name}`;
@@ -549,7 +622,14 @@ estado: estado,
 documento: documentoPath,
 selfie: selfiePath,
 comprovante: comprovantePath,
-status: 'pendente'
+status: 'pendente',
+cpf: cpf,
+data_nascimento: dataNascimento,
+numero_endereco: numeroEndereco,
+complemento_endereco: complementoEndereco,
+bairro: bairro,
+cidade: cidade,
+motivo_locacao: motivoLocacao
 }
 ]);
 
