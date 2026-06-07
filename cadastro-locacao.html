@@ -367,7 +367,13 @@ DADOS PESSOAIS
 
 <div class="form-group">
 <label>CPF</label>
-<input type="text" name="cpf" required>
+<input
+type="text"
+name="cpf"
+id="cpf"
+maxlength="14"
+placeholder="000.000.000-00"
+required>
 </div>
 
 <div class="form-group">
@@ -389,7 +395,13 @@ required>
 
 <div class="form-group">
 <label>Celular</label>
-<input type="tel" name="celular" required>
+<input
+type="tel"
+name="celular"
+id="celular"
+maxlength="15"
+placeholder="(00) 00000-0000"
+required>
 </div>
 
 <div class="form-group">
@@ -766,6 +778,67 @@ valor.replace(
 /(\d{5})(\d{0,3})/,
 '$1-$2'
 );
+}
+
+e.target.value = valor;
+
+});
+
+document
+.getElementById('cpf')
+.addEventListener('input', function(e){
+
+let valor =
+e.target.value.replace(/\D/g,'');
+
+if(valor.length > 11){
+valor = valor.substring(0,11);
+}
+
+valor = valor.replace(
+/(\d{3})(\d)/,
+'$1.$2'
+);
+
+valor = valor.replace(
+/(\d{3})\.(\d{3})(\d)/,
+'$1.$2.$3'
+);
+
+valor = valor.replace(
+/(\d{3})\.(\d{3})\.(\d{3})(\d)/,
+'$1.$2.$3-$4'
+);
+
+e.target.value = valor;
+
+});
+
+document
+.getElementById('celular')
+.addEventListener('input', function(e){
+
+let valor =
+e.target.value.replace(/\D/g,'');
+
+if(valor.length > 11){
+valor = valor.substring(0,11);
+}
+
+if(valor.length > 10){
+
+valor = valor.replace(
+/(\d{2})(\d{5})(\d{0,4})/,
+'($1) $2-$3'
+);
+
+}else{
+
+valor = valor.replace(
+/(\d{2})(\d{4})(\d{0,4})/,
+'($1) $2-$3'
+);
+
 }
 
 e.target.value = valor;
