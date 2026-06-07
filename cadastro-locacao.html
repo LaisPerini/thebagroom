@@ -403,7 +403,13 @@ ENDEREÇO
 
 <div class="form-group">
 <label>CEP</label>
-<input type="text" name="cep" id="cep" inputmode="numeric" required>
+<input
+type="text"
+name="cep"
+id="cep"
+maxlength="9"
+placeholder="00000-000"
+required>
 </div>
 
 <div class="form-group">
@@ -737,6 +743,29 @@ if(valor.length > 5){
 valor =
 valor.substring(0,5) + '/' +
 valor.substring(5,9);
+}
+
+e.target.value = valor;
+
+});
+
+document
+.getElementById('cep')
+.addEventListener('input', function(e){
+
+let valor =
+e.target.value.replace(/\D/g,'');
+
+if(valor.length > 8){
+valor = valor.substring(0,8);
+}
+
+if(valor.length > 5){
+valor =
+valor.replace(
+/(\d{5})(\d{0,3})/,
+'$1-$2'
+);
 }
 
 e.target.value = valor;
