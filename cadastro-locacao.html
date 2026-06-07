@@ -507,7 +507,10 @@ Selecione o arquivo
 </div>
 </div>
 
-<button type="submit" class="btn-enviar">
+<button
+type="submit"
+class="btn-enviar"
+id="btnEnviar">
 ENVIAR CADASTRO
 </button>
 
@@ -587,6 +590,12 @@ document.getElementById('cadastroForm');
 formulario.addEventListener('submit', async function(e){
 
 e.preventDefault();
+
+const btnEnviar =
+document.getElementById('btnEnviar');
+
+btnEnviar.disabled = true;
+btnEnviar.innerText = 'ENVIANDO...';
 
 const nome = document.querySelector('[name="nome_completo"]').value;
 const cpf = document.querySelector('[name="cpf"]').value;
@@ -685,6 +694,9 @@ if(error){
 alert('Erro: ' + error.message);
 return;
 }
+
+btnEnviar.innerText =
+'CADASTRO ENVIADO ✓';
 
 alert('Cadastro enviado com sucesso!');
 
