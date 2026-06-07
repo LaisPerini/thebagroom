@@ -161,7 +161,13 @@ type="password"
 placeholder="Digite sua senha">
 </div>
 
+<button
+class="btn"
+id="btnEntrar"
+onclick="fazerLogin()">
 ENTRAR
+</button>
+
 <div class="links">
 <a href="#">
 Esqueci minha senha
@@ -181,8 +187,8 @@ Cadastre-se aqui
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL = "";
-const SUPABASE_KEY = "";
+const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
+const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
 const supabaseClient =
 supabase.createClient(
 SUPABASE_URL,
