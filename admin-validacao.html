@@ -417,9 +417,9 @@ ${cliente.estado || '-'}
 
 <div class="info">
 <strong>Cadastro:</strong>
-${new Date(cliente.created_at).toLocaleDateString('pt-BR')}
+${new Date(cliente.created_date).toLocaleDateString('pt-BR')}
 às
-${new Date(cliente.created_at).toLocaleTimeString('pt-BR',{
+${new Date(cliente.created_date).toLocaleTimeString('pt-BR',{
 hour:'2-digit',
 minute:'2-digit'
 })}
@@ -588,7 +588,7 @@ ${cliente.estado || '-'}
 </div>
 <div class="info">
 <strong>Cadastro:</strong>
-${new Date(cliente.created_at).toLocaleString('pt-BR')}
+${new Date(cliente.created_date).toLocaleString('pt-BR')}
 </div>
 
 <div class="status ${cliente.status}">
