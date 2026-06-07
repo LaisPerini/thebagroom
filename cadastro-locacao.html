@@ -644,6 +644,52 @@ alert('Cadastro enviado com sucesso!');
 });
 });
 
+document
+.getElementById('cep')
+.addEventListener('blur', async function(){
+
+const cep =
+this.value.replace(/\D/g,'');
+
+if(cep.length !== 8){
+return;
+}
+
+try{
+
+const resposta =
+await fetch(
+`https://viacep.com.br/ws/${cep}/json/`
+);
+
+const dados =
+await resposta.json();
+
+if(dados.erro){
+alert('CEP não encontrado');
+return;
+}
+
+document.getElementById('endereco').value =
+dados.logradouro || '';
+
+document.getElementById('bairro').value =
+dados.bairro || '';
+
+document.getElementById('cidade').value =
+dados.localidade || '';
+
+document.getElementById('estado').value =
+dados.uf || '';
+
+}catch(error){
+
+alert('Erro ao consultar CEP');
+
+}
+
+});
+
 </script>
 
 
