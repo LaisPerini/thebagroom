@@ -425,7 +425,7 @@ required>
     <input
         type="password"
         id="senha"
-        placeholder="Crie uma senha">
+        placeholder="Crie uma senha" required>
 </div>
 
 <div class="form-group">
@@ -433,7 +433,7 @@ required>
     <input
         type="password"
         id="confirmar_senha"
-        placeholder="Digite novamente sua senha">
+        placeholder="Digite novamente sua senha" required>
 </div>
 
 <p class="senha-info">
@@ -705,6 +705,21 @@ const selfiePath =
 const comprovantePath =
 `comprovantes/${Date.now()}-${comprovanteFile.name}`;
 
+
+const { data: authData, error: authError } =
+await supabaseClient.auth.signUp({
+  email: email,
+  password: senha
+});
+
+if(authError){
+  alert('Erro ao criar acesso: ' + authError.message);
+  btnEnviar.disabled = false;
+  btnEnviar.innerText = 'ENVIAR CADASTRO';
+  return;
+}
+
+
 // Upload Documento
 const { error: documentoError } =
 await supabaseClient.storage
@@ -744,6 +759,7 @@ await supabaseClient
 .from('validacao_clientes')
 .insert([
 {
+usuario_auth_id: authData.user.id,
 nome_completo: nome,
 email: email,
 celular: celular,
