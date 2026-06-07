@@ -375,8 +375,10 @@ DADOS PESSOAIS
 <input
 type="text"
 name="data_nascimento"
+id="data_nascimento"
 placeholder="DD/MM/AAAA"
 maxlength="10"
+inputmode="numeric"
 required>
 </div>
 
@@ -570,7 +572,15 @@ e.preventDefault();
 
 const nome = document.querySelector('[name="nome_completo"]').value;
 const cpf = document.querySelector('[name="cpf"]').value;
-const dataNascimento = document.querySelector('[name="data_nascimento"]').value;
+const dataNascimentoTexto =
+document.querySelector('[name="data_nascimento"]').value;
+
+const partes =
+dataNascimentoTexto.split('/');
+
+const dataNascimento =
+`${partes[2]}-${partes[1]}-${partes[0]}`;
+
 const email = document.querySelector('[name="email"]').value;
 const celular = document.querySelector('[name="celular"]').value;
 const instagram = document.querySelector('[name="instagram"]').value;
@@ -707,6 +717,29 @@ dados.uf || '';
 alert('Erro ao consultar CEP');
 
 }
+
+});
+
+document
+.getElementById('data_nascimento')
+.addEventListener('input', function(e){
+
+let valor =
+e.target.value.replace(/\D/g,'');
+
+if(valor.length > 2){
+valor =
+valor.substring(0,2) + '/' +
+valor.substring(2);
+}
+
+if(valor.length > 5){
+valor =
+valor.substring(0,5) + '/' +
+valor.substring(5,9);
+}
+
+e.target.value = valor;
 
 });
 
