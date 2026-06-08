@@ -187,7 +187,9 @@ Você ainda não possui locações agendadas.
 
 </div>
 </div>
-<button class="btn-sair">
+<button
+class="btn-sair"
+onclick="sair()">
 SAIR
 </button>
 </div>
@@ -260,6 +262,19 @@ document.getElementById('statusTexto')
 }
 }
 carregarCliente();
+</script>
+
+<script>
+
+async function sair(){
+
+await supabaseClient.auth.signOut();
+
+window.location.href =
+'index.html';
+
+}
+
 </script>
 
 
