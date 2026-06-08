@@ -1,1 +1,191 @@
-a
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minha Conta • The Bag Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+body{
+font-family:'Inter',sans-serif;
+min-height:100vh;
+background:
+linear-gradient(
+rgba(0,0,0,.45),
+rgba(0,0,0,.45)
+),
+url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2000');
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+padding:30px 0;
+}
+.container{
+width:100%;
+display:flex;
+justify-content:center;
+}
+.card{
+width:90%;
+max-width:700px;
+background:rgba(255,255,255,.95);
+backdrop-filter:blur(15px);
+border-radius:35px;
+padding:30px;
+box-shadow:0 20px 60px rgba(0,0,0,.15);
+}
+.logo{
+font-family:'Playfair Display',serif;
+letter-spacing:8px;
+font-size:16px;
+text-align:center;
+margin-bottom:20px;
+}
+.titulo{
+font-family:'Playfair Display',serif;
+font-size:38px;
+text-align:center;
+margin-bottom:10px;
+}
+.boas-vindas{
+text-align:center;
+color:#666;
+margin-bottom:25px;
+line-height:1.6;
+}
+.status{
+background:#fff7df;
+border:1px solid #f1e0a5;
+padding:18px;
+border-radius:18px;
+margin-bottom:25px;
+}
+.status h3{
+margin-bottom:8px;
+font-size:18px;
+}
+.status p{
+font-size:14px;
+color:#666;
+line-height:1.7;
+}
+.section{
+margin-top:25px;
+}
+.section-title{
+font-size:13px;
+letter-spacing:2px;
+text-transform:uppercase;
+margin-bottom:15px;
+color:#666;
+}
+.info-card{
+background:#fafafa;
+border:1px solid #eee;
+border-radius:18px;
+padding:18px;
+}
+.info-item{
+margin-bottom:16px;
+}
+.info-item:last-child{
+margin-bottom:0;
+}
+.info-label{
+font-size:12px;
+text-transform:uppercase;
+letter-spacing:2px;
+color:#888;
+margin-bottom:4px;
+}
+.info-value{
+font-size:15px;
+}
+.locacao-box{
+background:#fafafa;
+border:1px solid #eee;
+padding:20px;
+border-radius:18px;
+text-align:center;
+color:#666;
+line-height:1.8;
+}
+.btn-sair{
+display:block;
+width:100%;
+height:52px;
+margin-top:30px;
+border:none;
+border-radius:40px;
+background:#111;
+color:#fff;
+font-size:13px;
+letter-spacing:3px;
+cursor:pointer;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="card">
+<div class="logo">
+THE BAG ROOM
+</div>
+<h1 class="titulo">
+Minha Conta
+</h1>
+<p class="boas-vindas">
+Bem-vinda à sua área exclusiva The Bag Room.
+</p>
+<div class="status">
+<h3>
+🟡 Cadastro em análise
+</h3>
+<p>
+Recebemos seus documentos e nossa equipe está realizando a validação cadastral.
+Você será notificada assim que a análise for concluída.
+</p>
+</div>
+<div class="section">
+<div class="section-title">
+Meus Dados
+</div>
+<div class="info-card">
+<div class="info-item">
+<div class="info-label">Nome</div>
+<div class="info-value">Lais Perini</div>
+</div>
+<div class="info-item">
+<div class="info-label">E-mail</div>
+<div class="info-value">lais@email.com</div>
+</div>
+<div class="info-item">
+<div class="info-label">Celular</div>
+<div class="info-value">(13) 99999-9999</div>
+</div>
+</div>
+</div>
+<div class="section">
+<div class="section-title">
+Próximas Locações
+</div>
+<div class="locacao-box">
+
+👜
+
+Você ainda não possui locações agendadas.
+
+</div>
+</div>
+<button class="btn-sair">
+SAIR
+</button>
+</div>
+</div>
+</body>
+</html>
