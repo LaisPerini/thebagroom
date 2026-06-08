@@ -143,12 +143,11 @@ Minha Conta
 Bem-vinda à sua área exclusiva The Bag Room.
 </p>
 <div class="status">
-<h3>
-🟡 Cadastro em análise
+<h3 id="statusTitulo">
+Carregando...
 </h3>
-<p>
-Recebemos seus documentos e nossa equipe está realizando a validação cadastral.
-Você será notificada assim que a análise for concluída.
+<p id="statusTexto">
+Carregando...
 </p>
 </div>
 <div class="section">
@@ -158,15 +157,21 @@ Meus Dados
 <div class="info-card">
 <div class="info-item">
 <div class="info-label">Nome</div>
-<div class="info-value">Lais Perini</div>
+<div class="info-value" id="nomeCliente">
+Carregando...
+</div>
 </div>
 <div class="info-item">
 <div class="info-label">E-mail</div>
-<div class="info-value">lais@email.com</div>
+<div class="info-value" id="emailCliente">
+Carregando...
+</div>
 </div>
 <div class="info-item">
 <div class="info-label">Celular</div>
-<div class="info-value">(13) 99999-9999</div>
+<div class="info-value" id="celularCliente">
+Carregando...
+</div>
 </div>
 </div>
 </div>
@@ -187,5 +192,76 @@ SAIR
 </button>
 </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "";
+const SUPABASE_KEY = "";
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+async function carregarCliente(){
+const {
+data: { user }
+} =
+await supabaseClient.auth.getUser();
+if(!user){
+window.location.href =
+'login.html';
+return;
+}
+const { data: cliente, error } =
+await supabaseClient
+.from('validacao_clientes')
+.select('*')
+.eq(
+'usuario_auth_id',
+user.id
+)
+.single();
+if(error){
+alert('Erro ao carregar dados.');
+return;
+}
+document.getElementById('nomeCliente')
+.innerText =
+cliente.nome_completo;
+document.getElementById('emailCliente')
+.innerText =
+cliente.email;
+document.getElementById('celularCliente')
+.innerText =
+cliente.celular;
+if(cliente.status === 'pendente'){
+document.getElementById('statusTitulo')
+.innerText =
+'🟡 Cadastro em análise';
+document.getElementById('statusTexto')
+.innerText =
+'Seu cadastro está sendo analisado pela equipe The Bag Room.';
+}
+if(cliente.status === 'aprovado'){
+document.getElementById('statusTitulo')
+.innerText =
+'🟢 Cadastro aprovado';
+document.getElementById('statusTexto')
+.innerText =
+'Seu cadastro foi aprovado e sua conta está liberada para locações.';
+}
+if(cliente.status === 'reprovado'){
+document.getElementById('statusTitulo')
+.innerText =
+'🔴 Cadastro não aprovado';
+document.getElementById('statusTexto')
+.innerText =
+'Entre em contato com nossa equipe para mais informações.';
+}
+}
+carregarCliente();
+</script>
+
+
 </body>
 </html>
