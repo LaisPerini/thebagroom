@@ -139,6 +139,13 @@ THE BAG ROOM
 <h1 class="titulo">
 Minha Conta
 </h1>
+
+<p
+id="nomeBoasVindas"
+class="boas-vindas">
+Carregando...
+</p>
+
 <p class="boas-vindas">
 Bem-vinda à sua área exclusiva The Bag Room.
 </p>
@@ -187,6 +194,46 @@ Você ainda não possui locações agendadas.
 
 </div>
 </div>
+
+<div class="section">
+
+<div class="section-title">
+The Bag Room Concierge
+</div>
+
+<div class="info-card" style="text-align:center;">
+
+<p style="
+margin-bottom:18px;
+line-height:1.7;
+color:#666;
+">
+Precisa de ajuda para escolher uma bolsa,
+acompanhar uma solicitação ou tirar dúvidas?
+Nossa equipe está pronta para ajudar.
+</p>
+
+<a
+href="https://wa.me/5513996904227"
+target="_blank"
+style="
+display:inline-block;
+background:#111;
+color:#fff;
+padding:14px 28px;
+border-radius:40px;
+text-decoration:none;
+letter-spacing:2px;
+font-size:13px;
+">
+💎 FALAR COM ESPECIALISTA
+</a>
+
+</div>
+
+</div>
+
+
 <button
 class="btn-sair"
 onclick="sair()">
@@ -236,6 +283,10 @@ cliente.email;
 document.getElementById('celularCliente')
 .innerText =
 cliente.celular;
+document.getElementById('nomeBoasVindas')
+.innerText =
+cliente.nome_completo.split(' ')[0];
+
 if(cliente.status === 'pendente'){
 document.getElementById('statusTitulo')
 .innerText =
@@ -263,6 +314,8 @@ document.getElementById('statusTexto')
 }
 carregarCliente();
 </script>
+
+
 
 <script>
 
