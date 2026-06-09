@@ -1250,7 +1250,20 @@ ${enderecoShowroom}
 
 /* 🔥 WHATSAPP COMPLETO */
 
+function alugar(){
 
+let diasSelecionado = document.querySelector('input[name="dias"]:checked');
+let data = document.getElementById('dataInicio').value;
+
+if(!data){
+alert("Escolha a data");
+return;
+}
+
+if(!freteIdaSelecionado || !freteVoltaSelecionado){
+alert("Escolha entrega e devolução");
+return;
+}
 
 
 
