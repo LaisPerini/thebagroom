@@ -1134,12 +1134,16 @@ line-height:1.8;
 ">
 
 <strong>Entrega</strong><br>
-${freteIdaSelecionado.nome}
+${freteIdaSelecionado.nome === 'Retirar'
+  ? '📍 Showroom The Bag Room'
+  : '📦 SEDEX'}
 
 <br><br>
 
 <strong>Devolução</strong><br>
-${freteVoltaSelecionado.nome}
+${freteVoltaSelecionado.nome === 'Retirar'
+  ? '📍 Showroom The Bag Room'
+  : '📦 SEDEX'}
 
 <br><br>
 
