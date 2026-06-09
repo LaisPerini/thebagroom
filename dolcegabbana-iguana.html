@@ -983,7 +983,7 @@ if(!frete){
 
 let precoIda = parseFloat(frete.price);
 let voltaMatch = voltaData.find(v => v.name === frete.name);
-let precoVolta = parseFloat(voltaMatch?.price || 0);
+let precoVolta = precoIda;
 
 html = `
 <div style="margin-top:10px; font-family:'Inter'">
