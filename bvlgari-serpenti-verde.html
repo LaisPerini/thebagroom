@@ -760,6 +760,57 @@ color:#fff;
 font-size:30px;
 cursor:pointer;
 }
+
+.showroom-card{
+    margin-top:12px;
+    padding:18px;
+    background:#faf7ea;
+    border:1px solid #e8d79f;
+    border-radius:18px;
+}
+
+.showroom-badge{
+    display:inline-block;
+    font-size:11px;
+    letter-spacing:2px;
+    padding:6px 10px;
+    border-radius:999px;
+    background:#f4efe2;
+    color:#8b7a4d;
+    margin-bottom:14px;
+}
+
+.showroom-nome{
+    font-size:22px;
+    font-weight:600;
+    color:#111;
+    margin-bottom:8px;
+}
+
+.showroom-endereco{
+    font-size:16px;
+    line-height:1.7;
+    color:#333;
+}
+
+.showroom-horario{
+    margin-top:10px;
+    color:#666;
+    font-size:14px;
+}
+
+.btn-mapa{
+    display:inline-block;
+    margin-top:14px;
+    padding:10px 18px;
+    border:1px solid #111;
+    border-radius:999px;
+    text-decoration:none;
+    color:#111;
+    font-size:12px;
+    letter-spacing:1px;
+    background:white;
+}
   
 }
 
@@ -1052,10 +1103,12 @@ html = `
 
 <div class="frete-opcao frete-ida" onclick="selecionarFreteIda('SEDEX', ${precoIda}, ${frete.delivery_time}, this)">
 SEDEX • R$ ${precoIda.toFixed(2)}
+<br>
+<small>${frete.delivery_time} dias úteis</small>
 </div>
 
 <div class="frete-opcao frete-ida" onclick="selecionarFreteIda('Retirar', 0, 0, this)">
-Retirar no showroom • Grátis
+📍 RETIRADA NO SHOWROOM • GRÁTIS
 </div>
 
 <br>
@@ -1064,10 +1117,12 @@ Retirar no showroom • Grátis
 
 <div class="frete-opcao frete-volta" onclick="selecionarFreteVolta('SEDEX', ${precoVolta}, ${frete.delivery_time}, this)">
 SEDEX • R$ ${precoVolta.toFixed(2)}
+<br>
+<small>${frete.delivery_time} dias úteis</small>
 </div>
 
 <div class="frete-opcao frete-volta" onclick="selecionarFreteVolta('Retirar', 0, 0, this)">
-Entregar no showroom • Grátis
+📍 ENTREGAR NO SHOWROOM • GRÁTIS
 </div>
 
 </div>
@@ -1134,19 +1189,76 @@ Devolução: ${freteVoltaSelecionado.nome} • R$ ${freteVoltaSelecionado.preco.
 
 /* 🔥 WHATSAPP COMPLETO */
 
-function alugar(){
+function atualizarResumoFrete(){
 
-let diasSelecionado = document.querySelector('input[name="dias"]:checked');
-let data = document.getElementById('dataInicio').value;
+if(!freteIdaSelecionado || !freteVoltaSelecionado) return;
 
-if(!data){
-alert("Escolha a data");
-return;
+let total = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
+
+let enderecoShowroom = '';
+
+if(
+   freteIdaSelecionado.nome === 'Retirar' ||
+   freteVoltaSelecionado.nome === 'Retirar'
+){
+  enderecoShowroom = `
+  <div style="
+      margin-top:15px;
+      padding-top:15px;
+      border-top:1px solid #e5e5e5;
+  ">
+      <strong>The Bag Room</strong><br>
+      Av. Ana Costa, 471<br>
+      Gonzaga • Santos/SP<br>
+      Segunda a Sexta • 09h às 18h<br><br>
+
+      <a
+      href="https://maps.google.com/?q=Av.+Ana+Costa,+471+Santos+SP"
+      target="_blank"
+      style="
+      color:#111;
+      text-decoration:none;
+      border:1px solid #111;
+      padding:8px 14px;
+      border-radius:999px;
+      display:inline-block;
+      ">
+      Ver localização
+      </a>
+  </div>
+  `;
 }
 
-if(!freteIdaSelecionado || !freteVoltaSelecionado){
-alert("Escolha entrega e devolução");
-return;
+document.getElementById("freteSelecionado").innerHTML = `
+<div style="
+background:#faf7ea;
+border:1px solid #e8d79f;
+padding:18px;
+border-radius:18px;
+line-height:1.8;
+">
+
+<strong>Entrega</strong><br>
+${freteIdaSelecionado.nome === 'Retirar'
+  ? '📍 Showroom The Bag Room'
+  : '📦 SEDEX'}
+
+<br><br>
+
+<strong>Devolução</strong><br>
+${freteVoltaSelecionado.nome === 'Retirar'
+  ? '📍 Showroom The Bag Room'
+  : '📦 SEDEX'}
+
+<br><br>
+
+<strong>Total frete:</strong>
+R$ ${total.toFixed(2)}
+
+${enderecoShowroom}
+
+</div>
+`;
 }
 
 // valor aluguel
