@@ -1125,10 +1125,70 @@ if(!freteIdaSelecionado || !freteVoltaSelecionado) return;
 
 let total = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
 
-document.getElementById("freteSelecionado").innerHTML =
-`Entrega: ${freteIdaSelecionado.nome} • R$ ${freteIdaSelecionado.preco.toFixed(2)}<br>
-Devolução: ${freteVoltaSelecionado.nome} • R$ ${freteVoltaSelecionado.preco.toFixed(2)}<br>
-<strong>Total frete: R$ ${total.toFixed(2)}</strong>`;
+let enderecoShowroom = '';
+
+if(
+   freteIdaSelecionado.nome === 'Retirar' ||
+   freteVoltaSelecionado.nome === 'Retirar'
+){
+  enderecoShowroom = `
+  <div style="
+      margin-top:15px;
+      padding-top:15px;
+      border-top:1px solid #e5e5e5;
+  ">
+      <strong>The Bag Room</strong><br>
+      Av. Ana Costa, 471<br>
+      Gonzaga • Santos/SP<br>
+      Segunda a Sexta • 09h às 18h<br><br>
+
+      <a
+      href="https://maps.google.com/?q=Av.+Ana+Costa,+471+Santos+SP"
+      target="_blank"
+      style="
+      color:#111;
+      text-decoration:none;
+      border:1px solid #111;
+      padding:8px 14px;
+      border-radius:999px;
+      display:inline-block;
+      ">
+      Ver localização
+      </a>
+  </div>
+  `;
+}
+
+document.getElementById("freteSelecionado").innerHTML = `
+<div style="
+background:#faf7ea;
+border:1px solid #e8d79f;
+padding:18px;
+border-radius:18px;
+line-height:1.8;
+">
+
+<strong>Entrega</strong><br>
+${freteIdaSelecionado.nome === 'Retirar'
+  ? '📍 Showroom The Bag Room'
+  : '📦 SEDEX'}
+
+<br><br>
+
+<strong>Devolução</strong><br>
+${freteVoltaSelecionado.nome === 'Retirar'
+  ? '📍 Showroom The Bag Room'
+  : '📦 SEDEX'}
+
+<br><br>
+
+<strong>Total frete:</strong>
+R$ ${total.toFixed(2)}
+
+${enderecoShowroom}
+
+</div>
+`;
 }
 
 /* 🔥 WHATSAPP COMPLETO */
