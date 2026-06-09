@@ -669,41 +669,52 @@ opacity:0.75;
 
 .showroom-card{
     margin-top:14px;
-    background:#fafafa;
-    border:1px solid #e9e9e9;
-    border-radius:20px;
-    padding:22px;
+    padding:20px;
+    background:#faf9f7;
+    border:1px solid #e9e4da;
+    border-radius:18px;
 }
 
-.showroom-local{
+.showroom-header{
+    font-family:'Inter';
+    font-size:13px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:#8a7b52;
+    margin-bottom:14px;
+}
+
+.showroom-endereco{
+    font-family:'Inter';
+    font-size:16px;
     line-height:1.8;
-    color:#222;
-    font-size:15px;
+    color:#111;
 }
 
-.showroom-local strong{
-    display:block;
-    margin-bottom:8px;
+.showroom-endereco strong{
     font-size:18px;
+    display:block;
+    margin-bottom:4px;
 }
 
 .showroom-horario{
     margin-top:12px;
-    line-height:1.8;
     color:#666;
     font-size:14px;
+    font-family:'Inter';
 }
 
 .btn-mapa{
     display:inline-block;
     margin-top:18px;
+    padding:12px 20px;
     background:#111;
     color:#fff;
     text-decoration:none;
-    padding:12px 22px;
     border-radius:999px;
-    font-size:11px;
+    font-size:12px;
     letter-spacing:2px;
+    text-transform:uppercase;
 }
   
 }
@@ -1005,27 +1016,30 @@ onclick="selecionarFreteIda('Retirar', 0, 0, this)">
 
 <div id="showroomInfo" style="display:none;">
 
-    <div class="showroom-card">
+<div class="showroom-card">
 
-        <div class="showroom-local">
-            <strong>Showroom The Bag Room</strong><br>
+  <div class="showroom-header">
+      📍 Retirada no Showroom
+  </div>
 
-            Av. Ana Costa, 471<br>
-            Gonzaga • Santos/SP
-        </div>
+  <div class="showroom-endereco">
+      <strong>The Bag Room</strong><br>
+      Av. Ana Costa, 471<br>
+      Gonzaga • Santos/SP
+  </div>
 
-        <div class="showroom-horario">
-            Segunda a Sexta<br>
-            09h às 18h
-        </div>
+  <div class="showroom-horario">
+      Segunda a Sexta • 09h às 18h
+  </div>
 
-        <a href="https://maps.google.com/?q=Av.+Ana+Costa,+471+Santos+SP"
-           target="_blank"
-           class="btn-mapa">
-           VER NO MAPA
-        </a>
+  <a
+    href="https://maps.google.com/?q=Av.+Ana+Costa,+471+Santos+SP"
+    target="_blank"
+    class="btn-mapa">
+    Ver localização
+  </a>
 
-    </div>
+</div>
 
 </div>
 
