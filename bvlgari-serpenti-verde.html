@@ -1175,19 +1175,6 @@ function selecionarFreteVolta(nome, preco, prazo, el){
   atualizarTotal();
 }
 
-function atualizarResumoFrete(){
-
-if(!freteIdaSelecionado || !freteVoltaSelecionado) return;
-
-let total = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
-
-document.getElementById("freteSelecionado").innerHTML =
-`Entrega: ${freteIdaSelecionado.nome} • R$ ${freteIdaSelecionado.preco.toFixed(2)}<br>
-Devolução: ${freteVoltaSelecionado.nome} • R$ ${freteVoltaSelecionado.preco.toFixed(2)}<br>
-<strong>Total frete: R$ ${total.toFixed(2)}</strong>`;
-}
-
-/* 🔥 WHATSAPP COMPLETO */
 
 function atualizarResumoFrete(){
 
@@ -1260,6 +1247,12 @@ ${enderecoShowroom}
 </div>
 `;
 }
+
+/* 🔥 WHATSAPP COMPLETO */
+
+
+
+
 
 // valor aluguel
 let textoOpcao = diasSelecionado.parentElement.innerText;
