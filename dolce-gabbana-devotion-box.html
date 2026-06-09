@@ -1051,10 +1051,12 @@ html = `
 
 <div class="frete-opcao frete-ida" onclick="selecionarFreteIda('SEDEX', ${precoIda}, ${frete.delivery_time}, this)">
 SEDEX • R$ ${precoIda.toFixed(2)}
+<br>
+<small>${frete.delivery_time} dias úteis</small>
 </div>
 
 <div class="frete-opcao frete-ida" onclick="selecionarFreteIda('Retirar', 0, 0, this)">
-Retirar no showroom • Grátis
+📍 RETIRADA NO SHOWROOM • GRÁTIS
 </div>
 
 <br>
@@ -1063,10 +1065,12 @@ Retirar no showroom • Grátis
 
 <div class="frete-opcao frete-volta" onclick="selecionarFreteVolta('SEDEX', ${precoVolta}, ${frete.delivery_time}, this)">
 SEDEX • R$ ${precoVolta.toFixed(2)}
+<br>
+<small>${frete.delivery_time} dias úteis</small>
 </div>
 
 <div class="frete-opcao frete-volta" onclick="selecionarFreteVolta('Retirar', 0, 0, this)">
-Entregar no showroom • Grátis
+📍 ENTREGAR NO SHOWROOM • GRÁTIS
 </div>
 
 </div>
