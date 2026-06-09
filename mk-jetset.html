@@ -1066,15 +1066,6 @@ function selecionarFreteIda(nome, preco, prazo, el){
 
   el.classList.add('active');
 
-  // MOSTRA SHOWROOM APENAS QUANDO FOR RETIRADA
-  const showroom = document.getElementById('showroomInfo');
-
-  if(nome === 'Retirar'){
-      showroom.style.display = 'block';
-  }else{
-      showroom.style.display = 'none';
-  }
-
   atualizarResumoFrete();
   atualizarTotal();
 }
@@ -1088,15 +1079,6 @@ function selecionarFreteVolta(nome, preco, prazo, el){
   });
 
   el.classList.add('active');
-
-  const showroomVolta =
-    document.getElementById("showroomInfoVolta");
-
-  if(nome === "Retirar"){
-      showroomVolta.style.display = "block";
-  }else{
-      showroomVolta.style.display = "none";
-  }
 
   atualizarResumoFrete();
   atualizarTotal();
