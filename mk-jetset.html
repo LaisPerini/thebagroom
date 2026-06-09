@@ -651,6 +651,44 @@ object-fit:contain;
 display:block;
 opacity:0.75;
 }
+
+.opcao-selecionada{
+    background:#faf7ea;
+    border:1px solid #e8d79f;
+    border-radius:24px;
+    padding:24px;
+    margin-top:18px;
+}
+
+.titulo-opcao{
+    font-size:18px;
+    font-weight:600;
+    margin-bottom:18px;
+    color:#111;
+}
+
+.local-showroom{
+    line-height:1.8;
+    color:#444;
+    margin-bottom:16px;
+}
+
+.horario-showroom{
+    line-height:1.8;
+    color:#666;
+    margin-bottom:22px;
+}
+
+.btn-mapa{
+    display:inline-block;
+    background:#111;
+    color:#fff;
+    text-decoration:none;
+    padding:12px 24px;
+    border-radius:999px;
+    letter-spacing:2px;
+    font-size:12px;
+}
   
 }
 
@@ -944,8 +982,30 @@ SEDEX • R$ ${precoIda.toFixed(2)}
 <small>${frete.delivery_time} dias úteis</small>
 </div>
 
-<div class="frete-opcao frete-ida" onclick="selecionarFreteIda('Retirar', 0, 0, this)">
-Retirar no showroom • Grátis
+<div class="opcao-selecionada">
+    
+    <div class="titulo-opcao">
+        ✓ Retirada selecionada
+    </div>
+
+    <div class="local-showroom">
+        <strong>Showroom The Bag Room</strong><br>
+        Av. Ana Costa, 471<br>
+        Gonzaga • Santos/SP
+    </div>
+
+    <div class="horario-showroom">
+        Segunda a Sexta<br>
+        09h às 18h
+    </div>
+
+    <a
+      href="https://maps.google.com/?q=Av.+Ana+Costa,+471+Santos+SP"
+      target="_blank"
+      class="btn-mapa">
+      VER NO MAPA
+    </a>
+
 </div>
 
 <br>
