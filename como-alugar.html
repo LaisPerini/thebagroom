@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KPVTBY5VK8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KPVTBY5VK8');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como Funciona · The Bag Room</title>
+
+<link rel="icon" type="image/PNG" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* BASE */
+*{box-sizing:border-box;}
+
+body{
+margin:0;
+background:#f5f4f2;
+font-family:'Playfair Display', serif;
+color:#111;
+}
+
+/* HEADER */
+header{
+padding:18px;
+display:flex;
+justify-content:center;
+background:rgba(255,255,255,0.95);
+position:fixed;
+width:100%;
+border-bottom:1px solid #eee;
+z-index:999;
+}
+
+header h1{
+letter-spacing:6px;
+font-size:20px;
+margin:0;
+}
+
+.top-space{height:65px;}
+
+/* MENU */
+.menu-mobile-btn{
+position:absolute;
+left:16px;
+top:50%;
+transform:translateY(-50%);
+font-size:22px;
+cursor:pointer;
+}
+
+.menu-mobile{
+position:fixed;
+top:0;
+left:-100%;
+width:85%;
+max-width:320px;
+height:100vh;
+background:rgba(255,255,255,0.98);
+backdrop-filter:blur(14px);
+transition:0.45s cubic-bezier(0.22,1,0.36,1);
+z-index:2000;
+padding-top:100px;
+}
+
+.menu-mobile.open{
+left:0;
+}
+
+.close-menu{
+position:absolute;
+top:24px;
+right:24px;
+font-size:30px;
+cursor:pointer;
+}
+
+.menu-mobile-inner{
+display:flex;
+flex-direction:column;
+gap:26px;
+padding-left:30px;
+}
+
+.menu-mobile-inner a{
+font-family:'Cormorant Garamond', serif;
+font-size:22px;
+letter-spacing:1px;
+text-decoration:none;
+color:#000;
+transition:0.3s;
+}
+
+.menu-mobile-inner a:hover{
+opacity:0.6;
+}
+
+/* HERO */
+.internal-title{
+width:100%;
+height:32vh;
+background:url('https://i.imgur.com/cEmhXKD.jpeg') center/cover;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+}
+
+.internal-title::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+}
+
+.internal-title h2{
+  position:relative;
+  z-index:3;
+  font-size:30px;
+  font-weight:600;
+  color:#fff;
+  letter-spacing:6px;
+  text-align:center;
+  text-shadow: 0 6px 20px rgba(0,0,0,0.7);
+}
+
+/* CONTENT */
+.content-box{
+max-width:900px;
+margin:3px auto;
+padding:32px;
+border-radius:18px;
+line-height:1.8;
+}
+
+.content-box p {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  color: #444;
+}
+
+/* destaque elegante */
+.destaque{
+margin-top:25px;
+padding:20px;
+border:1px solid #eee;
+border-radius:14px;
+background:#fafafa;
+font-family:'Inter';
+font-size:14px;
+}
+
+/* BOTÃO */
+.whats-btn{
+display:block;
+margin:10px auto;
+background:#000;
+color:#fff;
+padding:18px;
+border-radius:40px;
+text-align:center;
+letter-spacing:4px;
+text-decoration:none;
+width:80%;
+}
+
+/* FOOTER */
+.footer-luxo {
+  margin-top: 80px;
+  border-top: 1px solid #eaeaea;
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-item {
+  padding: 20px;
+  border-bottom: 1px solid #eaeaea;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.footer-item span {
+  opacity: 0.6;
+}
+
+.footer-content {
+  display: none;
+  padding-top: 10px;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+  margin-left:120px;
+}
+
+.footer-item.active .footer-content {
+  display: block;
+}
+
+.footer-bottom {
+  padding: 30px 20px;
+  font-size: 12px;
+  color: #777;
+  text-align: center;
+}
+/* STEP CARDS */
+
+.step-card{
+background:#fff;
+border:1px solid #ececec;
+border-radius:24px;
+padding:28px;
+margin-bottom:24px;
+box-shadow:0 10px 30px rgba(0,0,0,0.03);
+}
+
+.step-card h3{
+font-family: 'Inter', sans-serif;
+font-weight:700;
+color:#111;
+margin-bottom:18px;
+text-transform:uppercase;
+letter-spacing:1px;
+font-size:15px;
+}
+
+.step-card p{
+font-family:'Inter', sans-serif;
+font-size:15px;
+line-height:1.8;
+color:#444;
+margin-bottom:14px;
+}
+
+.step-number{
+display:inline-block;
+font-size:13px;
+font-family:'Inter', sans-serif;
+letter-spacing:2px;
+opacity:0.5;
+margin-right:10px;
+vertical-align:middle;
+}
+
+.step-card ul{
+padding-left:22px;
+margin-top:10px;
+}
+
+.step-card li{
+font-family:'Inter', sans-serif;
+font-size:15px;
+margin-bottom:10px;
+color:#444;
+line-height:1.6;
+}
+
+.step-number{
+margin-right:8px;
+}
+
+.hero-desapego{
+  text-align:center;
+  max-width:700px;
+  margin:40px auto 70px;
+  padding:0 20px;
+}
+
+.frase{
+  font-family:'Playfair Display', serif;
+  font-size:32px;
+  color:#111;
+  margin-bottom:15px;
+}
+
+.texto{
+  font-family:'Inter', sans-serif;
+  font-size:16px;
+  color:#666;
+  line-height:1.8;
+  margin-bottom:30px;
+}
+
+.btn-desapego{
+  display:inline-block;
+  background:#111;
+  color:#fff;
+  text-decoration:none;
+  padding:16px 34px;
+  border-radius:999px;
+  font-family:'Inter', sans-serif;
+  font-size:13px;
+  letter-spacing:1px;
+  transition:.3s;
+}
+
+.btn-desapego:hover{
+  opacity:.85;
+}
+
+.hero-video{
+  position:relative;
+  height:300px;
+  overflow:hidden;
+}
+
+.hero-video video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.35);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.hero-overlay h2{
+  color:#fff;
+  font-size:32px;
+  letter-spacing:4px;
+  font-family:'Playfair Display', serif;
+  transform: translateY(-30px);
+}
+
+
+
+
+
+
+
+
+
+</style>
+</head>
+
+<body>
+
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
+<header>
+  <h1>THE BAG ROOM</h1>
+
+  <!-- botão menu -->
+  <div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
+
+  <!-- menu lateral -->
+  <nav class="menu-mobile" id="menuMobile">
+
+    <div class="close-menu" onclick="toggleMenuMobile()">×</div>
+
+    <div class="menu-mobile-inner">
+      <a href="index.html">Início</a>
+      <a href="aluguel.html">Alugar</a>
+      <a href="Como Funciona.html">Como Desapegar</a>
+      <a href="autenticidade.html">Autenticidade</a>
+      <a href="quem-somos.html">Sobre</a>
+      <a href="login.html">Minha Conta </a>
+    </div>
+
+  </nav>
+</header>
+
+<div class="top-space"></div>
+<!-- ========================= -->
+<!-- TÍTULO -->
+<!-- ========================= -->
+<section class="hero-video">
+
+  <video autoplay muted loop playsinline>
+    <source src="videos/bvlgari-serpenti-vermelha-2.mp4" type="video/mp4">
+  </video>
+
+  <div class="hero-overlay">
+    <h2>COMO DESAPEGAR</h2>
+  </div>
+
+</section>
+
+<section class="hero-desapego">
+
+  <p class="frase">
+    Sua bolsa merece um novo capítulo.
+  </p>
+
+  <p class="texto">
+    Nós cuidamos da autenticação,
+    divulgação e venda para você.
+  </p>
+
+  <a href="https://wa.me/5513996904227" class="btn-desapego">
+    Quero vender minha bolsa
+  </a>
+
+</section>
+
+<header>
+  <h1>THE BAG ROOM</h1>
+
+  <!-- botão menu -->
+  <div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
+
+  <!-- menu lateral -->
+  <nav class="menu-mobile" id="menuMobile">
+
+    <div class="close-menu" onclick="toggleMenuMobile()">×</div>
+
+    <div class="menu-mobile-inner">
+      <a href="index.html">Início</a>
+      <a href="aluguel.html">Alugar</a>
+      <a href="Como Funciona.html">Como Desapegar</a>
+      <a href="autenticidade.html">Autenticidade</a>
+      <a href="quem-somos.html">Sobre</a>
+      <a href="login.html">Minha Conta </a>
+    </div>
+
+  </nav>
+</header>
+<!-- CONTEÚDO -->
+<!-- ========================= -->
+<div class="page-wrapper">
+  <div class="content-box">
+
+    <div class="step-card">
+      <h3><span class="step-number">1</span> 💬 Entre em contato</h3>
+      <p>Envie fotos e informações da peça pelo WhatsApp. Avaliamos em até 24h:</p>
+
+      <ul>
+        <li>Marca e modelo</li>
+        <li>Estado de conservação</li>
+        <li>Nota fiscal, cartões, dust bag (opcional)</li>
+      </ul>
+    </div>
+
+    <div class="step-card">
+      <h3><span class="step-number">2</span>🛡️ Autenticidade</h3>
+      <p>Todas as peças passam por análise completa de autenticidade antes de entrarem no catálogo.</p>
+    </div>
+
+    <div class="step-card">
+      <h3><span class="step-number">3</span> 🚚 Envio da peça</h3>
+      <p>Após a avaliação inicial, você envia a peça para nossa curadoria. Cuidamos da conferência, higienização leve e armazenamento seguro.</p>
+    </div>
+
+    <div class="step-card">
+      <h3><span class="step-number">4</span> 📸 Fotos profissionais</h3>
+      <p>Fotografamos sua peça no padrão The Bag Room: fundo clean, iluminação perfeita e foco nos detalhes.</p>
+    </div>
+
+    <div class="step-card">
+      <h3><span class="step-number">5</span> 🛍️ Divulgação & venda</h3>
+      <p>Publicamos no site e nas redes sociais. Nossa equipe cuida de todo atendimento e processo de venda.</p>
+    </div>
+
+    <div class="step-card">
+      <h3><span class="step-number">6</span> 💳 Repasse</h3>
+      <p>Após a venda, o valor é repassado em até <strong>7 dias corridos</strong>.</p>
+    </div>
+
+    <div class="step-card">
+      <h3><span class="step-number">7</span> 💲Comissão</h3>
+      <p>A comissão varia conforme marca e valor, sempre informada antes do envio da peça.</p>
+    </div>
+
+  </div>
+</div>
+
+<a href="https://wa.me/5513996904227?text=Olá!%20Quero%20avaliar%20uma%20peça." class="whats-btn" target="_blank">
+   DESAPEGUE JÁ
+</a>
+
+<!-- ========================= -->
+<!-- SCRIPT DO MENU -->
+<!-- ========================= -->
+<script>
+function toggleMenuMobile() {
+  document.getElementById('menuMobile').classList.toggle('open');
+}
+</script>
+<!-- ========================= -->
+<!-- RODAPÉ -->
+<!-- ========================= -->
+<div class="footer-luxo">
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    PRECISA DE AJUDA?
+    <span>▾</span>
+    <div class="footer-content">
+      Fale conosco pelo WhatsApp<br>
+      (13) 99690-4227
+    </div>
+  </div>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    EMPRESA
+    <span>▾</span>
+    <div class="footer-content">
+      The Bag Room<br>
+      Curadoria, aluguel e consignação de luxo
+    </div>
+  </div>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    ENDEREÇO
+    <span>▾</span>
+    <div class="footer-content">
+      Av. Ana Costa, 471 – Gonzaga<br>
+      Santos – SP
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 The Bag Room<br>
+    Santos – SP
+  </div>
+
+</div>
+
+<script>
+function toggleFooter(el){
+  el.classList.toggle('active');
+}
+</script>
+
+
+
+</body>
+</html>
+
