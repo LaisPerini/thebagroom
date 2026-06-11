@@ -27,7 +27,7 @@
 <!-- VIDEO -->
 <div class="video-bubble" onclick="abrirVideo()">
   <video autoplay muted loop playsinline>
-    <source src="videos/bvlgari-Serpenti-verde.mp4" type="video/mp4">
+    <source src="videos/gucci-rajah.mp4" type="video/mp4">
   </video>
 </div>
 
@@ -35,7 +35,7 @@
   <div class="video-close" onclick="fecharVideo()">✕</div>
 
   <video controls autoplay>
-    <source src="videos/bvlgari-Serpenti-verde.mp4" type="video/mp4">
+    <source src="videos/gucci-rajah.mp4" type="video/mp4">
   </video>
 </div>
 
@@ -718,6 +718,51 @@ opacity:0.75;
     font-size:12px;
     letter-spacing:1px;
     background:white;
+}
+  .video-bubble{
+position:fixed;
+left:20px;
+bottom:100px;
+width:80px;
+height:80px;
+border-radius:50%;
+overflow:hidden;
+cursor:pointer;
+z-index:9999;
+background:#fff;
+box-shadow:0 8px 25px rgba(0,0,0,.18);
+border:2px solid #fff;
+}
+
+.video-bubble video{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.video-modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.85);
+z-index:10000;
+justify-content:center;
+align-items:center;
+}
+
+.video-modal video{
+width:90%;
+max-width:420px;
+border-radius:20px;
+}
+
+.video-close{
+position:absolute;
+top:30px;
+right:30px;
+color:#fff;
+font-size:30px;
+cursor:pointer;
 }
 }
 
