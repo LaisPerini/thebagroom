@@ -131,62 +131,6 @@ gap: 40px;
 margin-top: 80px;
 }
 
-.slider-section {
-padding: 0;
-display: flex;
-justify-content: flex-end;
-flex: 1;
-}
-
-.slider {
-width: 360px;
-height: 330px;
-position: relative;
-overflow: hidden;
-border-radius: 10px;
-box-shadow: 0px 10px 25px rgba(0,0,0,0.18);
-background: #000;
-}
-
-.slides {
-display: flex;
-width: 100%;
-height: 100%;
-transition: transform 0.6s ease-in-out;
-}
-
-.slide {
-min-width: 100%;
-height: 100%;
-}
-
-.slide img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-}
-
-.dots {
-position: absolute;
-bottom: 10px;
-left: 50%;
-transform: translateX(-50%);
-display: flex;
-gap: 6px;
-}
-
-.dot {
-width: 8px;
-height: 8px;
-border-radius: 50%;
-background: rgba(255,255,255,0.5);
-cursor: pointer;
-}
-
-.dot.active {
-background: #ffffff;
-}
-
 /* SEÇÕES */
 .section {
 padding: 80px 16px;
@@ -1106,7 +1050,7 @@ display:none;
 }
 
 .week-card{
-flex:0 0 220px;
+flex:0 0 78px;
 text-decoration:none;
 color:#111;
 scroll-snap-align:start;
@@ -1131,6 +1075,23 @@ font-size:15px;
 color:#666;
 margin:0;
 }
+
+.section-header span{
+font-size:11px;
+letter-spacing:4px;
+text-transform:uppercase;
+color:#888;
+}
+
+.week-price{
+display:inline-block;
+padding:8px 14px;
+border:1px solid #ddd;
+border-radius:999px;
+font-size:13px;
+margin-top:12px;
+}
+
 
 }
 
@@ -1389,31 +1350,6 @@ function toggleFooter(el){
 }
 </script>
 
-<script>
-let currentSlide = 0;
-const slides = document.getElementById('slides');
-const dots = document.querySelectorAll('.dot');
-const totalSlides = dots.length;
-
-function updateSlider() {
-slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-dots.forEach((dot, index) =>
-dot.classList.toggle('active', index === currentSlide)
-);
-}
-
-function goToSlide(index) {
-currentSlide = index;
-updateSlider();
-}
-
-function nextSlide() {
-currentSlide = (currentSlide + 1) % totalSlides;
-updateSlider();
-}
-
-setInterval(nextSlide, 4000);
-</script>
 
 <script>
 function toggleMenuMobile() {
