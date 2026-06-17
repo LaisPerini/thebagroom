@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <!-- Google Analytics -->
@@ -41,9 +41,9 @@
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background:#faf9f7;
+      background: #fff;
       color: var(--ink);
-      font-family: var(--font-serif);
+      font-family: var(--font-sans);
       overflow-x: hidden;
     }
     img, video { display: block; max-width: 100%; }
@@ -66,6 +66,7 @@
     .brand {
       margin: 0;
       color: #111;
+      font-family: var(--font-serif);
       font-size: 20px;
       font-weight: 600;
       letter-spacing: 6px;
@@ -128,6 +129,7 @@
 
     .menu-mobile-inner a {
       color: #000;
+      font-family: var(--font-serif);
       font-size: 19px;
       letter-spacing: 1px;
       text-decoration: none;
@@ -227,15 +229,11 @@
     .section { padding: 80px 16px; text-align: center; }
 
     .about-wrapper {
-      padding: 40px clamp(16px, 3vw, 40px);
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
-      margin-top: 80px;
-      background: var(--porcelain);
-      text-align: left;
+      padding: clamp(52px, 6vw, 76px) 24px;
+      display: block;
+      margin-top: 0;
+      background: #fff;
+      text-align: center;
     }
 
     .section-about h3,
@@ -251,27 +249,32 @@
     .section-about h3 {
       margin-bottom: 16px;
       color: #111;
-      font-size: 40px;
-      line-height: 1.1;
-      text-align: left;
+      font-family: var(--font-sans);
+      font-size: 30px;
+      line-height: 1.2;
+      text-align: center;
     }
 
     .section-about p {
-      width: 100%;
-      margin: 0;
-      color: #111;
-      font-family: var(--font-serif);
-      font-size: 16px;
-      line-height: 1.7;
+      width: min(680px, 100%);
+      margin: 0 auto;
+      color: #555;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.8;
     }
 
     .section-about p + p { margin-top: 20px; }
 
     .about-card {
-      padding: 26px 28px;
-      border: 1px solid rgba(17, 16, 15, 0.11);
-      background: #f4eee6;
-      box-shadow: var(--shadow);
+      width: min(680px, 100%);
+      margin: 44px auto 0;
+      padding: 28px;
+      border-top: 1px solid rgba(17, 16, 15, 0.16);
+      border-bottom: 1px solid rgba(17, 16, 15, 0.16);
+      background: transparent;
+      box-shadow: none;
+      text-align: center;
     }
 
     .about-card span {
@@ -288,28 +291,34 @@
     .about-card p {
       margin: 0;
       color: var(--ink);
-      font-size: clamp(22px, 2.8vw, 30px);
-      font-weight: 500;
-      line-height: 1.18;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.7;
     }
 
     .week-section {
       padding: clamp(70px, 9vw, 108px) 0;
-      background: #eee8df;
+      background: #fff;
     }
 
     .section-header {
       width: min(1120px, calc(100% - 40px));
       margin: 0 auto 34px;
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 24px;
-      border-top: 1px solid rgba(17, 16, 15, 0.14);
-      padding-top: 34px;
+      display: block;
+      padding-bottom: 24px;
+      text-align: center;
     }
 
-    .section-header span,
+    .section-header::after {
+      content: "";
+      display: block;
+      width: 54px;
+      height: 1px;
+      margin: 24px auto 0;
+      background: var(--gold);
+    }
+
+    .section-header > div > span,
     .editorial-content span {
       color: var(--gold);
       font-family: var(--font-sans);
@@ -321,8 +330,12 @@
 
     .section-header h2 {
       margin-top: 10px;
-      font-size: clamp(40px, 6vw, 76px);
-      line-height: 0.95;
+      font-family: var(--font-sans);
+      font-size: clamp(24px, 2.8vw, 32px);
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: .08em;
+      text-transform: uppercase;
     }
 
     .week-products {
@@ -336,32 +349,34 @@
     .week-card {
       position: relative;
       min-width: 0;
-      padding: 12px 12px 20px;
-      background: var(--porcelain);
+      padding: 0 10px 20px;
+      background: #fff;
       color: var(--ink);
       text-decoration: none;
-      border: 1px solid rgba(17, 16, 15, 0.08);
-      box-shadow: 0 14px 44px rgba(17, 16, 15, 0.08);
+      border: 0;
+      box-shadow: none;
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
     .week-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 22px 58px rgba(17, 16, 15, 0.14);
+      transform: translateY(-4px);
+      box-shadow: none;
     }
 
     .week-card img {
       width: 100%;
-      aspect-ratio: 4 / 5;
-      object-fit: cover;
-      background: #ddd;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      background: #f8f8f8;
     }
 
     .week-card h3 {
       margin: 18px 8px 4px;
-      font-size: clamp(30px, 3vw, 40px);
-      font-weight: 600;
-      line-height: 1;
+      font-family: var(--font-sans);
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.3;
+      text-align: center;
     }
 
     .week-card p {
@@ -370,20 +385,328 @@
       font-family: var(--font-sans);
       font-size: 14px;
       line-height: 1.5;
+      text-align: center;
     }
 
-    .week-price {
+    .week-favorite {
+      position: absolute;
+      top: 14px;
+      right: 24px;
+      z-index: 1;
+      font-family: Arial, sans-serif;
+      font-size: 27px;
+      font-weight: 300;
+      line-height: 1;
+    }
+
+
+    .week-more {
+      width: min(1120px, calc(100% - 40px));
+      margin: 34px auto 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .week-more a {
       display: inline-flex;
-      margin: 16px 8px 0;
-      padding: 8px 13px;
-      border: 1px solid rgba(17, 16, 15, 0.12);
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 26px;
+      border: 1px solid rgba(17, 16, 15, 0.72);
       border-radius: 999px;
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+
+    .week-more a:hover {
+      transform: translateY(-2px);
+      background: var(--ink);
+      color: #fff;
+    }
+    .week-price {
+      display: flex;
+      justify-content: center;
+      margin: 8px 8px 0;
+      padding: 0;
+      border: 0;
       color: var(--ink);
       font-family: var(--font-sans);
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.06em;
     }
+
+    .rental-offer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 430px;
+      background: #f2f2f2;
+    }
+
+    .offer-copy {
+      width: min(760px, 100%);
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .offer-copy span,
+    .newsletter-copy span {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .offer-copy h2 {
+      max-width: 420px;
+      margin: 12px 0 10px;
+      font-size: clamp(31px, 4vw, 52px);
+      font-weight: 400;
+      line-height: 1.08;
+    }
+
+    .offer-copy p {
+      margin: 0;
+      color: #555;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .offer-copy a {
+      margin-top: 28px;
+      padding: 13px 28px;
+      background: #111;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .newsletter-section {
+      padding: clamp(72px, 9vw, 112px) 24px;
+      background: #fff;
+    }
+
+    .newsletter-inner {
+      width: min(900px, 100%);
+      margin: 0 auto;
+    }
+
+    .newsletter-copy h2 {
+      margin: 12px 0 20px;
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .newsletter-copy p {
+      max-width: 700px;
+      margin: 0;
+      color: #555;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .newsletter-form {
+      margin-top: 44px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 18px;
+    }
+
+    .newsletter-field label {
+      display: block;
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+
+    .newsletter-field input {
+      width: 100%;
+      padding: 14px 0;
+      border: 0;
+      border-bottom: 1px solid #111;
+      border-radius: 0;
+      outline: none;
+      background: transparent;
+      color: #111;
+      font: inherit;
+      font-size: 19px;
+    }
+
+    .newsletter-form button {
+      min-height: 48px;
+      padding: 0 28px;
+      border: 1px solid #111;
+      background: #111;
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .newsletter-note {
+      margin: 14px 0 0;
+      color: #777;
+      font-size: 11px;
+    }
+
+    .journal-carousel {
+      padding: clamp(44px, 5vw, 64px) 0 clamp(72px, 9vw, 112px);
+      overflow: hidden;
+      background: #111;
+      color: #fff;
+    }
+
+    .journal-carousel-header {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto 34px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255, 255, 255, .28);
+    }
+
+    .journal-carousel-header span {
+      color: #d8c4a3;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .journal-carousel-header h2 {
+      margin: 10px 0 0;
+      font-family: var(--font-sans);
+      font-size: clamp(42px, 7vw, 78px);
+      font-weight: 600;
+      line-height: .98;
+      letter-spacing: 0;
+    }
+
+    .journal-intro {
+      max-width: 520px;
+      margin: 20px 0 0;
+      color: rgba(255, 255, 255, .67);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .journal-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .journal-control {
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255, 255, 255, .55);
+      border-radius: 50%;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      font-size: 22px;
+      line-height: 1;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .journal-control:hover { background: #fff; color: #111; }
+
+    .journal-track {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .journal-track::-webkit-scrollbar { display: none; }
+
+    .journal-card {
+      flex: 0 0 calc((100% - 40px) / 3);
+      min-width: 0;
+      overflow: hidden;
+      scroll-snap-align: start;
+      background: #fff;
+      color: #111;
+      text-decoration: none;
+    }
+
+    .journal-card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      transition: transform .35s ease;
+    }
+
+    .journal-card:hover img { transform: scale(1.025); }
+
+    .journal-card-content { padding: 20px; }
+
+    .journal-card small {
+      color: #777;
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .journal-card h3 {
+      margin: 10px 0 8px;
+      font-size: 19px;
+      font-weight: 500;
+      line-height: 1.35;
+    }
+
+    .journal-card p {
+      margin: 0;
+      color: #666;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .journal-more {
+      margin-top: 34px;
+      text-align: center;
+    }
+
+    .journal-more a {
+      display: inline-flex;
+      min-height: 46px;
+      padding: 0 28px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, .75);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .journal-more a:hover { background: #fff; color: #111; }
 
     #instagram {
       padding: clamp(72px, 9vw, 110px) 20px;
@@ -430,7 +753,9 @@
     }
 
     .luxury-banner {
-      background: radial-gradient(circle at 22% 20%, rgba(168, 130, 75, 0.28), transparent 28%), linear-gradient(135deg, #11100f 0%, #24201c 48%, #080808 100%);
+      background:
+        linear-gradient(rgba(0, 0, 0, .58), rgba(0, 0, 0, .68)),
+        url('https://i.imgur.com/XTanta3.jpg') center / cover no-repeat;
       color: #fff;
     }
 
@@ -616,6 +941,10 @@
     }
 
     @media (max-width: 860px) {
+      body { background: #fff; }
+      .about-wrapper,
+      #instagram { background: #fff; }
+      .week-section { background: #faf9f7; }
       .site-header { min-height: 56px; padding: 14px 16px; }
       .brand { font-size: 20px; letter-spacing: 6px; }
       .hero { height: 48vh; }
@@ -630,10 +959,14 @@
       .hero-text p { font-size: 13px; line-height: 1.45; }
       .button-row { margin-top: 14px; }
       .about-wrapper {
-        grid-template-columns: 1fr;
         margin-top: 40px;
         padding: 40px 16px;
       }
+      .section-about h3 { font-size: 30px; line-height: 1.15; }
+      .section-header h2 { font-size: 22px; line-height: 1.18; }
+      .luxury-banner h2,
+      .editorial-content h2,
+      .vip-section h2 { font-size: 34px; line-height: 1.05; }
       .week-products {
         display: flex;
         overflow-x: auto;
@@ -642,16 +975,27 @@
         padding-bottom: 12px;
       }
       .week-products::-webkit-scrollbar { display: none; }
-      .week-card { flex: 0 0 min(82vw, 360px); scroll-snap-align: start; }
-      .section-header { align-items: start; flex-direction: column; }
+      .week-products { gap: 8px; }
+      .week-card { flex: 0 0 min(46vw, 220px); padding-inline: 4px; scroll-snap-align: start; }
+      .week-favorite { top: 10px; right: 14px; font-size: 23px; }
+      .week-card h3 { font-size: 15px; }
+      .section-header { text-align: center; }
       .menu-mobile { width: 100%; max-width: 320px; min-width: 0; }
       .social-bar { right: 6px; }
+      .rental-offer { min-height: 360px; }
+      .journal-carousel-header { align-items: center; }
+      .journal-card { flex-basis: min(80vw, 340px); }
     }
 
     @media (max-width: 560px) {
       .button-row { align-items: flex-start; flex-direction: row; }
       .btn { width: auto; min-height: 29px; padding: 4px 16px; font-size: 8px; }
       .about-card { padding: 22px; }
+      .section-about h3 { font-size: 28px; }
+      .section-header h2 { font-size: 20px; }
+      .luxury-banner h2,
+      .editorial-content h2,
+      .vip-section h2 { font-size: 31px; }
       .luxury-banner p,
       .editorial-content p,
       .vip-section p,
@@ -673,6 +1017,14 @@
         width: 46px;
         height: 46px;
       }
+      .newsletter-form { grid-template-columns: 1fr; }
+      .newsletter-form button { width: 100%; }
+      .offer-copy { padding: 48px 24px; }
+      .journal-carousel-header { align-items: flex-start; }
+      .journal-carousel-header h2 { font-size: 38px; }
+      .journal-intro { margin-top: 14px; font-size: 13px; }
+      .journal-controls { padding-top: 4px; }
+      .journal-control { width: 38px; height: 38px; }
     }
   </style>
 </head>
@@ -688,7 +1040,7 @@
         <a href="index.html">Início</a>
         <a href="aluguel.html">Alugar Bolsas</a>
         <a href="como-alugar.html">Como Alugar</a>
-        <a href="como-desapegar.html">Como Desapegar</a>
+        <a href="Como Funciona.html">Como Desapegar</a>
         <a href="autenticidade.html">Autenticidade</a>
         <a href="/universo/universo-do-luxo.html">Universo do Luxo</a>
         <a href="quem-somos.html">Sobre</a>
@@ -721,22 +1073,19 @@
         <p>Cada peça é cuidadosamente selecionada, autenticada e apresentada com transparência, oferecendo segurança para quem deseja usar, comprar ou desapegar de forma inteligente.</p>
       </div>
 
-      <aside class="about-card" aria-label="Diferenciais The Bag Room">
-        <span>Autenticidade em primeiro lugar</span>
-        <p>Peças icônicas, processo cuidadoso e atendimento próximo em Santos.</p>
-      </aside>
     </section>
 
     <section class="week-section">
       <div class="section-header">
         <div>
           <span>Curadoria The Bag Room</span>
-          <h2>Disponível para aluguel</h2>
+          <h2>Disponíveis para Alugar</h2>
         </div>
       </div>
 
       <div class="week-products">
         <a href="bvlgari-serpenti-verde.html" class="week-card">
+          <span class="week-favorite" aria-hidden="true">♡</span>
           <img src="https://i.imgur.com/wYj0FjT.jpg" alt="Bolsa Bvlgari Serpenti Forever">
           <h3>Bvlgari</h3>
           <p>Serpenti Forever</p>
@@ -744,6 +1093,7 @@
         </a>
 
         <a href="gucci-rajah.html" class="week-card">
+          <span class="week-favorite" aria-hidden="true">♡</span>
           <img src="https://i.imgur.com/iUrTpzD.jpg" alt="Bolsa Gucci Rajah">
           <h3>Gucci</h3>
           <p>Rajah</p>
@@ -751,11 +1101,25 @@
         </a>
 
         <a href="hermes-vinyl-kelly.html" class="week-card">
+          <span class="week-favorite" aria-hidden="true">♡</span>
           <img src="https://i.imgur.com/Q99KQYI.jpg" alt="Bolsa Hermès Kelly Vinyl">
           <h3>Hermès</h3>
           <p>Kelly Vinyl</p>
           <span class="week-price">A partir de R$ 390</span>
         </a>
+      </div>
+
+      <div class="week-more">
+        <a href="aluguel.html">Ver mais bolsas</a>
+      </div>
+    </section>
+
+    <section class="rental-offer" aria-labelledby="offer-title">
+      <div class="offer-copy">
+        <span>Primeiro aluguel</span>
+        <h2 id="offer-title">5% de desconto na sua primeira bolsa</h2>
+        <p>Escolha sua peça favorita e viva uma nova experiência com o luxo.</p>
+        <a href="aluguel.html">Ver bolsas</a>
       </div>
     </section>
 
@@ -783,12 +1147,68 @@
       </div>
     </section>
 
-    <section class="luxury-editorial">
-      <div class="editorial-content">
-        <span>The Bag Room Journal</span>
-        <h2>Universo do Luxo</h2>
-        <p>Histórias, curiosidades e bastidores das maiores maisons do mundo.</p>
-        <a href="universo-do-luxo.html">Explorar artigos →</a>
+    <section class="journal-carousel" aria-labelledby="journal-title">
+      <div class="journal-carousel-header">
+        <div>
+          <span>The Bag Room Journal</span>
+          <h2 id="journal-title">Universo do Luxo</h2>
+          <p class="journal-intro">Histórias, ícones e bastidores das grandes maisons que inspiram a nossa curadoria.</p>
+        </div>
+        <div class="journal-controls" aria-label="Navegação dos artigos">
+          <button class="journal-control" type="button" onclick="moveJournal(-1)" aria-label="Artigos anteriores">←</button>
+          <button class="journal-control" type="button" onclick="moveJournal(1)" aria-label="Próximos artigos">→</button>
+        </div>
+      </div>
+
+      <div class="journal-track" id="journalTrack">
+        <a class="journal-card" href="https://www.thebagroom.com.br/universo/ano-bolsa-lv.html">
+          <img src="https://i.imgur.com/7LkVgyB.jpg" alt="Detalhe de bolsa Louis Vuitton">
+          <div class="journal-card-content">
+            <small>Louis Vuitton</small>
+            <h3>Como descobrir o ano da sua Louis Vuitton</h3>
+            <p>Entenda os Date Codes e identifique o período de fabricação da sua peça.</p>
+          </div>
+        </a>
+
+        <a class="journal-card" href="https://www.thebagroom.com.br/universo/historia-serpenti.html">
+          <img src="https://i.imgur.com/66B17dN.jpg" alt="Bolsa Bvlgari Serpenti">
+          <div class="journal-card-content">
+            <small>Bvlgari</small>
+            <h3>A história da Bvlgari Serpenti</h3>
+            <p>A coleção que transformou a serpente em um dos maiores símbolos do luxo.</p>
+          </div>
+        </a>
+
+        <a class="journal-card" href="https://www.thebagroom.com.br/universo/historia-hermes.html">
+          <img src="https://i.imgur.com/Wq6OKSf.jpg" alt="Criação da maison Hermès">
+          <div class="journal-card-content">
+            <small>Hermès</small>
+            <h3>A história da Hermès</h3>
+            <p>Da oficina de selaria à maison mais desejada do mundo.</p>
+          </div>
+        </a>
+
+        <a class="journal-card" href="https://www.thebagroom.com.br/universo/historia-chanel.html">
+          <img src="https://i.imgur.com/AZAst4f.jpg" alt="História da Chanel">
+          <div class="journal-card-content">
+            <small>Chanel</small>
+            <h3>A história da Chanel</h3>
+            <p>Como Coco Chanel revolucionou a moda feminina.</p>
+          </div>
+        </a>
+
+        <a class="journal-card" href="https://www.thebagroom.com.br/universo/fendi-zucchino.html">
+          <img src="https://i.imgur.com/Vb3WBvF.jpg" alt="Estampa Fendi Zucchino">
+          <div class="journal-card-content">
+            <small>Fendi</small>
+            <h3>O ícone Fendi Zucchino</h3>
+            <p>A origem de um dos monogramas mais famosos da moda.</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="journal-more">
+        <a href="https://www.thebagroom.com.br/universo/universo-do-luxo.html">Explorar artigos</a>
       </div>
     </section>
 
@@ -797,6 +1217,24 @@
         <h2>Grupo VIP</h2>
         <p>Receba novas peças antes da publicação no site e tenha acesso prioritário às novidades.</p>
         <a href="https://chat.whatsapp.com/SEULINK" target="_blank" rel="noopener">Entrar no grupo →</a>
+      </div>
+    </section>
+
+    <section class="newsletter-section" aria-labelledby="newsletter-title">
+      <div class="newsletter-inner">
+        <div class="newsletter-copy">
+          <span>Novidades The Bag Room</span>
+          <h2 id="newsletter-title">Entre para o nosso universo</h2>
+          <p>Receba em primeira mão novas bolsas, conteúdos e condições especiais.</p>
+        </div>
+        <form class="newsletter-form" id="newsletterForm">
+          <div class="newsletter-field">
+            <label for="newsletterEmail">E-mail</label>
+            <input id="newsletterEmail" name="email" type="email" autocomplete="email" placeholder="Insira seu e-mail" required>
+          </div>
+          <button type="submit">Cadastrar</button>
+        </form>
+        <p class="newsletter-note">Ao cadastrar, você será direcionada ao WhatsApp para confirmar sua inscrição.</p>
       </div>
     </section>
   </main>
@@ -878,6 +1316,28 @@
         console.log('Autoplay bloqueado');
       }
     });
+
+    document.getElementById('newsletterForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const email = document.getElementById('newsletterEmail').value.trim();
+      if (!email) return;
+      const message = encodeURIComponent(`Olá! Quero receber as novidades da The Bag Room. Meu e-mail é ${email}.`);
+      window.open(`https://wa.me/5513996904227?text=${message}`, '_blank', 'noopener');
+    });
+
+    function moveJournal(direction) {
+      const track = document.getElementById('journalTrack');
+      const card = track && track.querySelector('.journal-card');
+      if (!track || !card) return;
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
+      track.scrollBy({ left: direction * (card.getBoundingClientRect().width + gap), behavior: 'smooth' });
+    }
   </script>
 </body>
 </html>
+
+
+
+
+
+
