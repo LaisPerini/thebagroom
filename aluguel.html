@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <!-- Google Analytics -->
@@ -12,7 +12,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Alugue bolsas de luxo autênticas das principais marcas do mundo. Louis Vuitton, Gucci, Saint Laurent e muito mais.">
+<meta name="description" content="Alugue bolsas de luxo autÃªnticas das principais marcas do mundo. Louis Vuitton, Gucci, Saint Laurent e muito mais.">
 <title>Aluguel de Bolsas de Luxo | The Bag Room</title>
 
 <link rel="icon" sizes="32x32" href="favicon.png">
@@ -119,7 +119,6 @@ margin-top:36px;
 .card{
 text-decoration:none;
 color:inherit;
-display:block;
 transition:transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 display:flex;
 flex-direction:column;
@@ -143,7 +142,7 @@ transition:transform 0.45s ease;
 transform:scale(0.97);
 }
 
-/* nome e preço */
+/* nome e preÃ§o */
 .nome{
 margin-top:12px;
 margin-bottom:4px;
@@ -193,7 +192,7 @@ color:#111;
 text-decoration:none;
 }
 
-/* animação entrada */
+/* animaÃ§Ã£o entrada */
 @keyframes fadeUp{
 from{
 opacity:0;
@@ -210,7 +209,7 @@ transform:translateY(0);
 .hero .nome{font-size:17px;}
 }
 
-/* BOTÃO MENU */
+/* BOTÃƒO MENU */
 .menu-mobile-btn{
 position:absolute;
 left:16px;
@@ -320,7 +319,7 @@ font-weight:400;
 margin-top:2px;
 }
 
-/* PREÇO MAIS IMPORTANTE */
+/* PREÃ‡O MAIS IMPORTANTE */
 .preco{
 font-family:'Inter';
 font-size :14px;
@@ -476,7 +475,7 @@ background:#ddd;
 border-radius:10px;
 outline:none;
 margin-top:10px;
-/* 👇 ESSENCIAL */
+/* ðŸ‘‡ ESSENCIAL */
 touch-action: pan-x;
 }
 
@@ -567,7 +566,7 @@ transform:rotate(-90deg);
     margin-top:0;
   }
 
-  /* 🔥 CONTROLE REAL DO TAMANHO */
+  /* ðŸ”¥ CONTROLE REAL DO TAMANHO */
   .img-box.slider{
     max-width:380px;
     margin:0 auto;
@@ -616,16 +615,16 @@ transform:rotate(-90deg);
 <header>
   <h1>THE BAG ROOM</h1>
 
-  <!-- botão menu -->
-  <div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
+  <!-- botÃ£o menu -->
+  <div class="menu-mobile-btn" onclick="toggleMenuMobile()">â˜°</div>
 
   <!-- menu lateral -->
   <nav class="menu-mobile" id="menuMobile">
 
-    <div class="close-menu" onclick="toggleMenuMobile()">×</div>
+    <div class="close-menu" onclick="toggleMenuMobile()">Ã—</div>
 
     <div class="menu-mobile-inner">
-      <a href="index.html">Início</a>
+      <a href="index.html">InÃ­cio</a>
  <a href="aluguel.html">Alugar Bolsas</a>
       <a href="como-alugar.html">Como Alugar </a>
       <a href="Como Funciona.html">Como Desapegar</a>
@@ -665,8 +664,8 @@ transform:rotate(-90deg);
 <div class="filtro-modal" id="filtroModal">
 
   <div class="filtro-header">
-    <h3>☰ Filtrar</h3>
-    <span onclick="abrirFiltro()">✕</span>
+    <h3>â˜° Filtrar</h3>
+    <span onclick="abrirFiltro()">âœ•</span>
   </div>
 
   <div class="filtro-content">
@@ -675,7 +674,7 @@ transform:rotate(-90deg);
 <div class="grupo fechado">
 
   <h4 onclick="toggleGrupo(this)">
-    Marca <span>⌄</span>
+    Marca <span>âŒ„</span>
   </h4>
 
   <div class="conteudo">
@@ -687,7 +686,7 @@ transform:rotate(-90deg);
     <label><input type="checkbox" value="Marc Jacobs" class="filtro-marca"> Marc Jacobs</label>
     <label><input type="checkbox" value="Kate Spade" class="filtro-marca"> Kate Spade</label>
     <label><input type="checkbox" value="Coach" class="filtro-marca"> Coach</label>
-    <label><input type="checkbox" value="Hermès" class="filtro-marca"> Hermès</label>
+    <label><input type="checkbox" value="HermÃ¨s" class="filtro-marca"> HermÃ¨s</label>
   </div>
 
 </div>
@@ -696,7 +695,7 @@ transform:rotate(-90deg);
 <div class="grupo fechado">
 
   <h4 onclick="toggleGrupo(this)">
-    Cores <span>⌄</span>
+    Cores <span>âŒ„</span>
   </h4>
 
   <div class="conteudo">
@@ -713,7 +712,7 @@ transform:rotate(-90deg);
 </div>
     
     <div class="grupo">
-  <h4>Preço até: <span id="valorPreco">R$ 2000</span></h4>
+  <h4>PreÃ§o atÃ©: <span id="valorPreco">R$ 2000</span></h4>
 
 <input 
   type="range" 
@@ -733,12 +732,12 @@ transform:rotate(-90deg);
 
 <div class="barra-filtros">
 
-  <button onclick="abrirFiltro()">☰ Filtrar</button>
+  <button onclick="abrirFiltro()">â˜° Filtrar</button>
 
   <select onchange="ordenarProdutos(this.value)">
     <option value="">Ordenar</option>
-    <option value="menor">Menor preço</option>
-    <option value="maior">Maior preço</option>
+    <option value="menor">Menor preÃ§o</option>
+    <option value="maior">Maior preÃ§o</option>
   </select>
 
 </div>
@@ -751,7 +750,7 @@ class="card"
 data-marca="Bvlgari"
 data-cor="Verde">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
     <img src="https://i.imgur.com/Oj314YO.jpg">
   </div>
   <div class="nome">
@@ -763,7 +762,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/gucci-rajah.html" class="card" data-marca="Gucci" data-cor="Branco">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
     <img src="https://i.imgur.com/iUrTpzD.jpg">
   </div>
   <div class="nome">
@@ -773,13 +772,13 @@ data-cor="Verde">
   <div class="preco">A partir de R$ 490</div>
 </a>
 
-<a href="https://www.thebagroom.com.br/hermes-vinyl-kelly.html" class="card" data-marca="Hermès" data-cor="Laranja">
+<a href="https://www.thebagroom.com.br/hermes-vinyl-kelly.html" class="card" data-marca="HermÃ¨s" data-cor="Laranja">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
 <img src="https://i.imgur.com/Q99KQYI.jpg">
   </div>
   <div class="nome">
-    <span class="marca">Hermès</span>
+    <span class="marca">HermÃ¨s</span>
     <span class="modelo">Vinyl Kelly Exhibition Tote 1998</span>
   </div>
   <div class="preco">A partir de R$ 490</div>
@@ -787,7 +786,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/bvlgari-serpenti-branca.html" class="card" data-marca="Bvlgari" data-cor="Branco">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
     <img src="https://i.imgur.com/A2FaCOI.jpg">
   </div>
   <div class="nome">
@@ -799,19 +798,19 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/bvlgari-micro-roxa.html" class="card" data-marca="Bvlgari" data-cor="Lilas">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
     <img src="https://i.imgur.com/egP1XxV.jpg">
   </div>
   <div class="nome">
     <span class="marca">Bvlgari</span>
-    <span class="modelo">Serpenti Forever Micro Lilás</span>
+    <span class="modelo">Serpenti Forever Micro LilÃ¡s</span>
   </div>
   <div class="preco">A partir de R$ 390</div>
 </a>
 
 <a href="https://www.thebagroom.com.br/gucci-sylvie-star.html" class="card" data-marca="Gucci" data-cor="Preto">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
 <img src="https://i.imgur.com/WLn7IbA.jpg">
   </div>
   <div class="nome">
@@ -823,7 +822,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/gucci-dionysus-super-mini-python.html" class="card" data-marca="Gucci" data-cor="Verde">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
 <img src="https://i.imgur.com/CQgYNzK.jpg">
   </div>
   <div class="nome">
@@ -835,7 +834,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/bvlgari-micro-amarela.html" class="card" data-marca="Bvlgari" data-cor="Amarelo">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
 <img src="https://i.imgur.com/uKmvItm.jpg">
   </div>
   <div class="nome">
@@ -848,7 +847,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/fendi-zucchino.html" class="card" data-marca="Fendi" data-cor="Marrom">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
 <img src="https://i.imgur.com/fFn9bOz.jpg">
   </div>
   <div class="nome">
@@ -860,7 +859,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/dolce-gabbana-devotion-box.html" class="card" data-marca="Dolce Gabbana" data-cor="Marrom">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
 <img src="https://i.imgur.com/RAJHFek.jpg">
   </div>
   <div class="nome">
@@ -872,7 +871,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/carolinaherreira-insignia.html" class="card" data-marca="Carolina Herrera" data-cor="Rosa">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
     <img src="https://i.imgur.com/yDKUbXX.jpg">
   </div>
   <div class="nome">
@@ -885,7 +884,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/bvlgari-serpenti-vermelha.html" class="card" data-marca="Bvlgari" data-cor="Vermelho">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
     <img src="https://i.imgur.com/8GdXEuT.jpg"">
   </div>
   <div class="nome">
@@ -897,7 +896,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/coach-tabby-chain-19.html" class="card" data-marca="Coach" data-cor="Preto">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
 <img src="https://i.imgur.com/Vw8sxhs.jpg">
   </div>
   <div class="nome">
@@ -909,7 +908,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/marcjacobs.html" class="card" data-marca="Marc Jacobs" data-cor="Preto">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
     <img src="https://i.imgur.com/t38otvi.jpg">
   </div>
   <div class="nome">
@@ -922,7 +921,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/coach-28-brooklyn.html" class="card" data-marca="Coach" data-cor="Marrom">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
     <img src="https://i.imgur.com/Mg8j9dZ.jpg">
   </div>
   <div class="nome">
@@ -934,7 +933,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/katespade-carey.html" class="card" data-marca="Kate Spade" data-cor="Branco">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
 <img src="https://i.imgur.com/b9aeszv.jpg">
   </div>
   <div class="nome">
@@ -947,7 +946,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/katespade-turnlock.html" class="card" data-marca="Kate Spade" data-cor="Rosa">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
     <img src="https://i.imgur.com/WQrPzBg.jpg">
   </div>
   <div class="nome">
@@ -959,7 +958,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/fendi-2jours.html" class="card" data-marca="Fendi" data-cor="Marrom">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
 <img src="https://i.imgur.com/bUaENpx.jpg">
   </div>
   <div class="nome">
@@ -971,7 +970,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/katespade-carey-tisel-tweed-medium.html" class="card" data-marca="Kate Spade" data-cor="Branco">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
     <img src="https://i.imgur.com/GTusdro.jpg">
   </div>
   <div class="nome">
@@ -983,7 +982,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/katespade-carey-tissel-tweed-micro.html" class="card" data-marca="Kate Spade" data-cor="Branco">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
     <img src="https://i.imgur.com/b1odo1O.jpg">
   </div>
   <div class="nome">
@@ -995,7 +994,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/katespade-duet-floral-crossbody.html" class="card" data-marca="Kate Spade" data-cor="Multicolorido">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
 <img src="https://i.imgur.com/I01DeS3.jpg">
   </div>
   <div class="nome">
@@ -1007,7 +1006,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/katespade-casey-bear-tweed.html" class="card" data-marca="Kate Spade" data-cor="Marrom">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
 <img src="https://i.imgur.com/zelSOS6.jpg">
   </div>
   <div class="nome">
@@ -1019,7 +1018,7 @@ data-cor="Verde">
 
 <a href="https://www.thebagroom.com.br/mk-jetset.html" class="card" data-marca="Michael Kors" data-cor="Preto">
   <div class="img-box">
-    <span class="tag">Disponível</span>
+    <span class="tag">DisponÃ­vel</span>
 <img src="https://i.imgur.com/W4WLNou.jpg">
   </div>
   <div class="nome">
@@ -1038,7 +1037,7 @@ data-cor="Verde">
 
   <div class="footer-item" onclick="toggleFooter(this)">
     PRECISA DE AJUDA?
-    <span>▾</span>
+    <span>â–¾</span>
     <div class="footer-content">
       Fale conosco pelo WhatsApp<br>
       (13) 99690-4227
@@ -1047,25 +1046,25 @@ data-cor="Verde">
 
   <div class="footer-item" onclick="toggleFooter(this)">
     EMPRESA
-    <span>▾</span>
+    <span>â–¾</span>
     <div class="footer-content">
       The Bag Room<br>
-      Curadoria, aluguel e consignação de luxo
+      Curadoria, aluguel e consignaÃ§Ã£o de luxo
     </div>
   </div>
 
   <div class="footer-item" onclick="toggleFooter(this)">
-    ENDEREÇO
-    <span>▾</span>
+    ENDEREÃ‡O
+    <span>â–¾</span>
     <div class="footer-content">
-      Av. Ana Costa, 471 – Gonzaga<br>
-      Santos – SP
+      Av. Ana Costa, 471 â€“ Gonzaga<br>
+      Santos â€“ SP
     </div>
   </div>
 
   <div class="footer-bottom">
-    © 2026 The Bag Room<br>
-    Santos – SP
+    Â© 2026 The Bag Room<br>
+    Santos â€“ SP
   </div>
 
 </div>
@@ -1128,11 +1127,11 @@ function limparFiltros(){
   // limpa checkboxes
   document.querySelectorAll('input[type=checkbox]').forEach(i => i.checked = false);
 
-  // reseta preço
+  // reseta preÃ§o
   const range = document.getElementById('rangePreco');
   const valor = document.getElementById('valorPreco');
 
-  range.value = 1000; // ou o máximo que você definiu
+  range.value = 1000; // ou o mÃ¡ximo que vocÃª definiu
   valor.innerText = "R$ " + range.value;
 
   aplicarFiltros();
@@ -1201,10 +1200,6 @@ function toggleGrupo(titulo){
   grupo.classList.toggle('fechado');
 }
 
-document.getElementById('overlay').addEventListener('click', () => {
-  document.getElementById('filtroModal').classList.remove('open');
-  document.getElementById('overlay').classList.remove('active');
-});
 
 const overlay = document.getElementById('overlay');
 
@@ -1219,3 +1214,6 @@ if(overlay){
 
 </body>
 </html>
+
+
+
