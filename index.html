@@ -1,1364 +1,883 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KPVTBY5VK8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-KPVTBY5VK8');
-</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Aluguel de bolsas de luxo autênticas. Gucci, Hermès, Louis Vuitton, Bvlgari , Dolce Gabbana e outras marcas icônicas. Alugue, venda e desapegue com segurança na The Bag Room.">
-<title>Aluguel de Bolsas de Luxo | The Bag Room</title>
-
-<link rel="icon" sizes="32x32" href="favicon.png">
-<link rel="icon" sizes="192x192" href="favicon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
-
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-
-<style>
-
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-body{
-margin:0;
-background:#f5f4f2;
-font-family:'Playfair Display', serif;
-color:#111;
-}
-
-/* HEADER */
-header{
-padding:18px;
-display:flex;
-justify-content:center;
-background:rgba(255,255,255,0.95);
-position:fixed;
-width:100%;
-border-bottom:1px solid #eee;
-z-index:999;
-}
-
-header h1{
-letter-spacing:6px;
-font-size:20px;
-margin:0;
-}
-
-.top-space{height:70px;}
-
-.container{
-max-width:900px;
-margin:auto;
-padding:20px;
-animation:fadeUp 0.6s ease;
-}
-
-/* HERO BANNER */
-.hero {
-  position: relative;
-  width: 100%;
-  height: 90vh; /* altura do banner */
-  overflow: hidden;
-}
-
-.hero-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* cobre a tela */
-  transform: translate(-50%, -50%);
-}
-
-
-
-.hero::after {
-content: "";
-position: absolute;
-top: 0; left: 0;
-width: 100%; height: 100%;
-background: rgba(0,0,0,0.30);
-}
-
-.hero-text {
-position: absolute;
-top: 50%;
-left:50px;
-right:auto;
-font-weight: 500;
-z-index: 3;
-color: white;
-text-align: absolute;
-margin-top: 120px;
-}
-
-.hero-text h2 {
-  font-size: 15px;
-  font-weight: 600;
-  color: #fff;
-  text-shadow: 0 4px 16px rgba(0,0,0,0.7);
-  text-align: absolute;
-}
-
-.hero-text p {
-font-size: 16px;
-margin-top: 10px;
-opacity: 0.8;
-}
-
-.internal-title {
-  width: 100%;
-}
-
-
-/* ========= BLOCO SLIDER + SOBRE ========= */
-.about-wrapper {
-padding: 40px clamp(16px, 3vw, 40px);
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 40px;
-margin-top: 80px;
-}
-
-/* SEÇÕES */
-.section {
-padding: 80px 16px;
-text-align: center;
-}
-
-.section h3 {
-font-family: 'Cormorant Garamond', serif;
-font-size: 40px;
-margin-bottom: 20px;
-}
-
-.section p {
-width: 70%;
-margin: auto;
-line-height: 1.7;
-font-size: 16px;
-}
-
-u
-
-.section-about h3 {
-text-align: left;
-margin-bottom: 16px;
-}
-
-.section-about p {
-width: 100%;
-margin: 0;
-}
-
-/* ========== FUNDO PRETO GRADIENTE NA SEÇÃO COMO DESAPEGAR ========== */
-.section.desapegar-bg {
-  width: 100%;
-  background: linear-gradient(to bottom, #030303, #363636);
-  color: #ffffff;
-  padding: 80px 0 100px;
-}
-
-
-/* PASSO A PASSO */
-.steps-flow {
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-gap: 14px;
-margin-top: 30px;
-}
-
-.step-card {
-background: #f0eeee;
-border-radius: 18px;
-border: 1px solid #b6b5b5ab;
-padding: 10px 10px;
-width: 220px;
-box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-display: flex;
-flex-direction: column;
-gap: 6px;
-font-size: 14px;
-}
-
-.step-card-header {
-display: flex;
-align-items: center;
-gap: 10px;
-margin-bottom: 4px;
-}
-
-.step-card-number {
-width: 28px;
-height: 28px;
-border-radius: 999px;
-background: #000;
-color: #fff;
-font-weight: 700;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-.step-card-title {
-font-weight: 600;
-color: #111;
-font-family: 'Inter', sans-serif;
-}
-
-.step-card-text {
-line-height: 1.3;
-color: #111;
-font-family: 'Inter', sans-serif;
-}
-
-.step-arrow {
-align-self: center;
-font-size: 36px;
-color: rgb(255, 255, 255);
-}
-
-.footer-luxo {
-  margin-top: 80px;
-  border-top: 1px solid #eaeaea;
-  font-family: 'Inter', sans-serif;
-}
-
-.footer-item {
-  padding: 20px;
-  border-bottom: 1px solid #eaeaea;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  letter-spacing: 1px;
-}
-
-.footer-item span {
-  opacity: 0.6;
-}
-
-.footer-content {
-  display: none;
-  padding-top: 10px;
-  font-size: 13px;
-  color: #555;
-  line-height: 1.6;
-  margin-left:120px;
-}
-
-.footer-item.active .footer-content {
-  display: block;
-}
-
-.footer-bottom {
-  padding: 30px 20px;
-  font-size: 12px;
-  color: #777;
-  text-align: center;
-}
-
-/* =============================== */
-/* SOCIAL BAR FLUTUANTE */
-/* =============================== */
-
-.social-bar {
-position: fixed;
-right: 10px;
-top: 50%;
-transform: translateY(-50%);
-display: flex;
-flex-direction: column;
-gap: 14px;
-z-index: 99999;
-}
-
-.social-bar a {
-background: #ffffff;
-padding: 10px;
-border-radius: 50%;
-width: 46px;
-height: 46px;
-display: flex;
-align-items: center;
-justify-content: center;
-box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-border: 1px solid #ddd;
-animation: float 4s ease-in-out infinite;
-transition: 0.2s;
-}
-
-.social-bar a:hover {
-transform: scale(1.1);
-box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-}
-
-
-@keyframes float {
-0% { transform: translateY(0); }
-50% { transform: translateY(-8px); }
-100% { transform: translateY(0); }
-}
-
-.social-bar img {
-width: 24px;
-height: 24px;
-}
-
-/* BOTÃO HAMBÚRGUER */
-.menu-mobile-btn{
-position:absolute;
-left:16px;
-top:50%;
-transform:translateY(-50%);
-font-size:22px;
-cursor:pointer;
-}
-
-/* MENU LATERAL */
-.menu-mobile {
-  position: fixed;
-  top: 0;
-  left: -100%;
-  width: 30%;
-  height: 100vh;
-  background: rgba(255,255,255,0.98);
-  backdrop-filter: blur(14px);
-  box-shadow: -6px 0 20px rgba(0,0,0,0.15);
-  transition: 0.35s ease;
-  z-index: 2001;
-  padding-top: 120px;
-}
-
-
-
-/* CONTEÚDO DO MENU */
-/* LINKS */
-.menu-mobile-inner{
-display:flex;
-flex-direction:column;
-gap:26px;
-padding-left:30px;
-}
-
-.menu-mobile-inner a{
-font-family:'Cormorant Garamond', serif;
-font-size:22px;
-letter-spacing:1px;
-text-decoration:none;
-color:#000;
-transition:0.3s;
-}
-
-.menu-mobile-inner a:hover{
-opacity:0.6;
-}
-
-/* MENU ABERTO */
-.menu-mobile.open {
-  left: 0;
-}
-
-/* BOTÃO “X” PARA FECHAR */
-.close-menu {
-  position: absolute;
-  top: 26px;
-  right: 30px;
-  font-size: 34px;
-  cursor: pointer;
-  color: #000;
-  z-index: 2004;
-  user-select: none;
-  opacity: 0.8;
-}
-
-.close-menu:hover {
-  opacity: 0.5;
-}
-
-
-/* CONTEÚDO DO MENU */
-.menu-mobile-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  padding-left: 40px;
-}
-
-.menu-mobile-inner a {
-  font-size: 19px;
-  text-decoration: none;
-  color: #000;
-  font-family: 'Cormorant Garamond', serif;
-  letter-spacing: 1px;
-  transition: 0.3s;
-}
-
-.menu-mobile-inner a:hover {
-  opacity: 0.6;
-}
-
-/* MENU ABERTO */
-.menu-mobile.open {
-  left: 0;
-}
-
-.whats-btn {
-  display: inline-block;
-  background-color: #000;
-  color: #fff;
-  padding: 4px 32px;
-  border-radius: 40px;
-  letter-spacing: 1px;
-  font-size: 10px;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.whats-btn:hover {
-  background-color: #1a1a1a;
-  transform: scale(1.04);
-}
-
-#instagram {
-  text-align: center;
-  padding: 80px 0;
-  background: #faf9f7;
-  margin-top: 10px;
-}
-
-.insta-title {
-  font-size: 30px;
-  letter-spacing: 6px;
-  margin-bottom: 40px;
-  color: #000;
-}
-
-/* ============================
-   FEED HORIZONTAL - EMBEDSOCIAL
-=============================== */
-
-.embedsocial-hashtag {
-  width: 100% !important;
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
-  display: flex !important;
-  justify-content: center !important;
-}
-
-/* container principal */
-.embedsocial-hashtag .es-hashtag-feed {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  gap: 20px !important;
-}
-
-/* cada post */
-.embedsocial-hashtag .es-hashtag-feed-item {
-  min-width: 300px !important;
-  max-width: 300px !important;
-  flex-shrink: 0 !important;
-}
-
-/* remover textos extras */
-.embedsocial-hashtag .es-header,
-.embedsocial-hashtag .es-load-more,
-.embedsocial-hashtag .es-caption {
-  display: none !important;
-}
-
-
-
-
-
-/* RESPONSIVO */
-/* AJUSTES ESPECÍFICOS PARA CELULAR PEQUENO */
-@media (max-width: 600px) {
-
-body {
-width: 100% ;  
-margin: 0;
-background: #faf9f7;
-color: #000000;
-font-family:'Playfair Display', serif;
-overflow-x: auto;
-overflow-y: auto;
-}
-
-.container {
-  max-width: 1200px;   /* controla a “largura visual” */
-  margin: 0 auto;
- padding: 0 clamp(16px, 3vw, 40px);
-}
-
-
-/* MENU */
-header {
-width: 100%;
-padding: 20px clamp(10px, 1vw, 30px);
-display: flex;
-justify-content: center;
-align-items: center;
-background: rgba(255, 255, 255, 0.979);
-position: fixed;
-backdrop-filter: blur(8px);
-z-index: 999;
-border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-
-header h1{
-letter-spacing:6px;
-font-size:20px;
-margin:0;
-}
-
-/* HERO BANNER */
-.hero {
-width: 100%;
-height: 45vh;
-/*background-image: url('https://i.imgur.com/T97Bcx9.jpeg');*/
-background-size: cover;
-background-position: center;
-display: flex;
-align-items: center;
-justify-content: center;
-position: relative;
-}
-
-.hero::after {
-content: "";
-position: absolute;
-top: 0; left: 0;
-width: 100%; height: 100%;
-background: rgba(0,0,0,0.30);
-}
-
-
-.hero-text {
-padding-left: 10px;
-position: absolute;
-top: 20%;
-right:20%;
-font-weight: 500;
-z-index: 3;
-color: white;
-text-align: absolute;
-margin-top: 100px;
-font-family: 'Inter', sans-serif;
-}
-
-.hero-text h2 {
-  font-size: 12px;
-  font-weight: 600;
-  color: #fff;
-  text-shadow: 0 4px 16px rgba(0,0,0,0.7);
-  text-align: absolute;
-}
-
-.hero-text p {
-font-size: 10px;
-margin-top: 10px;
-opacity: 0.8;
-}
-
-.internal-title {
-  width: 100%;
-}
-
-
-/* ========= BLOCO SLIDER + SOBRE ========= */
-.about-wrapper {
-padding: 20px 16px 0;
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 40px;
-margin-top: 40px;
-}
-
-.slider-section {
-padding: 0;
-display: flex;
-justify-content: flex-end;
-flex: 1;
-}
-
-.slider {
-width: 240px;
-height: 220px;
-position: relative;
-overflow: hidden;
-border-radius: 10px;
-box-shadow: 0px 10px 25px rgba(0,0,0,0.18);
-background: #000;
-}
-
-.slides {
-display: flex;
-width: 100%;
-height: 100%;
-transition: transform 0.6s ease-in-out;
-}
-
-.slide {
-min-width: 100%;
-height: 100%;
-}
-
-.slide img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-}
-
-.dots {
-position: absolute;
-bottom: 10px;
-left: 50%;
-transform: translateX(-50%);
-display: flex;
-gap: 6px;
-}
-
-.dot {
-width: 8px;
-height: 8px;
-border-radius: 50%;
-background: rgba(255,255,255,0.5);
-cursor: pointer;
-}
-
-.dot.active {
-background: #ffffff;
-}
-
-/* SEÇÕES */
-.section {
-padding: 80px 16px;
-text-align: center;
-}
-
-.section h3 {
-font-size: 40px;
-margin-bottom: 20px;
-}
-
-.section p {
-width: 70%;
-margin: auto;
-line-height: 1.7;
-font-size: 16px;
-}
-
-.section-about {
-flex: 1;
-text-align: left;
-padding: 0;
-margin-top: -50px;
-}
-
-.section-about h3 {
-text-align: left;
-margin-bottom: 16px;
-}
-
-.section-about p {
-width: 100%;
-margin: 50;
-}
-
-
-
-  /* BOTÃO HAMBÚRGUER */
-.menu-mobile-btn{
-position:absolute;
-left:16px;
-top:50%;
-transform:translateY(-50%);
-font-size:22px;
-cursor:pointer;
-}
-
-/* MENU LATERAL */
-.menu-mobile {
-  position: fixed;
-  top: 0;
-  left: -100%;
-  width: 40%;
-  height: 100vh;
-  background: rgba(255,255,255,0.98);
-  backdrop-filter: blur(14px);
-  box-shadow: -6px 0 20px rgba(0,0,0,0.15);
-  transition: 0.35s ease;
-  z-index: 2001;
-  padding-top: 120px;
-}
-
-/* LINKS */
-.menu-mobile-inner{
-display:flex;
-flex-direction:column;
-gap:26px;
-padding-left:30px;
-}
-
-.menu-mobile-inner a{
-font-family:'Cormorant Garamond', serif;
-font-size:22px;
-letter-spacing:1px;
-text-decoration:none;
-color:#000;
-transition:0.3s;
-}
-
-.menu-mobile-inner a:hover{
-opacity:0.6;
-}
-
-/* MENU ABERTO */
-.menu-mobile.open {
-  left: 0;
-}
-
-  .section.desapegar-bg {
-    width: 100%;
-    margin: 0 auto;
-   padding-left: 16px;
-   padding-right: 16px;
-  }
-
-  .desapegar-container {
-  font-family: 'Inter', sans-serif;
-  margin: 0 auto;
-  padding: 0 16px;
-}
-
-
-.about-wrapper {
-flex-direction: column;
-padding: 20px 16px 0;
-}
-
-header {
-padding: 14px 16px;
-height: 56px;
-}
-
-.about-wrapper{
-  padding: 40px 16px;
-}
-
-.section{
-  padding: 60px 16px;
-}
-
-.section p {
-  width: 100%;
-}
-
-.section.desapegar-bg{
-padding-top: 70px;
-padding-bottom: 90px;
-}
-
-.section.desapegar-bg h3 {
-font-size: 32px;
-margin-bottom: 30px;
-}
-
-.social-bar{
-  right: 6px;
-}
-
-
-.menu-mobile{
-  width: 100%;
-  max-width: 320px;
-}
-
-header h1{
-letter-spacing:6px;
-font-size:20px;
-margin:0;
-}
-
-.whats-btn {
-  display: inline-block;
-  background-color: #000;
-  color: #fff;
-  padding: 14px 32px;padding: 4px 32px;
-  border-radius: 40px;
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: 1px;
-  font-size: 8px;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.whats-btn:hover {
-  background-color: #1a1a1a;
-  transform: scale(1.04);
-}
-
-/* ==========================
-   FEED INSTAGRAM - SLIDER
-========================== */
-
-.embedsocial-hashtag {
-  display: flex !important;
-  justify-content: center !important;
-  width: 100% !important;
-  margin-top: 20px;
-  overflow: hidden !important;
-  margin-top: -50px;
-}
-
-/* remover branding EmbedSocial */
-.embedsocial-hashtag .es-widget-branding {
-  display: none !important;
-}
-
-/* padrão desktop */
-.embedsocial-hashtag .es-slider-item {
-  min-width: -10% !important;
-  max-width: -10% !important;
-  margin: 0 10px !important;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-/* tablet */
-@media (max-width: 1024px) {
-  .embedsocial-hashtag .es-slider-item {
-    min-width: 30% !important;
-    max-width: 30% !important;
-  }
-}
-
-/* mobile — 2 posts */
-@media (max-width: 600px) {
-  .embedsocial-hashtag .es-slider-item {
-    min-width: 46% !important;
-    max-width: 46% !important;
-    margin: 0 6px !important;
-  }
-}
-
-.insta-title {
-  font-size: 18px;
-  letter-spacing: 4px;
-  margin-bottom: 40px;
-  margin-top: -50px;
-  color: #000;
-}
-
-
-.luxury-banner{
-  background:#181818;
-  color:#fff;
-  padding:70px 30px;
-  margin:60px 0;
-}
-
-.luxury-banner-content{
-  max-width:900px;
-  margin:0 auto;
-}
-
-.luxury-banner h2{
-  font-family:'Playfair Display',serif;
-  font-size:42px;
-  font-weight:500;
-  line-height:1.1;
-  margin-bottom:20px;
-  color:#fff;
-}
-
-.luxury-banner p{
-  font-family:'Inter',sans-serif;
-  font-size:18px;
-  line-height:1.8;
-  color:#d9d9d9;
-  max-width:600px;
-  margin-bottom:35px;
-}
-
-.luxury-btn{
-  display:inline-block;
-  color:#fff;
-  text-decoration:none;
-  font-family:'Inter',sans-serif;
-  font-size:13px;
-  letter-spacing:3px;
-  font-weight:600;
-  border-bottom:1px solid rgba(255,255,255,.4);
-  padding-bottom:8px;
-}
-
-@media(max-width:768px){
-
-.luxury-banner{
-  padding:50px 28px;
-}
-
-.luxury-banner h2{
-  font-size:32px;
-}
-
-.luxury-banner p{
-  font-size:16px;
-}
-}
-
-.vip-section{
-padding:90px 30px;
-text-align:center;
-background:#f8f7f5;
-}
-
-.vip-section h2{
-font-family:'Playfair Display',serif;
-font-size:48px;
-margin-bottom:20px;
-}
-
-.vip-section p{
-font-family:'Inter',sans-serif;
-font-size:18px;
-max-width:600px;
-margin:auto;
-line-height:1.8;
-color:#666;
-margin-bottom:35px;
-}
-
-.vip-section a{
-display:inline-block;
-padding:16px 32px;
-border:1px solid #111;
-text-decoration:none;
-color:#111;
-font-family:'Inter',sans-serif;
-letter-spacing:2px;
-font-size:12px;
-}
-
-.luxury-editorial{
-background:#181818;
-padding:90px 30px;
-text-align:center;
-}
-
-.editorial-content{
-max-width:700px;
-margin:auto;
-}
-
-.editorial-content span{
-font-family:'Inter',sans-serif;
-letter-spacing:4px;
-font-size:12px;
-color:#999;
-}
-
-.editorial-content h2{
-font-family:'Playfair Display',serif;
-font-size:52px;
-color:white;
-margin:20px 0;
-}
-
-.editorial-content p{
-font-family:'Inter',sans-serif;
-font-size:18px;
-line-height:1.8;
-color:#d4d4d4;
-margin-bottom:35px;
-}
-
-.editorial-content a{
-color:white;
-text-decoration:none;
-letter-spacing:3px;
-font-size:13px;
-font-family:'Inter',sans-serif;
-}
-
-.week-products{
-overflow-x:auto;
-display:flex;
-gap:18px;
-padding:10px 24px 20px;
-scroll-snap-type:x mandatory;
--webkit-overflow-scrolling:touch;
-}
-
-.week-products::-webkit-scrollbar{
-display:none;
-}
-
-.week-card{
-flex:0 0 78%;
-text-decoration:none;
-color:#111;
-scroll-snap-align:start;
-}
-
-.week-card img{
-width:100%;
-height:280px;
-object-fit:cover;
-border-radius:12px;
-}
-
-.week-card h3{
-font-family:'Playfair Display',serif;
-font-size:26px;
-margin:14px 0 4px;
-}
-
-.week-card p{
-font-family:'Inter',sans-serif;
-font-size:15px;
-color:#666;
-margin:0;
-}
-
-.section-header span{
-font-size:11px;
-letter-spacing:4px;
-text-transform:uppercase;
-color:#888;
-}
-
-.week-price{
-display:inline-block;
-padding:8px 14px;
-border:1px solid #ddd;
-border-radius:999px;
-font-size:13px;
-margin-top:12px;
-}
-
-.week-section{
-background:#f5f4f2;
-padding:10px 0 40px;
-margin:0;
-}
-
-.week-section .section-header{
-padding:0 24px 30px;
-}
-
-.week-section h2{
-color:#111;
-font-size:30px;
-line-height:1;
-margin:10px 0 30px;
-}
-
-.week-section .section-header span{
-color:#8f8f8f;
-}
-
-.section-header{
-padding:10px 24px 20px;
-border-top:1px solid #d8d8d8;
-padding-top:40px;
-}
-
-}
-
-
-
-
-
-
-</style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KPVTBY5VK8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-KPVTBY5VK8');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aluguel de bolsas de luxo autênticas. Gucci, Hermès, Louis Vuitton, Bvlgari, Dolce & Gabbana e outras marcas icônicas. Alugue, venda e desapegue com segurança na The Bag Room.">
+  <title>Aluguel de Bolsas de Luxo | The Bag Room</title>
+
+  <link rel="icon" sizes="32x32" href="favicon.png">
+  <link rel="icon" sizes="192x192" href="favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #11100f;
+      --muted: #68615a;
+      --line: rgba(17, 16, 15, 0.12);
+      --paper: #f7f4ef;
+      --porcelain: #fffdfa;
+      --charcoal: #151413;
+      --gold: #a8824b;
+      --gold-soft: #d8c4a3;
+      --shadow: 0 20px 60px rgba(17, 16, 15, 0.12);
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Inter', Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-serif);
+      overflow-x: hidden;
+    }
+    img, video { display: block; max-width: 100%; }
+    a { color: inherit; }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 1000;
+      min-height: 70px;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid #eee;
+      backdrop-filter: blur(8px);
+    }
+
+    .brand {
+      margin: 0;
+      color: #111;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+    }
+
+    .menu-mobile-btn {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 0;
+      background: transparent;
+      color: #111;
+      cursor: pointer;
+      font-size: 28px;
+      line-height: 1;
+      padding: 8px;
+    }
+
+    .menu-mobile {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 30%;
+      min-width: 300px;
+      height: 100vh;
+      padding-top: 120px;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(14px);
+      box-shadow: -6px 0 20px rgba(0, 0, 0, 0.15);
+      transition: left 0.35s ease;
+      z-index: 2001;
+    }
+
+    .menu-mobile.open { left: 0; }
+
+    .close-menu {
+      position: absolute;
+      top: 26px;
+      right: 30px;
+      border: 0;
+      background: transparent;
+      color: #000;
+      cursor: pointer;
+      font-size: 34px;
+      line-height: 1;
+      opacity: 0.8;
+      user-select: none;
+    }
+
+    .close-menu:hover { opacity: 0.5; }
+
+    .menu-mobile-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      padding-left: 40px;
+    }
+
+    .menu-mobile-inner a {
+      color: #000;
+      font-size: 19px;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .menu-mobile-inner a:hover { opacity: 0.6; }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 90vh;
+      overflow: hidden;
+      background: var(--charcoal);
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.30);
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50px;
+      right: auto;
+      z-index: 3;
+      max-width: 410px;
+      margin-top: 62px;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .hero-text h2 {
+      margin: 0;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.35;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-text p {
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, 0.9);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.55;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      padding: 5px 22px;
+      border-radius: 40px;
+      border: 1px solid transparent;
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn:hover { transform: scale(1.04); }
+    .btn-primary { background: #000; color: #fff; }
+    .btn-primary:hover { background: #1a1a1a; }
+    .btn-outline {
+      border-color: rgba(255, 255, 255, 0.78);
+      color: #fff;
+      background: rgba(0, 0, 0, 0.22);
+    }
+
+    .section { padding: 80px 16px; text-align: center; }
+
+    .about-wrapper {
+      padding: 40px clamp(16px, 3vw, 40px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      margin-top: 80px;
+      background: var(--porcelain);
+      text-align: left;
+    }
+
+    .section-about h3,
+    .section-header h2,
+    .luxury-banner h2,
+    .editorial-content h2,
+    .vip-section h2 {
+      margin: 0;
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .section-about h3 {
+      margin-bottom: 16px;
+      color: #111;
+      font-size: 40px;
+      line-height: 1.1;
+      text-align: left;
+    }
+
+    .section-about p {
+      width: 100%;
+      margin: 0;
+      color: #111;
+      font-family: var(--font-serif);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .section-about p + p { margin-top: 20px; }
+
+    .about-card {
+      padding: 26px 28px;
+      border: 1px solid rgba(17, 16, 15, 0.11);
+      background: #f4eee6;
+      box-shadow: var(--shadow);
+    }
+
+    .about-card span {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--gold);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .about-card p {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(22px, 2.8vw, 30px);
+      font-weight: 500;
+      line-height: 1.18;
+    }
+
+    .week-section {
+      padding: clamp(70px, 9vw, 108px) 0;
+      background: #eee8df;
+    }
+
+    .section-header {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto 34px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      border-top: 1px solid rgba(17, 16, 15, 0.14);
+      padding-top: 34px;
+    }
+
+    .section-header span,
+    .editorial-content span {
+      color: var(--gold);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+
+    .section-header h2 {
+      margin-top: 10px;
+      font-size: clamp(40px, 6vw, 76px);
+      line-height: 0.95;
+    }
+
+    .week-products {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .week-card {
+      position: relative;
+      min-width: 0;
+      padding: 12px 12px 20px;
+      background: var(--porcelain);
+      color: var(--ink);
+      text-decoration: none;
+      border: 1px solid rgba(17, 16, 15, 0.08);
+      box-shadow: 0 14px 44px rgba(17, 16, 15, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .week-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 58px rgba(17, 16, 15, 0.14);
+    }
+
+    .week-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      background: #ddd;
+    }
+
+    .week-card h3 {
+      margin: 18px 8px 4px;
+      font-size: clamp(30px, 3vw, 40px);
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .week-card p {
+      margin: 6px 8px 0;
+      color: var(--muted);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .week-price {
+      display: inline-flex;
+      margin: 16px 8px 0;
+      padding: 8px 13px;
+      border: 1px solid rgba(17, 16, 15, 0.12);
+      border-radius: 999px;
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    #instagram {
+      padding: clamp(72px, 9vw, 110px) 20px;
+      background: var(--porcelain);
+      text-align: center;
+    }
+
+    .insta-title {
+      margin: 0 0 38px;
+      font-family: var(--font-sans);
+      font-size: clamp(17px, 2vw, 22px);
+      font-weight: 800;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+
+    .embedsocial-hashtag {
+      width: 100% !important;
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+    }
+
+    .embedsocial-hashtag .es-widget-branding,
+    .embedsocial-hashtag .es-header,
+    .embedsocial-hashtag .es-load-more,
+    .embedsocial-hashtag .es-caption { display: none !important; }
+
+    .luxury-banner,
+    .luxury-editorial,
+    .vip-section {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(86px, 10vw, 126px) clamp(20px, 5vw, 72px);
+      text-align: center;
+    }
+
+    .luxury-banner::before,
+    .luxury-editorial::before,
+    .vip-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .luxury-banner {
+      background: radial-gradient(circle at 22% 20%, rgba(168, 130, 75, 0.28), transparent 28%), linear-gradient(135deg, #11100f 0%, #24201c 48%, #080808 100%);
+      color: #fff;
+    }
+
+    .luxury-banner::before {
+      background: linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(0deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 74px 74px;
+      opacity: 0.22;
+    }
+
+    .luxury-editorial {
+      background: radial-gradient(circle at 50% 12%, rgba(255, 255, 255, 0.14), transparent 30%), linear-gradient(135deg, #2a241f 0%, #15110f 100%);
+      color: #fff;
+    }
+
+    .luxury-editorial::before {
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      inset: 22px;
+    }
+
+    .vip-section {
+      background: radial-gradient(circle at 78% 8%, rgba(168, 130, 75, 0.18), transparent 26%), linear-gradient(135deg, #fffdfa 0%, #f0e7da 100%);
+      color: var(--ink);
+    }
+
+    .vip-section::before {
+      background: linear-gradient(120deg, rgba(168,130,75,0.12), transparent 34%, rgba(17,16,15,0.05));
+    }
+
+    .luxury-banner-content,
+    .editorial-content,
+    .vip-content {
+      position: relative;
+      z-index: 1;
+      width: min(820px, 100%);
+      margin: 0 auto;
+    }
+
+    .luxury-banner h2,
+    .editorial-content h2,
+    .vip-section h2 {
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: 0.98;
+      text-align: center;
+    }
+
+    .luxury-banner p,
+    .editorial-content p,
+    .vip-section p {
+      max-width: 620px;
+      margin: 24px auto 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-family: var(--font-sans);
+      font-size: 18px;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .luxury-btn,
+    .editorial-content a,
+    .vip-section a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      margin-top: 34px;
+      padding: 0 26px;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      color: inherit;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .luxury-btn:hover,
+    .editorial-content a:hover,
+    .vip-section a:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .editorial-content span { color: var(--gold-soft); }
+    .vip-section p { color: var(--muted); }
+    .vip-section a {
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .social-bar {
+      position: fixed;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      z-index: 99999;
+    }
+
+    .social-bar a {
+      background: #ffffff;
+      padding: 10px;
+      border-radius: 50%;
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      border: 1px solid #ddd;
+      animation: float 4s ease-in-out infinite;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .social-bar a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0); }
+    }
+
+    .social-bar img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+
+    .footer-luxo {
+      margin-top: 80px;
+      border-top: 1px solid #eaeaea;
+      background: transparent;
+      color: #111;
+      font-family: var(--font-sans);
+    }
+
+    .footer-item {
+      position: relative;
+      padding: 20px;
+      border-bottom: 1px solid #eaeaea;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      color: #111;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .footer-item span { opacity: 0.6; }
+
+    .footer-content {
+      display: none;
+      padding-top: 10px;
+      margin-left: 120px;
+      color: #555;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.6;
+      text-transform: none;
+    }
+
+    .footer-item.active .footer-content { display: block; }
+
+    .footer-bottom {
+      padding: 30px 20px;
+      color: #777;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 860px) {
+      .site-header { min-height: 56px; padding: 14px 16px; }
+      .brand { font-size: 20px; letter-spacing: 6px; }
+      .hero { height: 48vh; }
+      .hero-text {
+        top: 42%;
+        left: 26px;
+        right: 18px;
+        max-width: 310px;
+        margin-top: 0;
+      }
+      .hero-text h2 { font-size: 17px; }
+      .hero-text p { font-size: 13px; line-height: 1.45; }
+      .button-row { margin-top: 14px; }
+      .about-wrapper {
+        grid-template-columns: 1fr;
+        margin-top: 40px;
+        padding: 40px 16px;
+      }
+      .week-products {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 12px;
+      }
+      .week-products::-webkit-scrollbar { display: none; }
+      .week-card { flex: 0 0 min(82vw, 360px); scroll-snap-align: start; }
+      .section-header { align-items: start; flex-direction: column; }
+      .menu-mobile { width: 100%; max-width: 320px; min-width: 0; }
+      .social-bar { right: 6px; }
+    }
+
+    @media (max-width: 560px) {
+      .button-row { align-items: flex-start; flex-direction: row; }
+      .btn { width: auto; min-height: 29px; padding: 4px 16px; font-size: 8px; }
+      .about-card { padding: 22px; }
+      .luxury-banner p,
+      .editorial-content p,
+      .vip-section p,
+      .section-about p { font-size: 16px; }
+      .footer-item { display: block; }
+      .footer-item span { float: right; }
+      .footer-content { margin-left: 0; }
+      .social-bar {
+        right: 6px;
+        top: 50%;
+        bottom: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        transform: translateY(-50%);
+      }
+
+      .social-bar a {
+        width: 46px;
+        height: 46px;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <header class="site-header">
+    <div class="menu-mobile-btn" onclick="toggleMenuMobile()" aria-label="Abrir menu">☰</div>
+    <h1 class="brand">THE BAG ROOM</h1>
 
-
-
-<header>
-<h1>THE BAG ROOM</h1>
-
-
-
-
-<!-- Botão Hambúrguer -->
-<div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
-
-<!-- MENU LATERAL -->
-<nav class="menu-mobile" id="menuMobile">
-    <div class="close-menu" onclick="toggleMenuMobile()">×</div>
-
-    <div class="menu-mobile-inner">
+    <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
+      <div class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">×</div>
+      <div class="menu-mobile-inner">
         <a href="index.html">Início</a>
- <a href="aluguel.html">Alugar Bolsas</a>
-      <a href="como-alugar.html">Como Alugar </a>
+        <a href="aluguel.html">Alugar Bolsas</a>
+        <a href="como-alugar.html">Como Alugar</a>
         <a href="Como Funciona.html">Como Desapegar</a>
         <a href="autenticidade.html">Autenticidade</a>
-              <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
+        <a href="/universo/universo-do-luxo.html">Universo do Luxo</a>
         <a href="quem-somos.html">Sobre</a>
-              <a href="login.html">Minha Conta </a>
-    </div>
-</nav>
-</header>
+        <a href="login.html">Minha Conta</a>
+      </div>
+    </nav>
+  </header>
 
+  <main>
+    <section class="hero">
+      <video class="hero-video" autoplay muted loop playsinline webkit-playsinline x5-playsinline preload="auto" disablepictureinpicture>
+        <source src="https://res.cloudinary.com/div3j1m4c/video/upload/banner_video-converter.com_nl8npr.mp4?v=3" type="video/mp4">
+      </video>
 
-<section class="hero">
+      <div class="hero-text">
+        <h2>Alugue. Venda. Desapegue</h2>
+        <p>Viva o luxo de novas formas.</p>
+        <p>A The Bag Room conecta você ao luxo consciente.</p>
+        <div class="button-row">
+          <a href="https://wa.me/5513996904227?text=Olá!%20Quero%20avaliar%20uma%20peça." class="btn btn-primary" target="_blank" rel="noopener">Falar com a Curadoria</a>
+          <a href="aluguel.html" class="btn btn-outline">Ver Bolsas</a>
+        </div>
+      </div>
+    </section>
 
-<video
-class="hero-video"
-autoplay
-muted
-loop
-playsinline
-webkit-playsinline
-x5-playsinline
-preload="auto"
-disablepictureinpicture
->
-<source src="https://res.cloudinary.com/div3j1m4c/video/upload/banner_video-converter.com_nl8npr.mp4?v=3" type="video/mp4">
-</video>
+    <section class="section about-wrapper">
+      <div class="section-about">
+        <h3>Sobre Nós</h3>
+        <p>Na The Bag Room, acreditamos que o luxo pode ser vivido de diferentes formas. Reunimos uma curadoria exclusiva de bolsas de grife autênticas disponíveis para <strong>aluguel</strong>, <strong>venda</strong> e <strong>consignação</strong>.</p>
+        <p>Cada peça é cuidadosamente selecionada, autenticada e apresentada com transparência, oferecendo segurança para quem deseja usar, comprar ou desapegar de forma inteligente.</p>
+      </div>
 
-  <div class="hero-overlay"></div>
+      <aside class="about-card" aria-label="Diferenciais The Bag Room">
+        <span>Autenticidade em primeiro lugar</span>
+        <p>Peças icônicas, processo cuidadoso e atendimento próximo em Santos.</p>
+      </aside>
+    </section>
 
-  <div class="hero-text">
-    <h2>Alugue. Venda. Desapegue</h2>
-    <p>Viva o luxo de novas formas.</p>
-    <p>A The Bag Room conecta você ao luxo consciente.</p>
-<a href="https://wa.me/5513996904227?text=Olá!%20Quero%20avaliar%20uma%20peça." class="whats-btn" target="_blank">
-    FALAR COM A CURADORIA
-</a>
-  </div>
-</section>
+    <section class="week-section">
+      <div class="section-header">
+        <div>
+          <span>Curadoria The Bag Room</span>
+          <h2>Seleção da Semana</h2>
+        </div>
+      </div>
 
-<!-- SOBRE + SLIDER -->
-<section class="about-wrapper">
+      <div class="week-products">
+        <a href="bvlgari-serpenti-verde.html" class="week-card">
+          <img src="https://i.imgur.com/wYj0FjT.jpg" alt="Bolsa Bvlgari Serpenti Forever">
+          <h3>Bvlgari</h3>
+          <p>Serpenti Forever</p>
+          <span class="week-price">A partir de R$ 490</span>
+        </a>
 
-<section class="section-about">
-<h3>Sobre Nós</h3>
-<p>
-Na The Bag Room, acreditamos que o luxo pode ser vivido de diferentes formas. Reunimos uma curadoria exclusiva de bolsas de grife autênticas disponíveis para <strong>aluguel</strong>, <strong>venda</strong> e <strong>consignação</strong>.
-  </p>
-<p style="margin-top:20px;">
-  Cada peça é cuidadosamente selecionada, autenticada e apresentada com transparência, oferecendo segurança para quem deseja usar, comprar ou desapegar de forma inteligente.
-  </p>
-</section>
-</section>
+        <a href="gucci-rajah.html" class="week-card">
+          <img src="https://i.imgur.com/iUrTpzD.jpg" alt="Bolsa Gucci Rajah">
+          <h3>Gucci</h3>
+          <p>Rajah</p>
+          <span class="week-price">A partir de R$ 490</span>
+        </a>
 
-<section class="week-section">
+        <a href="hermes-vinyl-kelly.html" class="week-card">
+          <img src="https://i.imgur.com/Q99KQYI.jpg" alt="Bolsa Hermès Kelly Vinyl">
+          <h3>Hermès</h3>
+          <p>Kelly Vinyl</p>
+          <span class="week-price">A partir de R$ 390</span>
+        </a>
+      </div>
+    </section>
 
-<div class="section-header">
-<span>CURADORIA THE BAG ROOM</span>
-<h2>Seleção da Semana</h2>
-</div>
+    <section id="instagram">
+      <h2 class="insta-title">Siga nosso Instagram</h2>
+      <div class="embedsocial-hashtag" data-ref="15c911346df7adfa9e847ecb45f1f85ad4dbeb5d"></div>
+      <script>
+        (function(d, s, id) {
+          var js;
+          if (d.getElementById(id)) {return;}
+          js = d.createElement(s);
+          js.id = id;
+          js.src = "https://embedsocial.com/cdn/ht.js";
+          d.getElementsByTagName("head")[0].appendChild(js);
+        }(document, "script", "EmbedSocialHashtagScript"));
+      </script>
+    </section>
 
-<div class="week-products">
+    <section class="luxury-banner">
+      <div class="luxury-banner-content">
+        <p class="eyebrow">Consignação</p>
+        <h2>Desapegue com segurança.</h2>
+        <p>Transforme peças paradas em novas oportunidades. Cuidamos da autenticação, divulgação e venda da sua bolsa de luxo.</p>
+        <a href="Como Funciona.html" class="luxury-btn">Quero desapegar →</a>
+      </div>
+    </section>
 
-<a href="bvlgari-serpenti-verde.html" class="week-card">
-<img src="https://i.imgur.com/wYj0FjT.jpg">
-<h3>Bvlgari</h3>
-<p>Serpenti Forever</p>
-<p>A partir de R$ 490</p>
-</a>
+    <section class="luxury-editorial">
+      <div class="editorial-content">
+        <span>The Bag Room Journal</span>
+        <h2>Universo do Luxo</h2>
+        <p>Histórias, curiosidades e bastidores das maiores maisons do mundo.</p>
+        <a href="universo-do-luxo.html">Explorar artigos →</a>
+      </div>
+    </section>
 
-<a href="gucci-rajah.html" class="week-card">
-<img src="https://i.imgur.com/iUrTpzD.jpg">
-<h3>Gucci</h3>
-<p>Rajah</p>
-<p>A partir de R$ 490</p>
-</a>
+    <section class="vip-section">
+      <div class="vip-content">
+        <h2>Grupo VIP</h2>
+        <p>Receba novas peças antes da publicação no site e tenha acesso prioritário às novidades.</p>
+        <a href="https://chat.whatsapp.com/SEULINK" target="_blank" rel="noopener">Entrar no grupo →</a>
+      </div>
+    </section>
+  </main>
 
-<a href="hermes-vinyl-kelly.html" class="week-card">
-<img src="https://i.imgur.com/Q99KQYI.jpg">
-<h3>Hermès</h3>
-<p>Kelly Vinyl</p>
-<p>A partir de R$ 390</p>
-</a>
-
-</div>
-
-</section>
-
-
-<section id="instagram">
-  <h2 class="insta-title">SIGA NOSSO INSTAGRAM</h2>
-
-  <div class="embedsocial-hashtag" data-ref="15c911346df7adfa9e847ecb45f1f85ad4dbeb5d"></div>
-
-  <script>
-    (function(d, s, id) {
-        var js; 
-        if (d.getElementById(id)) {return;} 
-        js = d.createElement(s); 
-        js.id = id;
-        js.src = "https://embedsocial.com/cdn/ht.js"; 
-        d.getElementsByTagName("head")[0].appendChild(js);
-    }(document, "script", "EmbedSocialHashtagScript"));
-  </script>
-</section>
-
-<section class="luxury-banner">
-  <div class="luxury-banner-content">
-    <h2>DESAPEGUE COM SEGURANÇA</h2>
-
-    <p>
-      Transforme peças paradas em novas oportunidades.
-      Cuidamos da autenticação, divulgação e venda da sua bolsa de luxo.
-    </p>
-
-    <a href="Como Funciona.html" class="luxury-btn">
-      QUERO DESAPEGAR →
+  <div class="social-bar" aria-label="Redes sociais">
+    <a href="https://chat.whatsapp.com/J9gxW9Whk778OKfLGnjoWN?mode=gi_t" target="_blank" rel="noopener" aria-label="Grupo VIP no WhatsApp">
+      <img src="https://i.imgur.com/q6SL6qT.jpg" alt="">
+    </a>
+    <a href="https://instagram.com/thebagroom.br" target="_blank" rel="noopener" aria-label="Instagram">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="">
+    </a>
+    <a href="https://tiktok.com/@thebagroom.br" target="_blank" rel="noopener" aria-label="TikTok">
+      <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="">
+    </a>
+    <a href="https://wa.me/5513996904227" target="_blank" rel="noopener" aria-label="WhatsApp">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="">
     </a>
   </div>
-</section>
 
-<section class="luxury-editorial">
-
-<div class="editorial-content">
-
-<span>THE BAG ROOM JOURNAL</span>
-
-<h2>UNIVERSO DO LUXO</h2>
-
-<p>
-Histórias, curiosidades e bastidores das maiores maisons do mundo.
-</p>
-
-<a href="universo-do-luxo.html">
-EXPLORAR ARTIGOS →
-</a>
-
-</div>
-
-</section>
-
-<section class="vip-section">
-
-<h2>GRUPO VIP</h2>
-
-<p>
-Receba novas peças antes da publicação no site e tenha acesso prioritário às novidades.
-</p>
-
-<a href="https://chat.whatsapp.com/SEULINK">
-ENTRAR NO GRUPO →
-</a>
-
-</section>
-
-
-
-
-
-</div>
-</section>
-
-</section>
-
-
-
-<!-- SOCIAL BAR -->
-<div class="social-bar">
-  
-<a href="https://chat.whatsapp.com/J9gxW9Whk778OKfLGnjoWN?mode=gi_t" target="_blank">
-<img src="https://i.imgur.com/q6SL6qT.jpg" alt="vip-social">
-</a>
-
-<a href="https://instagram.com/thebagroom.br" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
-</a>
-
-<a href="https://tiktok.com/@thebagroom.br" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok">
-</a>
-
-<a href="https://wa.me/5513996904227" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
-</a>
-</div>
-
-<div class="footer-luxo">
-
-  <div class="footer-item" onclick="toggleFooter(this)">
-    PRECISA DE AJUDA?
-    <span>▾</span>
-    <div class="footer-content">
-      Fale conosco pelo WhatsApp<br>
-      (13) 99690-4227
+  <footer class="footer-luxo">
+    <div class="footer-item" onclick="toggleFooter(this)">
+      PRECISA DE AJUDA?
+      <span>▾</span>
+      <div class="footer-content">
+        Fale conosco pelo WhatsApp<br>
+        (13) 99690-4227
+      </div>
     </div>
-  </div>
 
-  <div class="footer-item" onclick="toggleFooter(this)">
-    EMPRESA
-    <span>▾</span>
-    <div class="footer-content">
-      The Bag Room<br>
-      Curadoria, aluguel e consignação de luxo
+    <div class="footer-item" onclick="toggleFooter(this)">
+      EMPRESA
+      <span>▾</span>
+      <div class="footer-content">
+        The Bag Room<br>
+        Curadoria, aluguel e consignação de luxo
+      </div>
     </div>
-  </div>
 
-  <div class="footer-item" onclick="toggleFooter(this)">
-    ENDEREÇO
-    <span>▾</span>
-    <div class="footer-content">
-      Av. Ana Costa, 471 – Gonzaga<br>
+    <div class="footer-item" onclick="toggleFooter(this)">
+      ENDEREÇO
+      <span>▾</span>
+      <div class="footer-content">
+        Av. Ana Costa, 471 – Gonzaga<br>
+        Santos – SP
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 The Bag Room<br>
       Santos – SP
     </div>
-  </div>
+  </footer>
 
-  <div class="footer-bottom">
-    © 2026 The Bag Room<br>
-    Santos – SP
-  </div>
-
-</div>
-
-<script>
-function toggleFooter(el){
-  el.classList.toggle('active');
-}
-</script>
-
-
-<script>
-function toggleMenuMobile() {
-  document.getElementById('menuMobile').classList.toggle('open');
-}
-</script>
-
-<script>
-document.addEventListener("DOMContentLoaded", async () => {
-  const video = document.querySelector(".hero-video");
-
-  if (video) {
-    video.muted = true;
-
-    try {
-      await video.play();
-    } catch (err) {
-      console.log("Autoplay bloqueado");
+  <script>
+    function toggleFooter(el) {
+      el.classList.toggle('active');
     }
-  }
-});
-</script>
 
+    function toggleMenuMobile() {
+      document.getElementById('menuMobile').classList.toggle('open');
+    }
+
+    document.addEventListener('click', (event) => {
+      const menu = document.getElementById('menuMobile');
+      const button = document.querySelector('.menu-mobile-btn');
+      if (!menu || !button) return;
+      if (menu.classList.contains('open') && !menu.contains(event.target) && !button.contains(event.target)) {
+        menu.classList.remove('open');
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const video = document.querySelector('.hero-video');
+      if (!video) return;
+      video.muted = true;
+      try {
+        await video.play();
+      } catch (err) {
+        console.log('Autoplay bloqueado');
+      }
+    });
+  </script>
 </body>
 </html>
