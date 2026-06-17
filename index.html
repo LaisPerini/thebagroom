@@ -1092,72 +1092,44 @@ font-size:13px;
 font-family:'Inter',sans-serif;
 }
 
-.week-selection{
-padding:80px 24px;
-}
-
-.section-header{
-text-align:center;
-margin-bottom:45px;
-}
-
-.section-header span{
-font-family:'Inter',sans-serif;
-font-size:12px;
-letter-spacing:3px;
-color:#888;
-}
-
-.section-header h2{
-font-family:'Playfair Display',serif;
-font-size:48px;
-margin:15px 0;
-font-weight:500;
-}
-
-.section-header p{
-font-family:'Inter',sans-serif;
-font-size:16px;
-color:#666;
-}
-
-.selection-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
+.week-products{
+overflow-x:auto;
+display:flex;
 gap:18px;
-max-width:1100px;
-margin:auto;
+padding:10px 24px 20px;
+scroll-snap-type:x mandatory;
+-webkit-overflow-scrolling:touch;
 }
 
-.selection-card{
+.week-products::-webkit-scrollbar{
+display:none;
+}
+
+.week-card{
+flex:0 0 220px;
 text-decoration:none;
 color:#111;
+scroll-snap-align:start;
 }
 
-.selection-card img{
+.week-card img{
 width:100%;
-aspect-ratio:1/1.2;
+height:280px;
 object-fit:cover;
 border-radius:12px;
-display:block;
 }
 
-.selection-card h3{
+.week-card h3{
 font-family:'Playfair Display',serif;
-font-size:22px;
-margin-top:12px;
-font-weight:500;
+font-size:26px;
+margin:14px 0 4px;
 }
 
-.view-all{
-display:block;
-text-align:center;
-margin-top:40px;
-text-decoration:none;
+.week-card p{
 font-family:'Inter',sans-serif;
-letter-spacing:3px;
-font-size:12px;
-color:#111;
+font-size:15px;
+color:#666;
+margin:0;
 }
 
 }
@@ -1243,41 +1215,37 @@ Na The Bag Room, acreditamos que o luxo pode ser vivido de diferentes formas. Re
 </section>
 </section>
 
-<section class="week-selection">
+<section class="week-section">
 
 <div class="section-header">
 <span>CURADORIA THE BAG ROOM</span>
 <h2>Seleção da Semana</h2>
-<p>Peças escolhidas pela nossa curadoria.</p>
 </div>
 
-<div class="selection-grid">
+<div class="week-products">
 
-<a href="#" class="selection-card">
+<a href="bvlgari-verde.html" class="week-card">
 <img src="foto1.jpg">
-<h3>Chanel Classic Flap</h3>
+<h3>Bvlgari</h3>
+<p>Serpenti Forever</p>
+<p>A partir de R$ 490</p>
 </a>
 
-<a href="#" class="selection-card">
+<a href="produto2.html" class="week-card">
 <img src="foto2.jpg">
-<h3>Lady Dior Medium</h3>
+<h3>Gucci</h3>
+<p>Rajah</p>
+<p>A partir de R$ 490</p>
 </a>
 
-<a href="#" class="selection-card">
+<a href="hermes-.html" class="week-card">
 <img src="foto3.jpg">
-<h3>Louis Vuitton Pochette</h3>
-</a>
-
-<a href="#" class="selection-card">
-<img src="foto4.jpg">
-<h3>Gucci Jackie</h3>
+<h3>Hermès</h3>
+<p>Kelly Vinyl</p>
+<p>A partir de R$ 390</p>
 </a>
 
 </div>
-
-<a href="aluguel.html" class="view-all">
-VER TODAS →
-</a>
 
 </section>
 
