@@ -566,6 +566,16 @@
       font-size: 11px;
     }
 
+    .newsletter-status {
+      min-height: 20px;
+      margin: 12px 0 0;
+      font-size: 13px;
+    }
+
+    .newsletter-status[data-state="success"] { color: #32633e; }
+    .newsletter-status[data-state="error"] { color: #9b2c2c; }
+    .newsletter-form button:disabled { cursor: wait; opacity: .65; }
+
     .journal-carousel {
       padding: clamp(44px, 5vw, 64px) 0 clamp(72px, 9vw, 112px);
       overflow: hidden;
@@ -945,6 +955,8 @@
       .about-wrapper,
       #instagram { background: #fff; }
       .week-section { background: #faf9f7; }
+      .vip-section { background: #fcfbf8; }
+      .vip-section::before { display: none; }
       .site-header { min-height: 56px; padding: 14px 16px; }
       .brand { font-size: 20px; letter-spacing: 6px; }
       .hero { height: 48vh; }
@@ -1234,7 +1246,8 @@
           </div>
           <button type="submit">Cadastrar</button>
         </form>
-        <p class="newsletter-note">Ao cadastrar, você será direcionada ao WhatsApp para confirmar sua inscrição.</p>
+        <p class="newsletter-note">Ao cadastrar, você concorda em receber novidades da The Bag Room por e-mail.</p>
+        <p class="newsletter-status" id="newsletterStatus" role="status" aria-live="polite"></p>
       </div>
     </section>
   </main>
@@ -1288,7 +1301,13 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    const newsletterSupabase = window.supabase.createClient(
+      'https://zpyjnqkrsmgpwszqlcrs.supabase.co',
+      'sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b'
+    );
+
     function toggleFooter(el) {
       el.classList.toggle('active');
     }
@@ -1317,12 +1336,40 @@
       }
     });
 
-    document.getElementById('newsletterForm').addEventListener('submit', (event) => {
+    document.getElementById('newsletterForm').addEventListener('submit', async (event) => {
       event.preventDefault();
-      const email = document.getElementById('newsletterEmail').value.trim();
+      const form = event.currentTarget;
+      const input = document.getElementById('newsletterEmail');
+      const button = form.querySelector('button[type="submit"]');
+      const status = document.getElementById('newsletterStatus');
+      const email = input.value.trim().toLowerCase();
       if (!email) return;
-      const message = encodeURIComponent(`Olá! Quero receber as novidades da The Bag Room. Meu e-mail é ${email}.`);
-      window.open(`https://wa.me/5513996904227?text=${message}`, '_blank', 'noopener');
+
+      button.disabled = true;
+      button.textContent = 'Cadastrando...';
+      status.textContent = '';
+      status.removeAttribute('data-state');
+
+      try {
+        const { error } = await newsletterSupabase
+          .from('newsletter_subscribers')
+          .insert({ email });
+
+        if (error && error.code !== '23505') throw error;
+
+        status.textContent = error
+          ? 'Este e-mail já está cadastrado.'
+          : 'Cadastro realizado. Bem-vinda ao universo The Bag Room!';
+        status.dataset.state = 'success';
+        form.reset();
+      } catch (error) {
+        console.error('Erro ao cadastrar e-mail:', error);
+        status.textContent = 'Não foi possível concluir o cadastro. Tente novamente.';
+        status.dataset.state = 'error';
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Cadastrar';
+      }
     });
 
     function moveJournal(direction) {
@@ -1335,6 +1382,12 @@
   </script>
 </body>
 </html>
+
+
+
+
+
+
 
 
 
