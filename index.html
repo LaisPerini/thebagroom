@@ -82,7 +82,7 @@
       background: transparent;
       color: #111;
       cursor: pointer;
-      font-size: 28px;
+      font-size: 22px;
       line-height: 1;
       padding: 8px;
     }
@@ -91,28 +91,27 @@
       position: fixed;
       top: 0;
       left: -100%;
-      width: 30%;
-      min-width: 300px;
+      width: 85%;
+      max-width: 320px;
       height: 100vh;
-      padding-top: 120px;
+      padding-top: 100px;
       background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(14px);
-      box-shadow: -6px 0 20px rgba(0, 0, 0, 0.15);
-      transition: left 0.35s ease;
-      z-index: 2001;
+      transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 2000;
     }
 
     .menu-mobile.open { left: 0; }
 
     .close-menu {
       position: absolute;
-      top: 26px;
-      right: 30px;
+      top: 24px;
+      right: 24px;
       border: 0;
       background: transparent;
       color: #000;
       cursor: pointer;
-      font-size: 34px;
+      font-size: 30px;
       line-height: 1;
       opacity: 0.8;
       user-select: none;
@@ -123,14 +122,14 @@
     .menu-mobile-inner {
       display: flex;
       flex-direction: column;
-      gap: 32px;
-      padding-left: 40px;
+      gap: 26px;
+      padding-left: 30px;
     }
 
     .menu-mobile-inner a {
       color: #000;
       font-family: var(--font-serif);
-      font-size: 19px;
+      font-size: 22px;
       letter-spacing: 1px;
       text-decoration: none;
       transition: opacity 0.3s ease;
@@ -992,7 +991,7 @@
       .week-favorite { top: 10px; right: 14px; font-size: 23px; }
       .week-card h3 { font-size: 15px; }
       .section-header { text-align: center; }
-      .menu-mobile { width: 100%; max-width: 320px; min-width: 0; }
+      .menu-mobile { width: 85%; max-width: 320px; min-width: 0; }
       .social-bar { right: 6px; }
       .rental-offer { min-height: 360px; }
       .journal-carousel-header { align-items: center; }
@@ -1052,9 +1051,9 @@
         <a href="index.html">Início</a>
         <a href="aluguel.html">Alugar Bolsas</a>
         <a href="como-alugar.html">Como Alugar</a>
-        <a href="como-desapegar.html">Como Desapegar</a>
+        <a href="Como Funciona.html">Como Desapegar</a>
         <a href="autenticidade.html">Autenticidade</a>
-        <a href="/universo/universo-do-luxo.html">Universo do Luxo</a>
+        <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
         <a href="quem-somos.html">Sobre</a>
         <a href="login.html">Minha Conta</a>
       </div>
@@ -1155,7 +1154,7 @@
         <p class="eyebrow">Consignação</p>
         <h2>Desapegue com segurança.</h2>
         <p>Transforme peças paradas em novas oportunidades. Cuidamos da autenticação, divulgação e venda da sua bolsa de luxo.</p>
-        <a href="como-desapegar.html" class="luxury-btn">Quero desapegar →</a>
+        <a href="Como Funciona.html" class="luxury-btn">Quero desapegar →</a>
       </div>
     </section>
 
@@ -1382,6 +1381,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 
