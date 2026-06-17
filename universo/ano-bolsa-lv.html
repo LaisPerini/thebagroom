@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KPVTBY5VK8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KPVTBY5VK8');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Conheça a The Bag Room, especializada em aluguel, venda e consignação de bolsas de luxo autênticas.">
+<title>O ícone Fendi Zucchino · The Bag Room</title>
+
+<link rel="icon" sizes="32x32" href="favicon.png">
+<link rel="icon" sizes="192x192" href="favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ========================= */
+/* BASE DO SITE */
+/* ========================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body{
+margin:0;
+padding: 0;
+background:#f5f4f2;
+font-family:'Playfair Display', serif;
+color:#111;
+}
+
+/* HEADER */
+header{
+padding:18px;
+display:flex;
+justify-content:center;
+background:rgba(255,255,255,0.95);
+position:fixed;
+width:100%;
+border-bottom:1px solid #eee;
+z-index:999;
+}
+
+header h1{
+letter-spacing:6px;
+font-size:20px;
+margin:0;
+}
+
+.top-space{height:65px;}
+
+/* ========================= */
+/* TÍTULO */
+/* ========================= */
+.internal-title {
+width:100%;
+height:32vh;
+background:url('https://i.imgur.com/Vb3WBvF.jpg') center/cover;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+background-position: center top;
+}
+
+.internal-title::after {
+content: "";
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+background: rgba(0,0,0,0.45);
+}
+
+.internal-title h2 {
+position:relative;
+z-index:3;
+font-size:30px;
+font-weight:800;
+color:white;
+letter-spacing:5px;
+text-align:center;
+text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+/* ========================= */
+/* CONTEÚDO */
+/* ========================= */
+.page-wrapper {
+  padding-top: 6px;
+  padding-bottom: 30px;
+}
+
+.content-box {
+  max-width: 900px;
+  margin: 3px auto 100px;
+  margin-top:0;
+  padding: 28px 26px;
+}
+
+.content-box p {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  color: #444;
+}
+
+/* MENU */
+.menu-mobile-btn{
+position:absolute;
+left:16px;
+top:50%;
+transform:translateY(-50%);
+font-size:22px;
+cursor:pointer;
+}
+
+.menu-mobile{
+position:fixed;
+top:0;
+left:-100%;
+width:85%;
+max-width:320px;
+height:100vh;
+background:rgba(255,255,255,0.98);
+backdrop-filter:blur(14px);
+transition:0.45s cubic-bezier(0.22,1,0.36,1);
+z-index:2000;
+padding-top:100px;
+}
+
+.menu-mobile.open{
+left:0;
+}
+
+.close-menu{
+position:absolute;
+top:24px;
+right:24px;
+font-size:30px;
+cursor:pointer;
+}
+
+.menu-mobile-inner{
+display:flex;
+flex-direction:column;
+gap:26px;
+padding-left:30px;
+}
+
+.menu-mobile-inner a{
+font-family:'Cormorant Garamond', serif;
+font-size:22px;
+letter-spacing:1px;
+text-decoration:none;
+color:#000;
+}
+
+/* FOOTER */
+.footer-luxo {
+  margin-top: 80px;
+  border-top: 1px solid #eaeaea;
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-item {
+  padding: 20px;
+  border-bottom: 1px solid #eaeaea;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.footer-content {
+  display: none;
+  padding-top: 10px;
+  font-size: 13px;
+  color: #555;
+  margin-left:120px;
+}
+
+.footer-item.active .footer-content {
+  display: block;
+}
+
+.footer-bottom {
+  padding: 30px 20px;
+  font-size: 12px;
+  color: #777;
+  text-align: center;
+}
+
+.article-meta{
+  text-align:center;
+  font-family:'Inter',sans-serif;
+  font-size:13px;
+  color:#888;
+  margin:25px 0 35px;
+}
+
+.content-box h2{
+font-size:25px;
+font-weight:600;
+margin-top:0;
+margin-bottom:20px;
+line-height:1.1;
+}
+
+
+.article-signature{
+margin-top:50px;
+padding-top:25px;
+border-top:1px solid #e5e5e5;
+font-family:'Inter',sans-serif;
+font-size:13px;
+color:#999;
+text-align:center;
+letter-spacing:1px;
+}
+
+.article-divider{
+width:60px;
+height:1px;
+background:#d8d8d8;
+margin:50px auto;
+}
+
+.back-universo{
+display:block;
+width:max-content;
+margin:60px auto;
+padding:14px 28px;
+border:1px solid #d9d9d9;
+text-decoration:none;
+color:#111;
+font-family:'Inter',sans-serif;
+font-size:14px;
+border-radius:50px;
+transition:.3s;
+}
+
+.back-universo:hover{
+background:#111;
+color:#fff;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>THE BAG ROOM</h1>
+
+  <div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
+
+  <nav class="menu-mobile" id="menuMobile">
+    <div class="close-menu" onclick="toggleMenuMobile()">×</div>
+
+    <div class="menu-mobile-inner">
+      <a href="/index.html">Início</a>
+ <a href="/aluguel.html">Alugar Bolsas</a>
+      <a href="/como-alugar.html">Como Alugar </a>
+      <a href="/Como Funciona.html">Como Desapegar</a>
+      <a href="/autenticidade.html">Autenticidade</a>
+            <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
+      <a href="/quem-somos.html">Sobre</a>
+      <a href="/login.html">Minha Conta </a>
+    </div>
+  </nav>
+</header>
+
+<div class="top-space"></div>
+
+<section class="internal-title">
+</section>
+
+<div class="article-meta">
+  Publicado em 25 de maio de 2026
+</div>
+
+<div class="page-wrapper">
+  <div class="content-box">
+
+  <h2>O Ícone Fendi Zucchino</h2>
+
+    <p>
+A origem de um dos monogramas mais famosos da moda.
+    </p>
+
+    <p>
+A história do monograma Zucchino está diretamente ligada à identidade visual da Fendi e à ascensão dos logotipos como símbolos de luxo e desejo.
+    </p>
+    
+        <p>
+    Criado a partir do icônico padrão “FF”, o Zucchino tornou-se uma das assinaturas mais reconhecidas da maison italiana, atravessando décadas e permanecendo relevante até os dias atuais.
+    </p>
+
+<h2>As Origens da Fendi</h2>
+    <p>
+A Fendi foi fundada em 1925, em Roma, por Adele e Edoardo Fendi.
+    </p>
+
+    <p>
+Inicialmente especializada em artigos de couro e peles, a marca conquistou reputação por sua qualidade artesanal e atenção aos detalhes, características que continuam definindo a maison até hoje.
+    </p>
+    
+        <p>
+    Ao longo das décadas, a Fendi transformou-se em uma das maiores referências do luxo italiano.
+        </p>
+        
+        
+<h2>O Nascimento do Monograma FF</h2>
+
+    <p>
+Em 1965, Karl Lagerfeld iniciou sua colaboração com a Fendi e criou um símbolo que se tornaria histórico: o famoso “FF”.
+    </p>
+    
+     <p>
+As letras significavam originalmente “Fun Fur”, uma interpretação moderna e inovadora do trabalho da maison com peles.
+    </p>
+    
+        <p>
+O desenho rapidamente ultrapassou sua função inicial e passou a representar toda a identidade da marca.
+    </p>
+    
+    <h2>O Surgimento do Zucchino</h2>
+    
+        <p>
+A partir do padrão FF nasceu o Zucchino, versão menor e repetida do monograma.
+    </p>
+    
+        <p>
+Aplicado em tecidos, bolsas e acessórios, o desenho criou uma estética imediatamente reconhecível e ajudou a consolidar a presença da Fendi no universo dos acessórios de luxo.
+    </p>
+    
+            <p>
+Durante os anos 1990 e início dos anos 2000, o Zucchino tornou-se um dos monogramas mais desejados do mercado.
+    </p>
+    
+        <h2>Um Símbolo dos Anos 2000</h2>
+    
+            <p>
+O auge do Zucchino coincidiu com a explosão da moda logomania.
+    </p>
+    
+            <p>
+Celebridades, modelos e influenciadores da época adotaram bolsas estampadas com o monograma, transformando o padrão em um símbolo de status e sofisticação.
+    </p>
+    
+            <p>
+Modelos como a Fendi Baguette ajudaram a popularizar ainda mais o desenho ao redor do mundo.
+    </p>
+    
+            <h2>O Retorno Vintage</h2>
+    
+            <p>
+Nos últimos anos, o interesse crescente por peças vintage trouxe o Zucchino novamente para o centro das atenções.
+    </p>
+    
+            <p>
+Bolsas produzidas entre os anos 1990 e 2000 passaram a ser altamente procuradas por colecionadores e amantes da moda.
+    </p>
+    
+                <p>
+A combinação entre nostalgia, exclusividade e design atemporal tornou essas peças ainda mais desejadas.
+    </p>
+    
+
+    <div class="article-divider"></div>
+    
+                <h2>O Legado do Zucchino</h2>
+    
+            <p>
+Mais do que um simples padrão gráfico, o Zucchino representa uma das identidades visuais mais marcantes da história da moda.
+    </p>
+    
+            <p>
+Seu sucesso demonstra como um monograma pode transcender tendências e tornar-se parte da cultura do luxo.
+    </p>
+    
+                <p>
+Hoje, o Zucchino continua sendo um dos símbolos mais reconhecidos da Fendi e uma referência para colecionadores e apaixonados por moda em todo o mundo.
+    </p>
+    
+    <a href="universo-do-luxo.html" class="back-universo">
+Explorar mais artigos
+</a>
+    
+    
+
+  </div>
+  
+  <div class="article-signature">
+Universo do Luxo · The Bag Room
+</div>
+
+</div>
+
+
+<script>
+function toggleMenuMobile() {
+  document.getElementById('menuMobile').classList.toggle('open');
+}
+</script>
+
+<div class="footer-luxo">
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    PRECISA DE AJUDA?
+    <span>▾</span>
+    <div class="footer-content">
+      Fale conosco pelo WhatsApp<br>
+      (13) 99690-4227
+    </div>
+  </div>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    EMPRESA
+    <span>▾</span>
+    <div class="footer-content">
+      The Bag Room<br>
+      Curadoria, aluguel e consignação de luxo
+    </div>
+  </div>
+
+  <div class="footer-item" onclick="toggleFooter(this)">
+    ENDEREÇO
+    <span>▾</span>
+    <div class="footer-content">
+      Av. Ana Costa, 471 – Gonzaga<br>
+      Santos – SP
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 The Bag Room<br>
+    Santos – SP
+  </div>
+
+</div>
+
+<script>
+function toggleFooter(el){
+  el.classList.toggle('active');
+}
+</script>
+
+</body>
+</html>
