@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <!-- Google Analytics -->
@@ -275,16 +275,6 @@ opacity:0.75;
 100% { transform: translateY(0); }
 }
 
-.social-btn img{
-  width: 26px;
-  height: 26px;
-}
-
-.social-btn:hover{
-  transform: scale(1.1);
-}
-
-
 .frete-opcao{
 border:1px solid #e5e5e5;
 padding:12px;
@@ -438,7 +428,7 @@ to{opacity:1;}
 .produto{grid-template-columns:1fr;}
 }
 
-/* BOTÃO MENU */
+/* BOT�O MENU */
 .menu-mobile-btn{
 position:absolute;
 left:16px;
@@ -767,7 +757,7 @@ opacity:0.75;
   </div>
 
 
-  <!-- DIREITA (INFO + BOTÃO) -->
+  <!-- DIREITA (INFO + BOT�O) -->
   <div class="info">
 
     <div class="nome">Bvlgari Serpenti Micro</div>
@@ -934,7 +924,7 @@ document.getElementById('devolucao').innerHTML =
 `Devolução prevista: <strong>${data.toLocaleDateString('pt-BR')}</strong>`;
 }
 
-/* 🔥 FRETE COM SELEÇÃO */
+/* ?? FRETE COM SELE��O */
 let freteSelecionado = null;
 
 let freteIdaSelecionado = null;
@@ -1026,20 +1016,6 @@ SEDEX • R$ ${precoVolta.toFixed(2)}
 `;
 
 resultado.innerHTML = html;
-}
-
-function selecionarFrete(nome, preco, prazo, el){
-
-freteSelecionado = { nome, preco, prazo };
-
-
-// aplica no clicado
-el.classList.add('active');
-
-// texto abaixo
-document.getElementById("freteSelecionado").innerHTML =
-`Frete escolhido: <strong>${nome} • R$ ${preco.toFixed(2)}</strong>`;
-
 }
 
 function selecionarFreteIda(nome, preco, prazo, el){
@@ -1370,4 +1346,7 @@ function toggleFooter(el){
 
 </body>
 </html>
+
+
+
 
