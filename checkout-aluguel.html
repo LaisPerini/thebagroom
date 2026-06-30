@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout de Aluguel | The Bag Room</title>
+
+<link rel="icon" sizes="32x32" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+font-family:'Inter',Arial,sans-serif;
+min-height:100vh;
+background:#f7f4ef;
+color:#111;
+}
+
+.header{
+height:72px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#fff;
+border-bottom:1px solid #eee5dc;
+position:sticky;
+top:0;
+z-index:10;
+}
+
+.brand{
+font-family:'Playfair Display',Georgia,serif;
+letter-spacing:7px;
+font-size:16px;
+font-weight:600;
+}
+
+.page{
+width:min(1180px,calc(100% - 32px));
+margin:42px auto;
+display:grid;
+grid-template-columns:minmax(0,1fr) 420px;
+gap:24px;
+align-items:start;
+}
+
+.card{
+background:#fff;
+border:1px solid #eee5dc;
+border-radius:22px;
+box-shadow:0 18px 50px rgba(17,16,15,.08);
+padding:clamp(22px,4vw,34px);
+}
+
+.eyebrow{
+font-size:12px;
+font-weight:700;
+letter-spacing:.22em;
+text-transform:uppercase;
+color:#a8824b;
+margin-bottom:10px;
+}
+
+h1,h2{
+font-family:'Playfair Display',Georgia,serif;
+font-weight:600;
+line-height:1;
+}
+
+h1{font-size:clamp(42px,6vw,70px);margin-bottom:18px;}
+h2{font-size:32px;margin-bottom:18px;}
+
+.lead{
+color:#666;
+line-height:1.7;
+font-size:16px;
+margin-bottom:26px;
+}
+
+.form-grid{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:14px;
+}
+
+.field.full{grid-column:1 / -1;}
+
+.field label{
+display:block;
+font-size:11px;
+font-weight:700;
+letter-spacing:.16em;
+text-transform:uppercase;
+color:#777;
+margin-bottom:7px;
+}
+
+.field input{
+width:100%;
+height:46px;
+border:1px solid #ddd4ca;
+border-radius:12px;
+padding:0 13px;
+font:inherit;
+background:#fff;
+}
+
+.notice{
+margin-top:16px;
+padding:14px;
+border-radius:14px;
+background:#faf7ea;
+border:1px solid #eadca8;
+color:#665936;
+font-size:13px;
+line-height:1.6;
+}
+
+.summary{
+position:sticky;
+top:96px;
+}
+
+.bag{
+display:flex;
+gap:14px;
+align-items:center;
+margin-bottom:22px;
+}
+
+.bag img{
+width:86px;
+height:106px;
+object-fit:cover;
+border-radius:14px;
+background:#f6f4f0;
+}
+
+.bag h3{
+font-family:'Playfair Display',Georgia,serif;
+font-size:24px;
+line-height:1.05;
+font-weight:600;
+}
+
+.bag p{
+color:#777;
+font-size:13px;
+margin-top:6px;
+}
+
+.line{
+display:flex;
+justify-content:space-between;
+gap:18px;
+padding:14px 0;
+border-top:1px solid #eee5dc;
+font-size:14px;
+color:#666;
+}
+
+.line strong{
+color:#111;
+text-align:right;
+font-weight:700;
+}
+
+.total{
+font-size:20px;
+color:#111;
+}
+
+.actions{
+display:grid;
+gap:10px;
+margin-top:24px;
+}
+
+.btn{
+width:100%;
+min-height:52px;
+border:1px solid #111;
+border-radius:999px;
+background:#111;
+color:#fff;
+font-size:12px;
+font-weight:700;
+letter-spacing:.16em;
+text-transform:uppercase;
+cursor:pointer;
+text-decoration:none;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.btn.secondary{
+background:transparent;
+color:#111;
+}
+
+.status{
+margin-top:14px;
+font-size:13px;
+line-height:1.6;
+color:#666;
+}
+
+.status.error{color:#9b2c2c;}
+.status.success{color:#32633e;}
+
+.empty{
+width:min(620px,calc(100% - 32px));
+margin:70px auto;
+text-align:center;
+}
+
+.hidden{display:none;}
+
+@media(max-width:900px){
+.page{grid-template-columns:1fr;margin-top:24px;}
+.summary{position:static;}
+}
+
+@media(max-width:560px){
+.page{width:calc(100% - 22px);}
+.form-grid{grid-template-columns:1fr;}
+.field.full{grid-column:auto;}
+.card{border-radius:18px;}
+.brand{letter-spacing:5px;}
+}
+</style>
+</head>
+
+<body>
+<header class="header">
+<div class="brand">THE BAG ROOM</div>
+</header>
+
+<main id="checkoutPage" class="page hidden">
+<section class="card">
+<p class="eyebrow">Checkout de aluguel</p>
+<h1>Finalize seu aluguel.</h1>
+<p class="lead">
+Confira o período, informe o endereço de entrega e siga para o pagamento do aluguel. A caução será tratada separadamente pela curadoria.
+</p>
+
+<section id="loginNotice" class="notice hidden">
+Para finalizar o aluguel, entre na sua conta. Depois volte ao checkout para continuar.
+<div style="margin-top:12px;">
+<a class="btn secondary" href="login.html">Entrar ou cadastrar</a>
+</div>
+</section>
+
+<section id="addressSection">
+<h2>Endereço de entrega</h2>
+<div class="form-grid">
+<div class="field full">
+<label for="nomeDestinatario">Nome do destinatário</label>
+<input id="nomeDestinatario" autocomplete="name">
+</div>
+<div class="field">
+<label for="cep">CEP</label>
+<input id="cep" autocomplete="postal-code">
+</div>
+<div class="field">
+<label for="estado">Estado</label>
+<input id="estado" maxlength="2" autocomplete="address-level1">
+</div>
+<div class="field full">
+<label for="logradouro">Endereço</label>
+<input id="logradouro" autocomplete="street-address">
+</div>
+<div class="field">
+<label for="numero">Número</label>
+<input id="numero">
+</div>
+<div class="field">
+<label for="complemento">Complemento</label>
+<input id="complemento">
+</div>
+<div class="field">
+<label for="bairro">Bairro</label>
+<input id="bairro" autocomplete="address-level3">
+</div>
+<div class="field">
+<label for="cidade">Cidade</label>
+<input id="cidade" autocomplete="address-level2">
+</div>
+</div>
+</section>
+
+<section id="pickupNotice" class="notice hidden">
+Entrega selecionada como retirada no showroom. O endereço de entrega não é obrigatório para finalizar este aluguel.
+</section>
+</section>
+
+<aside class="card summary">
+<div class="bag">
+<img id="bagImage" alt="">
+<div>
+<h3 id="bagName">Bolsa de luxo</h3>
+<p id="bagDates">Período selecionado</p>
+</div>
+</div>
+
+<div class="line"><span>Aluguel</span><strong id="valorAluguel">R$ 0,00</strong></div>
+<div class="line"><span>Frete</span><strong id="valorFrete">R$ 0,00</strong></div>
+<div class="line total"><span>Total agora</span><strong id="valorTotal">R$ 0,00</strong></div>
+<div class="line"><span>Caução</span><strong id="valorCaucao">R$ 1.000,00</strong></div>
+<div class="line"><span>Entrega</span><strong id="entregaResumo">-</strong></div>
+<div class="line"><span>Devolução</span><strong id="devolucaoResumo">-</strong></div>
+
+<div class="actions">
+<button class="btn" id="finalizarBtn" onclick="finalizarAluguel()">Finalizar aluguel</button>
+<a class="btn secondary" href="bvlgari-micro-amarela.html">Voltar para a bolsa</a>
+</div>
+<p id="checkoutStatus" class="status"></p>
+</aside>
+</main>
+
+<section id="emptyState" class="empty card hidden">
+<p class="eyebrow">Checkout</p>
+<h1>Nenhum aluguel selecionado.</h1>
+<p class="lead">Volte para a página da bolsa, escolha datas e frete para continuar.</p>
+<a class="btn" href="bvlgari-micro-amarela.html">Escolher bolsa</a>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
+const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
+const CHECKOUT_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/mercado-pago-checkout`;
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let checkout = null;
+let sessionAtual = null;
+
+function moeda(valor){
+return Number(valor || 0).toLocaleString("pt-BR", { style:"currency", currency:"BRL" });
+}
+
+function setStatus(texto, tipo = ""){
+const status = document.getElementById("checkoutStatus");
+status.textContent = texto;
+status.className = `status ${tipo}`.trim();
+}
+
+function getCheckout(){
+try{
+return JSON.parse(localStorage.getItem("checkoutAluguelTheBagRoom") || "null");
+}catch(error){
+return null;
+}
+}
+
+function preencherResumo(){
+document.getElementById("bagImage").src = checkout.imagem || "https://i.imgur.com/uKmvItm.jpg";
+document.getElementById("bagImage").alt = checkout.bolsaNome || "Bolsa The Bag Room";
+document.getElementById("bagName").innerText = checkout.bolsaNome || "Bolsa de luxo";
+document.getElementById("bagDates").innerText = `${checkout.dataInicio} a ${checkout.dataFim} · ${checkout.dias} dias`;
+document.getElementById("valorAluguel").innerText = moeda(checkout.valorAluguel);
+document.getElementById("valorFrete").innerText = moeda(checkout.valorFrete);
+document.getElementById("valorTotal").innerText = moeda(checkout.valorTotal);
+document.getElementById("valorCaucao").innerText = moeda(checkout.valorCaucao || 1000);
+document.getElementById("entregaResumo").innerText = `${checkout.freteIda?.nome || "-"} · ${moeda(checkout.freteIda?.preco || 0)}`;
+document.getElementById("devolucaoResumo").innerText = `${checkout.freteVolta?.nome || "-"} · ${moeda(checkout.freteVolta?.preco || 0)}`;
+
+if(checkout.freteIda?.nome === "Retirar"){
+document.getElementById("addressSection").classList.add("hidden");
+document.getElementById("pickupNotice").classList.remove("hidden");
+}
+
+document.getElementById("cep").value = checkout.cep || "";
+}
+
+async function preencherCliente(){
+const { data: { session } } = await supabaseClient.auth.getSession();
+sessionAtual = session;
+
+if(!session){
+document.getElementById("loginNotice").classList.remove("hidden");
+document.getElementById("finalizarBtn").disabled = true;
+document.getElementById("finalizarBtn").style.opacity = ".55";
+return;
+}
+
+const { data: cliente } = await supabaseClient
+.from("validacao_clientes")
+.select("nome_completo,celular,email")
+.eq("usuario_auth_id", session.user.id)
+.maybeSingle();
+
+document.getElementById("nomeDestinatario").value = cliente?.nome_completo || session.user.email || "";
+}
+
+function validarEndereco(){
+if(checkout.freteIda?.nome === "Retirar") return true;
+
+const obrigatorios = ["nomeDestinatario", "cep", "logradouro", "numero", "bairro", "cidade", "estado"];
+const faltando = obrigatorios.filter(id => !document.getElementById(id).value.trim());
+
+if(faltando.length){
+setStatus("Preencha todos os campos obrigatórios do endereço.", "error");
+return false;
+}
+
+return true;
+}
+
+async function finalizarAluguel(){
+if(!sessionAtual){
+window.location.href = "login.html";
+return;
+}
+
+if(!validarEndereco()) return;
+
+const btn = document.getElementById("finalizarBtn");
+btn.disabled = true;
+btn.style.opacity = ".6";
+btn.innerText = "Finalizando...";
+setStatus("Criando pedido e preparando pagamento...");
+
+try{
+const { data: pedido, error } = await supabaseClient.rpc("criar_pedido_aluguel", {
+p_bolsa_slug: checkout.bolsaSlug,
+p_data_inicio: checkout.dataInicioISO,
+p_dias: Number(checkout.dias),
+p_valor_frete: Number(checkout.valorFrete || 0),
+p_entrega_nome: checkout.freteIda?.nome || null,
+p_entrega_preco: Number(checkout.freteIda?.preco || 0),
+p_devolucao_nome: checkout.freteVolta?.nome || null,
+p_devolucao_preco: Number(checkout.freteVolta?.preco || 0),
+p_endereco_nome: document.getElementById("nomeDestinatario").value.trim() || null,
+p_endereco_cep: document.getElementById("cep").value.trim() || null,
+p_endereco_logradouro: document.getElementById("logradouro").value.trim() || null,
+p_endereco_numero: document.getElementById("numero").value.trim() || null,
+p_endereco_complemento: document.getElementById("complemento").value.trim() || null,
+p_endereco_bairro: document.getElementById("bairro").value.trim() || null,
+p_endereco_cidade: document.getElementById("cidade").value.trim() || null,
+p_endereco_estado: document.getElementById("estado").value.trim() || null
+});
+
+if(error) throw error;
+
+const resumoPedido = { ...pedido, freteIda: checkout.freteIda, freteVolta: checkout.freteVolta };
+localStorage.setItem("ultimoPedidoAluguelTheBagRoom", JSON.stringify(resumoPedido));
+
+const response = await fetch(CHECKOUT_FUNCTION_URL, {
+method: "POST",
+headers: {
+"Content-Type": "application/json",
+"Authorization": `Bearer ${sessionAtual.access_token}`
+},
+body: JSON.stringify({ pedido_id: pedido.pedido_id })
+});
+
+const text = await response.text();
+let result = {};
+try{ result = text ? JSON.parse(text) : {}; }catch(parseError){ result = { error: text }; }
+
+if(!response.ok || !result.checkout_url){
+throw new Error(result.error || "checkout_error");
+}
+
+localStorage.removeItem("checkoutAluguelTheBagRoom");
+window.location.href = result.checkout_url;
+} catch(error){
+console.error(error);
+let mensagem = "Não foi possível finalizar o aluguel. Tente novamente.";
+const erro = String(error?.message || error || "");
+
+if(erro.includes("datas_indisponiveis")){
+mensagem = "Essas datas acabaram de ficar indisponíveis. Volte para a bolsa e escolha outro período.";
+}
+
+if(erro.includes("endereco_obrigatorio")){
+mensagem = "Informe o endereço de entrega para continuar.";
+}
+
+if(erro.includes("mercado_pago") || erro.includes("checkout_error")){
+mensagem = "Pedido criado, mas o pagamento não abriu. Acesse Minha Conta para pagar depois.";
+}
+
+setStatus(mensagem, "error");
+btn.disabled = false;
+btn.style.opacity = "";
+btn.innerText = "Finalizar aluguel";
+}
+}
+
+async function iniciar(){
+checkout = getCheckout();
+
+if(!checkout){
+document.getElementById("emptyState").classList.remove("hidden");
+return;
+}
+
+document.getElementById("checkoutPage").classList.remove("hidden");
+preencherResumo();
+await preencherCliente();
+}
+
+iniciar();
+</script>
+</body>
+</html>
