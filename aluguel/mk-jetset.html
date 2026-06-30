@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 body{
@@ -137,6 +138,37 @@ margin-top:10px;
 font-family:'Inter';
 }
 
+.calendario-status{
+margin-top:8px;
+font-family:'Inter', sans-serif;
+font-size:12px;
+line-height:1.5;
+color:#777;
+}
+
+.calendario-status.erro{
+color:#9b2c2c;
+}
+
+.calendario-status.sucesso{
+color:#32633e;
+}
+
+.reserva-status{
+margin-top:12px;
+font-family:'Inter', sans-serif;
+font-size:13px;
+line-height:1.5;
+color:#777;
+}
+
+.reserva-status.erro{
+color:#9b2c2c;
+}
+
+.reserva-status.sucesso{
+color:#32633e;
+}
 .btn{
 margin-top:30px;
 padding:20px;
@@ -844,6 +876,7 @@ Confeccionada em couro de bezerro na cor preta, com acabamento granulado e ferra
     <input type="text" id="dataInicio" placeholder="Selecione a data">
 
     <div id="devolucao"></div>
+    <div id="calendarioStatus" class="calendario-status">Consultando disponibilidade...</div>
 
     <br>
 
@@ -863,13 +896,15 @@ Confeccionada em couro de bezerro na cor preta, com acabamento granulado e ferra
 ">
 </div>
 
-    <div class="btn" onclick="alugar()">ALUGAR AGORA</div>
+    <div class="btn" id="botaoAlugar" onclick="alugar()">CONTINUAR ALUGUEL</div>
+    <div id="reservaStatus" class="reserva-status"></div>
 
   </div>
 
 </div>
 
- <!-- <div class="btn" onclick="alugar()">ALUGAR AGORA</div> -->
+ <!-- <div class="btn" id="botaoAlugar" onclick="alugar()">CONTINUAR ALUGUEL</div>
+    <div id="reservaStatus" class="reserva-status"></div> -->
 
 </div>
 
@@ -895,35 +930,144 @@ document.querySelectorAll('.opcao').forEach(opcao => {
   });
 });
 
-/* 🔥 CALENDÁRIO */
-async function iniciarCalendario(){
+/* CALENDARIO + DISPONIBILIDADE SUPABASE */
+const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
+const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
+const BOLSA_SLUG = "mk-jetset";
+const aluguelSupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  let response = await fetch("https://thebagroomtest.onrender.com/datas/serpenti-verde");
-  let alugueis = await response.json();
+let bolsaAtual = null;
+let datasBloqueadas = [];
+let datasBloqueadasSet = new Set();
 
-  let datasBloqueadas = [];
+function setCalendarioStatus(mensagem, tipo = ""){
+  const status = document.getElementById("calendarioStatus");
+  if(!status) return;
 
-  alugueis.forEach(a => {
-    let inicio = new Date(a.inicio);
-    let fim = new Date(a.fim);
+  status.textContent = mensagem;
+  status.className = `calendario-status ${tipo}`.trim();
+}
 
-    for(let d = new Date(inicio); d <= fim; d.setDate(d.getDate()+1)){
-      datasBloqueadas.push(new Date(d));
+function setReservaStatus(mensagem, tipo = ""){
+  const status = document.getElementById("reservaStatus");
+  if(!status) return;
+
+  status.textContent = mensagem;
+  status.className = `reserva-status ${tipo}`.trim();
+}
+
+function dataInputParaISO(dataInput){
+  const partes = dataInput.split("/");
+  return `${partes[2]}-${partes[1]}-${partes[0]}`;
+}
+
+function criarDataLocal(dataISO){
+  const partes = dataISO.split("-");
+  return new Date(Number(partes[0]), Number(partes[1]) - 1, Number(partes[2]));
+}
+
+function chaveData(data){
+  const ano = data.getFullYear();
+  const mes = String(data.getMonth() + 1).padStart(2, "0");
+  const dia = String(data.getDate()).padStart(2, "0");
+  return `${ano}-${mes}-${dia}`;
+}
+
+function montarDatasBloqueadas(reservas){
+  const datas = [];
+  const chaves = new Set();
+
+  reservas.forEach(reserva => {
+    const inicio = criarDataLocal(reserva.data_inicio);
+    const fim = criarDataLocal(reserva.data_fim);
+
+    for(let d = new Date(inicio); d <= fim; d.setDate(d.getDate() + 1)){
+      const data = new Date(d);
+      datas.push(data);
+      chaves.add(chaveData(data));
     }
   });
 
-  flatpickr("#dataInicio", {
-    locale: "pt",
-    dateFormat: "d/m/Y",
-    minDate: new Date().fp_incr(3),
-    disableMobile: true,
-    disable: datasBloqueadas,
-    onChange: () => atualizarDevolucao()
-  });
+  datasBloqueadas = datas;
+  datasBloqueadasSet = chaves;
+}
 
+function periodoTemConflito(dataInicio, dias){
+  for(let i = 0; i <= dias; i++){
+    const data = new Date(dataInicio);
+    data.setDate(dataInicio.getDate() + i);
+
+    if(datasBloqueadasSet.has(chaveData(data))){
+      return true;
+    }
+  }
+
+  return false;
+}
+
+async function iniciarCalendario(){
+  try{
+    const { data: bolsa, error: bolsaError } = await aluguelSupabase
+      .from("bolsas")
+      .select("id")
+      .eq("slug", BOLSA_SLUG)
+      .single();
+
+    if(bolsaError || !bolsa){
+      throw bolsaError || new Error("Bolsa nao encontrada no Supabase.");
+    }
+
+    bolsaAtual = bolsa;
+
+    const hoje = new Date().toISOString().slice(0, 10);
+    const { data: reservas, error: reservasError } = await aluguelSupabase
+      .from("bolsa_reservas")
+      .select("data_inicio, data_fim, status")
+      .eq("bolsa_id", bolsaAtual.id)
+      .gte("data_fim", hoje)
+      .order("data_inicio", { ascending: true });
+
+    if(reservasError){
+      throw reservasError;
+    }
+
+    montarDatasBloqueadas(reservas || []);
+
+    flatpickr("#dataInicio", {
+      locale: "pt",
+      dateFormat: "d/m/Y",
+      minDate: new Date().fp_incr(3),
+      disableMobile: true,
+      disable: datasBloqueadas,
+      onChange: () => atualizarDevolucao()
+    });
+
+    setCalendarioStatus(
+      datasBloqueadas.length
+        ? "Datas reservadas ja aparecem bloqueadas no calendario."
+        : "Calendario atualizado. Todas as datas disponiveis aparecem liberadas.",
+      "sucesso"
+    );
+  } catch(error){
+    console.error("Erro ao carregar disponibilidade:", error);
+
+    flatpickr("#dataInicio", {
+      locale: "pt",
+      dateFormat: "d/m/Y",
+      minDate: new Date().fp_incr(3),
+      disableMobile: true,
+      onChange: () => atualizarDevolucao()
+    });
+
+    setCalendarioStatus(
+      "Nao foi possivel consultar a disponibilidade agora. Confirme a data com a curadoria antes de finalizar.",
+      "erro"
+    );
+  }
 }
 
 iniciarCalendario();
+
 
 /* devolução */
 function atualizarDevolucao(){
@@ -1161,56 +1305,70 @@ ${enderecoShowroom}
 /* 🔥 WHATSAPP COMPLETO */
 
 function alugar(){
-
 let diasSelecionado = document.querySelector('input[name="dias"]:checked');
 let data = document.getElementById('dataInicio').value;
+let botao = document.getElementById("botaoAlugar");
 
 if(!data){
 alert("Escolha a data");
 return;
 }
 
-if(!freteIdaSelecionado || !freteVoltaSelecionado){
-alert("Escolha entrega e devolução");
+if(atualizarDevolucao() === false){
+alert("Esse periodo cruza datas ja reservadas. Escolha outra data ou outro periodo.");
 return;
 }
 
-// valor aluguel
-let textoOpcao = diasSelecionado.parentElement.innerText;
-
-let valorMatch = textoOpcao.match(/R\$\s*([\d.,]+)/);
-
-let valor = valorMatch 
-  ? parseFloat(valorMatch[1].replace(/\./g, '').replace(',', '.')) 
-  : 0;
-
-
-// frete
-let totalFrete = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
-
-// total
-let total = valor + totalFrete;
-let totalFormatado = total.toFixed(2).replace(".", ",");
-
-// texto frete
-let freteTexto = `
-Entrega: ${freteIdaSelecionado.nome} • R$ ${freteIdaSelecionado.preco.toFixed(2)}
-Devolução: ${freteVoltaSelecionado.nome} • R$ ${freteVoltaSelecionado.preco.toFixed(2)}
-`;
-
-let mensagem = `Olá, quero alugar a 
-Michael Kors Jet Set
-
-Data recebimento: ${data}
-Período: ${textoOpcao}
-
-${freteTexto}
-
-Valor total: R$ ${totalFormatado}`;
-
-window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
+if(!freteIdaSelecionado || !freteVoltaSelecionado){
+alert("Escolha entrega e devolucao");
+return;
 }
 
+let textoOpcao = diasSelecionado.parentElement.innerText;
+let valorMatch = textoOpcao.match(/R\$\s*([\d.,]+)/);
+let valor = valorMatch
+  ? parseFloat(valorMatch[1].replace(/\./g, '').replace(',', '.'))
+  : 0;
+
+let totalFrete = Number(freteIdaSelecionado.preco || 0) + Number(freteVoltaSelecionado.preco || 0);
+let total = valor + totalFrete;
+
+let dataInicioISO = dataInputParaISO(data);
+let partes = data.split("/");
+let dataInicioObj = new Date(partes[2], partes[1] - 1, partes[0]);
+let dataFimObj = new Date(dataInicioObj);
+dataFimObj.setDate(dataFimObj.getDate() + Number(diasSelecionado.value));
+let dataFimISO = chaveData(dataFimObj);
+let dataFimBR = dataFimObj.toLocaleDateString("pt-BR");
+
+const checkout = {
+  bolsaSlug: BOLSA_SLUG,
+  bolsaNome: "Michael Kors Jet Set",
+  imagem: "https://i.imgur.com/gDcOX88.jpg",
+  dataInicio: data,
+  dataInicioISO,
+  dataFim: dataFimBR,
+  dataFimISO,
+  dias: Number(diasSelecionado.value),
+  periodoTexto: textoOpcao,
+  valorAluguel: valor,
+  valorFrete: totalFrete,
+  valorTotal: total,
+  valorCaucao: 1000.00,
+  cep: document.getElementById("cep").value || "",
+  freteIda: freteIdaSelecionado,
+  freteVolta: freteVoltaSelecionado
+};
+
+localStorage.setItem("checkoutAluguelTheBagRoom", JSON.stringify(checkout));
+setReservaStatus("Resumo criado. Indo para o checkout...", "sucesso");
+
+if(botao){
+  botao.innerText = "CONTINUANDO...";
+}
+
+window.location.href = "checkout-aluguel.html";
+}
 
 
 let imagens = document.querySelectorAll('#slider img');
@@ -1384,7 +1542,5 @@ function toggleFooter(el){
 
 </body>
 </html>
-
-
 
 
