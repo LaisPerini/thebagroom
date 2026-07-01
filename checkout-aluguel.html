@@ -430,7 +430,7 @@ text-align:center;
       <a href="autenticidade.html">Autenticidade</a>
       <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
       <a href="quem-somos.html">Sobre</a>
-      <a href="login.html">Minha Conta</a>
+      <a href="/login.html">Minha Conta</a>
     </div>
   </nav>
 </header>
@@ -446,7 +446,7 @@ Confira o período, informe o endereço de entrega e siga para o pagamento do al
 <section id="loginNotice" class="notice hidden">
 Para finalizar o aluguel, entre na sua conta. Depois volte ao checkout para continuar.
 <div style="margin-top:12px;">
-<a class="btn secondary" id="loginCheckoutLink" href="login.html?next=checkout-aluguel.html">Entrar ou cadastrar</a>
+<a class="btn secondary" id="loginCheckoutLink" href="/login.html?next=checkout-aluguel.html">Entrar ou cadastrar</a>
 </div>
 </section>
 
@@ -685,7 +685,7 @@ return true;
 async function finalizarAluguel(){
 if(!sessionAtual){
 localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
-window.location.href = "login.html?next=checkout-aluguel.html";
+window.location.href = "/login.html?next=checkout-aluguel.html";
 return;
 }
 
@@ -697,7 +697,7 @@ const novoNonce = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 sessionStorage.setItem(LOGIN_CHECKOUT_NONCE_KEY, novoNonce);
 sessionStorage.removeItem(LOGIN_CHECKOUT_KEY);
 localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
-window.location.href = "login.html?next=checkout-aluguel.html";
+window.location.href = "/login.html?next=checkout-aluguel.html";
 return;
 }
 
