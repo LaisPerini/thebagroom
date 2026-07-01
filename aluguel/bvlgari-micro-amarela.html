@@ -16,8 +16,8 @@
 <title>Bvlgari Serpenti | Aluguel de Bolsas de Luxo | The Bag Room</title>
 
 
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="favicon.png">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
@@ -868,7 +868,7 @@ body {
   <!-- ESQUERDA (IMAGEM) -->
   <div class="galeria">
     
-      <a href="/certificados/bvlgari-micro-amarela-auth.html" class="auth-selo-link">
+      <a href="/certificado/bvlgari-micro-amarela-auth.html" class="auth-selo-link">
   <img src="/selo-auth.jpg" class="auth-selo">
 </a>
 
@@ -1408,7 +1408,7 @@ localStorage.setItem("reservaPendenteTheBagRoom", JSON.stringify({
 }));
 
 alert("Para reservar, entre na sua conta ou faca seu cadastro.");
-window.location.href = "login.html";
+window.location.href = "/login.html";
 return;
 }
 
@@ -1554,7 +1554,7 @@ const { data: { session } } = await aluguelSupabase.auth.getSession();
 if(!session){
   localStorage.setItem("proximoDestinoTheBagRoom", "/checkout-aluguel.html");
   setReservaStatus("Entre ou cadastre-se para continuar seu aluguel.", "sucesso");
-  window.location.href = "login.html?next=checkout-aluguel.html";
+  window.location.href = "/login.html?next=/checkout-aluguel.html";
   return;
 }
 
