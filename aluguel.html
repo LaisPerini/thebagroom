@@ -1444,10 +1444,9 @@ function prepararCatalogo(){
     const href = card.getAttribute('href') || "";
     const arquivo = href.split('/').pop();
 
-    if(arquivo && arquivo.includes('.html')){
-      card.setAttribute('href', arquivo);
-      card.dataset.slug = arquivo.replace('.html', '');
-    }
+  if(arquivo && arquivo.includes('.html')){
+  card.dataset.slug = arquivo.replace('.html', '');
+}
 
     if(card.classList.contains('card') && !card.querySelector('.card-status')){
       const status = document.createElement('div');
