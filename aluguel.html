@@ -15,9 +15,9 @@
 <meta name="description" content="Alugue bolsas de luxo autênticas das principais marcas do mundo. Louis Vuitton, Gucci, Saint Laurent e muito mais.">
 <title>Aluguel de Bolsas de Luxo | The Bag Room</title>
 
-<link rel="icon" sizes="32x32" href="favicon.png">
-<link rel="icon" sizes="192x192" href="favicon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+<link rel="icon" sizes="32x32" href="/favicon.png">
+<link rel="icon" sizes="192x192" href="/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
 
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -834,14 +834,14 @@ body {
   <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
     <div class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">&times;</div>
     <div class="menu-mobile-inner">
-      <a href="index.html">In&iacute;cio</a>
-      <a href="aluguel.html">Alugar Bolsas</a>
-      <a href="como-alugar.html">Como Alugar</a>
-      <a href="como-desapegar.html">Como Desapegar</a>
-      <a href="autenticidade.html">Autenticidade</a>
+      <a href="/index.html">In&iacute;cio</a>
+      <a href="/aluguel.html">Alugar Bolsas</a>
+      <a href="/como-alugar.html">Como Alugar</a>
+      <a href="/como-desapegar.html">Como Desapegar</a>
+      <a href="/autenticidade.html">Autenticidade</a>
       <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
-      <a href="quem-somos.html">Sobre</a>
-      <a href="login.html">Minha Conta</a>
+      <a href="/quem-somos.html">Sobre</a>
+      <a href="/login.html">Minha Conta</a>
     </div>
   </nav>
 </header>
@@ -854,7 +854,8 @@ body {
   <div class="catalog-eyebrow">Curadoria para aluguel</div>
   <h2 class="catalog-title">Escolha sua bolsa para alugar</h2>
   <p class="catalog-copy">
-Bolsas autênticas, cuidadosamente selecionadas pela The Bag Room, disponíveis para reserva por período. Escolha seu modelo, consulte as datas disponíveis na página da bolsa e finalize seu aluguel pelo checkout.  </p>
+    Bolsas autenticas, selecionadas pela The Bag Room, disponiveis para reservar por periodo. Escolha o modelo, confira as datas na pagina da bolsa e finalize seu aluguel pelo checkout.
+  </p>
 </section>
 
 <!-- HERO -->
@@ -1444,9 +1445,10 @@ function prepararCatalogo(){
     const href = card.getAttribute('href') || "";
     const arquivo = href.split('/').pop();
 
-  if(arquivo && arquivo.includes('.html')){
-  card.dataset.slug = arquivo.replace('.html', '');
-}
+    if(arquivo && arquivo.includes('.html')){
+      card.setAttribute('href', arquivo);
+      card.dataset.slug = arquivo.replace('.html', '');
+    }
 
     if(card.classList.contains('card') && !card.querySelector('.card-status')){
       const status = document.createElement('div');
@@ -1522,12 +1524,6 @@ window.addEventListener('load', prepararCatalogo);
 
 </body>
 </html>
-
-
-
-
-
-
 
 
 
