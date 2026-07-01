@@ -1474,7 +1474,7 @@ localStorage.setItem("checkoutAluguelTheBagRoom", JSON.stringify(checkout));
 const { data: { session } } = await aluguelSupabase.auth.getSession();
 
 if(!session){
-  localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
+  localStorage.setItem("proximoDestinoTheBagRoom", "/checkout-aluguel.html");
   setReservaStatus("Entre ou cadastre-se para continuar seu aluguel.", "sucesso");
   window.location.href = "login.html?next=checkout-aluguel.html";
   return;
@@ -1486,7 +1486,7 @@ if(botao){
   botao.innerText = "CONTINUANDO...";
 }
 
-window.location.href = "checkout-aluguel.html";
+window.location.href = "/checkout-aluguel.html";
 }
 
 
