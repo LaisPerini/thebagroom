@@ -14,9 +14,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cadastro de Locação · The Bag Room</title>
 
-<link rel="icon" sizes="32x32" href="favicon.png">
-<link rel="icon" sizes="192x192" href="favicon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+<link rel="icon" sizes="32x32" href="/favicon.png">
+<link rel="icon" sizes="192x192" href="/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
@@ -531,14 +531,14 @@ margin-top:2px;
   <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
     <div class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">&times;</div>
     <div class="menu-mobile-inner">
-      <a href="index.html">In&iacute;cio</a>
-      <a href="aluguel.html">Alugar Bolsas</a>
-      <a href="como-alugar.html">Como Alugar</a>
-      <a href="como-desapegar.html">Como Desapegar</a>
-      <a href="autenticidade.html">Autenticidade</a>
+      <a href="/index.html">In&iacute;cio</a>
+      <a href="/aluguel.html">Alugar Bolsas</a>
+      <a href="/como-alugar.html">Como Alugar</a>
+      <a href="/como-desapegar.html">Como Desapegar</a>
+      <a href="/autenticidade.html">Autenticidade</a>
       <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
-      <a href="quem-somos.html">Sobre</a>
-      <a href="login.html">Minha Conta</a>
+      <a href="/quem-somos.html">Sobre</a>
+      <a href="/login.html">Minha Conta</a>
     </div>
   </nav>
 </header>
@@ -828,11 +828,11 @@ const nextParam = params.get("next");
 const nextLocal = localStorage.getItem("proximoDestinoTheBagRoom");
 const destino = nextParam || nextLocal || "minha-conta.html";
 
-if(destino.includes("checkout-aluguel.html")){
-return "checkout-aluguel.html";
+if(destino.includes("/checkout-aluguel.html")){
+return "/checkout-aluguel.html";
 }
 
-return "minha-conta.html";
+return "/minha-conta.html";
 }
 
 window.addEventListener('load', function(){
@@ -866,7 +866,7 @@ const { data: cadastroExistente } = await supabaseClient
 if(!cadastroExistente) return;
 
 const destino = destinoDepoisCadastro();
-if(!destino.includes("checkout-aluguel.html")) return;
+if(!destino.includes("/checkout-aluguel.html")) return;
 
 formulario.style.display = "none";
 
@@ -900,7 +900,7 @@ IR PARA MINHA CONTA
 
 document.getElementById("irMinhaContaBtn").addEventListener("click", function(){
 localStorage.removeItem("proximoDestinoTheBagRoom");
-window.location.href = "minha-conta.html";
+window.location.href = "/minha-conta.html";
 });
 }
 
@@ -1069,7 +1069,7 @@ btnEnviar.innerText =
 alert('Cadastro enviado com sucesso!');
 
 localStorage.removeItem("proximoDestinoTheBagRoom");
-window.location.href = "minha-conta.html";
+window.location.href = "/minha-conta.html";
 
 
 });
@@ -1235,6 +1235,8 @@ e.target.value = valor;
 
 </body>
 </html>
+
+
 
 
 
