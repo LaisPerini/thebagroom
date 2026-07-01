@@ -1522,8 +1522,47 @@ function atualizarContador(){
 window.addEventListener('load', prepararCatalogo);
 </script>
 
+<script>
+(function corrigirLinksBolsas(){
+  const bolsas = new Set([
+    "bvlgari-micro-amarela.html",
+    "bvlgari-micro-roxa.html",
+    "bvlgari-serpenti-branca.html",
+    "bvlgari-serpenti-verde.html",
+    "bvlgari-serpenti-vermelha.html",
+    "carolinaherreira-insignia.html",
+    "coach-28-brooklyn.html",
+    "coach-tabby-chain-19.html",
+    "dolce-gabbana-devotion-box.html",
+    "dolcegabbana-iguana.html",
+    "fendi-2jours.html",
+    "fendi-zucchino.html",
+    "gucci-dionysus-super-mini-python.html",
+    "gucci-rajah.html",
+    "gucci-sylvie-star.html",
+    "hermes-vinyl-kelly.html",
+    "katespade-carey-tisel-tweed-medium.html",
+    "katespade-carey-tissel-tweed-micro.html",
+    "katespade-carey.html",
+    "katespade-casey-bear-tweed.html",
+    "katespade-duet-floral-crossbody.html",
+    "katespade-turnlock.html",
+    "marcjacobs.html",
+    "mk-jetset.html"
+  ]);
+
+  document.querySelectorAll("a[href]").forEach((link) => {
+    const rawHref = link.getAttribute("href") || "";
+    const fileName = rawHref.split("/").pop();
+    if(bolsas.has(fileName) && !rawHref.startsWith("/aluguel/")){
+      link.setAttribute("href", `/aluguel/${fileName}`);
+    }
+  });
+})();
+</script>
 </body>
 </html>
+
 
 
 
