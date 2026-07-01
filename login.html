@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minha Conta • The Bag Room</title>
 
-<link rel="icon" sizes="32x32" href="favicon.png">
-<link rel="icon" sizes="192x192" href="favicon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+<link rel="icon" sizes="32x32" href="/favicon.png">
+<link rel="icon" sizes="192x192" href="/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -325,14 +325,14 @@ font-size:26px;
   <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
     <div class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">&times;</div>
     <div class="menu-mobile-inner">
-      <a href="index.html">In&iacute;cio</a>
-      <a href="aluguel.html">Alugar Bolsas</a>
-      <a href="como-alugar.html">Como Alugar</a>
-      <a href="como-desapegar.html">Como Desapegar</a>
-      <a href="autenticidade.html">Autenticidade</a>
+      <a href="/index.html">In&iacute;cio</a>
+      <a href="/aluguel.html">Alugar Bolsas</a>
+      <a href="/como-alugar.html">Como Alugar</a>
+      <a href="/como-desapegar.html">Como Desapegar</a>
+      <a href="/autenticidade.html">Autenticidade</a>
       <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
-      <a href="quem-somos.html">Sobre</a>
-      <a href="login.html">Minha Conta</a>
+      <a href="/quem-somos.html">Sobre</a>
+      <a href="/login.html">Minha Conta</a>
     </div>
   </nav>
 </header>
@@ -378,7 +378,7 @@ Esqueci minha senha
 Ainda não possui cadastro?
 
 <br>
-<a href="cadastro-locacao.html" id="linkCadastro">
+<a href="/cadastro-locacao.html" id="linkCadastro">
 Cadastre-se aqui
 </a>
 </div>
@@ -402,15 +402,15 @@ const nextParam = params.get("next");
 const nextLocal = localStorage.getItem("proximoDestinoTheBagRoom");
 const destino = nextParam || nextLocal || "minha-conta.html";
 
-if(destino.includes("checkout-aluguel.html")){
-return "checkout-aluguel.html";
+if(destino.includes("/checkout-aluguel.html")){
+return "/checkout-aluguel.html";
 }
 
 if(destino.includes("minha-conta.html")){
-return "minha-conta.html";
+return "/minha-conta.html";
 }
 
-return "minha-conta.html";
+return "/minha-conta.html";
 }
 
 function prepararRetorno(){
@@ -422,7 +422,7 @@ if(next){
 localStorage.setItem("proximoDestinoTheBagRoom", next);
 
 if(cadastro){
-cadastro.href = `cadastro-locacao.html?next=${encodeURIComponent(next)}`;
+cadastro.href = `/cadastro-locacao.html?next=${encodeURIComponent(next)}`;
 }
 }
 }
@@ -452,7 +452,7 @@ btn.innerText = 'ENTRAR';
 return;
 }
 const destino = destinoDepoisLogin();
-if(destino.includes("checkout-aluguel.html") && data?.session?.user?.id){
+if(destino.includes("/checkout-aluguel.html") && data?.session?.user?.id){
 const loginNonce = sessionStorage.getItem(LOGIN_CHECKOUT_NONCE_KEY);
 if(loginNonce) sessionStorage.setItem(LOGIN_CHECKOUT_KEY, `${data.session.user.id}:${loginNonce}`);
 }
@@ -471,6 +471,9 @@ function toggleMenuMobile() {
 </script>
 </body>
 </html>
+
+
+
 
 
 
