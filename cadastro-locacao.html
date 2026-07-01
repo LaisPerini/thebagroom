@@ -842,10 +842,58 @@ const formulario =
 document.getElementById('cadastroForm');
 
 async function prepararCadastroLogado(){
-const { data: { session } } = await supabaseClient.auth.getSession();
-sessaoAtual = session;
+async function prepararCadastroLogado(){
+  const { data: { user }, error } = await supabaseClient.auth.getUser();
 
-if(!sessaoAtual) return;
+  if(error || !user){
+    sessaoAtual = null;
+    return;
+  }
+
+  sessaoAtual = { user };
+
+  const emailInput = document.querySelector('[name="email"]');
+  if(emailInput){
+    emailInput.value = user.email || "";
+    emailInput.readOnly = true;
+  }
+
+  const senhaInput = document.getElementById('senha');
+  const confirmarSenhaInput = document.getElementById('confirmar_senha');
+
+  if(senhaInput) senhaInput.required = false;
+  if(confirmarSenhaInput) confirmarSenhaInput.required = false;
+
+  const { data: cadastroExistente } = await supabaseClient
+    .from('validacao_clientes')
+    .select('id,nome_completo,status')
+    .eq('usuario_auth_id', user.id)
+    .maybeSingle();
+
+  if(!cadastroExistente) return;
+
+  const destino = destinoDepoisCadastro();
+
+  if(!destino.includes("checkout-aluguel.html")) return;
+
+  formulario.style.display = "none";
+
+  formulario.insertAdjacentHTML("beforebegin", `
+    <div class="seguranca-box" style="text-align:center;margin:25px 0;">
+      Seu cadastro de locação já está preenchido.
+      <br><br>
+      <button type="button" id="continuarCheckoutBtn" class="btn-enviar" style="max-width:320px;margin:auto;">
+        CONTINUAR PARA O CHECKOUT
+      </button>
+    </div>
+  `);
+
+  document.getElementById("continuarCheckoutBtn").addEventListener("click", function(){
+    localStorage.setItem(CADASTRO_CHECKOUT_OK_KEY, "sim");
+    localStorage.removeItem("proximoDestinoTheBagRoom");
+    window.location.href = "/checkout-aluguel.html";
+  });
+}
 
 const emailInput = document.querySelector('[name="email"]');
 if(emailInput){
