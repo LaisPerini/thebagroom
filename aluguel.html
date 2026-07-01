@@ -12,25 +12,35 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Saiba como funciona o aluguel de bolsas de luxo na The Bag Room. Cadastre-se, escolha sua bolsa e receba com segurança.">
-<title>Como Alugar | The Bag Room</title>
+<meta name="description" content="Alugue bolsas de luxo autênticas das principais marcas do mundo. Louis Vuitton, Gucci, Saint Laurent e muito mais.">
+<title>Aluguel de Bolsas de Luxo | The Bag Room</title>
 
 <link rel="icon" sizes="32x32" href="favicon.png">
 <link rel="icon" sizes="192x192" href="favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<style>
 
-/* BASE */
-*{box-sizing:border-box;}
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
 
 body{
 margin:0;
 background:#f5f4f2;
 font-family:'Playfair Display', serif;
 color:#111;
+}
+
+
+/* remove flash iOS */
+*{
+-webkit-tap-highlight-color:transparent;
+}
+
+/* scroll suave */
+html{
+scroll-behavior:smooth;
 }
 
 /* HEADER */
@@ -51,9 +61,156 @@ font-size:20px;
 margin:0;
 }
 
-.top-space{height:65px;}
+.top-space{height:70px;}
 
-/* MENU */
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+animation:fadeUp 0.6s ease;
+}
+
+/* HERO */
+.hero{
+margin-bottom:50px;
+border-bottom:1px solid #eee;
+padding-bottom:10px;
+transition:transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero:active{
+transform:scale(0.97);
+}
+
+.hero img{
+width:100%;
+border-radius:20px;
+aspect-ratio:4/5;
+object-fit:cover;
+transition:transform 0.5s ease;
+}
+
+.hero:active img{
+transform:scale(0.98);
+}
+
+.hero .nome{
+font-size:17px;
+font-weight:500;
+letter-spacing:0.4px;
+margin-top:14px;
+}
+
+.hero .preco{
+font-family:'Inter';
+color:#888;
+font-size:14px;
+margin-top:4px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:28px 14px;
+margin-top:36px;
+}
+
+/* CARD */
+.card{
+text-decoration:none;
+color:inherit;
+transition:transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+display:flex;
+flex-direction:column;
+}
+
+/* toque premium */
+.card:active{
+transform:scale(0.95);
+}
+
+/* imagem responde */
+.card img{
+width:100%;
+border-radius:16px;
+aspect-ratio:4/5;
+object-fit:cover;
+transition:transform 0.45s ease;
+}
+
+.card:active img{
+transform:scale(0.97);
+}
+
+/* nome e preço */
+.nome{
+margin-top:12px;
+margin-bottom:4px;
+font-size:13.5px;
+line-height:1.4;
+font-weight:600;
+}
+
+.preco{
+font-family:'Inter';
+font-size:13px;
+color:#8a8a8a;
+margin-top:2px;
+}
+
+/* TAG */
+.tag{
+position:absolute;
+top:12px;
+left:12px;
+
+background:rgba(255,255,255,0.85);
+color:#333;
+border:1px solid #e8e8e8;
+backdrop-filter:blur(6px);
+
+font-size:10px;
+padding:5px 10px;
+border-radius:8px;
+
+letter-spacing:0.3px;
+}
+
+/* imagem container */
+.img-box{
+position:relative;
+overflow:hidden;
+border-radius:16px;
+}
+
+/* links limpos */
+a,
+a:visited,
+a:hover,
+a:active{
+color:#111;
+text-decoration:none;
+}
+
+/* animação entrada */
+@keyframes fadeUp{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* MOBILE */
+@media(max-width:700px){
+.hero .nome{font-size:17px;}
+}
+
+/* BOTÃO MENU */
 .menu-mobile-btn{
 position:absolute;
 left:16px;
@@ -63,6 +220,7 @@ font-size:22px;
 cursor:pointer;
 }
 
+/* MENU LATERAL PREMIUM */
 .menu-mobile{
 position:fixed;
 top:0;
@@ -81,6 +239,7 @@ padding-top:100px;
 left:0;
 }
 
+/* FECHAR */
 .close-menu{
 position:absolute;
 top:24px;
@@ -89,6 +248,7 @@ font-size:30px;
 cursor:pointer;
 }
 
+/* LINKS */
 .menu-mobile-inner{
 display:flex;
 flex-direction:column;
@@ -109,79 +269,118 @@ transition:0.3s;
 opacity:0.6;
 }
 
-/* HERO */
-.internal-title{
-width:100%;
-height:32vh;
-background:url('https://i.imgur.com/cEmhXKD.jpeg') center/cover;
-display:flex;
-align-items:center;
-justify-content:center;
+/* ===== SLIDER PREMIUM ===== */
+.img-box.slider{
 position:relative;
+overflow:hidden;
+border-radius:20px;
+aspect-ratio:4/5;
 }
 
-.internal-title::after{
-content:"";
+/* slides */
+.slide{
 position:absolute;
+top:0;
+left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.45);
+object-fit:cover;
+opacity:0;
+transition:opacity 1.2s ease, transform 6s ease;
+transform:scale(1);
 }
 
-.internal-title h2{
-  position:relative;
-  z-index:3;
-  font-size:30px;
-  font-weight:600;
-  color:#fff;
-  letter-spacing:6px;
-  text-align:center;
-  text-shadow: 0 6px 20px rgba(0,0,0,0.7);
+/* slide ativo */
+.slide.active{
+opacity:1;
+z-index:2;
+animation:zoomSlow 6s ease forwards;
 }
 
-/* CONTENT */
-.content-box{
-max-width:900px;
-margin:3px auto;
-padding:32px;
-border-radius:18px;
-line-height:1.8;
+.nome{
+display:flex;
+flex-direction:column;
+margin-top:12px;
+line-height:1.3;
+min-height:44px; /* alinha todos */
 }
 
-.content-box p {
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  line-height: 1.6;
-  margin-bottom: 14px;
-  color: #444;
+/* MARCA */
+.marca{
+font-size:17px;
+font-weight:600;
+color:#111;
 }
 
-/* destaque elegante */
-.destaque{
-margin-top:25px;
-padding:20px;
-border:1px solid #eee;
-border-radius:14px;
-background:#fafafa;
-font-family:'Inter';
+/* MODELO */
+.modelo{
 font-size:14px;
+color:#4a4a4a;
+font-weight:400;
+margin-top:2px;
 }
 
-/* BOTÃO */
-.whats-btn{
-display:block;
-margin:10px auto;
-background:#000;
-color:#fff;
-padding:18px;
-border-radius:40px;
-text-align:center;
-letter-spacing:4px;
-text-decoration:none;
-width:80%;
+/* PREÇO MAIS IMPORTANTE */
+.preco{
+font-family:'Inter';
+font-size :14px;
+}
+.filtro-modal{
+  position:fixed;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100vh;
+  background:#fff;
+  z-index:3000;
+  transition:0.4s cubic-bezier(0.22,1,0.36,1);
+  display:flex;
+  flex-direction:column;
 }
 
-/* FOOTER */
+.filtro-modal.open{
+left:0;
+}
+
+.filtro-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px;
+border-bottom:1px solid #eee;
+}
+
+.filtro-content{
+padding:20px;
+overflow-y:auto;
+pointer-events:auto;
+
+}
+
+.grupo{
+margin-bottom:25px;
+}
+
+.grupo h4{
+margin-bottom:10px;
+font-size:14px;
+letter-spacing:1px;
+}
+
+.grupo label{
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:10px;
+font-size:14px;
+cursor:pointer;
+}
+
+.grupo input{
+width:16px;
+height:16px;
+}
+
 .footer-luxo {
   margin-top: 80px;
   border-top: 1px solid #eaeaea;
@@ -208,7 +407,6 @@ width:80%;
   font-size: 13px;
   color: #555;
   line-height: 1.6;
-  margin-left:120px;
 }
 
 .footer-item.active .footer-content {
@@ -221,226 +419,414 @@ width:80%;
   color: #777;
   text-align: center;
 }
-/* STEP CARDS */
 
-.step-card{
+.limpar{
+margin-top:20px;
+padding:12px;
+border:none;
+background:#111;
+color:#fff;
+border-radius:8px;
+}
+
+/* efeito zoom leve (luxo) */
+@keyframes zoomSlow{
+from{ transform:scale(1); }
+to{ transform:scale(1.06); }
+}
+
+.barra-filtros{
+display:flex;
+gap:12px;
+margin:30px 0 10px;
+}
+
+.barra-filtros button,
+.barra-filtros select{
+flex:1;
+padding:14px;
+border-radius:14px;
+border:1px solid #e9e9e9;
 background:#fff;
-border:1px solid #ececec;
-border-radius:24px;
-padding:28px;
-margin-bottom:24px;
-box-shadow:0 10px 30px rgba(0,0,0,0.03);
+font-size:14px;
+color:#6f6f6f;
+letter-spacing:0.4px;
+transition:all 0.2s ease;
+text-align:center;
 }
 
-.step-card h3{
-font-family: 'Inter', sans-serif;
-font-weight:700;
-color:#111;
-margin-bottom:18px;
-text-transform:uppercase;
-letter-spacing:1px;
-font-size:15px;
+/* efeito toque premium */
+.barra-filtros button:active,
+.barra-filtros select:active{
+transform:scale(0.97);
+background:#f8f8f8;
 }
 
-.step-card p{
-font-family:'Inter', sans-serif;
-font-size:15px;
-line-height:1.8;
-color:#444;
-margin-bottom:14px;
+/* remove estilo feio do select no iPhone */
+.barra-filtros select{
+appearance:none;
+-webkit-appearance:none;
 }
 
-.step-number{
-display:inline-block;
-font-size:13px;
-font-family:'Inter', sans-serif;
-letter-spacing:2px;
-opacity:0.5;
-margin-right:10px;
-vertical-align:middle;
+input[type=range]{
+width:100%;
+appearance:none;
+height:4px;
+background:#ddd;
+border-radius:10px;
+outline:none;
+margin-top:10px;
+/*  ESSENCIAL */
+touch-action: pan-x;
 }
 
-.step-card ul{
-padding-left:22px;
+/* bolinha */
+input[type=range]::-webkit-slider-thumb{
+appearance:none;
+width:18px;
+height:18px;
+background:#111;
+border-radius:50%;
+cursor:pointer;
+pointer-events:auto;
+}
+
+input[type=range]::-moz-range-thumb{
+width:18px;
+height:18px;
+background:#111;
+border-radius:50%;
+cursor:pointer;
+}
+
+.grupo h4{
+display:flex;
+justify-content:space-between;
+align-items:center;
+cursor:pointer;
+}
+
+.grupo .conteudo{
 margin-top:10px;
 }
 
-.step-card li{
-font-family:'Inter', sans-serif;
-font-size:15px;
-margin-bottom:10px;
-color:#444;
-line-height:1.6;
+/* fechado */
+.grupo.fechado .conteudo{
+display:none;
 }
 
-.step-number{
-margin-right:8px;
+/* setinha girando */
+.grupo h4 span{
+transition:0.3s;
 }
 
-.hero-desapego{
-  text-align:center;
-  max-width:700px;
-  margin:40px auto 70px;
-  padding:0 20px;
+.grupo.fechado h4 span{
+transform:rotate(-90deg);
 }
 
-.frase{
-  font-family:'Playfair Display', serif;
-  font-size:32px;
-  color:#111;
-  margin-bottom:15px;
-}
-
-.texto{
-  font-family:'Inter', sans-serif;
-  font-size:16px;
-  color:#666;
-  line-height:1.8;
-  margin-bottom:30px;
-}
-
-.btn-desapego{
-  display:inline-block;
-  background:#111;
-  color:#fff;
-  text-decoration:none;
-  padding:16px 34px;
-  border-radius:999px;
-  font-family:'Inter', sans-serif;
-  font-size:13px;
-  letter-spacing:1px;
-  transition:.3s;
-}
-
-.btn-desapego:hover{
-  opacity:.85;
-}
-
-.hero-video{
-  position:relative;
-  height:300px;
-  overflow:hidden;
-}
-
-.hero-video video{
+#overlay{
+  position:fixed;
+  top:0;
+  left:0;
   width:100%;
   height:100%;
-  object-fit:cover;
+  background:rgba(0,0,0,0.3);
+  opacity:0;
+  pointer-events:none;
+  transition:0.3s;
+  z-index:2500;
 }
 
-.hero-overlay{
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.35);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
+#overlay.active{
+  opacity:1;
+  pointer-events:auto;
 }
 
-.hero-overlay h2{
-  color:#fff;
-  font-size:32px;
-  letter-spacing:4px;
-  font-family:'Playfair Display', serif;
-  transform: translateY(-30px);
+  /* ===== DESKTOP ===== */
+
+@media(min-width:1024px){
+
+  .top-space{
+    height:25px;
+  }
+
+  body{
+    background:#fff;
+  }
+
+  .container{
+    max-width:1200px;
+    padding:40px 20px;
+    padding-top:10px;
+  }
+
+  .hero{
+    max-width:100%;
+    margin:0 auto 60px;
+    padding:0;
+    margin-top:0;
+  }
+
+  /*  CONTROLE REAL DO TAMANHO */
+  .img-box.slider{
+    max-width:380px;
+    margin:0 auto;
+    aspect-ratio:4/5;
+  }
+
+  .hero .nome{
+    font-size:22px;
+    text-align:center;
+  }
+
+  .hero .preco{
+    font-size:16px;
+    text-align:center;
+  }
+
+  .grid{
+    grid-template-columns:repeat(3, 1fr);
+    gap:40px 24px;
+  }
+
+  .card img{
+    border-radius:18px;
+  }
+
+  .marca{ font-size:18px; }
+  .modelo{ font-size:15px; }
+  .preco{ font-size:15px; }
+
+  .card:hover{
+    transform:translateY(-6px);
+  }
+
+  .card:hover img{
+    transform:scale(1.03);
+  }
+
+}
+.catalog-head{
+margin:12px 0 28px;
+padding:32px 0 8px;
+border-bottom:1px solid #e7e2dc;
+}
+
+.catalog-eyebrow{
+font-family:'Inter', sans-serif;
+font-size:11px;
+font-weight:600;
+letter-spacing:2.6px;
+text-transform:uppercase;
+color:#a47b42;
+margin-bottom:10px;
+}
+
+.catalog-title{
+font-size:clamp(36px,6vw,72px);
+line-height:.98;
+font-weight:500;
+margin:0;
+}
+
+.catalog-copy{
+font-family:'Inter', sans-serif;
+max-width:640px;
+font-size:15px;
+line-height:1.8;
+color:#666;
+margin:18px 0 0;
+}
+
+.catalog-summary{
+font-family:'Inter', sans-serif;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px;
+margin:24px 0 4px;
+font-size:13px;
+color:#666;
+}
+
+.catalog-summary strong{
+color:#111;
+font-weight:600;
+}
+
+.card{
+position:relative;
+gap:8px;
+}
+
+.card .tag{
+font-family:'Inter', sans-serif;
+text-transform:uppercase;
+letter-spacing:1px;
+font-weight:600;
+}
+
+.card-status{
+font-family:'Inter', sans-serif;
+font-size:11px;
+letter-spacing:1.1px;
+text-transform:uppercase;
+color:#7f6848;
+margin-top:4px;
+}
+
+.card-action{
+font-family:'Inter', sans-serif;
+font-size:11px;
+font-weight:700;
+letter-spacing:1.7px;
+text-transform:uppercase;
+margin-top:8px;
+padding-bottom:8px;
+border-bottom:1px solid #111;
+width:max-content;
+}
+
+.empty-results{
+display:none;
+font-family:'Inter', sans-serif;
+grid-column:1/-1;
+padding:40px 20px;
+border:1px solid #e8e1d8;
+border-radius:18px;
+text-align:center;
+color:#666;
+background:#fff;
+}
+
+.empty-results strong{
+display:block;
+font-family:'Playfair Display', serif;
+font-size:30px;
+line-height:1.1;
+color:#111;
+margin-bottom:8px;
+}
+
+@media(max-width:700px){
+.catalog-head{padding-top:22px;}
+.catalog-summary{display:block;line-height:1.7;}
+.catalog-title{font-size:42px;}
 }
 /* Menu padrao The Bag Room */
 .site-header {
-  position: fixed;
-  inset: 0 0 auto 0;
-  z-index: 1000;
-  min-height: 70px;
-  padding: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.95);
-  border-bottom: 1px solid #eee;
+  position: fixed !important;
+  inset: 0 0 auto 0 !important;
+  z-index: 1000 !important;
+  height: 70px !important;
+  min-height: 70px !important;
+  padding: 18px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid #eee !important;
   backdrop-filter: blur(8px);
 }
 
-.brand {
-  margin: 0;
-  color: #111;
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 6px;
-  text-transform: uppercase;
+.site-header .brand {
+  margin: 0 !important;
+  color: #111 !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  letter-spacing: 6px !important;
+  text-transform: uppercase !important;
 }
 
-.menu-mobile-btn {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 0;
-  background: transparent;
-  color: #111;
-  cursor: pointer;
-  font-size: 22px;
-  line-height: 1;
-  padding: 8px;
+.site-header .menu-mobile-btn {
+  position: absolute !important;
+  left: 16px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #111 !important;
+  cursor: pointer !important;
+  font-size: 22px !important;
+  line-height: 1 !important;
+  padding: 8px !important;
 }
 
-.menu-mobile {
-  position: fixed;
-  top: 0;
-  left: -100%;
-  width: 85%;
-  max-width: 320px;
-  height: 100vh;
-  padding-top: 100px;
-  background: rgba(255, 255, 255, 0.98);
+.site-header .menu-mobile {
+  position: fixed !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 85% !important;
+  max-width: 320px !important;
+  height: 100vh !important;
+  padding-top: 100px !important;
+  background: rgba(255, 255, 255, 0.98) !important;
   backdrop-filter: blur(14px);
-  transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  z-index: 2000;
+  transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  z-index: 2000 !important;
 }
 
-.menu-mobile.open { left: 0; }
+.site-header .menu-mobile.open { left: 0 !important; }
 
-.close-menu {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  border: 0;
-  background: transparent;
-  color: #000;
-  cursor: pointer;
-  font-size: 20px;
-  line-height: 1;
-  opacity: 0.8;
+.site-header .close-menu {
+  position: absolute !important;
+  top: 24px !important;
+  right: 24px !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #000 !important;
+  cursor: pointer !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
+  opacity: 0.8 !important;
   user-select: none;
 }
 
-.close-menu:hover { opacity: 0.5; }
+.site-header .close-menu:hover { opacity: 0.5 !important; }
 
-.menu-mobile-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 26px;
-  padding-left: 30px;
+.site-header .menu-mobile-inner {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 26px !important;
+  padding-left: 30px !important;
 }
 
-.menu-mobile-inner a {
-  color: #000;
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 20px;
-  letter-spacing: 1px;
-  text-decoration: none;
-  transition: opacity 0.3s ease;
+.site-header .menu-mobile-inner a {
+  color: #000 !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-size: 20px !important;
+  letter-spacing: 1px !important;
+  text-decoration: none !important;
+  transition: opacity 0.3s ease !important;
 }
 
-.menu-mobile-inner a:hover { opacity: 0.6; }
+.site-header .menu-mobile-inner a:hover { opacity: 0.6 !important; }
+
+body {
+  padding-top: 70px !important;
+}
+
+.top-space {
+  display: none !important;
+  height: 0 !important;
+}
+
+.container {
+  padding-top: 0 !important;
+}
+
+.catalog-head {
+  margin-top: 0 !important;
+  padding-top: 24px !important;
+}
 </style>
 </head>
 
 <body>
-
-<!-- ========================= -->
-<!-- HEADER -->
-<!-- ========================= -->
+<div id="overlay"></div>
 <header class="site-header">
   <div class="menu-mobile-btn" onclick="toggleMenuMobile()" aria-label="Abrir menu">&#9776;</div>
   <h1 class="brand">THE BAG ROOM</h1>
@@ -461,94 +847,413 @@ margin-right:8px;
 </header>
 
 <div class="top-space"></div>
-<!-- ========================= -->
-<!-- TÍTULO -->
-<!-- ========================= -->
-<section class="hero-video">
 
-  <video autoplay muted loop playsinline>
-    <source src="videos/como-alugar.mp4" type="video/mp4">
-  </video>
+<div class="container">
 
-  <div class="hero-overlay">
-    <h2>COMO ALUGAR</h2>
-  </div>
-
+<section class="catalog-head">
+  <div class="catalog-eyebrow">Curadoria para aluguel</div>
+  <h2 class="catalog-title">Escolha sua bolsa para alugar</h2>
+  <p class="catalog-copy">
+    Bolsas autenticas, selecionadas pela The Bag Room, disponiveis para reservar por periodo. Escolha o modelo, confira as datas na pagina da bolsa e finalize seu aluguel pelo checkout.
+  </p>
 </section>
 
-<section class="hero-desapego">
+<!-- HERO -->
+<a href="dolcegabbana-iguana.html" class="hero">
 
-  <p class="frase">
-    A bolsa perfeita para cada ocasião.
-  </p>
+<div class="img-box slider">
+  <span class="tag">Destaque</span>
 
-  <p class="texto">
-    Escolha sua peça favorita, selecione a data desejada e receba tudo pronto para usar, com segurança, autenticidade e praticidade.
-  </p>
-
-  <a href="aluguel.html" class="btn-desapego">
-    Quero alugar uma bolsa
-  </a>
-
-</section>
-
-
-<!-- CONTEÚDO -->
-<!-- ========================= -->
-<div class="page-wrapper">
-  <div class="content-box">
-
-<div class="step-card">
-  <h3><span class="step-number">1</span> Fa&ccedil;a seu cadastro</h3>
-  <p>Crie sua conta em poucos minutos para que nossa equipe possa validar seus dados e liberar os aluguéis.</p>
+  <img src="https://i.imgur.com/WmAbh2U.jpg" class="slide active">
+  <img src="https://i.imgur.com/F1HCbgn.jpg" class="slide">
+  <img src="https://i.imgur.com/kZqgQmI.jpg" class="slide">
+  <img src="https://i.imgur.com/fHw2ULR.jpg" class="slide">
+  <img src="https://i.imgur.com/Bv5Qk71.jpg" class="slide">
 </div>
-<div class="step-card">
-  <h3><span class="step-number">2</span> Escolha sua bolsa</h3>
-  <p>Explore nossa curadoria e encontre o modelo perfeito para seu evento, viagem ou ocasião especial.</p>
+<div class="nome">
+  <span class="marca">Dolce Gabbana</span>
+  <span class="modelo">Iguana Embossed Miss Sicily </span>
 </div>
-<div class="step-card">
-  <h3><span class="step-number">3</span> Selecione a data</h3>
-  <p>Escolha a data de recebimento e o período de locação diretamente no site.</p>
-</div>
-<div class="step-card">
-  <h3><span class="step-number">4</span> Escolha como receber</h3>
-  <p>Receba sua bolsa via Sedex ou retire pessoalmente em nosso showroom em Santos.</p>
-</div>
-<div class="step-card">
-  <h3><span class="step-number">5</span> Confirma&ccedil;&atilde;o do aluguel</h3>
-  <p>Após a validação do cadastro e confirmação do pedido, sua reserva é finalizada e a bolsa é preparada para envio ou retirada.</p>
-</div>
-<div class="step-card">
-  <h3><span class="step-number">6</span> Aproveite sua experi&ecirc;ncia</h3>
-  <p>Use sua bolsa durante todo o período contratado e aproveite sua ocasião especial com tranquilidade.</p>
-</div>
-<div class="step-card">
-  <h3><span class="step-number">7</span> Devolu&ccedil;&atilde;o simples</h3>
-  <p>Ao final do aluguel, devolva por Sedex ou entregue diretamente em nosso showroom.</p>
-</div>
-<div class="step-card">
-  <h3><span class="step-number">8</span> Autenticidade garantida</h3>
-  <p>Todas as bolsas da The Bag Room passam por rigoroso processo de autenticação e conferência.</p>
-</div
-  
+  <div class="preco">A partir de R$ 590</div>
 
-</div>
-
-<a href="aluguel.html" class="whats-btn">
-   ALUGUE AGORA
 </a>
 
-<!-- ========================= -->
-<!-- SCRIPT DO MENU -->
-<!-- ========================= -->
-<script>
-function toggleMenuMobile() {
-  document.getElementById('menuMobile').classList.toggle('open');
-}
-</script>
-<!-- ========================= -->
-<!-- RODAPÉ -->
-<!-- ========================= -->
+<div class="filtro-modal" id="filtroModal">
+
+  <div class="filtro-header">
+    <h3>☰ Filtrar</h3>
+    <span onclick="abrirFiltro()">✕</span>
+  </div>
+
+  <div class="filtro-content">
+
+    <!-- MARCA -->
+<div class="grupo fechado">
+
+  <h4 onclick="toggleGrupo(this)">
+    Marca <span>⌄</span>
+  </h4>
+
+  <div class="conteudo">
+    <label><input type="checkbox" value="Bvlgari" class="filtro-marca"> Bvlgari</label>
+    <label><input type="checkbox" value="Gucci" class="filtro-marca"> Gucci</label>
+    <label><input type="checkbox" value="Dolce Gabbana" class="filtro-marca"> Dolce Gabbana</label>
+    <label><input type="checkbox" value="Fendi" class="filtro-marca"> Fendi</label>
+    <label><input type="checkbox" value="Carolina Herrera" class="filtro-marca"> Carolina Herrera</label>
+    <label><input type="checkbox" value="Marc Jacobs" class="filtro-marca"> Marc Jacobs</label>
+    <label><input type="checkbox" value="Kate Spade" class="filtro-marca"> Kate Spade</label>
+    <label><input type="checkbox" value="Coach" class="filtro-marca"> Coach</label>
+    <label><input type="checkbox" value="Hermès" class="filtro-marca"> Hermès</label>
+  </div>
+
+</div>
+
+    <!-- COR -->
+<div class="grupo fechado">
+
+  <h4 onclick="toggleGrupo(this)">
+    Cores <span>⌄</span>
+  </h4>
+
+  <div class="conteudo">
+    <label><input type="checkbox" value="Preto" class="filtro-cor"> Preto</label>
+    <label><input type="checkbox" value="Verde" class="filtro-cor"> Verde</label>
+    <label><input type="checkbox" value="Branco" class="filtro-cor"> Branco</label>
+    <label><input type="checkbox" value="Marrom" class="filtro-cor"> Marrom</label>
+    <label><input type="checkbox" value="Rosa" class="filtro-cor"> Rosa</label>
+    <label><input type="checkbox" value="Multicolorido" class="filtro-cor"> Multicolorido</label>
+    <label><input type="checkbox" value="Laranja" class="filtro-cor"> Laranja</label>
+        <label><input type="checkbox" value="Amarelo" class="filtro-cor"> Multicolorido</label>
+  </div>
+
+</div>
+    
+    <div class="grupo">
+  <h4>Preço até: <span id="valorPreco">R$ 2000</span></h4>
+
+<input 
+  type="range" 
+  min="100" 
+  max="2000" 
+  step="50" 
+  value="2000" 
+  id="rangePreco"
+/>
+</div>
+
+    <button class="limpar" onclick="limparFiltros()">Limpar filtros</button>
+
+  </div>
+
+</div>
+
+<div class="barra-filtros">
+
+  <button onclick="abrirFiltro()">☰ Filtrar</button>
+
+  <select onchange="ordenarProdutos(this.value)">
+    <option value="">Ordenar</option>
+    <option value="menor">Menor preço</option>
+    <option value="maior">Maior preço</option>
+  </select>
+
+</div>
+<!-- GRID -->
+<div class="grid">
+
+<a href="bvlgari-serpenti-verde.html"
+class="card"
+data-marca="Bvlgari"
+data-cor="Verde">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/Oj314YO.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Bvlgari</span>
+    <span class="modelo">Serpenti Forever</span>
+  </div>
+  <div class="preco">A partir de R$ 490</div>
+</a>
+
+<a href="gucci-rajah.html" class="card" data-marca="Gucci" data-cor="Branco">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/iUrTpzD.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Gucci</span>
+    <span class="modelo">Rajah</span>
+  </div>
+  <div class="preco">A partir de R$ 490</div>
+</a>
+
+<a href="hermes-vinyl-kelly.html" class="card" data-marca="Hermès" data-cor="Laranja">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+<img src="https://i.imgur.com/Q99KQYI.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Hermès</span>
+    <span class="modelo">Vinyl Kelly Exhibition Tote 1998</span>
+  </div>
+  <div class="preco">A partir de R$ 490</div>
+</a>
+
+<a href="bvlgari-serpenti-branca.html" class="card" data-marca="Bvlgari" data-cor="Branco">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/A2FaCOI.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Bvlgari</span>
+    <span class="modelo">Serpenti Forever Leather Top Handle Bag</span>
+  </div>
+  <div class="preco">A partir de R$ 690</div>
+</a>
+
+<a href="bvlgari-micro-roxa.html" class="card" data-marca="Bvlgari" data-cor="Lilas">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/egP1XxV.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Bvlgari</span>
+    <span class="modelo">Serpenti Forever Micro Lilás</span>
+  </div>
+  <div class="preco">A partir de R$ 390</div>
+</a>
+
+<a href="gucci-sylvie-star.html" class="card" data-marca="Gucci" data-cor="Preto">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+<img src="https://i.imgur.com/WLn7IbA.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Gucci</span>
+    <span class="modelo">Sylvie Bee Star Small</span>
+  </div>
+  <div class="preco">A partir de R$ 490</div>
+</a>
+
+<a href="gucci-dionysus-super-mini-python.html" class="card" data-marca="Gucci" data-cor="Verde">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+<img src="https://i.imgur.com/CQgYNzK.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Gucci</span>
+    <span class="modelo">Super Mini Dionysus Python</span>
+  </div>
+  <div class="preco">A partir de R$ 590</div>
+</a>
+
+<a href="bvlgari-micro-amarela.html" class="card" data-marca="Bvlgari" data-cor="Amarelo">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+<img src="https://i.imgur.com/uKmvItm.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Bvlgari</span>
+    <span class="modelo">Serpenti Forever Micro Amarelo</span>
+  </div>
+  <div class="preco">A partir de R$ 390</div>
+</a>
+
+
+<a href="fendi-zucchino.html" class="card" data-marca="Fendi" data-cor="Marrom">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+<img src="https://i.imgur.com/fFn9bOz.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Fendi</span>
+    <span class="modelo">Zucchino Pochette</span>
+  </div>
+  <div class="preco">A partir de R$ 190</div>
+</a>
+
+<a href="dolce-gabbana-devotion-box.html" class="card" data-marca="Dolce Gabbana" data-cor="Marrom">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+<img src="https://i.imgur.com/RAJHFek.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Dolce Gabbana</span>
+    <span class="modelo">Devotion Box</span>
+  </div>
+  <div class="preco">A partir de R$ 590</div>
+</a>
+
+<a href="carolinaherreira-insignia.html" class="card" data-marca="Carolina Herrera" data-cor="Rosa">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/yDKUbXX.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Carolina Herrera</span>
+    <span class="modelo">Victoria Insignia Mini Bag</span>
+  </div>
+  <div class="preco">A partir de R$ 290</div>
+</a>
+
+
+<a href="bvlgari-serpenti-vermelha.html" class="card" data-marca="Bvlgari" data-cor="Vermelho">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/8GdXEuT.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Bvlgari</span>
+    <span class="modelo">Serpenti Forever </span>
+  </div>
+  <div class="preco">A partir de R$ 590</div>
+</a>
+
+<a href="coach-tabby-chain-19.html" class="card" data-marca="Coach" data-cor="Preto">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+<img src="https://i.imgur.com/Vw8sxhs.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Coach</span>
+    <span class="modelo">Tabby Chain 19</span>
+  </div>
+  <div class="preco">A partir de R$ 290</div>
+</a>
+
+<a href="marcjacobs.html" class="card" data-marca="Marc Jacobs" data-cor="Preto">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/t38otvi.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Marc Jacobs</span>
+    <span class="modelo">Matelassada</span>
+  </div>
+  <div class="preco">A partir de R$ 190</div>
+</a>
+
+
+<a href="coach-28-brooklyn.html" class="card" data-marca="Coach" data-cor="Marrom">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/Mg8j9dZ.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Coach</span>
+    <span class="modelo">28 Brooklyn com logo gravado</span>
+  </div>
+  <div class="preco">A partir de R$ 490</div>
+</a>
+
+<a href="katespade-carey.html" class="card" data-marca="Kate Spade" data-cor="Branco">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+<img src="https://i.imgur.com/b9aeszv.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Kate Spade</span>
+    <span class="modelo">Carey Small</span>
+  </div>
+  <div class="preco">A partir de R$ 190</div>
+</a>
+
+
+<a href="katespade-turnlock.html" class="card" data-marca="Kate Spade" data-cor="Rosa">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/WQrPzBg.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Kate Spade</span>
+    <span class="modelo">Turnlock Mini Flap Crossbody</span>
+  </div>
+  <div class="preco">A partir de R$ 190</div>
+</a>
+
+<a href="fendi-2jours.html" class="card" data-marca="Fendi" data-cor="Marrom">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+<img src="https://i.imgur.com/bUaENpx.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Fendi</span>
+    <span class="modelo">2Jours</span>
+  </div>
+  <div class="preco">A partir de R$ 290</div>
+</a>
+
+<a href="katespade-carey-tisel-tweed-medium.html" class="card" data-marca="Kate Spade" data-cor="Branco">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/GTusdro.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Kate Spade</span>
+    <span class="modelo">Carey Tinsel Tweed Medium</span>
+  </div>
+  <div class="preco">A partir de R$ 190</div>
+</a>
+
+<a href="katespade-carey-tissel-tweed-micro.html" class="card" data-marca="Kate Spade" data-cor="Branco">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/b1odo1O.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Kate Spade</span>
+    <span class="modelo">Carey Tinsel Tweed Micro</span>
+  </div>
+  <div class="preco">A partir de R$ 190</div>
+</a>
+
+<a href="katespade-duet-floral-crossbody.html" class="card" data-marca="Kate Spade" data-cor="Multicolorido">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+<img src="https://i.imgur.com/I01DeS3.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Kate Spade</span>
+    <span class="modelo">Duet Floral Crossbody</span>
+  </div>
+  <div class="preco">A partir de R$ 190</div>
+</a>
+
+<a href="katespade-casey-bear-tweed.html" class="card" data-marca="Kate Spade" data-cor="Marrom">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+<img src="https://i.imgur.com/zelSOS6.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Kate Spade</span>
+    <span class="modelo">Casey Bear Twed Crossbody</span>
+  </div>
+  <div class="preco">A partir de R$ 190</div>
+</a>
+
+<a href="mk-jetset.html" class="card" data-marca="Michael Kors" data-cor="Preto">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+<img src="https://i.imgur.com/W4WLNou.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Michael Kors</span>
+    <span class="modelo">Jet Set</span>
+  </div>
+  <div class="preco">A partir de R$ 190</div>
+</a>
+
+
+
+
+<div class="empty-results" id="emptyResults">
+  <strong>Nenhuma bolsa encontrada</strong>
+  <p>Ajuste os filtros para ver outros modelos disponiveis para aluguel.</p>
+</div>
+
+</div>
+
 <div class="footer-luxo">
 
   <div class="footer-item" onclick="toggleFooter(this)">
@@ -592,9 +1297,239 @@ function toggleFooter(el){
 </script>
 
 
+<script>
+function toggleMenuMobile(){
+  document.getElementById('menuMobile').classList.toggle('open');
+}
+</script>
+
+<script>
+window.addEventListener("load", function(){
+
+  const slides = document.querySelectorAll('.slide');
+  let index = 0;
+
+  setInterval(() => {
+    slides[index].classList.remove('active');
+
+    index = (index + 1) % slides.length;
+
+    slides[index].classList.add('active');
+  }, 4000); // mais lento = mais elegante
+
+});
+</script>
+
+<script>
+
+const range = document.getElementById('rangePreco');
+const valor = document.getElementById('valorPreco');
+
+range.addEventListener('input', () => {
+  valor.innerText = "R$ " + range.value;
+  aplicarFiltros();
+});
+
+</script>
+
+<script>
+
+function abrirFiltro(){
+
+  const modal = document.getElementById('filtroModal');
+  const overlay = document.getElementById('overlay');
+
+  modal.classList.toggle('open');
+  overlay.classList.toggle('active');
+}
+
+function limparFiltros(){
+
+  // limpa checkboxes
+  document.querySelectorAll('input[type=checkbox]').forEach(i => i.checked = false);
+
+  // reseta preço
+  const range = document.getElementById('rangePreco');
+  const valor = document.getElementById('valorPreco');
+
+  range.value = 2000;
+  valor.innerText = "R$ " + range.value;
+
+  aplicarFiltros();
+}
+
+document.querySelectorAll('input[type=checkbox]').forEach(input=>{
+  input.addEventListener('change', aplicarFiltros);
+});
+
+function aplicarFiltros(){
+
+  const marcasSelecionadas = Array.from(document.querySelectorAll('.filtro-marca:checked')).map(i=>i.value);
+  const coresSelecionadas = Array.from(document.querySelectorAll('.filtro-cor:checked')).map(i=>i.value);
+const precoMax = Number(document.getElementById('rangePreco').value);
+
+  const cards = document.querySelectorAll('.card');
+
+  cards.forEach(card => {
+
+    const marca = card.dataset.marca;
+    const cor = card.dataset.cor;
+    const preco = extrairPreco(card);
+const matchPreco = preco <= precoMax;
+
+    const matchMarca = marcasSelecionadas.length === 0 || marcasSelecionadas.includes(marca);
+    const matchCor = coresSelecionadas.length === 0 || coresSelecionadas.includes(cor);
+
+    if(matchMarca && matchCor && matchPreco){
+      card.style.display = "flex";
+    } else {
+      card.style.display = "none";
+    }
+
+  });
+
+  atualizarContador();
+
+}
+
+function ordenarProdutos(tipo){
+
+  const grid = document.querySelector('.grid');
+  const cards = Array.from(document.querySelectorAll('.card'));
+
+  cards.sort((a,b)=>{
+
+    const precoA = extrairPreco(a);
+    const precoB = extrairPreco(b);
+
+    if(tipo === "menor"){
+      return precoA - precoB;
+    } else if(tipo === "maior"){
+      return precoB - precoA;
+    }
+
+  });
+
+  cards.forEach(card => grid.appendChild(card));
+  atualizarContador();
+}
+
+function extrairPreco(card){
+  const texto = card.querySelector('.preco').innerText;
+  return Number(texto.replace(/[^\d]/g, ""));
+}
+
+function toggleGrupo(titulo){
+  const grupo = titulo.parentElement;
+  grupo.classList.toggle('fechado');
+}
+
+
+const overlay = document.getElementById('overlay');
+
+if(overlay){
+  overlay.addEventListener('click', () => {
+    document.getElementById('filtroModal').classList.remove('open');
+    overlay.classList.remove('active');
+  });
+}
+</script>
+
+<script>
+const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
+const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
+const aluguelSupabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+function prepararCatalogo(){
+  document.querySelectorAll('.card, .hero').forEach(card => {
+    const href = card.getAttribute('href') || "";
+    const arquivo = href.split('/').pop();
+
+    if(arquivo && arquivo.includes('.html')){
+      card.setAttribute('href', arquivo);
+      card.dataset.slug = arquivo.replace('.html', '');
+    }
+
+    if(card.classList.contains('card') && !card.querySelector('.card-status')){
+      const status = document.createElement('div');
+      status.className = 'card-status';
+      status.textContent = 'Calendario online';
+      card.appendChild(status);
+
+      const action = document.createElement('div');
+      action.className = 'card-action';
+      action.textContent = 'Alugar';
+      card.appendChild(action);
+    }
+  });
+
+  atualizarContador();
+  carregarStatusCatalogo();
+}
+
+async function carregarStatusCatalogo(){
+  if(!aluguelSupabase) return;
+
+  const cards = Array.from(document.querySelectorAll('.card[data-slug]'));
+  const slugs = cards.map(card => card.dataset.slug).filter(Boolean);
+
+  if(!slugs.length) return;
+
+  try{
+    const { data, error } = await aluguelSupabase
+      .from('bolsas')
+      .select('slug, ativa')
+      .in('slug', slugs);
+
+    if(error) throw error;
+
+    const porSlug = Object.fromEntries((data || []).map(bolsa => [bolsa.slug, bolsa]));
+
+    cards.forEach(card => {
+      const tag = card.querySelector('.tag');
+      const status = card.querySelector('.card-status');
+      const bolsa = porSlug[card.dataset.slug];
+
+      if(!bolsa){
+        if(tag) tag.textContent = 'Consultar';
+        if(status) status.textContent = 'Confirme com a curadoria';
+        return;
+      }
+
+      if(bolsa.ativa){
+        if(tag) tag.textContent = 'Para alugar';
+        if(status) status.textContent = 'Confira datas disponiveis';
+      } else {
+        if(tag) tag.textContent = 'Indisponivel';
+        if(status) status.textContent = 'Temporariamente fora da curadoria';
+      }
+    });
+  } catch(error){
+    console.error('Erro ao carregar status do catalogo:', error);
+  }
+}
+
+function atualizarContador(){
+  const cards = Array.from(document.querySelectorAll('.card'));
+  const visiveis = cards.filter(card => card.style.display !== 'none');
+  const total = document.getElementById('totalProdutos');
+  const empty = document.getElementById('emptyResults');
+
+  if(total) total.textContent = visiveis.length;
+  if(empty) empty.style.display = visiveis.length ? 'none' : 'block';
+}
+
+window.addEventListener('load', prepararCatalogo);
+</script>
 
 </body>
 </html>
+
+
+
+
+
+
 
 
 
