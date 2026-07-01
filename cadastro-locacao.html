@@ -824,16 +824,16 @@ const CADASTRO_CHECKOUT_OK_KEY = "cadastroLocacaoCheckoutOkTheBagRoom";
 let sessaoAtual = null;
 
 function destinoDepoisCadastro(){
-const params = new URLSearchParams(window.location.search);
-const nextParam = params.get("next");
-const nextLocal = localStorage.getItem("proximoDestinoTheBagRoom");
-const destino = nextParam || nextLocal || "minha-conta.html";
+  const params = new URLSearchParams(window.location.search);
+  const nextParam = params.get("next");
+  const nextLocal = localStorage.getItem("proximoDestinoTheBagRoom");
+  const destino = nextParam || nextLocal || "minha-conta.html";
 
-if(destino.includes("checkout-aluguel.html")){
-return "checkout-aluguel.html";
-}
+  if(destino.includes("checkout-aluguel.html")){
+    return "/checkout-aluguel.html";
+  }
 
-return "minha-conta.html";
+  return "/minha-conta.html";
 }
 
 window.addEventListener('load', function(){
