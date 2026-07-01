@@ -15,8 +15,8 @@
 
 <title> Fendi Zucchino· The Bag Room</title>
 
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="favicon.png">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
@@ -893,14 +893,14 @@ body > .top-space {
   <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
     <div class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">&times;</div>
     <div class="menu-mobile-inner">
-      <a href="index.html">In&iacute;cio</a>
-      <a href="aluguel.html">Alugar Bolsas</a>
-      <a href="como-alugar.html">Como Alugar</a>
-      <a href="como-desapegar.html">Como Desapegar</a>
-      <a href="autenticidade.html">Autenticidade</a>
+      <a href="/index.html">In&iacute;cio</a>
+      <a href="/aluguel.html">Alugar Bolsas</a>
+      <a href="/como-alugar.html">Como Alugar</a>
+      <a href="/como-desapegar.html">Como Desapegar</a>
+      <a href="/autenticidade.html">Autenticidade</a>
       <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
-      <a href="quem-somos.html">Sobre</a>
-      <a href="login.html">Minha Conta</a>
+      <a href="/quem-somos.html">Sobre</a>
+      <a href="/login.html">Minha Conta</a>
     </div>
   </nav>
 </header>
@@ -914,7 +914,7 @@ body > .top-space {
   <!-- ESQUERDA (IMAGEM) -->
   <div class="galeria">
     
-      <a href="/certificados/fendi-zucchino-auth.html" class="auth-selo-link">
+      <a href="/certificado/fendi-zucchino-auth.html" class="auth-selo-link">
   <img src="/selo-auth.jpg" class="auth-selo">
 </a>
 
@@ -1483,9 +1483,9 @@ localStorage.setItem("checkoutAluguelTheBagRoom", JSON.stringify(checkout));
 const { data: { session } } = await aluguelSupabase.auth.getSession();
 
 if(!session){
-  localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
+  localStorage.setItem("proximoDestinoTheBagRoom", "/checkout-aluguel.html");
   setReservaStatus("Entre ou cadastre-se para continuar seu aluguel.", "sucesso");
-  window.location.href = "login.html?next=checkout-aluguel.html";
+  window.location.href = "/login.html?next=/checkout-aluguel.html";
   return;
 }
 
@@ -1495,7 +1495,7 @@ if(botao){
   botao.innerText = "CONTINUANDO...";
 }
 
-window.location.href = "checkout-aluguel.html";
+window.location.href = "/checkout-aluguel.html";
 }
 
 
@@ -1670,6 +1670,8 @@ function toggleFooter(el){
 
 </body>
 </html>
+
+
 
 
 
