@@ -858,6 +858,31 @@ body {
   display: none !important;
   height: 0 !important;
 }
+
+/* Correcao: menu no topo sem vao branco */
+html,
+body {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+body > .site-header {
+  position: sticky !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 70px !important;
+  min-height: 70px !important;
+  padding: 18px !important;
+  box-sizing: border-box !important;
+}
+
+body > .top-space {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
 </style>
 </head>
 
@@ -870,14 +895,14 @@ body {
   <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
     <div class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">&times;</div>
     <div class="menu-mobile-inner">
-      <a href="/index.html">In&iacute;cio</a>
-      <a href="/aluguel.html">Alugar Bolsas</a>
-      <a href="/como-alugar.html">Como Alugar</a>
-      <a href="/como-desapegar.html">Como Desapegar</a>
-      <a href="/autenticidade.html">Autenticidade</a>
+      <a href="index.html">In&iacute;cio</a>
+      <a href="aluguel.html">Alugar Bolsas</a>
+      <a href="como-alugar.html">Como Alugar</a>
+      <a href="como-desapegar.html">Como Desapegar</a>
+      <a href="autenticidade.html">Autenticidade</a>
       <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
-      <a href="/quem-somos.html">Sobre</a>
-      <a href="/login.html">Minha Conta</a>
+      <a href="quem-somos.html">Sobre</a>
+      <a href="login.html">Minha Conta</a>
     </div>
   </nav>
 </header>
@@ -1459,7 +1484,7 @@ localStorage.setItem("checkoutAluguelTheBagRoom", JSON.stringify(checkout));
 const { data: { session } } = await aluguelSupabase.auth.getSession();
 
 if(!session){
-  localStorage.setItem("proximoDestinoTheBagRoom", "/checkout-aluguel.html");
+  localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
   setReservaStatus("Entre ou cadastre-se para continuar seu aluguel.", "sucesso");
   window.location.href = "login.html?next=checkout-aluguel.html";
   return;
@@ -1471,7 +1496,7 @@ if(botao){
   botao.innerText = "CONTINUANDO...";
 }
 
-window.location.href = "/checkout-aluguel.html";
+window.location.href = "checkout-aluguel.html";
 }
 
 
@@ -1646,6 +1671,7 @@ function toggleFooter(el){
 
 </body>
 </html>
+
 
 
 
