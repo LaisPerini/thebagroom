@@ -459,11 +459,11 @@ Para finalizar o aluguel, entre na sua conta. Depois volte ao checkout para cont
 </div>
 <div class="field">
 <label for="cep">CEP</label>
-<input id="cep" autocomplete="postal-code">
+<input id="cep" autocomplete="postal-code" inputmode="numeric" maxlength="9" placeholder="00000-000">
 </div>
 <div class="field">
 <label for="estado">Estado</label>
-<input id="estado" maxlength="2" autocomplete="address-level1">
+<input id="estado" maxlength="2" autocomplete="address-level1" placeholder="UF">
 </div>
 <div class="field full">
 <label for="logradouro">Endereço</label>
@@ -572,9 +572,67 @@ document.getElementById("addressSection").classList.add("hidden");
 document.getElementById("pickupNotice").classList.remove("hidden");
 }
 
-document.getElementById("cep").value = checkout.cep || "";
+document.getElementById("cep").value = formatarCep(checkout.cep || "");
+if(checkout.cep) buscarEnderecoPorCep(checkout.cep, true);
 }
 
+
+function limparCep(valor){
+return String(valor || "").replace(/\D/g, "").slice(0, 8);
+}
+
+function formatarCep(valor){
+const cep = limparCep(valor);
+if(cep.length <= 5) return cep;
+return `${cep.slice(0, 5)}-${cep.slice(5)}`;
+}
+
+function preencherCampoEndereco(id, valor){
+const campo = document.getElementById(id);
+if(campo && valor) campo.value = valor;
+}
+
+async function buscarEnderecoPorCep(valorCep, silencioso = false){
+const cep = limparCep(valorCep);
+const cepInput = document.getElementById("cep");
+
+if(cepInput) cepInput.value = formatarCep(cep);
+if(cep.length !== 8) return;
+
+try{
+if(!silencioso) setStatus("Buscando endereco pelo CEP...");
+const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+if(!response.ok) throw new Error("cep_indisponivel");
+
+const endereco = await response.json();
+if(endereco.erro) throw new Error("cep_nao_encontrado");
+
+preencherCampoEndereco("logradouro", endereco.logradouro);
+preencherCampoEndereco("bairro", endereco.bairro);
+preencherCampoEndereco("cidade", endereco.localidade);
+preencherCampoEndereco("estado", endereco.uf);
+
+if(!silencioso) setStatus("Endereco preenchido pelo CEP.");
+}catch(error){
+if(!silencioso) setStatus("Nao foi possivel buscar esse CEP. Preencha o endereco manualmente.", "error");
+}
+}
+
+function configurarCepAutoCompletar(){
+const cepInput = document.getElementById("cep");
+if(!cepInput) return;
+
+cepInput.addEventListener("input", function(){
+cepInput.value = formatarCep(cepInput.value);
+if(limparCep(cepInput.value).length === 8){
+buscarEnderecoPorCep(cepInput.value);
+}
+});
+
+cepInput.addEventListener("blur", function(){
+buscarEnderecoPorCep(cepInput.value);
+});
+}
 async function preencherCliente(){
 const { data: { session } } = await supabaseClient.auth.getSession();
 sessionAtual = session;
@@ -743,6 +801,7 @@ return;
 }
 
 document.getElementById("checkoutPage").classList.remove("hidden");
+configurarCepAutoCompletar();
 preencherResumo();
 await preencherCliente();
 }
@@ -757,6 +816,7 @@ function toggleMenuMobile() {
 </script>
 </body>
 </html>
+
 
 
 
