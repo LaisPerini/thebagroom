@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Checkout de Aluguel | The Bag Room</title>
 
-<link rel="icon" sizes="32x32" href="favicon.png">
+<link rel="icon" sizes="32x32" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -423,13 +423,13 @@ text-align:center;
   <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
     <div class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">&times;</div>
     <div class="menu-mobile-inner">
-      <a href="index.html">In&iacute;cio</a>
-      <a href="aluguel.html">Alugar Bolsas</a>
-      <a href="como-alugar.html">Como Alugar</a>
-      <a href="como-desapegar.html">Como Desapegar</a>
-      <a href="autenticidade.html">Autenticidade</a>
+      <a href="/index.html">In&iacute;cio</a>
+      <a href="/aluguel.html">Alugar Bolsas</a>
+      <a href="/como-alugar.html">Como Alugar</a>
+      <a href="/como-desapegar.html">Como Desapegar</a>
+      <a href="/autenticidade.html">Autenticidade</a>
       <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
-      <a href="quem-somos.html">Sobre</a>
+      <a href="/quem-somos.html">Sobre</a>
       <a href="/login.html">Minha Conta</a>
     </div>
   </nav>
@@ -446,7 +446,7 @@ Confira o período, informe o endereço de entrega e siga para o pagamento do al
 <section id="loginNotice" class="notice hidden">
 Para finalizar o aluguel, entre na sua conta. Depois volte ao checkout para continuar.
 <div style="margin-top:12px;">
-<a class="btn secondary" id="loginCheckoutLink" href="/login.html?next=checkout-aluguel.html">Entrar ou cadastrar</a>
+<a class="btn secondary" id="loginCheckoutLink" href="/login.html?next=/checkout-aluguel.html">Entrar ou cadastrar</a>
 </div>
 </section>
 
@@ -511,7 +511,7 @@ Entrega selecionada como retirada no showroom. O endereço de entrega não é ob
 
 <div class="actions">
 <button class="btn" id="finalizarBtn" onclick="finalizarAluguel()">Finalizar aluguel</button>
-<a class="btn secondary" href="bvlgari-micro-amarela.html">Voltar para a bolsa</a>
+<a class="btn secondary" href="/aluguel/bvlgari-micro-amarela.html">Voltar para a bolsa</a>
 </div>
 <p id="checkoutStatus" class="status"></p>
 </aside>
@@ -521,7 +521,7 @@ Entrega selecionada como retirada no showroom. O endereço de entrega não é ob
 <p class="eyebrow">Checkout</p>
 <h1>Nenhum aluguel selecionado.</h1>
 <p class="lead">Volte para a página da bolsa, escolha datas e frete para continuar.</p>
-<a class="btn" href="aluguel.html">Escolher bolsa</a>
+<a class="btn" href="/aluguel.html">Escolher bolsa</a>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -638,7 +638,7 @@ const { data: { session } } = await supabaseClient.auth.getSession();
 sessionAtual = session;
 
 if(!session){
-localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
+localStorage.setItem("proximoDestinoTheBagRoom", "/checkout-aluguel.html");
 document.getElementById("loginNotice").classList.remove("hidden");
 setStatus("Ao clicar em Finalizar aluguel, entre na sua conta. Se ainda nao tiver login, cadastre-se pela pagina de login.", "error");
 return;
@@ -654,7 +654,7 @@ clienteAtual = cliente || null;
 document.getElementById("nomeDestinatario").value = cliente?.nome_completo || session.user.email || "";
 
 if(!clienteAtual){
-localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
+localStorage.setItem("proximoDestinoTheBagRoom", "/checkout-aluguel.html");
 document.getElementById("loginNotice").classList.remove("hidden");
 setStatus("Antes do pagamento, preencha o cadastro de locacao. Depois da aprovacao, voce podera finalizar o aluguel.", "error");
 return;
@@ -684,8 +684,8 @@ return true;
 
 async function finalizarAluguel(){
 if(!sessionAtual){
-localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
-window.location.href = "/login.html?next=checkout-aluguel.html";
+localStorage.setItem("proximoDestinoTheBagRoom", "/checkout-aluguel.html");
+window.location.href = "/login.html?next=/checkout-aluguel.html";
 return;
 }
 
@@ -696,14 +696,14 @@ if(!loginNonce || loginConfirmado !== `${sessionAtual.user.id}:${loginNonce}`){
 const novoNonce = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 sessionStorage.setItem(LOGIN_CHECKOUT_NONCE_KEY, novoNonce);
 sessionStorage.removeItem(LOGIN_CHECKOUT_KEY);
-localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
-window.location.href = "/login.html?next=checkout-aluguel.html";
+localStorage.setItem("proximoDestinoTheBagRoom", "/checkout-aluguel.html");
+window.location.href = "/login.html?next=/checkout-aluguel.html";
 return;
 }
 
 if(!clienteAtual){
-localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
-window.location.href = "cadastro-locacao.html?next=checkout-aluguel.html";
+localStorage.setItem("proximoDestinoTheBagRoom", "/checkout-aluguel.html");
+window.location.href = "/cadastro-locacao.html?next=/checkout-aluguel.html";
 return;
 }
 
@@ -816,6 +816,9 @@ function toggleMenuMobile() {
 </script>
 </body>
 </html>
+
+
+
 
 
 
