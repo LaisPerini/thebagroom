@@ -15,8 +15,8 @@
 
 <title>Kate Spade Carey Tinsel Tweed Medium · The Bag Room</title>
 
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="favicon.png">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
@@ -1444,7 +1444,7 @@ const { data: { session } } = await aluguelSupabase.auth.getSession();
 if(!session){
   localStorage.setItem("proximoDestinoTheBagRoom", "/checkout-aluguel.html");
   setReservaStatus("Entre ou cadastre-se para continuar seu aluguel.", "sucesso");
-  window.location.href = "login.html?next=checkout-aluguel.html";
+  window.location.href = "/login.html?next=/checkout-aluguel.html";
   return;
 }
 
@@ -1629,6 +1629,8 @@ function toggleFooter(el){
 
 </body>
 </html>
+
+
 
 
 
