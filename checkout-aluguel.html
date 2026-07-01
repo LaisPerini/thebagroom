@@ -596,10 +596,16 @@ document.getElementById("nomeDestinatario").value = cliente?.nome_completo || se
 if(!clienteAtual){
 localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
 document.getElementById("loginNotice").classList.remove("hidden");
-setStatus("Antes do pagamento, preencha o cadastro de locação. Depois você volta para finalizar o aluguel.", "error");
+setStatus("Antes do pagamento, preencha o cadastro de locacao. Depois da aprovacao, voce podera finalizar o aluguel.", "error");
 return;
 }
 
+if(clienteAtual.status !== "aprovado"){
+document.getElementById("loginNotice").classList.remove("hidden");
+const statusCadastro = clienteAtual.status === "reprovado" ? "nao aprovado" : "em analise";
+setStatus(`Seu cadastro esta ${statusCadastro}. O pagamento sera liberado apos a aprovacao da curadoria.`, "error");
+return;
+}
 }
 
 function validarEndereco(){
@@ -609,7 +615,7 @@ const obrigatorios = ["nomeDestinatario", "cep", "logradouro", "numero", "bairro
 const faltando = obrigatorios.filter(id => !document.getElementById(id).value.trim());
 
 if(faltando.length){
-setStatus("Preencha todos os campos obrigatórios do endereço.", "error");
+setStatus("Preencha todos os campos obrigatorios do endereco.", "error");
 return false;
 }
 
@@ -623,10 +629,14 @@ window.location.href = "login.html?next=checkout-aluguel.html";
 return;
 }
 
-
 if(!clienteAtual){
 localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
 window.location.href = "cadastro-locacao.html?next=checkout-aluguel.html";
+return;
+}
+
+if(clienteAtual.status !== "aprovado"){
+setStatus("Seu cadastro ainda precisa ser aprovado pela curadoria antes do pagamento.", "error");
 return;
 }
 
@@ -686,19 +696,19 @@ localStorage.removeItem("checkoutAluguelTheBagRoom");
 window.location.href = result.checkout_url;
 } catch(error){
 console.error(error);
-let mensagem = "Não foi possível finalizar o aluguel. Tente novamente.";
+let mensagem = "Nao foi possivel finalizar o aluguel. Tente novamente.";
 const erro = String(error?.message || error || "");
 
 if(erro.includes("datas_indisponiveis")){
-mensagem = "Essas datas acabaram de ficar indisponíveis. Volte para a bolsa e escolha outro período.";
+mensagem = "Essas datas acabaram de ficar indisponiveis. Volte para a bolsa e escolha outro periodo.";
 }
 
 if(erro.includes("endereco_obrigatorio")){
-mensagem = "Informe o endereço de entrega para continuar.";
+mensagem = "Informe o endereco de entrega para continuar.";
 }
 
 if(erro.includes("mercado_pago") || erro.includes("checkout_error")){
-mensagem = "Pedido criado, mas o pagamento não abriu. Detalhe: " + erro;
+mensagem = "Pedido criado, mas o pagamento nao abriu. Detalhe: " + erro;
 }
 
 setStatus(mensagem, "error");
@@ -731,6 +741,13 @@ function toggleMenuMobile() {
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
 
 
 
