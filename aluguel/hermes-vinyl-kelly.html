@@ -13,7 +13,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hermès Vinyl Kelly Exhibition Tote 1998 · The Bag Room</title>
+<title>HermÃ¨s Vinyl Kelly Exhibition Tote 1998 · The Bag Room</title>
 
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 body{
@@ -91,7 +92,7 @@ color:#444;
 }
 
 .desc p{
-  margin-bottom:18px; /* 👈 espaço entre blocos */
+  margin-bottom:18px; /*  espaço entre blocos */
 }
 
 .desc strong{
@@ -137,6 +138,37 @@ margin-top:10px;
 font-family:'Inter';
 }
 
+.calendario-status{
+margin-top:8px;
+font-family:'Inter', sans-serif;
+font-size:12px;
+line-height:1.5;
+color:#777;
+}
+
+.calendario-status.erro{
+color:#9b2c2c;
+}
+
+.calendario-status.sucesso{
+color:#32633e;
+}
+
+.reserva-status{
+margin-top:12px;
+font-family:'Inter', sans-serif;
+font-size:13px;
+line-height:1.5;
+color:#777;
+}
+
+.reserva-status.erro{
+color:#9b2c2c;
+}
+
+.reserva-status.sucesso{
+color:#32633e;
+}
 .btn{
 margin-top:30px;
 padding:20px;
@@ -217,7 +249,7 @@ border-color:#000;
 .social-bar {
   position: fixed;
   right: 10px;
-  bottom: 20px; /* 👈 aqui controla altura */
+  bottom: 20px; /*  aqui controla altura */
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -580,7 +612,7 @@ opacity:0.75;
 
   display:none;
   justify-content:center;
-  align-items:center; /* 🔥 ISSO CENTRALIZA VERTICAL */
+  align-items:center; /*  ISSO CENTRALIZA VERTICAL */
 
   background:rgba(0,0,0,0.92);
   z-index:9999;
@@ -595,7 +627,7 @@ opacity:0.75;
   height:50px;
   border-radius:50%;
 
-  background:rgba(0,0,0,0.5); /* 🔥 contraste */
+  background:rgba(0,0,0,0.5); /*  contraste */
   color:#fff;
 
   display:flex;
@@ -605,7 +637,7 @@ opacity:0.75;
   font-size:22px;
   cursor:pointer;
 
-  z-index:10000; /* 🔥 MUITO IMPORTANTE */
+  z-index:10000; /*  MUITO IMPORTANTE */
   backdrop-filter: blur(6px);
   transition:0.3s;
 }
@@ -704,34 +736,132 @@ opacity:0.75;
     background:white;
 }
 }
+/* Menu padrao The Bag Room */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 1000;
+  min-height: 70px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #eee;
+  backdrop-filter: blur(8px);
+}
 
+.brand {
+  margin: 0;
+  color: #111;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+.menu-mobile-btn {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: #111;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  padding: 8px;
+}
+
+.menu-mobile {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 85%;
+  max-width: 320px;
+  height: 100vh;
+  padding-top: 100px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(14px);
+  transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 2000;
+}
+
+.menu-mobile.open { left: 0; }
+
+.close-menu {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  border: 0;
+  background: transparent;
+  color: #000;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  opacity: 0.8;
+  user-select: none;
+}
+
+.close-menu:hover { opacity: 0.5; }
+
+.menu-mobile-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding-left: 30px;
+}
+
+.menu-mobile-inner a {
+  color: #000;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.menu-mobile-inner a:hover { opacity: 0.6; }
+
+/* Ajuste final: topo igual ao index */
+body {
+  padding-top: 70px !important;
+}
+
+.site-header {
+  height: 70px !important;
+  min-height: 70px !important;
+  padding: 18px !important;
+  box-sizing: border-box !important;
+}
+
+.top-space {
+  display: none !important;
+  height: 0 !important;
+}
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>THE BAG ROOM</h1>
+<header class="site-header">
+  <div class="menu-mobile-btn" onclick="toggleMenuMobile()" aria-label="Abrir menu">&#9776;</div>
+  <h1 class="brand">THE BAG ROOM</h1>
 
-  <!-- botão menu -->
-  <div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
-
-  <!-- menu lateral -->
-  <nav class="menu-mobile" id="menuMobile">
-
-    <div class="close-menu" onclick="toggleMenuMobile()">×</div>
-
-   <div class="menu-mobile-inner">
-      <a href="/index.html">Início</a>
-      <a href="/aluguel.html">Alugar Bolsas</a>
-      <a href="/como-alugar.html">Como Alugar </a>
-      <a href="/como-desapegar.html">Como Desapegar</a>
-      <a href="/autenticidade.html">Autenticidade</a>
+  <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
+    <div class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">&times;</div>
+    <div class="menu-mobile-inner">
+      <a href="index.html">In&iacute;cio</a>
+      <a href="aluguel.html">Alugar Bolsas</a>
+      <a href="como-alugar.html">Como Alugar</a>
+      <a href="como-desapegar.html">Como Desapegar</a>
+      <a href="autenticidade.html">Autenticidade</a>
       <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
-      <a href="/quem-somos.html">Sobre</a>
-      <a href="/login.html">Minha Conta </a>
+      <a href="quem-somos.html">Sobre</a>
+      <a href="login.html">Minha Conta</a>
     </div>
-
   </nav>
 </header>
 
@@ -766,13 +896,13 @@ opacity:0.75;
   <!-- DIREITA (INFO + BOTÃO) -->
   <div class="info">
 
-    <div class="nome">Hermès Vinyl Kelly Exhibition Tote 1998</div>
+    <div class="nome">HermÃ¨s Vinyl Kelly Exhibition Tote 1998</div>
     <div class="preco">A partir de R$ 490</div>
 
 <div class="desc">
 
 <p>
-Confeccionada em vinil transparente na cor laranja, a bolsa apresenta design inspirado na clássica Kelly, criada como peça especial para a exposição itinerante da Hermès em 1998. Possui alça de mão estruturada e fechamento frontal com turnlock, além de inscrições em branco que remetem ao evento. Modelo colecionável, raro e de forte apelo fashion.
+Confeccionada em vinil transparente na cor laranja, a bolsa apresenta design inspirado na clássica Kelly, criada como peça especial para a exposição itinerante da HermÃ¨s em 1998. Possui alça de mão estruturada e fechamento frontal com turnlock, além de inscrições em branco que remetem ao evento. Modelo colecionável, raro e de forte apelo fashion.
 </p>
 
 <p>
@@ -794,7 +924,7 @@ Confeccionada em vinil transparente na cor laranja, a bolsa apresenta design ins
 </p>
 <p>
   <i data-lucide="tag" class="icon"></i>
-  <strong>Marca:</strong> Hermès
+  <strong>Marca:</strong> HermÃ¨s
 </p>
 <p>
   <i data-lucide="palette" class="icon"></i>
@@ -827,6 +957,7 @@ Confeccionada em vinil transparente na cor laranja, a bolsa apresenta design ins
     <input type="text" id="dataInicio" placeholder="Selecione a data">
 
     <div id="devolucao"></div>
+    <div id="calendarioStatus" class="calendario-status">Consultando disponibilidade...</div>
 
     <br>
 
@@ -846,13 +977,15 @@ Confeccionada em vinil transparente na cor laranja, a bolsa apresenta design ins
 ">
 </div>
 
-    <div class="btn" onclick="alugar()">ALUGAR AGORA</div>
+    <div class="btn" id="botaoAlugar" onclick="alugar()">CONTINUAR ALUGUEL</div>
+    <div id="reservaStatus" class="reserva-status"></div>
 
   </div>
 
 </div>
 
- <!-- <div class="btn" onclick="alugar()">ALUGAR AGORA</div> -->
+ <!-- <div class="btn" id="botaoAlugar" onclick="alugar()">CONTINUAR ALUGUEL</div>
+    <div id="reservaStatus" class="reserva-status"></div> -->
 
 </div>
 
@@ -878,35 +1011,144 @@ document.querySelectorAll('.opcao').forEach(opcao => {
   });
 });
 
-/* 🔥 CALENDÁRIO */
-async function iniciarCalendario(){
+/* CALENDARIO + DISPONIBILIDADE SUPABASE */
+const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
+const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
+const BOLSA_SLUG = "hermes-vinyl-kelly";
+const aluguelSupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  let response = await fetch("https://thebagroomtest.onrender.com/datas/serpenti-verde");
-  let alugueis = await response.json();
+let bolsaAtual = null;
+let datasBloqueadas = [];
+let datasBloqueadasSet = new Set();
 
-  let datasBloqueadas = [];
+function setCalendarioStatus(mensagem, tipo = ""){
+  const status = document.getElementById("calendarioStatus");
+  if(!status) return;
 
-  alugueis.forEach(a => {
-    let inicio = new Date(a.inicio);
-    let fim = new Date(a.fim);
+  status.textContent = mensagem;
+  status.className = `calendario-status ${tipo}`.trim();
+}
 
-    for(let d = new Date(inicio); d <= fim; d.setDate(d.getDate()+1)){
-      datasBloqueadas.push(new Date(d));
+function setReservaStatus(mensagem, tipo = ""){
+  const status = document.getElementById("reservaStatus");
+  if(!status) return;
+
+  status.textContent = mensagem;
+  status.className = `reserva-status ${tipo}`.trim();
+}
+
+function dataInputParaISO(dataInput){
+  const partes = dataInput.split("/");
+  return `${partes[2]}-${partes[1]}-${partes[0]}`;
+}
+
+function criarDataLocal(dataISO){
+  const partes = dataISO.split("-");
+  return new Date(Number(partes[0]), Number(partes[1]) - 1, Number(partes[2]));
+}
+
+function chaveData(data){
+  const ano = data.getFullYear();
+  const mes = String(data.getMonth() + 1).padStart(2, "0");
+  const dia = String(data.getDate()).padStart(2, "0");
+  return `${ano}-${mes}-${dia}`;
+}
+
+function montarDatasBloqueadas(reservas){
+  const datas = [];
+  const chaves = new Set();
+
+  reservas.forEach(reserva => {
+    const inicio = criarDataLocal(reserva.data_inicio);
+    const fim = criarDataLocal(reserva.data_fim);
+
+    for(let d = new Date(inicio); d <= fim; d.setDate(d.getDate() + 1)){
+      const data = new Date(d);
+      datas.push(data);
+      chaves.add(chaveData(data));
     }
   });
 
-  flatpickr("#dataInicio", {
-    locale: "pt",
-    dateFormat: "d/m/Y",
-    minDate: new Date().fp_incr(3),
-    disableMobile: true,
-    disable: datasBloqueadas,
-    onChange: () => atualizarDevolucao()
-  });
+  datasBloqueadas = datas;
+  datasBloqueadasSet = chaves;
+}
 
+function periodoTemConflito(dataInicio, dias){
+  for(let i = 0; i <= dias; i++){
+    const data = new Date(dataInicio);
+    data.setDate(dataInicio.getDate() + i);
+
+    if(datasBloqueadasSet.has(chaveData(data))){
+      return true;
+    }
+  }
+
+  return false;
+}
+
+async function iniciarCalendario(){
+  try{
+    const { data: bolsa, error: bolsaError } = await aluguelSupabase
+      .from("bolsas")
+      .select("id")
+      .eq("slug", BOLSA_SLUG)
+      .single();
+
+    if(bolsaError || !bolsa){
+      throw bolsaError || new Error("Bolsa nao encontrada no Supabase.");
+    }
+
+    bolsaAtual = bolsa;
+
+    const hoje = new Date().toISOString().slice(0, 10);
+    const { data: reservas, error: reservasError } = await aluguelSupabase
+      .from("bolsa_reservas")
+      .select("data_inicio, data_fim, status")
+      .eq("bolsa_id", bolsaAtual.id)
+      .gte("data_fim", hoje)
+      .order("data_inicio", { ascending: true });
+
+    if(reservasError){
+      throw reservasError;
+    }
+
+    montarDatasBloqueadas(reservas || []);
+
+    flatpickr("#dataInicio", {
+      locale: "pt",
+      dateFormat: "d/m/Y",
+      minDate: new Date().fp_incr(3),
+      disableMobile: true,
+      disable: datasBloqueadas,
+      onChange: () => atualizarDevolucao()
+    });
+
+    setCalendarioStatus(
+      datasBloqueadas.length
+        ? "Datas reservadas ja aparecem bloqueadas no calendario."
+        : "Calendario atualizado. Todas as datas disponiveis aparecem liberadas.",
+      "sucesso"
+    );
+  } catch(error){
+    console.error("Erro ao carregar disponibilidade:", error);
+
+    flatpickr("#dataInicio", {
+      locale: "pt",
+      dateFormat: "d/m/Y",
+      minDate: new Date().fp_incr(3),
+      disableMobile: true,
+      onChange: () => atualizarDevolucao()
+    });
+
+    setCalendarioStatus(
+      "Nao foi possivel consultar a disponibilidade agora. Confirme a data com a curadoria antes de finalizar.",
+      "erro"
+    );
+  }
 }
 
 iniciarCalendario();
+
 
 /* devolução */
 function atualizarDevolucao(){
@@ -925,7 +1167,7 @@ document.getElementById('devolucao').innerHTML =
 `Devolução prevista: <strong>${data.toLocaleDateString('pt-BR')}</strong>`;
 }
 
-/* 🔥 FRETE COM SELEÇÃO */
+/*  FRETE COM SELEÇÃO */
 let freteSelecionado = null;
 
 let freteIdaSelecionado = null;
@@ -972,7 +1214,7 @@ let voltaData = await voltaResponse.json();
 
 let html = "";
 
-// 🔥 pega só SEDEX
+//  pega só SEDEX
 let frete = idaData.find(f => f.name === "SEDEX");
 
 if(!frete){
@@ -1135,59 +1377,83 @@ ${enderecoShowroom}
 `;
 }
 
-/* 🔥 WHATSAPP COMPLETO */
+/*  WHATSAPP COMPLETO */
 
-function alugar(){
-
+async function alugar(){
 let diasSelecionado = document.querySelector('input[name="dias"]:checked');
 let data = document.getElementById('dataInicio').value;
+let botao = document.getElementById("botaoAlugar");
 
 if(!data){
 alert("Escolha a data");
 return;
 }
 
-if(!freteIdaSelecionado || !freteVoltaSelecionado){
-alert("Escolha entrega e devolução");
+if(atualizarDevolucao() === false){
+alert("Esse periodo cruza datas ja reservadas. Escolha outra data ou outro periodo.");
 return;
 }
 
-// valor aluguel
-let textoOpcao = diasSelecionado.parentElement.innerText;
-
-let valorMatch = textoOpcao.match(/R\$\s*([\d.,]+)/);
-
-let valor = valorMatch 
-  ? parseFloat(valorMatch[1].replace(/\./g, '').replace(',', '.')) 
-  : 0;
-
-
-// frete
-let totalFrete = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
-
-// total
-let total = valor + totalFrete;
-let totalFormatado = total.toFixed(2).replace(".", ",");
-
-// texto frete
-let freteTexto = `
-Entrega: ${freteIdaSelecionado.nome} • R$ ${freteIdaSelecionado.preco.toFixed(2)}
-Devolução: ${freteVoltaSelecionado.nome} • R$ ${freteVoltaSelecionado.preco.toFixed(2)}
-`;
-
-let mensagem = `Olá, quero alugar a 
-Hermès Vinyl Kelly Exhibition Tote 1998
-
-Data recebimento: ${data}
-Período: ${textoOpcao}
-
-${freteTexto}
-
-Valor total: R$ ${totalFormatado}`;
-
-window.open(`https://wa.me/5513996904227?text=${encodeURIComponent(mensagem)}`);
+if(!freteIdaSelecionado || !freteVoltaSelecionado){
+alert("Escolha entrega e devolucao");
+return;
 }
 
+let textoOpcao = diasSelecionado.parentElement.innerText;
+let valorMatch = textoOpcao.match(/R\$\s*([\d.,]+)/);
+let valor = valorMatch
+  ? parseFloat(valorMatch[1].replace(/\./g, '').replace(',', '.'))
+  : 0;
+
+let totalFrete = Number(freteIdaSelecionado.preco || 0) + Number(freteVoltaSelecionado.preco || 0);
+let total = valor + totalFrete;
+
+let dataInicioISO = dataInputParaISO(data);
+let partes = data.split("/");
+let dataInicioObj = new Date(partes[2], partes[1] - 1, partes[0]);
+let dataFimObj = new Date(dataInicioObj);
+dataFimObj.setDate(dataFimObj.getDate() + Number(diasSelecionado.value));
+let dataFimISO = chaveData(dataFimObj);
+let dataFimBR = dataFimObj.toLocaleDateString("pt-BR");
+
+const checkout = {
+  bolsaSlug: BOLSA_SLUG,
+  bolsaNome: "HermÃ¨s Vinyl Kelly Exhibition Tote 1998",
+  imagem: "https://i.imgur.com/Q99KQYI.jpg",
+  dataInicio: data,
+  dataInicioISO,
+  dataFim: dataFimBR,
+  dataFimISO,
+  dias: Number(diasSelecionado.value),
+  periodoTexto: textoOpcao,
+  valorAluguel: valor,
+  valorFrete: totalFrete,
+  valorTotal: total,
+  valorCaucao: 2000.00,
+  cep: document.getElementById("cep").value || "",
+  freteIda: freteIdaSelecionado,
+  freteVolta: freteVoltaSelecionado
+};
+
+localStorage.setItem("checkoutAluguelTheBagRoom", JSON.stringify(checkout));
+
+const { data: { session } } = await aluguelSupabase.auth.getSession();
+
+if(!session){
+  localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
+  setReservaStatus("Entre ou cadastre-se para continuar seu aluguel.", "sucesso");
+  window.location.href = "login.html?next=checkout-aluguel.html";
+  return;
+}
+
+setReservaStatus("Resumo criado. Indo para o checkout...", "sucesso");
+
+if(botao){
+  botao.innerText = "CONTINUANDO...";
+}
+
+window.location.href = "checkout-aluguel.html";
+}
 
 
 let imagens = document.querySelectorAll('#slider img');
@@ -1205,13 +1471,13 @@ zoomOverlay.innerHTML = `
 document.body.appendChild(zoomOverlay);
 
 zoomOverlay.querySelector('.direita').onclick = (e) => {
-  e.stopPropagation(); // 🔥 MUITO IMPORTANTE
+  e.stopPropagation(); //  MUITO IMPORTANTE
   indexAtual = (indexAtual + 1) % imagens.length;
   atualizarZoom();
 };
 
 zoomOverlay.querySelector('.esquerda').onclick = (e) => {
-  e.stopPropagation(); // 🔥 MUITO IMPORTANTE
+  e.stopPropagation(); //  MUITO IMPORTANTE
   indexAtual = (indexAtual - 1 + imagens.length) % imagens.length;
   atualizarZoom();
 };
@@ -1224,7 +1490,7 @@ function atualizarZoom(){
 
 document.querySelectorAll('.slider img').forEach((img, index) => {
   img.addEventListener('click', () => {
-    indexAtual = index; // 🔥 ESSENCIAL
+    indexAtual = index; //  ESSENCIAL
     atualizarZoom();
     zoomOverlay.style.display = "flex";
   });
@@ -1275,7 +1541,7 @@ function atualizarTotal(){
   let diasSelecionado = document.querySelector('input[name="dias"]:checked');
   if(!diasSelecionado) return;
 
-  // 👉 só mostra se já escolheu frete
+  //  só mostra se já escolheu frete
   if(!freteIdaSelecionado || !freteVoltaSelecionado){
     document.getElementById("totalBox").style.display = "none";
     return;
@@ -1297,7 +1563,7 @@ function atualizarTotal(){
 
   let box = document.getElementById("totalBox");
 
-  box.style.display = "block"; // 👈 aparece só aqui
+  box.style.display = "block"; //  aparece só aqui
   box.innerHTML = `Total: <strong>R$ ${totalFormatado}</strong>`;
 }
   
@@ -1361,5 +1627,15 @@ function toggleFooter(el){
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
 
 
