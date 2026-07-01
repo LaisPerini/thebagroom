@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minha Conta | The Bag Room</title>
 
-<link rel="icon" sizes="32x32" href="favicon.png">
-<link rel="icon" sizes="192x192" href="favicon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+<link rel="icon" sizes="32x32" href="/favicon.png">
+<link rel="icon" sizes="192x192" href="/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -473,14 +473,14 @@ body{padding:16px 0;}
   <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
     <div class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">&times;</div>
     <div class="menu-mobile-inner">
-      <a href="index.html">In&iacute;cio</a>
-      <a href="aluguel.html">Alugar Bolsas</a>
-      <a href="como-alugar.html">Como Alugar</a>
-      <a href="como-desapegar.html">Como Desapegar</a>
-      <a href="autenticidade.html">Autenticidade</a>
+      <a href="/index.html">In&iacute;cio</a>
+      <a href="/aluguel.html">Alugar Bolsas</a>
+      <a href="/como-alugar.html">Como Alugar</a>
+      <a href="/como-desapegar.html">Como Desapegar</a>
+      <a href="/autenticidade.html">Autenticidade</a>
       <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
-      <a href="quem-somos.html">Sobre</a>
-      <a href="login.html">Minha Conta</a>
+      <a href="/quem-somos.html">Sobre</a>
+      <a href="/login.html">Minha Conta</a>
     </div>
   </nav>
 </header>
@@ -747,7 +747,7 @@ lista.innerHTML = `
 <strong>Você ainda não possui aluguéis.</strong>
 <p>Quando uma reserva for criada, ela aparecerá aqui com status, datas, pagamento, caução e rastreio.</p>
 <div class="actions" style="justify-content:center;">
-<a href="aluguel.html" class="btn">Ver bolsas</a>
+<a href="/aluguel.html" class="btn">Ver bolsas</a>
 </div>
 </div>
 `;
@@ -835,7 +835,7 @@ if(!confirmar) return;
 const { data: { session } } = await supabaseClient.auth.getSession();
 
 if(!session){
-window.location.href = "login.html";
+window.location.href = "/login.html";
 return;
 }
 
@@ -870,7 +870,7 @@ async function pagarAluguel(pedidoId){
 const { data: { session } } = await supabaseClient.auth.getSession();
 
 if(!session){
-window.location.href = "login.html";
+window.location.href = "/login.html";
 return;
 }
 
@@ -938,7 +938,7 @@ async function carregarCliente(){
 const { data: { user } } = await supabaseClient.auth.getUser();
 
 if(!user){
-window.location.href = "login.html";
+window.location.href = "/login.html";
 return;
 }
 
@@ -1034,7 +1034,7 @@ renderAlugueis(pedidos || [], enderecosPorId);
 
 async function sair(){
 await supabaseClient.auth.signOut();
-window.location.href = "index.html";
+window.location.href = "/index.html";
 }
 
 carregarCliente();
@@ -1047,6 +1047,8 @@ function toggleMenuMobile() {
 </script>
 </body>
 </html>
+
+
 
 
 
