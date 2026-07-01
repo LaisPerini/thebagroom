@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <!-- Google Analytics -->
@@ -166,7 +166,7 @@ font-family:'Inter';
 font-size:14px;
 }
 
-/* BOT�O */
+/* BOT O */
 .whats-btn{
 display:block;
 margin:40px auto;
@@ -220,31 +220,206 @@ width:80%;
   text-align: center;
 }
 
+
+/* Menu padrÃ£o The Bag Room */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 1000;
+  min-height: 70px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #eee;
+  backdrop-filter: blur(8px);
+}
+
+.site-header .brand {
+  margin: 0;
+  color: #111;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+.site-header .menu-mobile-btn {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: #111;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  padding: 8px;
+}
+
+.site-header .menu-mobile {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 85%;
+  max-width: 320px;
+  height: 100vh;
+  padding-top: 100px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(14px);
+  transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 2000;
+}
+
+.site-header .menu-mobile.open { left: 0; }
+
+.site-header .close-menu {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  border: 0;
+  background: transparent;
+  color: #000;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  opacity: 0.8;
+  user-select: none;
+}
+
+.site-header .close-menu:hover { opacity: 0.5; }
+
+.site-header .menu-mobile-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding-left: 30px;
+}
+
+.site-header .menu-mobile-inner a {
+  color: #000;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.site-header .menu-mobile-inner a:hover { opacity: 0.6; }
+
+/* Menu padrao The Bag Room */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 1000;
+  min-height: 70px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #eee;
+  backdrop-filter: blur(8px);
+}
+
+.site-header .brand {
+  margin: 0;
+  color: #111;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+.site-header .menu-mobile-btn {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: #111;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  padding: 8px;
+}
+
+.site-header .menu-mobile {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 85%;
+  max-width: 320px;
+  height: 100vh;
+  padding-top: 100px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(14px);
+  transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 2000;
+}
+
+.site-header .menu-mobile.open { left: 0; }
+
+.site-header .close-menu {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  border: 0;
+  background: transparent;
+  color: #000;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  opacity: 0.8;
+  user-select: none;
+}
+
+.site-header .close-menu:hover { opacity: 0.5; }
+
+.site-header .menu-mobile-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding-left: 30px;
+}
+
+.site-header .menu-mobile-inner a {
+  color: #000;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.site-header .menu-mobile-inner a:hover { opacity: 0.6; }
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>THE BAG ROOM</h1>
+<header class="site-header">
+  <div class="menu-mobile-btn" onclick="toggleMenuMobile()" aria-label="Abrir menu">&#9776;</div>
+  <h1 class="brand">THE BAG ROOM</h1>
 
-<div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
-
-<nav class="menu-mobile" id="menuMobile">
-<div class="close-menu" onclick="toggleMenuMobile()">×</div>
-
-<div class="menu-mobile-inner">
-<a href="index.html">Início</a>
- <a href="aluguel.html">Alugar Bolsas</a>
-      <a href="como-alugar.html">Como Alugar </a>
-<a href="como-desapegar.html">Como Desapegar</a>
-<a href="autenticidade.html">Autenticidade</a>
+  <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
+    <div class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">&times;</div>
+    <div class="menu-mobile-inner">
+      <a href="index.html">In&iacute;cio</a>
+      <a href="aluguel.html">Alugar Bolsas</a>
+      <a href="como-alugar.html">Como Alugar</a>
+      <a href="como-desapegar.html">Como Desapegar</a>
+      <a href="autenticidade.html">Autenticidade</a>
       <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
-<a href="quem-somos.html">Sobre</a>
-<a href="login.html">Minha Conta </a>
-</div>
-
-</nav>
+      <a href="quem-somos.html">Sobre</a>
+      <a href="login.html">Minha Conta</a>
+    </div>
+  </nav>
 </header>
 
 <div class="top-space"></div>
@@ -333,3 +508,6 @@ el.classList.toggle('active');
 
 </body>
 </html>
+
+
+
