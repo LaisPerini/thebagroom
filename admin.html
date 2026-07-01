@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Admin | The Bag Room</title>
+
+<link rel="icon" sizes="32x32" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Inter',Arial,sans-serif;
+min-height:100vh;
+background:#f6f4f0;
+color:#111;
+}
+
+.shell{
+display:grid;
+grid-template-columns:260px 1fr;
+min-height:100vh;
+}
+
+.sidebar{
+background:#111;
+color:#fff;
+padding:28px 22px;
+position:sticky;
+top:0;
+height:100vh;
+}
+
+.brand{
+font-family:'Playfair Display',Georgia,serif;
+letter-spacing:6px;
+font-size:15px;
+line-height:1.4;
+margin-bottom:36px;
+}
+
+.nav{
+display:grid;
+gap:10px;
+}
+
+.nav button{
+width:100%;
+border:1px solid rgba(255,255,255,.18);
+background:transparent;
+color:#fff;
+border-radius:999px;
+padding:12px 14px;
+font-size:12px;
+font-weight:700;
+letter-spacing:.12em;
+text-transform:uppercase;
+text-align:left;
+cursor:pointer;
+}
+
+.nav button.active{
+background:#fff;
+color:#111;
+}
+
+.sidebar-note{
+margin-top:28px;
+color:rgba(255,255,255,.62);
+font-size:12px;
+line-height:1.7;
+}
+
+.content{
+padding:32px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+gap:20px;
+align-items:flex-start;
+margin-bottom:26px;
+}
+
+.eyebrow{
+font-size:12px;
+font-weight:700;
+letter-spacing:.22em;
+text-transform:uppercase;
+color:#a8824b;
+margin-bottom:8px;
+}
+
+h1{
+font-family:'Playfair Display',Georgia,serif;
+font-size:clamp(38px,5vw,62px);
+line-height:1;
+font-weight:600;
+}
+
+.top-actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+justify-content:flex-end;
+}
+
+.btn{
+border:1px solid #111;
+background:#111;
+color:#fff;
+border-radius:999px;
+padding:12px 18px;
+font-size:12px;
+font-weight:700;
+letter-spacing:.1em;
+text-transform:uppercase;
+cursor:pointer;
+text-decoration:none;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+min-height:42px;
+}
+
+.btn.secondary{
+background:transparent;
+color:#111;
+}
+
+.btn.small{
+padding:9px 12px;
+font-size:11px;
+min-height:36px;
+}
+
+.panel{
+display:none;
+}
+
+.panel.active{
+display:block;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));
+gap:14px;
+margin-bottom:22px;
+}
+
+.stat-card,
+.card{
+background:#fff;
+border:1px solid #e9e3db;
+border-radius:18px;
+box-shadow:0 14px 35px rgba(17,16,15,.06);
+}
+
+.stat-card{
+padding:18px;
+}
+
+.stat-label{
+font-size:11px;
+font-weight:700;
+letter-spacing:.16em;
+text-transform:uppercase;
+color:#777;
+margin-bottom:8px;
+}
+
+.stat-value{
+font-size:28px;
+font-weight:700;
+}
+
+.toolbar{
+display:flex;
+justify-content:space-between;
+gap:14px;
+align-items:center;
+margin-bottom:14px;
+}
+
+.search{
+width:min(420px,100%);
+height:44px;
+border:1px solid #ddd6cd;
+border-radius:999px;
+padding:0 16px;
+background:#fff;
+font:inherit;
+}
+
+.orders{
+display:grid;
+gap:14px;
+}
+
+.order-card{
+padding:18px;
+}
+
+.order-head{
+display:flex;
+justify-content:space-between;
+gap:18px;
+border-bottom:1px solid #eee8df;
+padding-bottom:14px;
+margin-bottom:14px;
+}
+
+.order-number{
+font-size:11px;
+font-weight:700;
+letter-spacing:.18em;
+text-transform:uppercase;
+color:#a8824b;
+margin-bottom:6px;
+}
+
+.order-title{
+font-family:'Playfair Display',Georgia,serif;
+font-size:26px;
+line-height:1.1;
+font-weight:600;
+}
+
+.order-client{
+margin-top:6px;
+color:#666;
+font-size:13px;
+line-height:1.5;
+}
+
+.badge{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+border-radius:999px;
+background:#111;
+color:#fff;
+padding:7px 11px;
+font-size:11px;
+font-weight:700;
+letter-spacing:.08em;
+text-transform:uppercase;
+white-space:nowrap;
+}
+
+.details{
+display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));
+gap:10px;
+margin-bottom:14px;
+}
+
+.detail{
+background:#fafafa;
+border:1px solid #eee;
+border-radius:13px;
+padding:12px;
+}
+
+.detail span{
+display:block;
+font-size:10px;
+font-weight:700;
+letter-spacing:.14em;
+text-transform:uppercase;
+color:#888;
+margin-bottom:6px;
+}
+
+.detail strong{
+font-size:13px;
+line-height:1.45;
+}
+
+.controls{
+display:grid;
+grid-template-columns:1.2fr 1fr 1fr auto;
+gap:10px;
+align-items:end;
+padding-top:12px;
+border-top:1px solid #eee8df;
+}
+
+.field label{
+display:block;
+font-size:10px;
+font-weight:700;
+letter-spacing:.14em;
+text-transform:uppercase;
+color:#777;
+margin-bottom:6px;
+}
+
+.field input,
+.field select,
+.field textarea{
+width:100%;
+min-height:42px;
+border:1px solid #ddd6cd;
+border-radius:12px;
+padding:10px 12px;
+font:inherit;
+background:#fff;
+}
+
+.field textarea{
+resize:vertical;
+min-height:84px;
+}
+
+.form-grid{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:14px;
+}
+
+.form-grid .full{
+grid-column:1 / -1;
+}
+
+.card{
+padding:20px;
+}
+
+.card h2{
+font-family:'Playfair Display',Georgia,serif;
+font-size:30px;
+margin-bottom:12px;
+}
+
+.message{
+margin:14px 0 0;
+font-size:13px;
+line-height:1.6;
+color:#666;
+}
+
+.message.error{color:#9b2c2c;}
+.message.success{color:#32633e;}
+
+.empty{
+background:#fff;
+border:1px solid #e9e3db;
+border-radius:18px;
+padding:28px;
+text-align:center;
+color:#666;
+line-height:1.7;
+}
+
+.empty strong{
+display:block;
+font-family:'Playfair Display',Georgia,serif;
+font-size:30px;
+color:#111;
+margin-bottom:6px;
+}
+
+.locked{
+min-height:100vh;
+display:grid;
+place-items:center;
+padding:24px;
+}
+
+.locked .card{
+max-width:560px;
+text-align:center;
+}
+
+@media(max-width:1040px){
+.shell{grid-template-columns:1fr;}
+.sidebar{position:relative;height:auto;}
+.nav{grid-template-columns:repeat(2,minmax(0,1fr));}
+.stats{grid-template-columns:repeat(2,minmax(0,1fr));}
+.details{grid-template-columns:repeat(2,minmax(0,1fr));}
+.controls{grid-template-columns:1fr 1fr;}
+}
+
+@media(max-width:640px){
+.content{padding:20px;}
+.topbar{display:block;}
+.top-actions{justify-content:flex-start;margin-top:16px;}
+.nav{grid-template-columns:1fr;}
+.stats,.details,.controls,.form-grid{grid-template-columns:1fr;}
+.order-head{display:block;}
+.badge{margin-top:12px;}
+}
+</style>
+</head>
+
+<body>
+<div id="locked" class="locked">
+<div class="card">
+<p class="eyebrow">Painel Admin</p>
+<h1>Carregando...</h1>
+<p class="message">Verificando seu acesso administrativo.</p>
+</div>
+</div>
+
+<div id="app" class="shell" style="display:none;">
+<aside class="sidebar">
+<div class="brand">THE BAG ROOM</div>
+<nav class="nav">
+<button type="button" class="active" data-panel="pedidos" onclick="abrirPainel('pedidos', this)">AluguÃ©is</button>
+<button type="button" data-panel="bloqueios" onclick="abrirPainel('bloqueios', this)">Bloquear Datas</button>
+<button type="button" data-panel="bolsas" onclick="abrirPainel('bolsas', this)">Bolsas</button>
+<button type="button" data-panel="ajuda" onclick="abrirPainel('ajuda', this)">Ajuda</button>
+</nav>
+<p class="sidebar-note">
+Painel interno para acompanhar reservas, alterar status, incluir rastreios e controlar disponibilidade.
+</p>
+</aside>
+
+<main class="content">
+<div class="topbar">
+<div>
+<p class="eyebrow">Admin</p>
+<h1>Painel de AluguÃ©is</h1>
+</div>
+<div class="top-actions">
+<button class="btn secondary" onclick="carregarTudo()">Atualizar</button>
+<a class="btn secondary" href="/index.html">Ver site</a>
+<button class="btn" onclick="sair()">Sair</button>
+</div>
+</div>
+
+<section class="stats">
+<div class="stat-card">
+<div class="stat-label">Pedidos</div>
+<div class="stat-value" id="statPedidos">0</div>
+</div>
+<div class="stat-card">
+<div class="stat-label">Aguardando</div>
+<div class="stat-value" id="statAguardando">0</div>
+</div>
+<div class="stat-card">
+<div class="stat-label">Confirmados</div>
+<div class="stat-value" id="statConfirmados">0</div>
+</div>
+<div class="stat-card">
+<div class="stat-label">Em uso</div>
+<div class="stat-value" id="statUso">0</div>
+</div>
+</section>
+
+<section id="pedidos" class="panel active">
+<div class="toolbar">
+<input id="buscaPedidos" class="search" placeholder="Buscar por pedido, bolsa, cliente ou status" oninput="renderPedidos()">
+<span class="message" id="pedidosStatus">Carregando pedidos...</span>
+</div>
+<div id="listaPedidos" class="orders"></div>
+</section>
+
+<section id="bloqueios" class="panel">
+<div class="card">
+<h2>Bloquear datas manualmente</h2>
+<div class="form-grid">
+<div class="field">
+<label for="bloqueioBolsa">Bolsa</label>
+<select id="bloqueioBolsa"></select>
+</div>
+<div class="field">
+<label for="bloqueioMotivo">Motivo</label>
+<input id="bloqueioMotivo" placeholder="ManutenÃ§Ã£o, indisponibilidade...">
+</div>
+<div class="field">
+<label for="bloqueioInicio">Data inÃ­cio</label>
+<input id="bloqueioInicio" type="date">
+</div>
+<div class="field">
+<label for="bloqueioFim">Data fim</label>
+<input id="bloqueioFim" type="date">
+</div>
+</div>
+<div class="actions" style="margin-top:16px;">
+<button class="btn" onclick="criarBloqueio()">Bloquear perÃ­odo</button>
+</div>
+<p id="bloqueioStatus" class="message"></p>
+</div>
+</section>
+
+<section id="bolsas" class="panel">
+<div class="card">
+<h2>Bolsas cadastradas</h2>
+<div id="listaBolsas" class="orders"></div>
+</div>
+</section>
+
+<section id="ajuda" class="panel">
+<div class="card">
+<h2>Como usar</h2>
+<p class="message">
+Use a aba AluguÃ©is para acompanhar pedidos e mudar status. O campo de rastreio salva o cÃ³digo para envio ou devoluÃ§Ã£o. A aba Bloquear Datas cria indisponibilidades diretamente no calendÃ¡rio da bolsa.
+</p>
+<p class="message">
+Para dar acesso a uma pessoa, adicione o ID do usuÃ¡rio na tabela <strong>admin_users</strong> no Supabase.
+</p>
+</div>
+</section>
+</main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
+const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const statusLabels = {
+aguardando_pagamento: "Aguardando pagamento",
+pagamento_aprovado: "Pagamento aprovado",
+cadastro_em_analise: "Cadastro em anÃ¡lise",
+reserva_confirmada: "Reserva confirmada",
+em_preparacao: "Em preparaÃ§Ã£o",
+enviado: "Enviado",
+em_uso: "Em uso",
+devolucao_pendente: "DevoluÃ§Ã£o pendente",
+devolvido: "Devolvido",
+caucao_liberada: "CauÃ§Ã£o liberada",
+cancelado: "Cancelado"
+};
+
+const statusOptions = Object.keys(statusLabels);
+const pagamentoLabels = {
+pendente: "Aguardando pagamento",
+aprovado: "Pagamento aprovado",
+recusado: "Pagamento recusado",
+cancelado: "Pagamento cancelado",
+estornado: "Pagamento estornado"
+};
+let pedidos = [];
+let bolsas = [];
+let clientes = {};
+let usuarioAtual = null;
+
+function abrirPainel(panelId, button){
+document.querySelectorAll(".nav button").forEach(item => item.classList.remove("active"));
+document.querySelectorAll(".panel").forEach(panel => panel.classList.remove("active"));
+
+const painel = document.getElementById(panelId);
+if(!painel) return;
+
+if(button){
+button.classList.add("active");
+} else {
+const navButton = document.querySelector(`.nav button[data-panel="${panelId}"]`);
+if(navButton) navButton.classList.add("active");
+}
+
+painel.classList.add("active");
+painel.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function moeda(valor){
+return Number(valor || 0).toLocaleString("pt-BR", { style:"currency", currency:"BRL" });
+}
+
+function dataBR(data){
+if(!data) return "-";
+const partes = data.split("-");
+if(partes.length !== 3) return data;
+return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
+
+function setMessage(id, text, type = ""){
+const el = document.getElementById(id);
+if(!el) return;
+el.textContent = text;
+el.className = `message ${type}`.trim();
+}
+
+function primeiro(lista){
+return Array.isArray(lista) && lista.length ? lista[0] : null;
+}
+
+function clienteDoPedido(pedido){
+return clientes[pedido.cliente_auth_id] || null;
+}
+
+function nomeCliente(pedido){
+const cliente = clienteDoPedido(pedido);
+return cliente?.nome_completo || cliente?.email || pedido.cliente_auth_id || "Cliente";
+}
+
+function emailCliente(pedido){
+const cliente = clienteDoPedido(pedido);
+return cliente?.email || "-";
+}
+
+function statusReservaDoPedido(statusPedido){
+const mapa = {
+aguardando_pagamento: "aguardando_pagamento",
+pagamento_aprovado: "confirmada",
+cadastro_em_analise: "confirmada",
+reserva_confirmada: "confirmada",
+em_preparacao: "em_preparacao",
+enviado: "enviada",
+em_uso: "em_uso",
+devolucao_pendente: "devolucao_pendente",
+devolvido: "devolvida",
+caucao_liberada: "caucao_liberada",
+cancelado: "cancelada"
+};
+
+return mapa[statusPedido] || "confirmada";
+}
+
+function renderStats(){
+document.getElementById("statPedidos").innerText = pedidos.length;
+document.getElementById("statAguardando").innerText = pedidos.filter(p => p.status === "aguardando_pagamento").length;
+document.getElementById("statConfirmados").innerText = pedidos.filter(p => p.status === "reserva_confirmada").length;
+document.getElementById("statUso").innerText = pedidos.filter(p => p.status === "em_uso").length;
+}
+
+function renderPedidos(){
+const lista = document.getElementById("listaPedidos");
+const busca = (document.getElementById("buscaPedidos").value || "").toLowerCase();
+
+const filtrados = pedidos.filter(pedido => {
+const item = primeiro(pedido.aluguel_itens);
+const bolsa = item?.bolsas;
+const texto = [
+pedido.numero,
+pedido.status,
+statusLabels[pedido.status],
+bolsa?.nome,
+bolsa?.marca,
+nomeCliente(pedido),
+emailCliente(pedido)
+].join(" ").toLowerCase();
+return texto.includes(busca);
+});
+
+if(!filtrados.length){
+lista.innerHTML = `
+<div class="empty">
+<strong>Nenhum aluguel encontrado.</strong>
+<p>Quando uma cliente reservar uma bolsa, o pedido aparecerÃ¡ aqui.</p>
+</div>
+`;
+return;
+}
+
+lista.innerHTML = filtrados.map(pedido => {
+const item = primeiro(pedido.aluguel_itens);
+const bolsa = item?.bolsas;
+const pagamento = primeiro(pedido.pagamentos_aluguel);
+const envio = (pedido.rastreamentos_aluguel || []).find(r => r.tipo === "envio");
+const devolucao = (pedido.rastreamentos_aluguel || []).find(r => r.tipo === "devolucao");
+
+return `
+<article class="card order-card">
+<div class="order-head">
+<div>
+<div class="order-number">${pedido.numero || pedido.id}</div>
+<h2 class="order-title">${bolsa?.nome || "Bolsa de luxo"}</h2>
+<p class="order-client">${nomeCliente(pedido)} Â· ${emailCliente(pedido)}</p>
+</div>
+<span class="badge">${statusLabels[pedido.status] || pedido.status}</span>
+</div>
+
+<div class="details">
+<div class="detail"><span>Datas</span><strong>${dataBR(item?.data_inicio)} atÃ© ${dataBR(item?.data_fim)}</strong></div>
+<div class="detail"><span>PerÃ­odo</span><strong>${item?.dias || "-"} dias</strong></div>
+<div class="detail"><span>Total</span><strong>${moeda(pedido.valor_total)}</strong></div>
+<div class="detail"><span>CauÃ§Ã£o</span><strong>${moeda(pedido.valor_caucao_total)}</strong></div>
+<div class="detail"><span>Pagamento</span><strong>${pagamento ? pagamentoLabels[pagamento.status] || pagamento.status : "Ainda nÃ£o iniciado"}</strong></div>
+<div class="detail"><span>Envio</span><strong>${envio?.codigo_rastreio || "NÃ£o informado"}</strong></div>
+<div class="detail"><span>DevoluÃ§Ã£o</span><strong>${devolucao?.codigo_rastreio || "NÃ£o informado"}</strong></div>
+<div class="detail"><span>Criado em</span><strong>${new Date(pedido.created_at).toLocaleDateString("pt-BR")}</strong></div>
+<div class="detail"><span>ID cliente</span><strong>${pedido.cliente_auth_id}</strong></div>
+</div>
+
+<div class="controls">
+<div class="field">
+<label>Status do aluguel</label>
+<select id="status-${pedido.id}">
+${statusOptions.map(status => `<option value="${status}" ${pedido.status === status ? "selected" : ""}>${statusLabels[status]}</option>`).join("")}
+</select>
+</div>
+<div class="field">
+<label>Rastreio envio</label>
+<input id="envio-${pedido.id}" value="${envio?.codigo_rastreio || ""}" placeholder="CÃ³digo de envio">
+</div>
+<div class="field">
+<label>Rastreio devoluÃ§Ã£o</label>
+<input id="devolucao-${pedido.id}" value="${devolucao?.codigo_rastreio || ""}" placeholder="CÃ³digo de devoluÃ§Ã£o">
+</div>
+<button class="btn small" onclick="salvarPedido('${pedido.id}')">Salvar</button>
+</div>
+</article>
+`;
+}).join("");
+}
+
+function renderBolsas(){
+const select = document.getElementById("bloqueioBolsa");
+select.innerHTML = bolsas.map(bolsa => `<option value="${bolsa.id}">${bolsa.nome}</option>`).join("");
+
+const lista = document.getElementById("listaBolsas");
+if(!bolsas.length){
+lista.innerHTML = `<div class="empty"><strong>Nenhuma bolsa cadastrada.</strong></div>`;
+return;
+}
+
+lista.innerHTML = bolsas.map(bolsa => `
+<article class="order-card card">
+<div class="order-head">
+<div>
+<div class="order-number">${bolsa.slug}</div>
+<h2 class="order-title">${bolsa.nome}</h2>
+<p class="order-client">${bolsa.marca || "-"} Â· ${bolsa.cor || "-"}</p>
+</div>
+<span class="badge">${bolsa.ativa ? "Ativa" : "Inativa"}</span>
+</div>
+<div class="details">
+<div class="detail"><span>CauÃ§Ã£o</span><strong>${moeda(bolsa.valor_caucao)}</strong></div>
+<div class="detail"><span>Valor loja</span><strong>${moeda(bolsa.valor_loja)}</strong></div>
+<div class="detail"><span>Categoria</span><strong>${bolsa.categoria || "-"}</strong></div>
+<div class="detail"><span>Material</span><strong>${bolsa.material || "-"}</strong></div>
+</div>
+</article>
+`).join("");
+}
+
+async function salvarPedido(pedidoId){
+const pedido = pedidos.find(item => item.id === pedidoId);
+if(!pedido) return;
+
+const novoStatus = document.getElementById(`status-${pedidoId}`).value;
+const codigoEnvio = document.getElementById(`envio-${pedidoId}`).value.trim();
+const codigoDevolucao = document.getElementById(`devolucao-${pedidoId}`).value.trim();
+
+const { error: statusError } = await supabaseClient
+.from("aluguel_pedidos")
+.update({ status: novoStatus })
+.eq("id", pedidoId);
+
+if(statusError){
+alert("NÃ£o foi possÃ­vel atualizar o status.");
+console.error(statusError);
+return;
+}
+
+if(novoStatus !== pedido.status){
+await supabaseClient
+.from("bolsa_reservas")
+.update({ status: statusReservaDoPedido(novoStatus) })
+.eq("pedido_id", pedidoId);
+
+await supabaseClient
+.from("aluguel_status_historico")
+.insert({
+pedido_id: pedidoId,
+status_anterior: pedido.status,
+status_novo: novoStatus,
+alterado_por: usuarioAtual.id,
+observacao: "Alterado pelo painel admin"
+});
+}
+
+await salvarRastreio(pedidoId, "envio", codigoEnvio);
+await salvarRastreio(pedidoId, "devolucao", codigoDevolucao);
+
+alert("Pedido atualizado.");
+await carregarTudo();
+}
+
+async function salvarRastreio(pedidoId, tipo, codigo){
+if(!codigo) return;
+
+const pedido = pedidos.find(item => item.id === pedidoId);
+const existente = (pedido.rastreamentos_aluguel || []).find(r => r.tipo === tipo);
+
+if(existente){
+await supabaseClient
+.from("rastreamentos_aluguel")
+.update({ codigo_rastreio: codigo, transportadora: "Correios" })
+.eq("id", existente.id);
+return;
+}
+
+await supabaseClient
+.from("rastreamentos_aluguel")
+.insert({
+pedido_id: pedidoId,
+tipo,
+transportadora: "Correios",
+codigo_rastreio: codigo
+});
+}
+
+async function criarBloqueio(){
+const bolsaId = document.getElementById("bloqueioBolsa").value;
+const inicio = document.getElementById("bloqueioInicio").value;
+const fim = document.getElementById("bloqueioFim").value;
+const motivo = document.getElementById("bloqueioMotivo").value || "Bloqueio manual";
+
+if(!bolsaId || !inicio || !fim){
+setMessage("bloqueioStatus", "Preencha bolsa, data inÃ­cio e data fim.", "error");
+return;
+}
+
+const { error } = await supabaseClient
+.from("bolsa_reservas")
+.insert({
+bolsa_id: bolsaId,
+data_inicio: inicio,
+data_fim: fim,
+status: "bloqueio_manual",
+motivo,
+created_by: usuarioAtual.id
+});
+
+if(error){
+const mensagem = error.message && error.message.includes("bolsa_reservas_sem_sobreposicao")
+? "Esse perÃ­odo conflita com uma reserva ou bloqueio existente."
+: "NÃ£o foi possÃ­vel criar o bloqueio.";
+setMessage("bloqueioStatus", mensagem, "error");
+console.error(error);
+return;
+}
+
+setMessage("bloqueioStatus", "PerÃ­odo bloqueado com sucesso.", "success");
+document.getElementById("bloqueioInicio").value = "";
+document.getElementById("bloqueioFim").value = "";
+document.getElementById("bloqueioMotivo").value = "";
+await carregarTudo();
+}
+
+async function carregarClientes(){
+const ids = [...new Set(pedidos.map(p => p.cliente_auth_id).filter(Boolean))];
+clientes = {};
+if(!ids.length) return;
+
+const { data, error } = await supabaseClient
+.from("validacao_clientes")
+.select("usuario_auth_id,nome_completo,email,celular,status")
+.in("usuario_auth_id", ids);
+
+if(error){
+console.warn("NÃ£o foi possÃ­vel carregar clientes:", error);
+return;
+}
+
+(data || []).forEach(cliente => {
+clientes[cliente.usuario_auth_id] = cliente;
+});
+}
+
+async function carregarTudo(){
+setMessage("pedidosStatus", "Carregando pedidos...");
+
+const [{ data: pedidosData, error: pedidosError }, { data: bolsasData, error: bolsasError }] = await Promise.all([
+supabaseClient
+.from("aluguel_pedidos")
+.select(`
+id,
+numero,
+cliente_auth_id,
+status,
+created_at,
+valor_total,
+valor_caucao_total,
+aluguel_itens (
+data_inicio,
+data_fim,
+dias,
+valor_aluguel,
+valor_caucao,
+bolsas (
+nome,
+marca,
+slug
+)
+),
+rastreamentos_aluguel (
+id,
+tipo,
+transportadora,
+codigo_rastreio,
+url_rastreio
+),
+pagamentos_aluguel (
+status,
+valor,
+paid_at,
+checkout_url
+)
+`)
+.order("created_at", { ascending:false }),
+supabaseClient
+.from("bolsas")
+.select("id,slug,nome,marca,categoria,cor,material,valor_loja,valor_caucao,ativa")
+.order("nome", { ascending:true })
+]);
+
+if(pedidosError){
+setMessage("pedidosStatus", "Erro ao carregar pedidos.", "error");
+console.error(pedidosError);
+return;
+}
+
+if(bolsasError){
+console.error(bolsasError);
+}
+
+pedidos = pedidosData || [];
+bolsas = bolsasData || [];
+await carregarClientes();
+renderStats();
+renderPedidos();
+renderBolsas();
+setMessage("pedidosStatus", `${pedidos.length} pedido(s) carregado(s).`, "success");
+}
+
+async function verificarAcesso(){
+const { data: { user } } = await supabaseClient.auth.getUser();
+
+if(!user){
+window.location.href = "/login.html";
+return;
+}
+
+usuarioAtual = user;
+
+const { data: isAdmin, error } = await supabaseClient.rpc("is_admin");
+
+if(error || !isAdmin){
+document.getElementById("locked").innerHTML = `
+<div class="card">
+<p class="eyebrow">Acesso restrito</p>
+<h1>VocÃª ainda nÃ£o Ã© admin.</h1>
+<p class="message">Adicione o ID deste usuÃ¡rio na tabela admin_users do Supabase para liberar o painel.</p>
+<p class="message"><strong>ID:</strong> ${user.id}</p>
+<div class="actions" style="justify-content:center;margin-top:18px;">
+<button class="btn" onclick="sair()">Sair</button>
+</div>
+</div>
+`;
+return;
+}
+
+document.getElementById("locked").style.display = "none";
+document.getElementById("app").style.display = "grid";
+await carregarTudo();
+}
+
+async function sair(){
+await supabaseClient.auth.signOut();
+window.location.href = "/index.html";
+}
+
+verificarAcesso();
+</script>
+</body>
+</html>
+
+
