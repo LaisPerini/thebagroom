@@ -341,31 +341,206 @@ margin-top:2px;
 }
 
 
+
+/* Menu padrÃ£o The Bag Room */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 1000;
+  min-height: 70px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #eee;
+  backdrop-filter: blur(8px);
+}
+
+.site-header .brand {
+  margin: 0;
+  color: #111;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+.site-header .menu-mobile-btn {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: #111;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  padding: 8px;
+}
+
+.site-header .menu-mobile {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 85%;
+  max-width: 320px;
+  height: 100vh;
+  padding-top: 100px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(14px);
+  transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 2000;
+}
+
+.site-header .menu-mobile.open { left: 0; }
+
+.site-header .close-menu {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  border: 0;
+  background: transparent;
+  color: #000;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  opacity: 0.8;
+  user-select: none;
+}
+
+.site-header .close-menu:hover { opacity: 0.5; }
+
+.site-header .menu-mobile-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding-left: 30px;
+}
+
+.site-header .menu-mobile-inner a {
+  color: #000;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.site-header .menu-mobile-inner a:hover { opacity: 0.6; }
+
+/* Menu padrao The Bag Room */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 1000;
+  min-height: 70px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #eee;
+  backdrop-filter: blur(8px);
+}
+
+.site-header .brand {
+  margin: 0;
+  color: #111;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+.site-header .menu-mobile-btn {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: #111;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  padding: 8px;
+}
+
+.site-header .menu-mobile {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 85%;
+  max-width: 320px;
+  height: 100vh;
+  padding-top: 100px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(14px);
+  transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 2000;
+}
+
+.site-header .menu-mobile.open { left: 0; }
+
+.site-header .close-menu {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  border: 0;
+  background: transparent;
+  color: #000;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  opacity: 0.8;
+  user-select: none;
+}
+
+.site-header .close-menu:hover { opacity: 0.5; }
+
+.site-header .menu-mobile-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding-left: 30px;
+}
+
+.site-header .menu-mobile-inner a {
+  color: #000;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.site-header .menu-mobile-inner a:hover { opacity: 0.6; }
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>THE BAG ROOM</h1>
+<header class="site-header">
+  <div class="menu-mobile-btn" onclick="toggleMenuMobile()" aria-label="Abrir menu">&#9776;</div>
+  <h1 class="brand">THE BAG ROOM</h1>
 
-<div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
-
-<nav class="menu-mobile" id="menuMobile">
-<div class="close-menu" onclick="toggleMenuMobile()">×</div>
-
-<div class="menu-mobile-inner">
-<a href="index.html">Início</a>
- <a href="aluguel.html">Alugar Bolsas</a>
-      <a href="como-alugar.html">Como Alugar </a>
-<a href=como-desapegar.html">Como Desapegar</a>
-<a href="autenticidade.html">Autenticidade</a>
+  <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
+    <div class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">&times;</div>
+    <div class="menu-mobile-inner">
+      <a href="index.html">In&iacute;cio</a>
+      <a href="aluguel.html">Alugar Bolsas</a>
+      <a href="como-alugar.html">Como Alugar</a>
+      <a href="como-desapegar.html">Como Desapegar</a>
+      <a href="autenticidade.html">Autenticidade</a>
       <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
-<a href="quem-somos.html">Sobre</a>
-<a href="login.html">Minha Conta </a>
-</div>
-
-</nav>
+      <a href="quem-somos.html">Sobre</a>
+      <a href="login.html">Minha Conta</a>
+    </div>
+  </nav>
 </header>
 
 <div class="top-space"></div>
@@ -383,7 +558,7 @@ Preencha seus dados para aprovação e liberação das locações The Bag Room.
 </p>
 
 <div class="seguranca-box">
-🔒 Seus documentos são utilizados exclusivamente para validação cadastral e não são compartilhados com terceiros.
+ Seus documentos são utilizados exclusivamente para validação cadastral e não são compartilhados com terceiros.
 </div>
 
 <form id="cadastroForm">
@@ -645,10 +820,74 @@ const supabaseClient = supabase.createClient(
   SUPABASE_KEY
 );
 
+const CADASTRO_CHECKOUT_OK_KEY = "cadastroLocacaoCheckoutOkTheBagRoom";
+let sessaoAtual = null;
+
+function destinoDepoisCadastro(){
+const params = new URLSearchParams(window.location.search);
+const nextParam = params.get("next");
+const nextLocal = localStorage.getItem("proximoDestinoTheBagRoom");
+const destino = nextParam || nextLocal || "minha-conta.html";
+
+if(destino.includes("checkout-aluguel.html")){
+return "checkout-aluguel.html";
+}
+
+return "minha-conta.html";
+}
+
 window.addEventListener('load', function(){
 
 const formulario =
 document.getElementById('cadastroForm');
+
+async function prepararCadastroLogado(){
+const { data: { session } } = await supabaseClient.auth.getSession();
+sessaoAtual = session;
+
+if(!sessaoAtual) return;
+
+const emailInput = document.querySelector('[name="email"]');
+if(emailInput){
+emailInput.value = sessaoAtual.user.email || "";
+emailInput.readOnly = true;
+}
+
+const senhaInput = document.getElementById('senha');
+const confirmarSenhaInput = document.getElementById('confirmar_senha');
+if(senhaInput) senhaInput.required = false;
+if(confirmarSenhaInput) confirmarSenhaInput.required = false;
+
+const { data: cadastroExistente } = await supabaseClient
+.from('validacao_clientes')
+.select('id,nome_completo,status')
+.eq('usuario_auth_id', sessaoAtual.user.id)
+.maybeSingle();
+
+if(!cadastroExistente) return;
+
+const destino = destinoDepoisCadastro();
+if(!destino.includes("checkout-aluguel.html")) return;
+
+formulario.style.display = "none";
+formulario.insertAdjacentHTML("beforebegin", `
+<div class="seguranca-box" style="text-align:center;margin:25px 0;">
+Seu cadastro de locação já está preenchido.
+<br><br>
+<button type="button" id="continuarCheckoutBtn" class="btn-enviar" style="max-width:320px;margin:auto;">
+CONTINUAR PARA O CHECKOUT
+</button>
+</div>
+`);
+
+document.getElementById("continuarCheckoutBtn").addEventListener("click", function(){
+localStorage.setItem(CADASTRO_CHECKOUT_OK_KEY, "sim");
+localStorage.removeItem("proximoDestinoTheBagRoom");
+window.location.href = destino;
+});
+}
+
+prepararCadastroLogado();
 
 formulario.addEventListener('submit', async function(e){
 
@@ -678,13 +917,17 @@ document.getElementById('senha').value;
 const confirmarSenha =
 document.getElementById('confirmar_senha').value;
 
-if(senha.length < 8){
+if(!sessaoAtual && senha.length < 8){
     alert('A senha deve possuir no mínimo 8 caracteres.');
+    btnEnviar.disabled = false;
+    btnEnviar.innerText = 'ENVIAR CADASTRO';
     return;
 }
 
-if(senha !== confirmarSenha){
+if(!sessaoAtual && senha !== confirmarSenha){
     alert('As senhas não coincidem.');
+    btnEnviar.disabled = false;
+    btnEnviar.innerText = 'ENVIAR CADASTRO';
     return;
 }
 
@@ -710,8 +953,10 @@ const selfiePath =
 const comprovantePath =
 `comprovantes/${Date.now()}-${comprovanteFile.name}`;
 
+let authData = { user: sessaoAtual?.user || null };
 
-const { data: authData, error: authError } =
+if(!sessaoAtual){
+const { data: novoAuthData, error: authError } =
 await supabaseClient.auth.signUp({
   email: email,
   password: senha
@@ -722,6 +967,16 @@ if(authError){
   btnEnviar.disabled = false;
   btnEnviar.innerText = 'ENVIAR CADASTRO';
   return;
+}
+
+authData = novoAuthData;
+}
+
+if(!authData.user){
+alert('Não foi possível identificar sua conta. Entre novamente e tente outra vez.');
+btnEnviar.disabled = false;
+btnEnviar.innerText = 'ENVIAR CADASTRO';
+return;
 }
 
 
@@ -795,6 +1050,13 @@ btnEnviar.innerText =
 'CADASTRO ENVIADO ✓';
 
 alert('Cadastro enviado com sucesso!');
+
+const destino = destinoDepoisCadastro();
+if(destino.includes("checkout-aluguel.html")){
+localStorage.setItem(CADASTRO_CHECKOUT_OK_KEY, "sim");
+}
+localStorage.removeItem("proximoDestinoTheBagRoom");
+window.location.href = destino;
 
 
 });
@@ -960,3 +1222,9 @@ e.target.value = valor;
 
 </body>
 </html>
+
+
+
+
+
+
