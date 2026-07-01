@@ -92,7 +92,7 @@ color:#444;
 }
 
 .desc p{
-  margin-bottom:18px; /* 👈 espaço entre blocos */
+  margin-bottom:18px; /*  espaço entre blocos */
 }
 
 .desc strong{
@@ -249,7 +249,7 @@ border-color:#000;
 .social-bar {
   position: fixed;
   right: 10px;
-  bottom: 20px; /* 👈 aqui controla altura */
+  bottom: 20px; /*  aqui controla altura */
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -611,7 +611,7 @@ opacity:0.75;
 
   display:none;
   justify-content:center;
-  align-items:center; /* 🔥 ISSO CENTRALIZA VERTICAL */
+  align-items:center; /*  ISSO CENTRALIZA VERTICAL */
 
   background:rgba(0,0,0,0.92);
   z-index:9999;
@@ -626,7 +626,7 @@ opacity:0.75;
   height:50px;
   border-radius:50%;
 
-  background:rgba(0,0,0,0.5); /* 🔥 contraste */
+  background:rgba(0,0,0,0.5); /*  contraste */
   color:#fff;
 
   display:flex;
@@ -636,7 +636,7 @@ opacity:0.75;
   font-size:22px;
   cursor:pointer;
 
-  z-index:10000; /* 🔥 MUITO IMPORTANTE */
+  z-index:10000; /*  MUITO IMPORTANTE */
   backdrop-filter: blur(6px);
   transition:0.3s;
 }
@@ -751,34 +751,132 @@ opacity:0.75;
 }
   
 }
+/* Menu padrao The Bag Room */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 1000;
+  min-height: 70px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #eee;
+  backdrop-filter: blur(8px);
+}
 
+.brand {
+  margin: 0;
+  color: #111;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+.menu-mobile-btn {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: #111;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  padding: 8px;
+}
+
+.menu-mobile {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 85%;
+  max-width: 320px;
+  height: 100vh;
+  padding-top: 100px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(14px);
+  transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 2000;
+}
+
+.menu-mobile.open { left: 0; }
+
+.close-menu {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  border: 0;
+  background: transparent;
+  color: #000;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  opacity: 0.8;
+  user-select: none;
+}
+
+.close-menu:hover { opacity: 0.5; }
+
+.menu-mobile-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding-left: 30px;
+}
+
+.menu-mobile-inner a {
+  color: #000;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.menu-mobile-inner a:hover { opacity: 0.6; }
+
+/* Ajuste final: topo igual ao index */
+body {
+  padding-top: 70px !important;
+}
+
+.site-header {
+  height: 70px !important;
+  min-height: 70px !important;
+  padding: 18px !important;
+  box-sizing: border-box !important;
+}
+
+.top-space {
+  display: none !important;
+  height: 0 !important;
+}
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>THE BAG ROOM</h1>
+<header class="site-header">
+  <div class="menu-mobile-btn" onclick="toggleMenuMobile()" aria-label="Abrir menu">&#9776;</div>
+  <h1 class="brand">THE BAG ROOM</h1>
 
-  <!-- botão menu -->
-  <div class="menu-mobile-btn" onclick="toggleMenuMobile()">☰</div>
-
-  <!-- menu lateral -->
-  <nav class="menu-mobile" id="menuMobile">
-
-    <div class="close-menu" onclick="toggleMenuMobile()">×</div>
-   
-  <div class="menu-mobile-inner">
-      <a href="/index.html">Início</a>
-      <a href="/aluguel.html">Alugar Bolsas</a>
-      <a href="/como-alugar.html">Como Alugar </a>
-      <a href="/como-desapegar.html">Como Desapegar</a>
-      <a href="/autenticidade.html">Autenticidade</a>
+  <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
+    <div class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">&times;</div>
+    <div class="menu-mobile-inner">
+      <a href="index.html">In&iacute;cio</a>
+      <a href="aluguel.html">Alugar Bolsas</a>
+      <a href="como-alugar.html">Como Alugar</a>
+      <a href="como-desapegar.html">Como Desapegar</a>
+      <a href="autenticidade.html">Autenticidade</a>
       <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
-      <a href="/quem-somos.html">Sobre</a>
-      <a href="/login.html">Minha Conta </a>
+      <a href="quem-somos.html">Sobre</a>
+      <a href="login.html">Minha Conta</a>
     </div>
-
   </nav>
 </header>
 
@@ -1086,7 +1184,7 @@ document.getElementById('devolucao').innerHTML =
 `Devolução prevista: <strong>${data.toLocaleDateString('pt-BR')}</strong>`;
 }
 
-/* 🔥 FRETE COM SELEÇÃO */
+/*  FRETE COM SELEÇÃO */
 let freteSelecionado = null;
 
 let freteIdaSelecionado = null;
@@ -1133,7 +1231,7 @@ let voltaData = await voltaResponse.json();
 
 let html = "";
 
-// 🔥 pega só SEDEX
+//  pega só SEDEX
 let frete = idaData.find(f => f.name === "SEDEX");
 
 if(!frete){
@@ -1302,9 +1400,9 @@ ${enderecoShowroom}
 `;
 }
 
-/* 🔥 WHATSAPP COMPLETO */
+/*  WHATSAPP COMPLETO */
 
-function alugar(){
+async function alugar(){
 let diasSelecionado = document.querySelector('input[name="dias"]:checked');
 let data = document.getElementById('dataInicio').value;
 let botao = document.getElementById("botaoAlugar");
@@ -1361,6 +1459,16 @@ const checkout = {
 };
 
 localStorage.setItem("checkoutAluguelTheBagRoom", JSON.stringify(checkout));
+
+const { data: { session } } = await aluguelSupabase.auth.getSession();
+
+if(!session){
+  localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
+  setReservaStatus("Entre ou cadastre-se para continuar seu aluguel.", "sucesso");
+  window.location.href = "login.html?next=checkout-aluguel.html";
+  return;
+}
+
 setReservaStatus("Resumo criado. Indo para o checkout...", "sucesso");
 
 if(botao){
@@ -1386,13 +1494,13 @@ zoomOverlay.innerHTML = `
 document.body.appendChild(zoomOverlay);
 
 zoomOverlay.querySelector('.direita').onclick = (e) => {
-  e.stopPropagation(); // 🔥 MUITO IMPORTANTE
+  e.stopPropagation(); //  MUITO IMPORTANTE
   indexAtual = (indexAtual + 1) % imagens.length;
   atualizarZoom();
 };
 
 zoomOverlay.querySelector('.esquerda').onclick = (e) => {
-  e.stopPropagation(); // 🔥 MUITO IMPORTANTE
+  e.stopPropagation(); //  MUITO IMPORTANTE
   indexAtual = (indexAtual - 1 + imagens.length) % imagens.length;
   atualizarZoom();
 };
@@ -1405,7 +1513,7 @@ function atualizarZoom(){
 
 document.querySelectorAll('.slider img').forEach((img, index) => {
   img.addEventListener('click', () => {
-    indexAtual = index; // 🔥 ESSENCIAL
+    indexAtual = index; //  ESSENCIAL
     atualizarZoom();
     zoomOverlay.style.display = "flex";
   });
@@ -1456,7 +1564,7 @@ function atualizarTotal(){
   let diasSelecionado = document.querySelector('input[name="dias"]:checked');
   if(!diasSelecionado) return;
 
-  // 👉 só mostra se já escolheu frete
+  //  só mostra se já escolheu frete
   if(!freteIdaSelecionado || !freteVoltaSelecionado){
     document.getElementById("totalBox").style.display = "none";
     return;
@@ -1478,7 +1586,7 @@ function atualizarTotal(){
 
   let box = document.getElementById("totalBox");
 
-  box.style.display = "block"; // 👈 aparece só aqui
+  box.style.display = "block"; //  aparece só aqui
   box.innerHTML = `Total: <strong>R$ ${totalFormatado}</strong>`;
 }
   
@@ -1542,5 +1650,17 @@ function toggleFooter(el){
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
