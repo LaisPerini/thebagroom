@@ -838,10 +838,10 @@ function destinoDepoisCadastro(){
 
 window.addEventListener('load', function(){
 
-const formulario =
-document.getElementById('cadastroForm');
+window.addEventListener('load', function(){
 
-async function prepararCadastroLogado(){
+const formulario = document.getElementById('cadastroForm');
+
 async function prepararCadastroLogado(){
   const { data: { user }, error } = await supabaseClient.auth.getUser();
 
@@ -895,88 +895,39 @@ async function prepararCadastroLogado(){
   });
 }
 
-const emailInput = document.querySelector('[name="email"]');
-if(emailInput){
-emailInput.value = sessaoAtual.user.email || "";
-emailInput.readOnly = true;
-}
-
-const senhaInput = document.getElementById('senha');
-const confirmarSenhaInput = document.getElementById('confirmar_senha');
-if(senhaInput) senhaInput.required = false;
-if(confirmarSenhaInput) confirmarSenhaInput.required = false;
-
-const { data: cadastroExistente } = await supabaseClient
-.from('validacao_clientes')
-.select('id,nome_completo,status')
-.eq('usuario_auth_id', sessaoAtual.user.id)
-.maybeSingle();
-
-if(!cadastroExistente) return;
-
-const destino = destinoDepoisCadastro();
-if(!destino.includes("checkout-aluguel.html")) return;
-
-formulario.style.display = "none";
-formulario.insertAdjacentHTML("beforebegin", `
-<div class="seguranca-box" style="text-align:center;margin:25px 0;">
-Seu cadastro de locação já está preenchido.
-<br><br>
-<button type="button" id="continuarCheckoutBtn" class="btn-enviar" style="max-width:320px;margin:auto;">
-CONTINUAR PARA O CHECKOUT
-</button>
-</div>
-`);
-
-document.getElementById("continuarCheckoutBtn").addEventListener("click", function(){
-localStorage.setItem(CADASTRO_CHECKOUT_OK_KEY, "sim");
-localStorage.removeItem("proximoDestinoTheBagRoom");
-window.location.href = destino;
-});
-}
-
 prepararCadastroLogado();
 
 formulario.addEventListener('submit', async function(e){
 
 e.preventDefault();
 
-const btnEnviar =
-document.getElementById('btnEnviar');
+const btnEnviar = document.getElementById('btnEnviar');
 
 btnEnviar.disabled = true;
 btnEnviar.innerText = 'ENVIANDO...';
 
 const nome = document.querySelector('[name="nome_completo"]').value;
 const cpf = document.querySelector('[name="cpf"]').value;
-const dataNascimentoTexto =
-document.querySelector('[name="data_nascimento"]').value;
+const dataNascimentoTexto = document.querySelector('[name="data_nascimento"]').value;
 
-const partes =
-dataNascimentoTexto.split('/');
+const partes = dataNascimentoTexto.split('/');
+const dataNascimento = `${partes[2]}-${partes[1]}-${partes[0]}`;
 
-const dataNascimento =
-`${partes[2]}-${partes[1]}-${partes[0]}`;
-
-
-const senha =
-document.getElementById('senha').value;
-
-const confirmarSenha =
-document.getElementById('confirmar_senha').value;
+const senha = document.getElementById('senha').value;
+const confirmarSenha = document.getElementById('confirmar_senha').value;
 
 if(!sessaoAtual && senha.length < 8){
-    alert('A senha deve possuir no mínimo 8 caracteres.');
-    btnEnviar.disabled = false;
-    btnEnviar.innerText = 'ENVIAR CADASTRO';
-    return;
+  alert('A senha deve possuir no mínimo 8 caracteres.');
+  btnEnviar.disabled = false;
+  btnEnviar.innerText = 'ENVIAR CADASTRO';
+  return;
 }
 
 if(!sessaoAtual && senha !== confirmarSenha){
-    alert('As senhas não coincidem.');
-    btnEnviar.disabled = false;
-    btnEnviar.innerText = 'ENVIAR CADASTRO';
-    return;
+  alert('As senhas não coincidem.');
+  btnEnviar.disabled = false;
+  btnEnviar.innerText = 'ENVIAR CADASTRO';
+  return;
 }
 
 const email = document.querySelector('[name="email"]').value;
@@ -990,128 +941,131 @@ const bairro = document.querySelector('[name="bairro"]').value;
 const cidade = document.querySelector('[name="cidade"]').value;
 const estado = document.querySelector('[name="estado"]').value;
 const motivoLocacao = document.querySelector('[name="motivo_locacao"]').value;
+
 const documentoFile = document.getElementById('documento').files[0];
 const selfieFile = document.getElementById('selfie').files[0];
-const comprovanteFile =document.getElementById('comprovante').files[0];
-const documentoPath =`documentos/${Date.now()}-${documentoFile.name}`;
+const comprovanteFile = document.getElementById('comprovante').files[0];
 
-const selfiePath =
-`selfies/${Date.now()}-${selfieFile.name}`;
-
-const comprovantePath =
-`comprovantes/${Date.now()}-${comprovanteFile.name}`;
-
-let authData = { user: sessaoAtual?.user || null };
-
-if(!sessaoAtual){
-const { data: novoAuthData, error: authError } =
-await supabaseClient.auth.signUp({
-  email: email,
-  password: senha
-});
-
-if(authError){
-  alert('Erro ao criar acesso: ' + authError.message);
+if(!documentoFile || !selfieFile || !comprovanteFile){
+  alert('Envie todos os documentos obrigatórios.');
   btnEnviar.disabled = false;
   btnEnviar.innerText = 'ENVIAR CADASTRO';
   return;
 }
 
-authData = novoAuthData;
+const documentoPath = `documentos/${Date.now()}-${documentoFile.name}`;
+const selfiePath = `selfies/${Date.now()}-${selfieFile.name}`;
+const comprovantePath = `comprovantes/${Date.now()}-${comprovanteFile.name}`;
+
+let authData = { user: sessaoAtual?.user || null };
+
+if(!sessaoAtual){
+  const { data: novoAuthData, error: authError } =
+  await supabaseClient.auth.signUp({
+    email: email,
+    password: senha
+  });
+
+  if(authError){
+    alert('Erro ao criar acesso: ' + authError.message);
+    btnEnviar.disabled = false;
+    btnEnviar.innerText = 'ENVIAR CADASTRO';
+    return;
+  }
+
+  authData = novoAuthData;
 }
 
 if(!authData.user){
-alert('Não foi possível identificar sua conta. Entre novamente e tente outra vez.');
-btnEnviar.disabled = false;
-btnEnviar.innerText = 'ENVIAR CADASTRO';
-return;
+  alert('Não foi possível identificar sua conta. Entre novamente e tente outra vez.');
+  btnEnviar.disabled = false;
+  btnEnviar.innerText = 'ENVIAR CADASTRO';
+  return;
 }
 
-
-// Upload Documento
-const { error: documentoError } =
-await supabaseClient.storage
+const { error: documentoError } = await supabaseClient.storage
 .from('documentos-clientes')
 .upload(documentoPath, documentoFile);
 
 if(documentoError){
-alert('Erro ao enviar documento: ' + documentoError.message);
-return;
+  alert('Erro ao enviar documento: ' + documentoError.message);
+  btnEnviar.disabled = false;
+  btnEnviar.innerText = 'ENVIAR CADASTRO';
+  return;
 }
 
-// Upload Selfie
-const { error: selfieError } =
-await supabaseClient.storage
+const { error: selfieError } = await supabaseClient.storage
 .from('documentos-clientes')
 .upload(selfiePath, selfieFile);
 
 if(selfieError){
-alert('Erro ao enviar selfie: ' + selfieError.message);
-return;
+  alert('Erro ao enviar selfie: ' + selfieError.message);
+  btnEnviar.disabled = false;
+  btnEnviar.innerText = 'ENVIAR CADASTRO';
+  return;
 }
 
-// Upload Comprovante
-const { error: comprovanteError } =
-await supabaseClient.storage
+const { error: comprovanteError } = await supabaseClient.storage
 .from('documentos-clientes')
 .upload(comprovantePath, comprovanteFile);
 
 if(comprovanteError){
-alert('Erro ao enviar comprovante: ' + comprovanteError.message);
-return;
+  alert('Erro ao enviar comprovante: ' + comprovanteError.message);
+  btnEnviar.disabled = false;
+  btnEnviar.innerText = 'ENVIAR CADASTRO';
+  return;
 }
 
-// Salvar dados na tabela
-const { data, error } =
-await supabaseClient
+const { error } = await supabaseClient
 .from('validacao_clientes')
 .insert([
-{
-usuario_auth_id: authData.user.id,
-nome_completo: nome,
-email: email,
-celular: celular,
-instagram: instagram,
-cep: cep,
-endereco: endereco,
-estado: estado,
-documento: documentoPath,
-selfie: selfiePath,
-comprovante: comprovantePath,
-status: 'pendente',
-cpf: cpf,
-data_nascimento: dataNascimento,
-numero_endereco: numeroEndereco,
-complemento_endereco: complementoEndereco,
-bairro: bairro,
-cidade: cidade,
-motivo_locacao: motivoLocacao
-}
+  {
+    usuario_auth_id: authData.user.id,
+    nome_completo: nome,
+    email: email,
+    celular: celular,
+    instagram: instagram,
+    cep: cep,
+    endereco: endereco,
+    estado: estado,
+    documento: documentoPath,
+    selfie: selfiePath,
+    comprovante: comprovantePath,
+    status: 'pendente',
+    cpf: cpf,
+    data_nascimento: dataNascimento,
+    numero_endereco: numeroEndereco,
+    complemento_endereco: complementoEndereco,
+    bairro: bairro,
+    cidade: cidade,
+    motivo_locacao: motivoLocacao
+  }
 ]);
 
 if(error){
-alert('Erro: ' + error.message);
-return;
+  alert('Erro: ' + error.message);
+  btnEnviar.disabled = false;
+  btnEnviar.innerText = 'ENVIAR CADASTRO';
+  return;
 }
 
-btnEnviar.innerText =
-'CADASTRO ENVIADO ✓';
+btnEnviar.innerText = 'CADASTRO ENVIADO ✓';
 
 alert('Cadastro enviado com sucesso!');
 
 const destino = destinoDepoisCadastro();
+
 if(destino.includes("checkout-aluguel.html")){
-localStorage.setItem(CADASTRO_CHECKOUT_OK_KEY, "sim");
+  localStorage.setItem(CADASTRO_CHECKOUT_OK_KEY, "sim");
 }
+
 localStorage.removeItem("proximoDestinoTheBagRoom");
 window.location.href = destino;
 
-
-});
 });
 
-document
-.getElementById('cep')
+});
+
 .addEventListener('blur', async function(){
 
 const cep =
