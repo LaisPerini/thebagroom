@@ -534,6 +534,8 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 let checkout = null;
 let sessionAtual = null;
 let clienteAtual = null;
+const LOGIN_CHECKOUT_KEY = "loginConfirmadoCheckoutTheBagRoomV2";
+const LOGIN_CHECKOUT_NONCE_KEY = "loginTentativaCheckoutTheBagRoomV2";
 
 function moeda(valor){
 return Number(valor || 0).toLocaleString("pt-BR", { style:"currency", currency:"BRL" });
@@ -629,6 +631,18 @@ window.location.href = "login.html?next=checkout-aluguel.html";
 return;
 }
 
+const loginNonce = sessionStorage.getItem(LOGIN_CHECKOUT_NONCE_KEY);
+const loginConfirmado = sessionStorage.getItem(LOGIN_CHECKOUT_KEY);
+
+if(!loginNonce || loginConfirmado !== `${sessionAtual.user.id}:${loginNonce}`){
+const novoNonce = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+sessionStorage.setItem(LOGIN_CHECKOUT_NONCE_KEY, novoNonce);
+sessionStorage.removeItem(LOGIN_CHECKOUT_KEY);
+localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
+window.location.href = "login.html?next=checkout-aluguel.html";
+return;
+}
+
 if(!clienteAtual){
 localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
 window.location.href = "cadastro-locacao.html?next=checkout-aluguel.html";
@@ -691,6 +705,8 @@ const detalhes = result.details ? JSON.stringify(result.details) : "";
 throw new Error(`${result.error || "checkout_error"} ${detalhes}`.trim());
 }
 
+sessionStorage.removeItem(LOGIN_CHECKOUT_KEY);
+sessionStorage.removeItem(LOGIN_CHECKOUT_NONCE_KEY);
 localStorage.removeItem("checkoutAluguelTheBagRoom");
 
 window.location.href = result.checkout_url;
