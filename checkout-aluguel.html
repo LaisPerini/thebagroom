@@ -235,7 +235,7 @@ text-align:center;
 .brand{letter-spacing:5px;}
 }
 
-/* Menu padrÃ£o The Bag Room */
+/* Menu padrão The Bag Room */
 .site-header {
   position: fixed;
   inset: 0 0 auto 0;
@@ -530,7 +530,6 @@ const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
 const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
 const CHECKOUT_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/mercado-pago-checkout`;
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-const CADASTRO_CHECKOUT_OK_KEY = "cadastroLocacaoCheckoutOkTheBagRoom";
 
 let checkout = null;
 let sessionAtual = null;
@@ -581,7 +580,7 @@ sessionAtual = session;
 if(!session){
 localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
 document.getElementById("loginNotice").classList.remove("hidden");
-setStatus("Ao clicar em Finalizar aluguel, você faz seu cadastro e volta para concluir o pagamento.", "error");
+setStatus("Ao clicar em Finalizar aluguel, entre na sua conta. Se ainda nao tiver login, cadastre-se pela pagina de login.", "error");
 return;
 }
 
@@ -601,11 +600,6 @@ setStatus("Antes do pagamento, preencha o cadastro de locação. Depois você vo
 return;
 }
 
-if(localStorage.getItem(CADASTRO_CHECKOUT_OK_KEY) !== "sim"){
-localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
-document.getElementById("loginNotice").classList.remove("hidden");
-setStatus("Antes do pagamento, revise seu cadastro de locação. Depois você volta para finalizar o aluguel.", "error");
-}
 }
 
 function validarEndereco(){
@@ -625,15 +619,10 @@ return true;
 async function finalizarAluguel(){
 if(!sessionAtual){
 localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
-window.location.href = "cadastro-locacao.html?next=checkout-aluguel.html";
+window.location.href = "login.html?next=checkout-aluguel.html";
 return;
 }
 
-if(localStorage.getItem(CADASTRO_CHECKOUT_OK_KEY) !== "sim"){
-localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
-window.location.href = "cadastro-locacao.html?next=checkout-aluguel.html";
-return;
-}
 
 if(!clienteAtual){
 localStorage.setItem("proximoDestinoTheBagRoom", "checkout-aluguel.html");
@@ -693,7 +682,7 @@ throw new Error(`${result.error || "checkout_error"} ${detalhes}`.trim());
 }
 
 localStorage.removeItem("checkoutAluguelTheBagRoom");
-localStorage.removeItem(CADASTRO_CHECKOUT_OK_KEY);
+
 window.location.href = result.checkout_url;
 } catch(error){
 console.error(error);
@@ -742,6 +731,8 @@ function toggleMenuMobile() {
 </script>
 </body>
 </html>
+
+
 
 
 
