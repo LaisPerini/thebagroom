@@ -388,6 +388,8 @@ Cadastre-se aqui
 <script>
 const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
 const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
+const LOGIN_CHECKOUT_KEY = "loginConfirmadoCheckoutTheBagRoomV2";
+const LOGIN_CHECKOUT_NONCE_KEY = "loginTentativaCheckoutTheBagRoomV2";
 const supabaseClient =
 supabase.createClient(
 SUPABASE_URL,
@@ -450,11 +452,16 @@ btn.innerText = 'ENTRAR';
 return;
 }
 const destino = destinoDepoisLogin();
+if(destino.includes("checkout-aluguel.html") && data?.session?.user?.id){
+const loginNonce = sessionStorage.getItem(LOGIN_CHECKOUT_NONCE_KEY);
+if(loginNonce) sessionStorage.setItem(LOGIN_CHECKOUT_KEY, `${data.session.user.id}:${loginNonce}`);
+}
 localStorage.removeItem("proximoDestinoTheBagRoom");
 window.location.href = destino;
 }
 
 prepararRetorno();
+
 </script>
 <script>
 function toggleMenuMobile() {
@@ -464,6 +471,10 @@ function toggleMenuMobile() {
 </script>
 </body>
 </html>
+
+
+
+
 
 
 
