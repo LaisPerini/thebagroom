@@ -592,6 +592,44 @@ const campo = document.getElementById(id);
 if(campo && valor) campo.value = valor;
 }
 
+function normalizarUf(valor){
+return String(valor || "").trim().toUpperCase();
+}
+
+function entregaExigeEndereco(){
+return checkout.freteIda?.nome !== "Retirar";
+}
+
+function validarEstadoAtendimento(mostrarMensagem = true){
+if(!entregaExigeEndereco()) return true;
+
+const estado = normalizarUf(document.getElementById("estado").value);
+if(!estado) return true;
+
+const permitido = estado === "SP";
+
+if(mostrarMensagem && !permitido){
+setStatus("No momento, o aluguel esta disponivel apenas para enderecos no estado de Sao Paulo.", "error");
+}
+
+return permitido;
+}
+
+function atualizarRestricaoAtendimento(){
+const btn = document.getElementById("finalizarBtn");
+if(!btn) return;
+
+const estado = normalizarUf(document.getElementById("estado").value);
+const bloquear = entregaExigeEndereco() && estado && estado !== "SP";
+
+btn.disabled = bloquear;
+btn.style.opacity = bloquear ? ".55" : "";
+
+if(bloquear){
+setStatus("No momento, o aluguel esta disponivel apenas para enderecos no estado de Sao Paulo.", "error");
+}
+}
+
 async function buscarEnderecoPorCep(valorCep, silencioso = false){
 const cep = limparCep(valorCep);
 const cepInput = document.getElementById("cep");
@@ -612,7 +650,13 @@ preencherCampoEndereco("bairro", endereco.bairro);
 preencherCampoEndereco("cidade", endereco.localidade);
 preencherCampoEndereco("estado", endereco.uf);
 
-if(!silencioso) setStatus("Endereco preenchido pelo CEP.");
+if(!validarEstadoAtendimento(true)){
+atualizarRestricaoAtendimento();
+return;
+}
+
+atualizarRestricaoAtendimento();
+if(!silencioso) setStatus("Endereco preenchido pelo CEP. Atendemos todo o estado de Sao Paulo.");
 }catch(error){
 if(!silencioso) setStatus("Nao foi possivel buscar esse CEP. Preencha o endereco manualmente.", "error");
 }
@@ -620,8 +664,9 @@ if(!silencioso) setStatus("Nao foi possivel buscar esse CEP. Preencha o endereco
 
 function configurarCepAutoCompletar(){
 const cepInput = document.getElementById("cep");
-if(!cepInput) return;
+const estadoInput = document.getElementById("estado");
 
+if(cepInput){
 cepInput.addEventListener("input", function(){
 cepInput.value = formatarCep(cepInput.value);
 if(limparCep(cepInput.value).length === 8){
@@ -632,6 +677,19 @@ buscarEnderecoPorCep(cepInput.value);
 cepInput.addEventListener("blur", function(){
 buscarEnderecoPorCep(cepInput.value);
 });
+}
+
+if(estadoInput){
+estadoInput.addEventListener("input", function(){
+estadoInput.value = normalizarUf(estadoInput.value).slice(0, 2);
+atualizarRestricaoAtendimento();
+});
+
+estadoInput.addEventListener("blur", function(){
+validarEstadoAtendimento(true);
+atualizarRestricaoAtendimento();
+});
+}
 }
 async function preencherCliente(){
 const { data: { session } } = await supabaseClient.auth.getSession();
@@ -676,6 +734,10 @@ const faltando = obrigatorios.filter(id => !document.getElementById(id).value.tr
 
 if(faltando.length){
 setStatus("Preencha todos os campos obrigatorios do endereco.", "error");
+return false;
+}
+
+if(!validarEstadoAtendimento(true)){
 return false;
 }
 
