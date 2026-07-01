@@ -149,7 +149,7 @@ display:block;
 
 .stats{
 display:grid;
-grid-template-columns:repeat(4,minmax(0,1fr));
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
 gap:14px;
 margin-bottom:22px;
 }
@@ -256,7 +256,7 @@ white-space:nowrap;
 
 .details{
 display:grid;
-grid-template-columns:repeat(4,minmax(0,1fr));
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
 gap:10px;
 margin-bottom:14px;
 }
@@ -379,6 +379,144 @@ max-width:560px;
 text-align:center;
 }
 
+
+.panel-intro{
+margin:0 0 16px;
+color:#666;
+line-height:1.6;
+max-width:780px;
+}
+
+.client-filters{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin:0 0 14px;
+}
+
+.client-filter{
+border:1px solid #ddd6cd;
+background:#fff;
+color:#111;
+border-radius:999px;
+padding:10px 13px;
+font-size:11px;
+font-weight:700;
+letter-spacing:.1em;
+text-transform:uppercase;
+cursor:pointer;
+}
+
+.client-filter.active{
+background:#111;
+border-color:#111;
+color:#fff;
+}
+
+.client-validation-grid{
+display:grid;
+gap:14px;
+}
+
+.client-card{
+padding:18px;
+}
+
+.client-card-head{
+display:flex;
+justify-content:space-between;
+gap:16px;
+padding-bottom:14px;
+margin-bottom:14px;
+border-bottom:1px solid #eee8df;
+}
+
+.client-card h2{
+font-family:'Playfair Display',Georgia,serif;
+font-size:28px;
+line-height:1.1;
+margin:0 0 6px;
+}
+
+.client-muted{
+color:#666;
+font-size:13px;
+line-height:1.5;
+}
+
+.client-info-grid{
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:10px;
+margin-bottom:14px;
+}
+
+.client-docs{
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:10px;
+margin-bottom:14px;
+}
+
+.doc-link,
+.doc-empty{
+border:1px solid #eee;
+background:#fafafa;
+border-radius:13px;
+padding:12px;
+min-height:78px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+text-decoration:none;
+color:#111;
+}
+
+.doc-link span,
+.doc-empty span{
+font-size:10px;
+font-weight:700;
+letter-spacing:.14em;
+text-transform:uppercase;
+color:#888;
+margin-bottom:7px;
+}
+
+.doc-link strong,
+.doc-empty strong{
+font-size:13px;
+}
+
+.client-actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+padding-top:12px;
+border-top:1px solid #eee8df;
+}
+
+.btn.approve{
+background:#32633e;
+border-color:#32633e;
+}
+
+.btn.reject{
+background:#9b2c2c;
+border-color:#9b2c2c;
+}
+
+.badge.pending{
+background:#a8824b;
+}
+
+.badge.approved{
+background:#32633e;
+}
+
+.badge.rejected{
+background:#9b2c2c;
+}
+
 @media(max-width:1040px){
 .shell{grid-template-columns:1fr;}
 .sidebar{position:relative;height:auto;}
@@ -394,6 +532,7 @@ text-align:center;
 .top-actions{justify-content:flex-start;margin-top:16px;}
 .nav{grid-template-columns:1fr;}
 .stats,.details,.controls,.form-grid{grid-template-columns:1fr;}
+.client-info-grid,.client-docs{grid-template-columns:1fr;}
 .order-head{display:block;}
 .badge{margin-top:12px;}
 }
@@ -413,9 +552,10 @@ text-align:center;
 <aside class="sidebar">
 <div class="brand">THE BAG ROOM</div>
 <nav class="nav">
-<button type="button" class="active" data-panel="pedidos" onclick="abrirPainel('pedidos', this)">AluguÃ©is</button>
+<button type="button" class="active" data-panel="pedidos" onclick="abrirPainel('pedidos', this)">Aluguéis</button>
 <button type="button" data-panel="bloqueios" onclick="abrirPainel('bloqueios', this)">Bloquear Datas</button>
 <button type="button" data-panel="bolsas" onclick="abrirPainel('bolsas', this)">Bolsas</button>
+<button type="button" data-panel="clientes" onclick="abrirPainel('clientes', this)">Validação</button>
 <button type="button" data-panel="ajuda" onclick="abrirPainel('ajuda', this)">Ajuda</button>
 </nav>
 <p class="sidebar-note">
@@ -427,7 +567,7 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 <div class="topbar">
 <div>
 <p class="eyebrow">Admin</p>
-<h1>Painel de AluguÃ©is</h1>
+<h1>Painel de Aluguéis</h1>
 </div>
 <div class="top-actions">
 <button class="btn secondary" onclick="carregarTudo()">Atualizar</button>
@@ -473,10 +613,10 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 </div>
 <div class="field">
 <label for="bloqueioMotivo">Motivo</label>
-<input id="bloqueioMotivo" placeholder="ManutenÃ§Ã£o, indisponibilidade...">
+<input id="bloqueioMotivo" placeholder="Manutenção, indisponibilidade...">
 </div>
 <div class="field">
-<label for="bloqueioInicio">Data inÃ­cio</label>
+<label for="bloqueioInicio">Data início</label>
 <input id="bloqueioInicio" type="date">
 </div>
 <div class="field">
@@ -485,7 +625,7 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 </div>
 </div>
 <div class="actions" style="margin-top:16px;">
-<button class="btn" onclick="criarBloqueio()">Bloquear perÃ­odo</button>
+<button class="btn" onclick="criarBloqueio()">Bloquear período</button>
 </div>
 <p id="bloqueioStatus" class="message"></p>
 </div>
@@ -498,14 +638,52 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 </div>
 </section>
 
+
+<section id="clientes" class="panel">
+<div class="card" style="margin-bottom:14px;">
+<h2>Validação de clientes</h2>
+<p class="panel-intro">
+Acompanhe os cadastros enviados pelas clientes, confira documentos e aprove ou reprove o acesso para aluguel.
+</p>
+<div class="stats" style="margin-bottom:0;">
+<div class="stat-card">
+<div class="stat-label">Pendentes</div>
+<div class="stat-value" id="totalClientesPendentes">0</div>
+</div>
+<div class="stat-card">
+<div class="stat-label">Aprovados</div>
+<div class="stat-value" id="totalClientesAprovados">0</div>
+</div>
+<div class="stat-card">
+<div class="stat-label">Reprovados</div>
+<div class="stat-value" id="totalClientesReprovados">0</div>
+</div>
+</div>
+</div>
+
+<div class="toolbar">
+<input id="buscaClientes" class="search" placeholder="Buscar por nome, e-mail ou Instagram" oninput="renderClientesValidacao()">
+<button class="btn secondary small" onclick="carregarValidacoes()">Atualizar clientes</button>
+</div>
+
+<div class="client-filters">
+<button class="client-filter active" data-client-filter="todos" onclick="filtrarClientes('todos', this)">Todos</button>
+<button class="client-filter" data-client-filter="pendente" onclick="filtrarClientes('pendente', this)">Pendentes</button>
+<button class="client-filter" data-client-filter="aprovado" onclick="filtrarClientes('aprovado', this)">Aprovados</button>
+<button class="client-filter" data-client-filter="reprovado" onclick="filtrarClientes('reprovado', this)">Reprovados</button>
+</div>
+
+<p id="clientesStatus" class="message">Carregando clientes...</p>
+<div id="listaClientesValidacao" class="client-validation-grid"></div>
+</section>
 <section id="ajuda" class="panel">
 <div class="card">
 <h2>Como usar</h2>
 <p class="message">
-Use a aba AluguÃ©is para acompanhar pedidos e mudar status. O campo de rastreio salva o cÃ³digo para envio ou devoluÃ§Ã£o. A aba Bloquear Datas cria indisponibilidades diretamente no calendÃ¡rio da bolsa.
+Use a aba Aluguéis para acompanhar pedidos e mudar status. O campo de rastreio salva o código para envio ou devolução. A aba Bloquear Datas cria indisponibilidades diretamente no calendário da bolsa.
 </p>
 <p class="message">
-Para dar acesso a uma pessoa, adicione o ID do usuÃ¡rio na tabela <strong>admin_users</strong> no Supabase.
+Para dar acesso a uma pessoa, adicione o ID do usuário na tabela <strong>admin_users</strong> no Supabase.
 </p>
 </div>
 </section>
@@ -521,14 +699,14 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const statusLabels = {
 aguardando_pagamento: "Aguardando pagamento",
 pagamento_aprovado: "Pagamento aprovado",
-cadastro_em_analise: "Cadastro em anÃ¡lise",
+cadastro_em_analise: "Cadastro em análise",
 reserva_confirmada: "Reserva confirmada",
-em_preparacao: "Em preparaÃ§Ã£o",
+em_preparacao: "Em preparação",
 enviado: "Enviado",
 em_uso: "Em uso",
-devolucao_pendente: "DevoluÃ§Ã£o pendente",
+devolucao_pendente: "Devolução pendente",
 devolvido: "Devolvido",
-caucao_liberada: "CauÃ§Ã£o liberada",
+caucao_liberada: "Caução liberada",
 cancelado: "Cancelado"
 };
 
@@ -543,6 +721,8 @@ estornado: "Pagamento estornado"
 let pedidos = [];
 let bolsas = [];
 let clientes = {};
+let clientesValidacao = [];
+let filtroClientesValidacao = "todos";
 let usuarioAtual = null;
 
 function abrirPainel(panelId, button){
@@ -560,6 +740,7 @@ if(navButton) navButton.classList.add("active");
 }
 
 painel.classList.add("active");
+if(panelId === "clientes" && !clientesValidacao.length){ carregarValidacoes(); }
 painel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
@@ -647,7 +828,7 @@ if(!filtrados.length){
 lista.innerHTML = `
 <div class="empty">
 <strong>Nenhum aluguel encontrado.</strong>
-<p>Quando uma cliente reservar uma bolsa, o pedido aparecerÃ¡ aqui.</p>
+<p>Quando uma cliente reservar uma bolsa, o pedido aparecerá aqui.</p>
 </div>
 `;
 return;
@@ -666,19 +847,19 @@ return `
 <div>
 <div class="order-number">${pedido.numero || pedido.id}</div>
 <h2 class="order-title">${bolsa?.nome || "Bolsa de luxo"}</h2>
-<p class="order-client">${nomeCliente(pedido)} Â· ${emailCliente(pedido)}</p>
+<p class="order-client">${nomeCliente(pedido)} · ${emailCliente(pedido)}</p>
 </div>
 <span class="badge">${statusLabels[pedido.status] || pedido.status}</span>
 </div>
 
 <div class="details">
-<div class="detail"><span>Datas</span><strong>${dataBR(item?.data_inicio)} atÃ© ${dataBR(item?.data_fim)}</strong></div>
-<div class="detail"><span>PerÃ­odo</span><strong>${item?.dias || "-"} dias</strong></div>
+<div class="detail"><span>Datas</span><strong>${dataBR(item?.data_inicio)} até ${dataBR(item?.data_fim)}</strong></div>
+<div class="detail"><span>Período</span><strong>${item?.dias || "-"} dias</strong></div>
 <div class="detail"><span>Total</span><strong>${moeda(pedido.valor_total)}</strong></div>
-<div class="detail"><span>CauÃ§Ã£o</span><strong>${moeda(pedido.valor_caucao_total)}</strong></div>
-<div class="detail"><span>Pagamento</span><strong>${pagamento ? pagamentoLabels[pagamento.status] || pagamento.status : "Ainda nÃ£o iniciado"}</strong></div>
-<div class="detail"><span>Envio</span><strong>${envio?.codigo_rastreio || "NÃ£o informado"}</strong></div>
-<div class="detail"><span>DevoluÃ§Ã£o</span><strong>${devolucao?.codigo_rastreio || "NÃ£o informado"}</strong></div>
+<div class="detail"><span>Caução</span><strong>${moeda(pedido.valor_caucao_total)}</strong></div>
+<div class="detail"><span>Pagamento</span><strong>${pagamento ? pagamentoLabels[pagamento.status] || pagamento.status : "Ainda não iniciado"}</strong></div>
+<div class="detail"><span>Envio</span><strong>${envio?.codigo_rastreio || "Não informado"}</strong></div>
+<div class="detail"><span>Devolução</span><strong>${devolucao?.codigo_rastreio || "Não informado"}</strong></div>
 <div class="detail"><span>Criado em</span><strong>${new Date(pedido.created_at).toLocaleDateString("pt-BR")}</strong></div>
 <div class="detail"><span>ID cliente</span><strong>${pedido.cliente_auth_id}</strong></div>
 </div>
@@ -692,11 +873,11 @@ ${statusOptions.map(status => `<option value="${status}" ${pedido.status === sta
 </div>
 <div class="field">
 <label>Rastreio envio</label>
-<input id="envio-${pedido.id}" value="${envio?.codigo_rastreio || ""}" placeholder="CÃ³digo de envio">
+<input id="envio-${pedido.id}" value="${envio?.codigo_rastreio || ""}" placeholder="Código de envio">
 </div>
 <div class="field">
-<label>Rastreio devoluÃ§Ã£o</label>
-<input id="devolucao-${pedido.id}" value="${devolucao?.codigo_rastreio || ""}" placeholder="CÃ³digo de devoluÃ§Ã£o">
+<label>Rastreio devolução</label>
+<input id="devolucao-${pedido.id}" value="${devolucao?.codigo_rastreio || ""}" placeholder="Código de devolução">
 </div>
 <button class="btn small" onclick="salvarPedido('${pedido.id}')">Salvar</button>
 </div>
@@ -721,12 +902,12 @@ lista.innerHTML = bolsas.map(bolsa => `
 <div>
 <div class="order-number">${bolsa.slug}</div>
 <h2 class="order-title">${bolsa.nome}</h2>
-<p class="order-client">${bolsa.marca || "-"} Â· ${bolsa.cor || "-"}</p>
+<p class="order-client">${bolsa.marca || "-"} · ${bolsa.cor || "-"}</p>
 </div>
 <span class="badge">${bolsa.ativa ? "Ativa" : "Inativa"}</span>
 </div>
 <div class="details">
-<div class="detail"><span>CauÃ§Ã£o</span><strong>${moeda(bolsa.valor_caucao)}</strong></div>
+<div class="detail"><span>Caução</span><strong>${moeda(bolsa.valor_caucao)}</strong></div>
 <div class="detail"><span>Valor loja</span><strong>${moeda(bolsa.valor_loja)}</strong></div>
 <div class="detail"><span>Categoria</span><strong>${bolsa.categoria || "-"}</strong></div>
 <div class="detail"><span>Material</span><strong>${bolsa.material || "-"}</strong></div>
@@ -749,7 +930,7 @@ const { error: statusError } = await supabaseClient
 .eq("id", pedidoId);
 
 if(statusError){
-alert("NÃ£o foi possÃ­vel atualizar o status.");
+alert("Não foi possível atualizar o status.");
 console.error(statusError);
 return;
 }
@@ -809,7 +990,7 @@ const fim = document.getElementById("bloqueioFim").value;
 const motivo = document.getElementById("bloqueioMotivo").value || "Bloqueio manual";
 
 if(!bolsaId || !inicio || !fim){
-setMessage("bloqueioStatus", "Preencha bolsa, data inÃ­cio e data fim.", "error");
+setMessage("bloqueioStatus", "Preencha bolsa, data início e data fim.", "error");
 return;
 }
 
@@ -826,20 +1007,194 @@ created_by: usuarioAtual.id
 
 if(error){
 const mensagem = error.message && error.message.includes("bolsa_reservas_sem_sobreposicao")
-? "Esse perÃ­odo conflita com uma reserva ou bloqueio existente."
-: "NÃ£o foi possÃ­vel criar o bloqueio.";
+? "Esse período conflita com uma reserva ou bloqueio existente."
+: "Não foi possível criar o bloqueio.";
 setMessage("bloqueioStatus", mensagem, "error");
 console.error(error);
 return;
 }
 
-setMessage("bloqueioStatus", "PerÃ­odo bloqueado com sucesso.", "success");
+setMessage("bloqueioStatus", "Período bloqueado com sucesso.", "success");
 document.getElementById("bloqueioInicio").value = "";
 document.getElementById("bloqueioFim").value = "";
 document.getElementById("bloqueioMotivo").value = "";
 await carregarTudo();
 }
 
+
+function safeText(value){
+return String(value ?? "").replace(/[&<>"']/g, char => {
+const mapa = {
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+"\"":"&quot;",
+"'":"&#39;"
+};
+return mapa[char] || char;
+});
+}
+function dataHoraBR(valor){
+if(!valor) return "-";
+const data = new Date(valor);
+if(Number.isNaN(data.getTime())) return "-";
+return data.toLocaleString("pt-BR");
+}
+
+function statusClienteLabel(status){
+const mapa = {
+pendente: "Pendente",
+aprovado: "Aprovado",
+reprovado: "Reprovado"
+};
+return mapa[status] || status || "Pendente";
+}
+
+function statusClienteClass(status){
+if(status === "aprovado") return "approved";
+if(status === "reprovado") return "rejected";
+return "pending";
+}
+
+function documentoUrl(caminho){
+if(!caminho) return "";
+if(/^https?:\/\//i.test(caminho)) return caminho;
+const { data } = supabaseClient.storage.from("documentos-clientes").getPublicUrl(caminho);
+return data?.publicUrl || "";
+}
+
+function renderDocumentoCliente(label, caminho){
+const url = documentoUrl(caminho);
+if(!url){
+return `
+<div class="doc-empty">
+<span>${label}</span>
+<strong>Não enviado</strong>
+</div>
+`;
+}
+
+return `
+<a class="doc-link" href="${safeText(url)}" target="_blank" rel="noopener">
+<span>${label}</span>
+<strong>Abrir arquivo</strong>
+</a>
+`;
+}
+
+function renderResumoClientes(){
+document.getElementById("totalClientesPendentes").innerText = clientesValidacao.filter(c => c.status === "pendente").length;
+document.getElementById("totalClientesAprovados").innerText = clientesValidacao.filter(c => c.status === "aprovado").length;
+document.getElementById("totalClientesReprovados").innerText = clientesValidacao.filter(c => c.status === "reprovado").length;
+}
+
+function filtrarClientes(status, button){
+filtroClientesValidacao = status;
+document.querySelectorAll(".client-filter").forEach(item => item.classList.remove("active"));
+if(button) button.classList.add("active");
+renderClientesValidacao();
+}
+
+function renderClientesValidacao(){
+const lista = document.getElementById("listaClientesValidacao");
+if(!lista) return;
+
+const busca = (document.getElementById("buscaClientes")?.value || "").toLowerCase();
+const filtrados = clientesValidacao.filter(cliente => {
+const statusOk = filtroClientesValidacao === "todos" || cliente.status === filtroClientesValidacao;
+const texto = [
+cliente.nome_completo,
+cliente.email,
+cliente.celular,
+cliente.instagram,
+cliente.cep,
+cliente.endereco,
+cliente.estado,
+cliente.status
+].join(" ").toLowerCase();
+return statusOk && texto.includes(busca);
+});
+
+if(!filtrados.length){
+lista.innerHTML = `
+<div class="empty">
+<strong>Nenhum cadastro encontrado.</strong>
+<p>Os cadastros enviados pelas clientes aparecerão aqui.</p>
+</div>
+`;
+return;
+}
+
+lista.innerHTML = filtrados.map(cliente => `
+<article class="card client-card">
+<div class="client-card-head">
+<div>
+<h2>${safeText(cliente.nome_completo || "Cliente")}</h2>
+<p class="client-muted">${safeText(cliente.email || "-")} · ${safeText(cliente.celular || "-")}</p>
+</div>
+<span class="badge ${statusClienteClass(cliente.status)}">${statusClienteLabel(cliente.status)}</span>
+</div>
+
+<div class="client-info-grid">
+<div class="detail"><span>Instagram</span><strong>${safeText(cliente.instagram ? "@" + cliente.instagram : "-")}</strong></div>
+<div class="detail"><span>CEP</span><strong>${safeText(cliente.cep || "-")}</strong></div>
+<div class="detail"><span>Estado</span><strong>${safeText(cliente.estado || "-")}</strong></div>
+<div class="detail"><span>Endereço</span><strong>${safeText(cliente.endereco || "-")}</strong></div>
+<div class="detail"><span>Cadastro</span><strong>${dataHoraBR(cliente.created_date || cliente.created_at)}</strong></div>
+<div class="detail"><span>ID usuário</span><strong>${safeText(cliente.usuario_auth_id || "-")}</strong></div>
+</div>
+
+<div class="client-docs">
+${renderDocumentoCliente("Documento", cliente.documento)}
+${renderDocumentoCliente("Selfie", cliente.selfie)}
+${renderDocumentoCliente("Comprovante", cliente.comprovante)}
+</div>
+
+<div class="client-actions">
+<button class="btn approve small" onclick="alterarStatusCliente(${Number(cliente.id)}, 'aprovado')">Aprovar</button>
+<button class="btn reject small" onclick="alterarStatusCliente(${Number(cliente.id)}, 'reprovado')">Reprovar</button>
+</div>
+</article>
+`).join("");
+}
+
+async function carregarValidacoes(){
+setMessage("clientesStatus", "Carregando clientes...");
+
+const { data, error } = await supabaseClient
+.from("validacao_clientes")
+.select("*")
+.order("id", { ascending:false });
+
+if(error){
+setMessage("clientesStatus", "Erro ao carregar clientes.", "error");
+console.error(error);
+return;
+}
+
+clientesValidacao = data || [];
+renderResumoClientes();
+renderClientesValidacao();
+setMessage("clientesStatus", `${clientesValidacao.length} cadastro(s) carregado(s).`, "success");
+}
+
+async function alterarStatusCliente(id, status){
+if(!id) return;
+
+const { error } = await supabaseClient
+.from("validacao_clientes")
+.update({ status })
+.eq("id", id);
+
+if(error){
+alert("Não foi possível atualizar o cadastro.");
+console.error(error);
+return;
+}
+
+await carregarTudo();
+abrirPainel("clientes");
+}
 async function carregarClientes(){
 const ids = [...new Set(pedidos.map(p => p.cliente_auth_id).filter(Boolean))];
 clientes = {};
@@ -851,7 +1206,7 @@ const { data, error } = await supabaseClient
 .in("usuario_auth_id", ids);
 
 if(error){
-console.warn("NÃ£o foi possÃ­vel carregar clientes:", error);
+console.warn("Não foi possível carregar clientes:", error);
 return;
 }
 
@@ -923,6 +1278,7 @@ await carregarClientes();
 renderStats();
 renderPedidos();
 renderBolsas();
+await carregarValidacoes();
 setMessage("pedidosStatus", `${pedidos.length} pedido(s) carregado(s).`, "success");
 }
 
@@ -942,8 +1298,8 @@ if(error || !isAdmin){
 document.getElementById("locked").innerHTML = `
 <div class="card">
 <p class="eyebrow">Acesso restrito</p>
-<h1>VocÃª ainda nÃ£o Ã© admin.</h1>
-<p class="message">Adicione o ID deste usuÃ¡rio na tabela admin_users do Supabase para liberar o painel.</p>
+<h1>Você ainda não é admin.</h1>
+<p class="message">Adicione o ID deste usuário na tabela admin_users do Supabase para liberar o painel.</p>
 <p class="message"><strong>ID:</strong> ${user.id}</p>
 <div class="actions" style="justify-content:center;margin-top:18px;">
 <button class="btn" onclick="sair()">Sair</button>
