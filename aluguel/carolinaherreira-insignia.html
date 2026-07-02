@@ -956,7 +956,7 @@ Modelo elegante, estruturado e atemporal.
       <label class="opcao"><input type="radio" name="dias" value="10">10 dias • R$ 490</label>
       <label class="opcao"><input type="radio" name="dias" value="15">15 dias • R$ 590</label>
       <label class="opcao"><input type="radio" name="dias" value="20">20 dias • R$ 690</label>
-      <label class="opcao"><input type="radio" name="dias" value="30">30 dias • R$ 890</label>
+      <label class="opcao"><input type="radio" name="dias" value="30">30 dias • R$ 990</label>
     </div>
 
     <br>
@@ -1113,7 +1113,15 @@ async function iniciarCalendario(){
       .select("data_inicio, data_fim, status")
       .eq("bolsa_id", bolsaAtual.id)
       .gte("data_fim", hoje)
-      .order("data_inicio", { ascending: true });
+      .in("status", [
+        "aguardando_pagamento",
+        "confirmada",
+        "em_preparacao",
+        "enviada",
+        "em_uso",
+        "devolucao_pendente",
+        "bloqueio_manual"
+      ])      .order("data_inicio", { ascending: true });
 
     if(reservasError){
       throw reservasError;
@@ -1175,45 +1183,261 @@ document.getElementById('devolucao').innerHTML =
 }
 
 /*  FRETE COM SELEÇÃO */
+/* FRETE COM VALIDACAO DE SP E PRAZO AUTOMATICO POR CEP */
 let freteSelecionado = null;
 
 let freteIdaSelecionado = null;
 let freteVoltaSelecionado = null;
+let ultimoEnderecoCep = null;
+let prazoEntregaAtual = null;
+let dataPostagemLimiteAtual = null;
+
+function limparCepFrete(valor){
+  return String(valor || "").replace(/\D/g, "").slice(0, 8);
+}
+
+function formatarCepFrete(valor){
+  const cep = limparCepFrete(valor);
+  if(cep.length <= 5) return cep;
+  return `${cep.slice(0, 5)}-${cep.slice(5)}`;
+}
+
+function criarDataLocalISO(dataISO){
+  const partes = dataISO.split("-");
+  return new Date(Number(partes[0]), Number(partes[1]) - 1, Number(partes[2]));
+}
+
+function adicionarDias(data, dias){
+  const nova = new Date(data);
+  nova.setDate(nova.getDate() + dias);
+  return nova;
+}
+
+function calcularPascoa(ano){
+  const a = ano % 19;
+  const b = Math.floor(ano / 100);
+  const c = ano % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const mes = Math.floor((h + l - 7 * m + 114) / 31);
+  const dia = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(ano, mes - 1, dia);
+}
+
+function feriadosBrasilSP(ano){
+  const pascoa = calcularPascoa(ano);
+  const datas = [
+    `${ano}-01-01`,
+    `${ano}-04-21`,
+    `${ano}-05-01`,
+    `${ano}-07-09`,
+    `${ano}-09-07`,
+    `${ano}-10-12`,
+    `${ano}-11-02`,
+    `${ano}-11-15`,
+    `${ano}-11-20`,
+    `${ano}-12-25`,
+    chaveData(adicionarDias(pascoa, -48)),
+    chaveData(adicionarDias(pascoa, -47)),
+    chaveData(adicionarDias(pascoa, -2)),
+    chaveData(adicionarDias(pascoa, 60))
+  ];
+  return new Set(datas);
+}
+
+function ehDiaUtil(data){
+  const diaSemana = data.getDay();
+  if(diaSemana === 0 || diaSemana === 6) return false;
+  return !feriadosBrasilSP(data.getFullYear()).has(chaveData(data));
+}
+
+function diaUtilAnterior(data){
+  let atual = new Date(data);
+  atual.setDate(atual.getDate() - 1);
+  while(!ehDiaUtil(atual)){
+    atual.setDate(atual.getDate() - 1);
+  }
+  return atual;
+}
+
+function subtrairDiasUteis(data, dias){
+  let atual = new Date(data);
+  let contador = 0;
+
+  while(contador < Number(dias || 0)){
+    atual.setDate(atual.getDate() - 1);
+    if(ehDiaUtil(atual)){
+      contador++;
+    }
+  }
+
+  return atual;
+}
+
+function hojeLocal(){
+  const hoje = new Date();
+  return new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+}
+
+function dataInicioSelecionadaObj(){
+  const dataInput = document.getElementById("dataInicio").value;
+  if(!dataInput) return null;
+  const partes = dataInput.split("/");
+  if(partes.length !== 3) return null;
+  return new Date(Number(partes[2]), Number(partes[1]) - 1, Number(partes[0]));
+}
+
+function calcularDataPostagemLimite(prazoDiasUteis){
+  const dataInicio = dataInicioSelecionadaObj();
+  if(!dataInicio || !prazoDiasUteis) return null;
+
+  const dataEntregaLimite = diaUtilAnterior(dataInicio);
+  return subtrairDiasUteis(dataEntregaLimite, Number(prazoDiasUteis));
+}
+
+function obterDataPostagemLimiteISO(){
+  return dataPostagemLimiteAtual ? chaveData(dataPostagemLimiteAtual) : null;
+}
+
+function validarPrazoEntrega(mostrarMensagem = true){
+  dataPostagemLimiteAtual = null;
+
+  if(!freteIdaSelecionado || freteIdaSelecionado.nome === "Retirar"){
+    return true;
+  }
+
+  const prazo = Number(freteIdaSelecionado.prazo || prazoEntregaAtual || 0);
+  const dataInicio = dataInicioSelecionadaObj();
+  if(!dataInicio || !prazo){
+    return true;
+  }
+
+  const limite = calcularDataPostagemLimite(prazo);
+  dataPostagemLimiteAtual = limite;
+
+  if(!limite){
+    return true;
+  }
+
+  if(limite < hojeLocal()){
+    if(mostrarMensagem){
+      setReservaStatus(
+        `Nao ha tempo suficiente para entrega por SEDEX ate a data escolhida. Escolha uma data posterior.`,
+        "erro"
+      );
+    }
+    return false;
+  }
+
+  if(mostrarMensagem){
+    setReservaStatus(
+      `Para chegar antes de ${dataInicio.toLocaleDateString("pt-BR")}, a postagem limite e ${limite.toLocaleDateString("pt-BR")}.`,
+      "sucesso"
+    );
+  }
+
+  return true;
+}
+
+function atualizarPrazoEntrega(){
+  const botao = document.getElementById("botaoAlugar");
+  const ok = validarPrazoEntrega(false);
+
+  if(botao){
+    botao.disabled = !ok;
+    botao.style.pointerEvents = ok ? "" : "none";
+    botao.style.opacity = ok ? "" : ".55";
+  }
+
+  if(freteIdaSelecionado && freteIdaSelecionado.nome !== "Retirar"){
+    validarPrazoEntrega(true);
+  }
+
+  atualizarResumoFrete();
+}
+
+async function validarCepEstadoSP(cep){
+  const cepLimpo = limparCepFrete(cep);
+  if(cepLimpo.length !== 8){
+    throw new Error("cep_invalido");
+  }
+
+  const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+  if(!response.ok){
+    throw new Error("cep_indisponivel");
+  }
+
+  const endereco = await response.json();
+  if(endereco.erro){
+    throw new Error("cep_nao_encontrado");
+  }
+
+  return endereco;
+}
 
 async function calcularFrete(){
 
-let cep = document.getElementById("cep").value;
+let cepInput = document.getElementById("cep");
+let cep = limparCepFrete(cepInput.value);
 let resultado = document.getElementById("freteResultado");
+let freteResumo = document.getElementById("freteSelecionado");
+
+freteIdaSelecionado = null;
+freteVoltaSelecionado = null;
+prazoEntregaAtual = null;
+dataPostagemLimiteAtual = null;
+if(freteResumo) freteResumo.innerHTML = "";
 
 if(!cep){
 resultado.innerHTML = "Digite o CEP";
 return;
 }
 
-resultado.innerHTML = "Calculando...";
+cepInput.value = formatarCepFrete(cep);
+resultado.innerHTML = "Validando endereco...";
+
+let endereco;
+try{
+  endereco = await validarCepEstadoSP(cep);
+}catch(error){
+  resultado.innerHTML = "Nao foi possivel validar esse CEP. Confira o endereco e tente novamente.";
+  return;
+}
+
+ultimoEnderecoCep = endereco;
+const cepForaEstadoSP = String(endereco.uf || "").toUpperCase() !== "SP";
+
+resultado.innerHTML = "Calculando prazo e frete...";
 
 const meuCep = "11060-003";
 
+try{
 // IDA
 let idaResponse = await fetch("https://thebagroomtest.onrender.com/frete", {
   method:"POST",
   headers:{ "Content-Type":"application/json" },
-  body: JSON.stringify({ 
-    from:{ postal_code: meuCep },   // você
-    to:{ postal_code: cep }         // cliente
+  body: JSON.stringify({
+    from:{ postal_code: meuCep },
+    to:{ postal_code: cep }
   })
 });
 
 let idaData = await idaResponse.json();
 
 // VOLTA
-// VOLTA (CORRIGIDO)
 let voltaResponse = await fetch("https://thebagroomtest.onrender.com/frete", {
   method:"POST",
   headers:{ "Content-Type":"application/json" },
-  body: JSON.stringify({ 
-    from:{ postal_code: cep },      // cliente
-    to:{ postal_code: meuCep }      // você
+  body: JSON.stringify({
+    from:{ postal_code: cep },
+    to:{ postal_code: meuCep }
   })
 });
 
@@ -1221,17 +1445,18 @@ let voltaData = await voltaResponse.json();
 
 let html = "";
 
-//  pega só SEDEX
-let frete = idaData.find(f => f.name === "SEDEX");
+let frete = Array.isArray(idaData) ? idaData.find(f => f.name === "SEDEX") : null;
 
-if(!frete){
-  resultado.innerHTML = "Frete indisponível";
+if(!frete || !frete.delivery_time){
+  resultado.innerHTML = "Frete indisponivel para esse CEP.";
   return;
 }
 
 let precoIda = parseFloat(frete.price);
-let voltaMatch = voltaData.find(v => v.name === frete.name);
-let precoVolta = precoIda;
+let voltaMatch = Array.isArray(voltaData) ? voltaData.find(v => v.name === frete.name) : null;
+let precoVolta = voltaMatch ? parseFloat(voltaMatch.price) : precoIda;
+let prazoVolta = voltaMatch?.delivery_time || frete.delivery_time;
+prazoEntregaAtual = Number(frete.delivery_time);
 
 html = `
 <div style="margin-top:10px; font-family:'Inter'">
@@ -1239,49 +1464,43 @@ html = `
 <strong>Entrega</strong>
 
 <div class="frete-opcao frete-ida" onclick="selecionarFreteIda('SEDEX', ${precoIda}, ${frete.delivery_time}, this)">
-SEDEX • R$ ${precoIda.toFixed(2)}
+SEDEX - R$ ${precoIda.toFixed(2)}
 <br>
-<small>${frete.delivery_time} dias úteis</small>
+<small>${frete.delivery_time} dias uteis</small>
 </div>
 
+${cepForaEstadoSP ? "" : `
 <div class="frete-opcao frete-ida" onclick="selecionarFreteIda('Retirar', 0, 0, this)">
-📍 RETIRADA NO SHOWROOM • GRÁTIS
+RETIRADA NO SHOWROOM - GRATIS
 </div>
+`}
 
 <br>
 
-<strong>Devolução</strong>
+<strong>Devolucao</strong>
 
-<div class="frete-opcao frete-volta" onclick="selecionarFreteVolta('SEDEX', ${precoVolta}, ${frete.delivery_time}, this)">
-SEDEX • R$ ${precoVolta.toFixed(2)}
+<div class="frete-opcao frete-volta" onclick="selecionarFreteVolta('SEDEX', ${precoVolta}, ${prazoVolta}, this)">
+SEDEX - R$ ${precoVolta.toFixed(2)}
 <br>
-<small>${frete.delivery_time} dias úteis</small>
+<small>${prazoVolta} dias uteis</small>
 </div>
 
+${cepForaEstadoSP ? "" : `
 <div class="frete-opcao frete-volta" onclick="selecionarFreteVolta('Retirar', 0, 0, this)">
-📍 ENTREGAR NO SHOWROOM • GRÁTIS
+ENTREGAR NO SHOWROOM - GRATIS
 </div>
+`}
 
 </div>
 `;
 
 resultado.innerHTML = html;
+setReservaStatus("", "");
+}catch(error){
+  console.error("Erro ao calcular frete:", error);
+  resultado.innerHTML = "Nao foi possivel calcular o frete agora. Tente novamente.";
 }
-
-function selecionarFrete(nome, preco, prazo, el){
-
-freteSelecionado = { nome, preco, prazo };
-
-
-// aplica no clicado
-el.classList.add('active');
-
-// texto abaixo
-document.getElementById("freteSelecionado").innerHTML =
-`Frete escolhido: <strong>${nome} • R$ ${preco.toFixed(2)}</strong>`;
-
 }
-
 function selecionarFreteIda(nome, preco, prazo, el){
 
   freteIdaSelecionado = { nome, preco, prazo };
@@ -1294,6 +1513,7 @@ function selecionarFreteIda(nome, preco, prazo, el){
   el.classList.add('active');
 
   atualizarResumoFrete();
+  atualizarPrazoEntrega();
   atualizarTotal();
 }
 
@@ -1309,6 +1529,7 @@ function selecionarFreteVolta(nome, preco, prazo, el){
   el.classList.add('active');
 
   atualizarResumoFrete();
+  atualizarPrazoEntrega();
   atualizarTotal();
 }
 
@@ -1368,7 +1589,7 @@ ${freteIdaSelecionado.nome === 'Retirar'
 
 <br><br>
 
-<strong>Devolução</strong><br>
+<strong>Devolucao</strong><br>
 ${freteVoltaSelecionado.nome === 'Retirar'
   ? '📍 Showroom The Bag Room'
   : '📦 SEDEX'}
@@ -1406,6 +1627,10 @@ alert("Escolha entrega e devolucao");
 return;
 }
 
+if(!validarPrazoEntrega(true)){
+return;
+}
+
 let textoOpcao = diasSelecionado.parentElement.innerText;
 let valorMatch = textoOpcao.match(/R\$\s*([\d.,]+)/);
 let valor = valorMatch
@@ -1439,7 +1664,9 @@ const checkout = {
   valorCaucao: 1000.00,
   cep: document.getElementById("cep").value || "",
   freteIda: freteIdaSelecionado,
-  freteVolta: freteVoltaSelecionado
+  freteVolta: freteVoltaSelecionado,
+  prazoEntregaDiasUteis: freteIdaSelecionado?.nome === "SEDEX" ? Number(freteIdaSelecionado.prazo || 0) : 0,
+  dataPostagemLimite: obterDataPostagemLimiteISO()
 };
 
 localStorage.setItem("checkoutAluguelTheBagRoom", JSON.stringify(checkout));
