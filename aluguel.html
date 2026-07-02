@@ -30,17 +30,20 @@ margin:0;
 background:#f5f4f2;
 font-family:'Playfair Display', serif;
 color:#111;
+overflow-x:hidden;
 }
 
 
 /* remove flash iOS */
 *{
 -webkit-tap-highlight-color:transparent;
+box-sizing:border-box;
 }
 
 /* scroll suave */
 html{
 scroll-behavior:smooth;
+overflow-x:hidden;
 }
 
 /* HEADER */
@@ -693,8 +696,8 @@ transform:rotate(-90deg);
 
 }
 .rental-hero{
-width:100vw;
-margin-left:calc(50% - 50vw);
+width:100%;
+margin-left:0;
 min-height:430px;
 display:grid;
 grid-template-columns:minmax(280px, .9fr) minmax(340px, 1.1fr);
@@ -1091,6 +1094,16 @@ body {
 
 .top-space {
   height: 0 !important;
+}
+
+@media(max-width:760px){
+  .grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .card{
+    width:100%;
+  }
 }
 </style>
 </head>
