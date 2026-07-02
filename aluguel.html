@@ -270,6 +270,30 @@ opacity:0.6;
 }
 
 /* ===== SLIDER PREMIUM ===== */
+.hero-carousel{
+position:relative;
+margin-bottom:54px;
+}
+
+.hero-track{
+display:grid;
+grid-template-columns:repeat(3, minmax(0, 1fr));
+gap:24px;
+align-items:start;
+}
+
+.hero-carousel .hero{
+display:none;
+margin-bottom:0;
+border-bottom:0;
+padding-bottom:0;
+}
+
+.hero-carousel .hero.active{
+display:block;
+animation:fadeUp .45s ease;
+}
+
 .img-box.slider{
 position:relative;
 overflow:hidden;
@@ -295,6 +319,68 @@ transform:scale(1);
 opacity:1;
 z-index:2;
 animation:zoomSlow 6s ease forwards;
+}
+
+.hero-controls{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:14px;
+margin-top:18px;
+}
+
+.hero-nav{
+width:40px;
+height:40px;
+border:1px solid #111;
+border-radius:50%;
+background:#fff;
+color:#111;
+font-size:22px;
+line-height:1;
+cursor:pointer;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+transition:background .2s ease,color .2s ease,transform .2s ease;
+}
+
+.hero-nav:hover{
+background:#111;
+color:#fff;
+transform:translateY(-1px);
+}
+
+.hero-dots{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.hero-dot{
+width:7px;
+height:7px;
+border:0;
+border-radius:999px;
+background:#cfc7be;
+cursor:pointer;
+padding:0;
+transition:width .2s ease,background .2s ease;
+}
+
+.hero-dot.active{
+width:22px;
+background:#111;
+}
+
+@media(max-width:700px){
+  .hero-track{
+    grid-template-columns:1fr;
+  }
+
+  .hero-controls{
+    margin-top:14px;
+  }
 }
 
 .nome{
@@ -606,36 +692,221 @@ transform:rotate(-90deg);
   }
 
 }
-.catalog-head{
-margin:12px 0 28px;
-padding:32px 0 8px;
-border-bottom:1px solid #e7e2dc;
+.rental-hero{
+width:100vw;
+margin-left:calc(50% - 50vw);
+min-height:430px;
+display:grid;
+grid-template-columns:minmax(280px, .9fr) minmax(340px, 1.1fr);
+align-items:center;
+gap:24px;
+padding:42px max(24px, calc((100vw - 1200px) / 2)) 38px;
+background:
+linear-gradient(90deg, rgba(244,238,229,.98) 0%, rgba(244,238,229,.9) 42%, rgba(227,216,203,.35) 100%),
+radial-gradient(circle at 82% 18%, rgba(255,255,255,.78), transparent 34%),
+linear-gradient(135deg, #f6f1ea, #d8cab9);
+overflow:hidden;
+position:relative;
+}
+
+.rental-hero::before{
+content:"";
+position:absolute;
+inset:0;
+background:
+linear-gradient(110deg, transparent 0 52%, rgba(255,255,255,.32) 52% 54%, transparent 54% 100%),
+linear-gradient(72deg, transparent 0 66%, rgba(255,255,255,.22) 66% 68%, transparent 68% 100%);
+opacity:.7;
+pointer-events:none;
+}
+
+.rental-hero-content{
+position:relative;
+z-index:2;
+padding-left:8px;
 }
 
 .catalog-eyebrow{
 font-family:'Inter', sans-serif;
 font-size:11px;
-font-weight:600;
+font-weight:700;
 letter-spacing:2.6px;
 text-transform:uppercase;
-color:#a47b42;
-margin-bottom:10px;
+color:#9b6c35;
+margin-bottom:24px;
 }
 
-.catalog-title{
-font-size:clamp(36px,6vw,72px);
+.rental-hero h2{
+font-size:clamp(40px,4.6vw,66px);
 line-height:.98;
 font-weight:500;
 margin:0;
+max-width:520px;
 }
 
-.catalog-copy{
+.rental-hero p{
 font-family:'Inter', sans-serif;
-max-width:640px;
-font-size:15px;
-line-height:1.8;
-color:#666;
-margin:18px 0 0;
+max-width:520px;
+font-size:16px;
+line-height:1.75;
+color:#5f5b57;
+margin:26px 0 0;
+}
+
+.hero-cta{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+min-height:52px;
+padding:0 30px;
+margin-top:28px;
+background:#111;
+color:#fff;
+color:#fff !important;
+font-family:'Inter', sans-serif;
+font-size:12px;
+font-weight:700;
+letter-spacing:.18em;
+text-transform:uppercase;
+text-decoration:none;
+line-height:1;
+}
+
+.rental-hero-media{
+position:relative;
+z-index:2;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+min-height:330px;
+background:transparent;
+padding-bottom:10px;
+}
+
+.rental-hero-media::after{
+content:"";
+position:absolute;
+left:6%;
+right:-10%;
+bottom:22px;
+height:120px;
+border-radius:50%;
+background:radial-gradient(ellipse at center, rgba(88,65,45,.28), transparent 66%);
+filter:blur(8px);
+}
+
+.hero-feature-link{
+display:none;
+position:relative;
+z-index:2;
+width:min(520px, 92%);
+text-decoration:none;
+color:#111;
+}
+
+.hero-feature-link.active{
+display:block;
+animation:fadeUp .45s ease;
+}
+
+.hero-feature-link img{
+position:relative;
+z-index:2;
+width:100%;
+max-height:360px;
+object-fit:contain;
+mix-blend-mode:normal;
+filter:drop-shadow(0 28px 34px rgba(49,38,31,.28));
+}
+
+.hero-feature-caption{
+font-family:'Inter', sans-serif;
+text-align:center;
+margin-top:8px;
+min-height:36px;
+font-size:12px;
+letter-spacing:.18em;
+text-transform:uppercase;
+font-weight:700;
+}
+
+.hero-feature-caption span{
+display:block;
+margin-top:4px;
+font-size:12px;
+letter-spacing:0;
+text-transform:none;
+font-weight:400;
+color:#6a625b;
+}
+
+.hero-feature-dots{
+position:relative;
+z-index:4;
+display:flex;
+gap:7px;
+justify-content:center;
+margin-top:14px;
+}
+
+.hero-feature-dot{
+width:6px;
+height:6px;
+border:0;
+border-radius:50%;
+background:#c8beb3;
+padding:0;
+}
+
+.hero-feature-dot.active{
+width:18px;
+border-radius:999px;
+background:#111;
+}
+
+.section-title{
+font-family:'Inter', sans-serif;
+font-size:14px;
+font-weight:700;
+letter-spacing:.42em;
+text-transform:uppercase;
+text-align:center;
+margin:0 0 24px;
+}
+
+@media(max-width:760px){
+  .rental-hero{
+    grid-template-columns:1fr;
+    min-height:0;
+    padding:42px 22px 36px;
+    text-align:left;
+  }
+
+  .rental-hero h2{
+    font-size:44px;
+  }
+
+  .rental-hero p{
+    font-size:15px;
+    line-height:1.7;
+  }
+
+  .rental-hero-media{
+    min-height:260px;
+    margin-top:8px;
+    padding-bottom:4px;
+  }
+
+  .rental-hero-media img{
+    width:min(360px, 96%);
+    max-height:280px;
+  }
+
+  .section-title{
+    margin-top:4px;
+    letter-spacing:.32em;
+  }
 }
 
 .catalog-summary{
@@ -818,9 +1089,8 @@ body {
   padding-top: 0 !important;
 }
 
-.catalog-head {
-  margin-top: 0 !important;
-  padding-top: 24px !important;
+.top-space {
+  height: 0 !important;
 }
 </style>
 </head>
@@ -850,33 +1120,47 @@ body {
 
 <div class="container">
 
-<section class="catalog-head">
-  <div class="catalog-eyebrow">Curadoria para aluguel</div>
-  <h2 class="catalog-title">Escolha sua bolsa para alugar</h2>
-  <p class="catalog-copy">
-    Bolsas autenticas, selecionadas pela The Bag Room, disponiveis para reservar por periodo. Escolha o modelo, confira as datas na pagina da bolsa e finalize seu aluguel pelo checkout.
-  </p>
+<section class="rental-hero">
+  <div class="rental-hero-content">
+    <div class="catalog-eyebrow">Curadoria para aluguel</div>
+    <h2>Escolha sua bolsa para alugar</h2>
+    <p>
+      Bolsas autenticas, selecionadas pela The Bag Room, disponiveis para reservar por periodo. Escolha o modelo, confira as datas na pagina da bolsa e finalize seu aluguel pelo checkout.
+    </p>
+    <a class="hero-cta" href="#catalogo-bolsas">Explorar colecao</a>
+  </div>
+  <div class="rental-hero-media" aria-label="Bolsas em destaque">
+    <a href="https://www.thebagroom.com.br/aluguel/dolcegabbana-iguana.html" class="hero-feature-link">
+      <img src="https://i.imgur.com/gHUzQgK.jpg" alt="Dolce Gabbana Iguana Embossed Miss Sicily">
+      <div class="hero-feature-caption">Dolce Gabbana <span>Iguana Embossed Miss Sicily</span></div>
+    </a>
+    <a href="https://www.thebagroom.com.br/aluguel/bvlgari-serpenti-branca.html" class="hero-feature-link">
+      <img src="https://i.imgur.com/63Rourd.jpg" alt="Bvlgari Serpenti Forever branca">
+      <div class="hero-feature-caption">Bvlgari <span>Serpenti Forever Top Handle</span></div>
+    </a>
+     <a href="https://www.thebagroom.com.br/aluguel/gucci-dionysus-super-mini-python.html" class="hero-feature-link active">
+      <img src="https://i.imgur.com/KxXsMty.jpg" alt="Gucci Dionysus Super Mini Python">
+      <div class="hero-feature-caption">Gucci <span>Super Mini Dionysus Python</span></div>
+    </a>
+    <a href="https://www.thebagroom.com.br/aluguel/bvlgari-serpenti-vermelha.html" class="hero-feature-link">
+      <img src="https://i.imgur.com/7iTzF7Q.jpg" alt="Bvlgari Serpenti vermelha">
+      <div class="hero-feature-caption">Bvlgari <span>Serpenti Forever Vermelha</span></div>
+    </a>
+    <a href="https://www.thebagroom.com.br/aluguel/gucci-rajah.html" class="hero-feature-link">
+      <img src="https://i.imgur.com/PD0fxFo.jpg" alt="Gucci Rajah">
+      <div class="hero-feature-caption">Gucci <span>Rajah</span></div>
+    </a>
+    <a href="https://www.thebagroom.com.br/aluguel/dolce-gabbana-devotion-box.html" class="hero-feature-link">
+      <img src="https://i.imgur.com/uExirWA.jpg" alt="Dolce Gabbana Devotion Box">
+      <div class="hero-feature-caption">Dolce Gabbana <span>Devotion Box</span></div>
+    </a>
+    <a href="https://www.thebagroom.com.br/aluguel/gucci-sylvie-star.html" class="hero-feature-link">
+      <img src="https://i.imgur.com/rQRycFQ.jpg" alt="Gucci Sylvie">
+      <div class="hero-feature-caption">Gucci <span>Sylvie Star</span></div>
+    </a>
+    <div class="hero-feature-dots" aria-hidden="true"></div>
+  </div>
 </section>
-
-<!-- HERO -->
-<a href="https://www.thebagroom.com.br/aluguel/dolcegabbana-iguana.html" class="hero">
-
-<div class="img-box slider">
-  <span class="tag">Destaque</span>
-
-  <img src="https://i.imgur.com/WmAbh2U.jpg" class="slide active">
-  <img src="https://i.imgur.com/F1HCbgn.jpg" class="slide">
-  <img src="https://i.imgur.com/kZqgQmI.jpg" class="slide">
-  <img src="https://i.imgur.com/fHw2ULR.jpg" class="slide">
-  <img src="https://i.imgur.com/Bv5Qk71.jpg" class="slide">
-</div>
-<div class="nome">
-  <span class="marca">Dolce Gabbana</span>
-  <span class="modelo">Iguana Embossed Miss Sicily </span>
-</div>
-  <div class="preco">A partir de R$ 590</div>
-
-</a>
 
 <div class="filtro-modal" id="filtroModal">
 
@@ -947,7 +1231,7 @@ body {
 
 </div>
 
-<div class="barra-filtros">
+<div class="barra-filtros" id="catalogo-bolsas">
 
   <button onclick="abrirFiltro()">☰ Filtrar</button>
 
@@ -1307,6 +1591,7 @@ function toggleMenuMobile(){
 window.addEventListener("load", function(){
 
   const slides = document.querySelectorAll('.slide');
+  if(!slides.length) return;
   let index = 0;
 
   setInterval(() => {
@@ -1419,6 +1704,108 @@ function extrairPreco(card){
   return Number(texto.replace(/[^\d]/g, ""));
 }
 
+const heroFeatureSlides = Array.from(document.querySelectorAll('.hero-feature-link'));
+const heroFeatureDots = document.querySelector('.hero-feature-dots');
+let heroFeatureAtual = 0;
+let heroFeatureTimer = null;
+
+function mostrarHeroFeature(index){
+  if(!heroFeatureSlides.length) return;
+  heroFeatureAtual = (index + heroFeatureSlides.length) % heroFeatureSlides.length;
+
+  heroFeatureSlides.forEach((slide, i) => {
+    slide.classList.toggle('active', i === heroFeatureAtual);
+  });
+
+  document.querySelectorAll('.hero-feature-dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === heroFeatureAtual);
+  });
+}
+
+function iniciarHeroFeature(){
+  if(heroFeatureTimer) clearInterval(heroFeatureTimer);
+  if(heroFeatureSlides.length <= 1) return;
+  heroFeatureTimer = setInterval(() => mostrarHeroFeature(heroFeatureAtual + 1), 3600);
+}
+
+if(heroFeatureDots && heroFeatureSlides.length){
+  heroFeatureSlides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'hero-feature-dot';
+    dot.setAttribute('aria-label', `Ver bolsa em destaque ${i + 1}`);
+    dot.addEventListener('click', () => {
+      mostrarHeroFeature(i);
+      iniciarHeroFeature();
+    });
+    heroFeatureDots.appendChild(dot);
+  });
+
+  mostrarHeroFeature(0);
+  iniciarHeroFeature();
+}
+
+const destaqueSlides = Array.from(document.querySelectorAll('.hero-carousel .hero-slide'));
+const destaqueDotsContainer = document.querySelector('.hero-dots');
+let destaqueAtual = 0;
+let destaqueTimer = null;
+
+function quantidadeDestaquesVisiveis(){
+  return window.matchMedia('(max-width: 700px)').matches ? 1 : 3;
+}
+
+function mostrarDestaque(index){
+  if(!destaqueSlides.length) return;
+  const visiveis = Math.min(quantidadeDestaquesVisiveis(), destaqueSlides.length);
+  destaqueAtual = (index + destaqueSlides.length) % destaqueSlides.length;
+
+  destaqueSlides.forEach((slide, i) => {
+    const distancia = (i - destaqueAtual + destaqueSlides.length) % destaqueSlides.length;
+    slide.classList.toggle('active', distancia < visiveis);
+    slide.style.order = distancia;
+  });
+
+  document.querySelectorAll('.hero-dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === destaqueAtual);
+  });
+}
+
+function moverDestaque(direcao, reiniciar = true){
+  mostrarDestaque(destaqueAtual + direcao);
+  if(reiniciar) iniciarCarrosselDestaque();
+}
+
+function iniciarCarrosselDestaque(){
+  if(destaqueTimer) clearInterval(destaqueTimer);
+  if(destaqueSlides.length <= 1) return;
+  destaqueTimer = setInterval(() => moverDestaque(1, false), 4200);
+}
+
+if(destaqueDotsContainer && destaqueSlides.length){
+  destaqueSlides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'hero-dot';
+    dot.setAttribute('aria-label', `Ver destaque ${i + 1}`);
+    dot.addEventListener('click', () => {
+      mostrarDestaque(i);
+      iniciarCarrosselDestaque();
+    });
+    destaqueDotsContainer.appendChild(dot);
+  });
+
+  document.querySelectorAll('.hero-nav').forEach(botao => {
+    botao.addEventListener('click', () => {
+      moverDestaque(Number(botao.dataset.heroDir || 1));
+    });
+  });
+
+  mostrarDestaque(0);
+  iniciarCarrosselDestaque();
+
+  window.addEventListener('resize', () => mostrarDestaque(destaqueAtual));
+}
+
 function toggleGrupo(titulo){
   const grupo = titulo.parentElement;
   grupo.classList.toggle('fechado');
@@ -1523,17 +1910,3 @@ window.addEventListener('load', prepararCatalogo);
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
