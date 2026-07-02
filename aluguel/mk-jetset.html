@@ -1476,7 +1476,7 @@ html = `
 <div class="frete-opcao frete-ida" onclick="selecionarFreteIda('SEDEX', ${precoIda}, ${frete.delivery_time}, this)">
 SEDEX - R$ ${precoIda.toFixed(2)}
 <br>
-<small>${frete.delivery_time} dias uteis calculados automaticamente pelo CEP</small>
+<small>${frete.delivery_time} dias uteis</small>
 </div>
 
 ${cepForaEstadoSP ? "" : `
@@ -1492,7 +1492,7 @@ RETIRADA NO SHOWROOM - GRATIS
 <div class="frete-opcao frete-volta" onclick="selecionarFreteVolta('SEDEX', ${precoVolta}, ${prazoVolta}, this)">
 SEDEX - R$ ${precoVolta.toFixed(2)}
 <br>
-<small>${prazoVolta} dias uteis calculados automaticamente pelo CEP</small>
+<small>${prazoVolta} dias uteis</small>
 </div>
 
 ${cepForaEstadoSP ? "" : `
