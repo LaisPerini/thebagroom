@@ -27,7 +27,7 @@
 
 body{
 margin:0;
-:#f5f4f2;
+background:#f5f4f2;
 font-family:'Playfair Display', serif;
 color:#111;
 overflow-x:hidden;
@@ -696,16 +696,18 @@ transform:rotate(-90deg);
 
 }
 .rental-hero{
-width:calc(100% + 100px);
-margin-left:-40px;
-margin-right:-40px;
+width:100vw;
+margin-left:calc(50% - 50vw);
 min-height:430px;
 display:grid;
 grid-template-columns:minmax(280px, .9fr) minmax(340px, 1.1fr);
 align-items:center;
 gap:24px;
-padding:42px 10px 38px;
-background: #F2F3F5;
+padding:42px max(24px, calc((100vw - 1200px) / 2)) 38px;
+background:
+linear-gradient(90deg, rgba(244,238,229,.98) 0%, rgba(244,238,229,.9) 42%, rgba(227,216,203,.35) 100%),
+radial-gradient(circle at 82% 18%, rgba(255,255,255,.78), transparent 34%),
+linear-gradient(135deg, #f6f1ea, #d8cab9);
 overflow:hidden;
 position:relative;
 }
@@ -1097,10 +1099,101 @@ body {
 @media(max-width:760px){
   .grid{
     grid-template-columns:1fr !important;
+    gap:20px !important;
+    margin-top:28px;
+    padding:0 10px 28px;
   }
 
   .card{
     width:100%;
+    min-height:190px;
+    display:grid !important;
+    grid-template-columns:58% 42%;
+    grid-template-rows:1fr auto auto 1fr;
+    align-items:center;
+    gap:0 !important;
+    overflow:hidden;
+    border-radius:16px;
+    background:#fff;
+    border:1px solid rgba(225,218,208,.55);
+    box-shadow:0 12px 30px rgba(38,31,24,.045);
+  }
+
+  .card .img-box{
+    grid-column:1;
+    grid-row:1 / 5;
+    width:100%;
+    height:100%;
+    min-height:190px;
+    border-radius:18px 0 0 18px;
+    background:#fff;
+  }
+
+  .card .tag,
+  .card-status,
+  .card-action{
+    display:none !important;
+  }
+
+  .card img{
+    width:100%;
+    height:100%;
+    min-height:190px;
+    aspect-ratio:auto;
+    object-fit:contain;
+    border-radius:0;
+    padding:3px;
+  }
+
+  .card .nome{
+    grid-column:2;
+    grid-row:2;
+    align-self:end;
+    margin:0;
+    padding:0 16px 0 16px;
+  }
+
+  .card .marca{
+    display:block;
+    font-family:'Inter', Arial, sans-serif;
+    font-size:13px;
+    line-height:1.2;
+    font-weight:700;
+    color:#111;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+  }
+
+  .card .modelo{
+    display:block;
+    margin-top:10px;
+    font-family:'Inter', Arial, sans-serif;
+    font-size:14px;
+    line-height:1.45;
+    color:#65615d;
+  }
+
+  .card .preco{
+    grid-column:2;
+    grid-row:3;
+    align-self:start;
+    margin:14px 0 0;
+    padding:0 40px 0 16px;
+    font-family:'Inter', Arial, sans-serif;
+    font-size:14px;
+    line-height:1.35;
+    color:#8d683d;
+  }
+
+  .card::after{
+    content:"\27F6";
+    position:absolute;
+    right:22px;
+    bottom:32px;
+    font-family:'Inter', Arial, sans-serif;
+    font-size:23px;
+    line-height:1;
+    color:#111;
   }
 }
 </style>
@@ -1256,66 +1349,7 @@ body {
 <!-- GRID -->
 <div class="grid">
 
-  
-
-
-
-<a href="https://www.thebagroom.com.br/aluguel/bvlgari-serpenti-branca.html" class="card" data-marca="Bvlgari" data-cor="Branco">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-<img src="https://i.imgur.com/SmLGoiG.jpg">
-  </div>
-  <div class="nome">
-    <span class="marca">Bvlgari</span>
-    <span class="modelo">Serpenti Forever Leather Top Handle Bag</span>
-  </div>
-  <div class="preco">A partir de R$ 690</div>
-</a>
-
-  <a href="https://www.thebagroom.com.br/aluguel/gucci-dionysus-super-mini-python.html" class="card" data-marca="Gucci" data-cor="Verde">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-<img src="https://i.imgur.com/CQgYNzK.jpg">
-  </div>
-  <div class="nome">
-    <span class="marca">Gucci</span>
-    <span class="modelo">Super Mini Dionysus Python</span>
-  </div>
-  <div class="preco">A partir de R$ 590</div>
-</a>
-
-
-
-  <a href="https://www.thebagroom.com.br/aluguel/gucci-rajah.html" class="card" data-marca="Gucci" data-cor="Branco">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img src="https://i.imgur.com/iUrTpzD.jpg">
-  </div>
-  <div class="nome">
-    <span class="marca">Gucci</span>
-    <span class="modelo">Rajah</span>
-  </div>
-  <div class="preco">A partir de R$ 390</div>
-</a>
-
-<a href="https://www.thebagroom.com.br/aluguel/dolcegabbana-iguana.html"
-class="card"
-data-marca="Dolce Gabbana"
-data-cor="Preto">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img src="https://i.imgur.com/WmAbh2U.jpg">
-  </div>
-  <div class="nome">
-    <span class="marca">Dolce Gabbana</span>
-    <span class="modelo">Iguana Embossed Miss Sicily</span>
-  </div>
-  <div class="preco">A partir de R$ 590</div>
-</a>
-
-  
-
-  <a href="https://www.thebagroom.com.br/aluguel/bvlgari-serpenti-verde.html"
+<a href="https://www.thebagroom.com.br/aluguel/bvlgari-serpenti-verde.html"
 class="card"
 data-marca="Bvlgari"
 data-cor="Verde">
@@ -1330,6 +1364,54 @@ data-cor="Verde">
   <div class="preco">A partir de R$ 590</div>
 </a>
 
+<a href="https://www.thebagroom.com.br/aluguel/gucci-rajah.html" class="card" data-marca="Gucci" data-cor="Branco">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/iUrTpzD.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Gucci</span>
+    <span class="modelo">Rajah</span>
+  </div>
+  <div class="preco">A partir de R$ 390</div>
+</a>
+
+<a href="https://www.thebagroom.com.br/aluguel/hermes-vinyl-kelly.html" class="card" data-marca="Hermès" data-cor="Laranja">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+<img src="https://i.imgur.com/Q99KQYI.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Hermès</span>
+    <span class="modelo">Vinyl Kelly Exhibition Tote 1998</span>
+  </div>
+  <div class="preco">A partir de R$ 490</div>
+</a>
+
+<a href="https://www.thebagroom.com.br/aluguel/bvlgari-serpenti-branca.html" class="card" data-marca="Bvlgari" data-cor="Branco">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/A2FaCOI.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Bvlgari</span>
+    <span class="modelo">Serpenti Forever Leather Top Handle Bag</span>
+  </div>
+  <div class="preco">A partir de R$ 690</div>
+</a>
+
+<a href="https://www.thebagroom.com.br/aluguel/bvlgari-micro-roxa.html" class="card" data-marca="Bvlgari" data-cor="Lilas">
+  <div class="img-box">
+    <span class="tag">Disponível</span>
+    <img src="https://i.imgur.com/egP1XxV.jpg">
+  </div>
+  <div class="nome">
+    <span class="marca">Bvlgari</span>
+    <span class="modelo">Serpenti Forever Micro Lilás</span>
+  </div>
+  <div class="preco">A partir de R$ 390</div>
+</a>
+
 <a href="https://www.thebagroom.com.br/aluguel/gucci-sylvie-star.html" class="card" data-marca="Gucci" data-cor="Preto">
   <div class="img-box">
     <span class="tag">Disponível</span>
@@ -1342,31 +1424,17 @@ data-cor="Verde">
   <div class="preco">A partir de R$ 490</div>
 </a>
 
-  <a href="https://www.thebagroom.com.br/aluguel/hermes-vinyl-kelly.html" class="card" data-marca="Hermès" data-cor="Laranja">
+<a href="https://www.thebagroom.com.br/aluguel/gucci-dionysus-super-mini-python.html" class="card" data-marca="Gucci" data-cor="Verde">
   <div class="img-box">
     <span class="tag">Disponível</span>
-<img src="https://i.imgur.com/Q99KQYI.jpg">
+<img src="https://i.imgur.com/CQgYNzK.jpg">
   </div>
   <div class="nome">
-    <span class="marca">Hermès</span>
-    <span class="modelo">Vinyl Kelly Exhibition Tote 1998</span>
+    <span class="marca">Gucci</span>
+    <span class="modelo">Super Mini Dionysus Python</span>
   </div>
-  <div class="preco">A partir de R$ 490</div>
+  <div class="preco">A partir de R$ 590</div>
 </a>
-
-  <a href="https://www.thebagroom.com.br/aluguel/bvlgari-micro-roxa.html" class="card" data-marca="Bvlgari" data-cor="Lilas">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img src="https://i.imgur.com/egP1XxV.jpg">
-  </div>
-  <div class="nome">
-    <span class="marca">Bvlgari</span>
-    <span class="modelo">Serpenti Forever Micro Lilás</span>
-  </div>
-  <div class="preco">A partir de R$ 390</div>
-</a>
-
-
 
 <a href="https://www.thebagroom.com.br/aluguel/bvlgari-micro-amarela.html" class="card" data-marca="Bvlgari" data-cor="Amarelo">
   <div class="img-box">
@@ -1495,7 +1563,7 @@ data-cor="Verde">
 <a href="https://www.thebagroom.com.br/aluguel/fendi-2jours.html" class="card" data-marca="Fendi" data-cor="Marrom">
   <div class="img-box">
     <span class="tag">Disponível</span>
-<img src="https://i.imgur.com/KP6VOUL.jpg">
+<img src="https://i.imgur.com/bUaENpx.jpg">
   </div>
   <div class="nome">
     <span class="marca">Fendi</span>
