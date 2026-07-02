@@ -243,7 +243,8 @@ color:#111;
 }
 
 .info-wrap:hover .info-popover,
-.info-wrap:focus-within .info-popover{
+.info-wrap:focus-within .info-popover,
+.info-wrap.open .info-popover{
 opacity:1;
 visibility:visible;
 }
@@ -311,17 +312,29 @@ text-align:center;
 .hidden{display:none;}
 
 @media(max-width:900px){
-.page{grid-template-columns:1fr;margin-top:104px;}
+.page{grid-template-columns:1fr;margin-top:88px;}
 .summary{position:static;}
 #checkoutPage > section.card:first-child{margin-top:0;}
 }
 
 @media(max-width:560px){
-.page{width:calc(100% - 22px);margin-top:96px;}
+.page{width:calc(100% - 22px);margin-top:82px;}
 .form-grid{grid-template-columns:1fr;}
 .field.full{grid-column:auto;}
 .card{border-radius:18px;}
 .brand{letter-spacing:5px;}
+
+.info-popover{
+left:0;
+right:auto;
+transform:none;
+width:min(300px, calc(100vw - 48px));
+}
+
+.info-popover::after{
+left:10px;
+transform:rotate(45deg);
+}
 }
 
 /* Menu padrão The Bag Room */
@@ -1070,6 +1083,7 @@ btn.innerText = "Finalizar aluguel";
 
 async function iniciar(){
 checkout = getCheckout();
+configurarInfoCaucao();
 
 if(!checkout){
 document.getElementById("emptyState").classList.remove("hidden");
@@ -1082,6 +1096,36 @@ preencherResumo();
 await preencherCliente();
 }
 
+function configurarInfoCaucao(){
+const wraps = Array.from(document.querySelectorAll(".info-wrap"));
+if(!wraps.length) return;
+
+wraps.forEach(wrap => {
+const button = wrap.querySelector(".info-button");
+if(!button || button.dataset.toggleReady === "true") return;
+button.dataset.toggleReady = "true";
+
+button.addEventListener("click", event => {
+event.preventDefault();
+event.stopPropagation();
+const estavaAberto = wrap.classList.contains("open");
+wraps.forEach(item => item.classList.remove("open"));
+
+if(estavaAberto){
+button.blur();
+return;
+}
+
+wrap.classList.add("open");
+});
+});
+
+document.addEventListener("click", event => {
+if(event.target.closest(".info-wrap")) return;
+wraps.forEach(wrap => wrap.classList.remove("open"));
+});
+}
+
 iniciar();
 </script>
 <script>
@@ -1092,9 +1136,6 @@ function toggleMenuMobile() {
 </script>
 </body>
 </html>
-
-
-
 
 
 
