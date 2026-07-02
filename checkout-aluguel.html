@@ -587,6 +587,110 @@ if(cep.length <= 5) return cep;
 return `${cep.slice(0, 5)}-${cep.slice(5)}`;
 }
 
+function criarDataLocalISO(dataISO){
+const partes = String(dataISO || "").split("-");
+if(partes.length !== 3) return null;
+return new Date(Number(partes[0]), Number(partes[1]) - 1, Number(partes[2]));
+}
+
+function chaveData(data){
+const ano = data.getFullYear();
+const mes = String(data.getMonth() + 1).padStart(2, "0");
+const dia = String(data.getDate()).padStart(2, "0");
+return `${ano}-${mes}-${dia}`;
+}
+
+function adicionarDias(data, dias){
+const nova = new Date(data);
+nova.setDate(nova.getDate() + dias);
+return nova;
+}
+
+function calcularPascoa(ano){
+const a = ano % 19;
+const b = Math.floor(ano / 100);
+const c = ano % 100;
+const d = Math.floor(b / 4);
+const e = b % 4;
+const f = Math.floor((b + 8) / 25);
+const g = Math.floor((b - f + 1) / 3);
+const h = (19 * a + b - d - g + 15) % 30;
+const i = Math.floor(c / 4);
+const k = c % 4;
+const l = (32 + 2 * e + 2 * i - h - k) % 7;
+const m = Math.floor((a + 11 * h + 22 * l) / 451);
+const mes = Math.floor((h + l - 7 * m + 114) / 31);
+const dia = ((h + l - 7 * m + 114) % 31) + 1;
+return new Date(ano, mes - 1, dia);
+}
+
+function feriadosBrasilSP(ano){
+const pascoa = calcularPascoa(ano);
+return new Set([
+`${ano}-01-01`,
+`${ano}-04-21`,
+`${ano}-05-01`,
+`${ano}-07-09`,
+`${ano}-09-07`,
+`${ano}-10-12`,
+`${ano}-11-02`,
+`${ano}-11-15`,
+`${ano}-11-20`,
+`${ano}-12-25`,
+chaveData(adicionarDias(pascoa, -48)),
+chaveData(adicionarDias(pascoa, -47)),
+chaveData(adicionarDias(pascoa, -2)),
+chaveData(adicionarDias(pascoa, 60))
+]);
+}
+
+function ehDiaUtil(data){
+const diaSemana = data.getDay();
+if(diaSemana === 0 || diaSemana === 6) return false;
+return !feriadosBrasilSP(data.getFullYear()).has(chaveData(data));
+}
+
+function adicionarDiasUteis(data, dias){
+let atual = new Date(data);
+let contador = 0;
+while(contador < Number(dias || 0)){
+atual.setDate(atual.getDate() + 1);
+if(ehDiaUtil(atual)) contador++;
+}
+return atual;
+}
+
+function proximoDiaUtilDepois(data){
+let atual = new Date(data);
+do {
+atual.setDate(atual.getDate() + 1);
+} while(!ehDiaUtil(atual));
+return atual;
+}
+
+function calcularPeriodoBloqueioLogistico(){
+let bloqueioInicio = checkout.dataInicioISO;
+let bloqueioFim = checkout.dataFimISO;
+
+if(checkout.freteIda?.nome !== "Retirar" && checkout.dataPostagemLimite){
+bloqueioInicio = checkout.dataPostagemLimite;
+}
+
+if(checkout.freteVolta?.nome !== "Retirar"){
+const dataFim = criarDataLocalISO(checkout.dataFimISO);
+const prazoVolta = Number(checkout.freteVolta?.prazo || 0);
+if(dataFim && prazoVolta > 0){
+const dataPostagemVolta = proximoDiaUtilDepois(dataFim);
+bloqueioFim = chaveData(adicionarDiasUteis(dataPostagemVolta, prazoVolta));
+}
+}
+
+return {
+inicio: bloqueioInicio || checkout.dataInicioISO,
+fim: bloqueioFim || checkout.dataFimISO
+};
+}
+
 function preencherCampoEndereco(id, valor){
 const campo = document.getElementById(id);
 if(campo && valor) campo.value = valor;
@@ -609,7 +713,7 @@ if(!estado) return true;
 const permitido = estado === "SP";
 
 if(mostrarMensagem && !permitido){
-setStatus("No momento, o aluguel está disponível apenas para endereços localizados no estado de São Paulo.", "error");
+setStatus("No momento, o aluguel esta disponivel apenas para enderecos no estado de Sao Paulo.", "error");
 }
 
 return permitido;
@@ -626,7 +730,7 @@ btn.disabled = bloquear;
 btn.style.opacity = bloquear ? ".55" : "";
 
 if(bloquear){
-setStatus("No momento, o aluguel está disponível apenas para endereços localizados no estado de São Paulo.", "error");
+setStatus("No momento, o aluguel esta disponivel apenas para enderecos no estado de Sao Paulo.", "error");
 }
 }
 
@@ -783,6 +887,7 @@ btn.innerText = "Finalizando...";
 setStatus("Criando pedido e preparando pagamento...");
 
 try{
+const periodoBloqueio = calcularPeriodoBloqueioLogistico();
 const { data: pedido, error } = await supabaseClient.rpc("criar_pedido_aluguel", {
 p_bolsa_slug: checkout.bolsaSlug,
 p_data_inicio: checkout.dataInicioISO,
@@ -799,7 +904,9 @@ p_endereco_numero: document.getElementById("numero").value.trim() || null,
 p_endereco_complemento: document.getElementById("complemento").value.trim() || null,
 p_endereco_bairro: document.getElementById("bairro").value.trim() || null,
 p_endereco_cidade: document.getElementById("cidade").value.trim() || null,
-p_endereco_estado: document.getElementById("estado").value.trim() || null
+p_endereco_estado: document.getElementById("estado").value.trim() || null,
+p_bloqueio_data_inicio: periodoBloqueio.inicio,
+p_bloqueio_data_fim: periodoBloqueio.fim
 });
 
 if(error) throw error;
