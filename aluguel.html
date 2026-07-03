@@ -640,7 +640,7 @@ transform:rotate(-90deg);
   }
 
   body{
-    background:#fff;
+    background:#ffffff !important;
   }
 
   .container{
@@ -884,6 +884,16 @@ margin:0 0 24px;
     min-height:0;
     padding:42px 22px 36px;
     text-align:left;
+    background:
+      linear-gradient(90deg, rgba(247,247,247,.98) 0%, rgba(242,243,244,.94) 48%, rgba(228,230,232,.55) 100%),
+      radial-gradient(circle at 82% 18%, rgba(255,255,255,.88), transparent 34%),
+      linear-gradient(135deg, #f8f8f8, #e4e6e8);
+  }
+
+  .rental-hero::before{
+    background:
+      linear-gradient(110deg, transparent 0 52%, rgba(255,255,255,.38) 52% 54%, transparent 54% 100%),
+      linear-gradient(72deg, transparent 0 66%, rgba(255,255,255,.28) 66% 68%, transparent 68% 100%);
   }
 
   .rental-hero h2{
@@ -1114,7 +1124,7 @@ body {
     gap:0 !important;
     overflow:hidden;
     border-radius:16px;
-    background:#fff;
+    background:#ffffff !important;
     border:1px solid rgba(225,218,208,.55);
     box-shadow:0 12px 30px rgba(38,31,24,.045);
   }
@@ -1194,6 +1204,37 @@ body {
     font-size:23px;
     line-height:1;
     color:#111;
+  }
+}
+@media(max-width:760px){
+  body,
+  .container{
+    background:#f4f5f6 !important;
+  }
+
+  .rental-hero{
+    background:#eef0f2 !important;
+    background-image:linear-gradient(90deg, #f8f9fa 0%, #f2f3f4 55%, #e7e9eb 100%) !important;
+  }
+
+  .rental-hero::before{
+    background:
+      linear-gradient(110deg, transparent 0 52%, rgba(255,255,255,.45) 52% 54%, transparent 54% 100%),
+      linear-gradient(72deg, transparent 0 66%, rgba(255,255,255,.32) 66% 68%, transparent 68% 100%) !important;
+  }
+
+  .rental-hero-media::after{
+    background:radial-gradient(ellipse at center, rgba(90,96,104,.14), transparent 66%) !important;
+  }
+
+  .card,
+  .card .img-box{
+    background:#ffffff !important;
+  }
+
+  .card{
+    border-color:rgba(216,220,224,.75) !important;
+    box-shadow:0 12px 30px rgba(30,36,42,.045) !important;
   }
 }
 </style>
