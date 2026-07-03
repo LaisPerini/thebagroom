@@ -270,6 +270,32 @@ gap:10px;
 margin-top:24px;
 }
 
+.legal-accept{
+display:flex;
+gap:10px;
+align-items:flex-start;
+padding:15px 0 4px;
+border-top:1px solid #eee5dc;
+font-size:13px;
+line-height:1.55;
+color:#555;
+}
+
+.legal-accept input{
+width:18px;
+height:18px;
+margin-top:2px;
+accent-color:#111;
+flex:0 0 auto;
+}
+
+.legal-accept a{
+color:#111;
+font-weight:700;
+text-decoration:underline;
+text-underline-offset:3px;
+}
+
 .btn{
 width:100%;
 min-height:52px;
@@ -312,13 +338,13 @@ text-align:center;
 .hidden{display:none;}
 
 @media(max-width:900px){
-.page{grid-template-columns:1fr;margin-top:78px;}
+.page{grid-template-columns:1fr;margin-top:58px;}
 .summary{position:static;}
 #checkoutPage > section.card:first-child{margin-top:0;}
 }
 
 @media(max-width:560px){
-.page{width:calc(100% - 22px);margin-top:74px;}
+.page{width:calc(100% - 22px);margin-top:48px;}
 .form-grid{grid-template-columns:1fr;}
 .field.full{grid-column:auto;}
 .card{border-radius:18px;}
@@ -629,6 +655,16 @@ A caução é uma garantia da locação. Esse valor não será cobrado do seu ca
 <div class="line"><span>Entrega</span><strong id="entregaResumo">-</strong></div>
 <div class="line"><span>Devolução</span><strong id="devolucaoResumo">-</strong></div>
 
+<label class="legal-accept" for="aceiteTermosContrato">
+<input id="aceiteTermosContrato" type="checkbox">
+<span>
+Li e concordo com o
+<a href="https://www.thebagroom.com.br/contrato-aluguel" target="_blank" rel="noopener">Contrato de Locação</a>
+e
+<a href="/termos-de-uso.html" target="_blank" rel="noopener">Termos de Uso</a>.
+</span>
+</label>
+
 <div class="actions">
 <button class="btn" id="finalizarBtn" onclick="finalizarAluguel()">Finalizar aluguel</button>
 <a class="btn secondary" href="/aluguel/bvlgari-micro-amarela.html">Voltar para a bolsa</a>
@@ -650,6 +686,10 @@ const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
 const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
 const CHECKOUT_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/mercado-pago-checkout`;
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const CONTRATO_ALUGUEL_VERSAO = "2026-07-02";
+const CONTRATO_ALUGUEL_URL = "https://www.thebagroom.com.br/contrato-aluguel";
+const TERMOS_USO_URL = "https://www.thebagroom.com.br/termos-de-uso.html";
+const TEXTO_ACEITE_CONTRATO = "Li e concordo com o Contrato de Locação e Termos de Uso.";
 
 let checkout = null;
 let sessionAtual = null;
@@ -968,6 +1008,18 @@ return false;
 return true;
 }
 
+function validarAceiteLegal(){
+const aceite = document.getElementById("aceiteTermosContrato");
+
+if(!aceite || !aceite.checked){
+setStatus("Para continuar, aceite o Contrato de Locação e Termos de Uso.", "error");
+if(aceite) aceite.focus();
+return false;
+}
+
+return true;
+}
+
 async function finalizarAluguel(){
 if(!sessionAtual){
 localStorage.setItem("proximoDestinoTheBagRoom", "/checkout-aluguel.html");
@@ -997,6 +1049,8 @@ if(clienteAtual.status !== "aprovado"){
 setStatus("Seu cadastro ainda precisa ser aprovado pela curadoria antes do pagamento.", "error");
 return;
 }
+
+if(!validarAceiteLegal()) return;
 
 if(!validarEndereco()) return;
 
@@ -1040,7 +1094,16 @@ headers: {
 "Content-Type": "application/json",
 "Authorization": `Bearer ${sessionAtual.access_token}`
 },
-body: JSON.stringify({ pedido_id: pedido.pedido_id })
+body: JSON.stringify({
+pedido_id: pedido.pedido_id,
+aceite_contrato: {
+aceito: true,
+versao: CONTRATO_ALUGUEL_VERSAO,
+contrato_url: CONTRATO_ALUGUEL_URL,
+termos_url: TERMOS_USO_URL,
+texto: TEXTO_ACEITE_CONTRATO
+}
+})
 });
 
 const text = await response.text();
@@ -1136,11 +1199,6 @@ function toggleMenuMobile() {
 </script>
 </body>
 </html>
-
-
-
-
-
 
 
 
