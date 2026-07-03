@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Termos de Uso | The Bag Room</title>
+
+<link rel="icon" sizes="32x32" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+font-family:'Inter',Arial,sans-serif;
+background:#f7f5f2;
+color:#111;
+line-height:1.7;
+}
+
+.site-header{
+position:sticky;
+top:0;
+z-index:20;
+min-height:72px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(255,255,255,.96);
+border-bottom:1px solid #eee5dc;
+backdrop-filter:blur(8px);
+}
+
+.brand{
+font-family:'Playfair Display',Georgia,serif;
+font-size:20px;
+font-weight:600;
+letter-spacing:7px;
+text-transform:uppercase;
+text-decoration:none;
+color:#111;
+}
+
+.menu-mobile-btn{
+position:absolute;
+left:18px;
+top:50%;
+transform:translateY(-50%);
+border:0;
+background:transparent;
+font-size:24px;
+line-height:1;
+cursor:pointer;
+}
+
+.menu-mobile{
+position:fixed;
+top:0;
+left:-100%;
+width:85%;
+max-width:320px;
+height:100vh;
+padding-top:100px;
+background:rgba(255,255,255,.98);
+backdrop-filter:blur(14px);
+transition:left .35s ease;
+z-index:50;
+}
+
+.menu-mobile.open{left:0;}
+
+.close-menu{
+position:absolute;
+top:24px;
+right:24px;
+border:0;
+background:transparent;
+font-size:24px;
+cursor:pointer;
+}
+
+.menu-mobile-inner{
+display:flex;
+flex-direction:column;
+gap:26px;
+padding-left:30px;
+}
+
+.menu-mobile-inner a{
+font-family:'Playfair Display',Georgia,serif;
+font-size:20px;
+color:#111;
+text-decoration:none;
+}
+
+.page{
+width:min(980px, calc(100% - 32px));
+margin:54px auto 70px;
+background:#fff;
+border:1px solid #eee5dc;
+border-radius:24px;
+box-shadow:0 22px 60px rgba(17,16,15,.07);
+padding:clamp(28px,5vw,56px);
+}
+
+.eyebrow{
+font-size:12px;
+font-weight:700;
+letter-spacing:.22em;
+text-transform:uppercase;
+color:#a8824b;
+margin-bottom:18px;
+}
+
+h1,h2{
+font-family:'Playfair Display',Georgia,serif;
+font-weight:600;
+line-height:1.05;
+}
+
+h1{
+font-size:clamp(42px,6vw,72px);
+margin-bottom:18px;
+}
+
+.updated{
+color:#777;
+font-size:14px;
+margin-bottom:34px;
+}
+
+h2{
+font-size:30px;
+margin:34px 0 12px;
+}
+
+p,li{
+font-size:15px;
+color:#4f4f4f;
+}
+
+ul{
+padding-left:20px;
+display:grid;
+gap:8px;
+}
+
+.notice{
+margin-top:28px;
+padding:18px;
+border-radius:16px;
+background:#faf7ea;
+border:1px solid #eadca8;
+color:#665936;
+font-size:14px;
+}
+
+.footer{
+width:min(980px, calc(100% - 32px));
+margin:0 auto 50px;
+text-align:center;
+font-size:13px;
+color:#777;
+}
+
+@media(max-width:640px){
+.brand{font-size:17px;letter-spacing:5px;}
+.page{margin-top:26px;border-radius:18px;}
+h2{font-size:25px;}
+}
+</style>
+</head>
+
+<body>
+<header class="site-header">
+  <button class="menu-mobile-btn" onclick="toggleMenuMobile()" aria-label="Abrir menu">&#9776;</button>
+  <a class="brand" href="/index.html">THE BAG ROOM</a>
+
+  <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
+    <button class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">&times;</button>
+    <div class="menu-mobile-inner">
+      <a href="/index.html">Início</a>
+      <a href="/aluguel.html">Alugar Bolsas</a>
+      <a href="/como-alugar.html">Como Alugar</a>
+      <a href="/autenticidade.html">Autenticidade</a>
+      <a href="/universo/universo-do-luxo.html">Universo do luxo</a>
+      <a href="/login.html">Minha Conta</a>
+    </div>
+  </nav>
+</header>
+
+<main class="page">
+<p class="eyebrow">The Bag Room</p>
+<h1>Termos de Uso</h1>
+<p class="updated">Última atualização: 02 de julho de 2026.</p>
+
+<p>
+Estes Termos de Uso regulam o acesso e a utilização do site da The Bag Room, incluindo consulta de bolsas, cadastro, reserva, checkout, acompanhamento de pedidos e comunicação com a curadoria.
+</p>
+
+<h2>1. Uso da plataforma</h2>
+<p>
+Ao acessar o site, a cliente declara que utilizará a plataforma de forma lícita, correta e compatível com a finalidade de locação de bolsas e acessórios de luxo. A The Bag Room poderá suspender ou restringir acessos em caso de uso indevido, tentativa de fraude, informações falsas ou violação destes termos.
+</p>
+
+<h2>2. Cadastro e validação</h2>
+<p>
+Para finalizar uma locação, a cliente poderá precisar criar uma conta, informar dados pessoais, endereço e documentos de validação. A aprovação do cadastro é realizada pela curadoria da The Bag Room e pode ser recusada quando houver inconsistência cadastral, risco operacional ou impossibilidade de validação.
+</p>
+
+<h2>3. Locação de bolsas</h2>
+<p>
+As bolsas disponíveis no site são destinadas exclusivamente à locação temporária. O site não constitui fluxo de compra e venda. Cada peça é uma unidade única, e a reserva depende de disponibilidade no calendário, confirmação do pedido, aprovação cadastral e pagamento.
+</p>
+
+<h2>4. Preços, frete e caução</h2>
+<p>
+Os valores exibidos podem incluir aluguel, frete e demais custos aplicáveis ao pedido. A caução é uma garantia da locação e poderá ser realizada por pré-autorização no cartão de crédito, conforme regras informadas no checkout e no Contrato de Locação.
+</p>
+
+<h2>5. Pagamento</h2>
+<p>
+O pagamento do aluguel é processado por parceiro externo de pagamento. A confirmação poderá depender da aprovação da instituição financeira, do antifraude e do provedor utilizado. A locação somente será considerada confirmada após a aprovação do pagamento e conclusão das etapas exigidas.
+</p>
+
+<h2>6. Entrega, retirada e devolução</h2>
+<p>
+As opções de entrega, retirada e devolução podem variar conforme CEP, disponibilidade operacional, prazos logísticos e área atendida. A cliente se compromete a cumprir as datas, horários e instruções informadas no pedido e no Contrato de Locação.
+</p>
+
+<h2>7. Responsabilidade pelo uso da peça</h2>
+<p>
+Durante o período de locação, a cliente é responsável pela guarda, conservação e devolução da bolsa nas condições pactuadas. Danos, manchas, perda, roubo, extravio, atraso ou uso inadequado poderão gerar cobrança adicional, conforme análise da The Bag Room e regras do Contrato de Locação.
+</p>
+
+<h2>8. Conteúdo e propriedade intelectual</h2>
+<p>
+Textos, fotografias, identidade visual, layout, seleção de produtos e demais conteúdos do site pertencem à The Bag Room ou a terceiros licenciados. É proibida a reprodução, cópia ou uso comercial sem autorização prévia.
+</p>
+
+<h2>9. Privacidade e segurança</h2>
+<p>
+Dados pessoais são utilizados para cadastro, validação, atendimento, prevenção a fraudes, processamento de pedidos e cumprimento de obrigações legais. A The Bag Room poderá registrar data, hora, IP e versão dos termos aceitos para fins de segurança e comprovação da contratação.
+</p>
+
+<h2>10. Alterações dos termos</h2>
+<p>
+A The Bag Room poderá atualizar estes Termos de Uso a qualquer momento. A versão aplicável à locação será aquela aceita pela cliente no momento da finalização do pedido.
+</p>
+
+<h2>11. Contato</h2>
+<p>
+Em caso de dúvidas sobre estes Termos de Uso, cadastro, pedido ou contrato, a cliente poderá falar com a curadoria pelos canais oficiais informados no site.
+</p>
+
+<div class="notice">
+Estes termos complementam o Contrato de Locação. Em caso de conflito entre documentos, prevalecerão as condições específicas aceitas no contrato da locação.
+</div>
+</main>
+
+<footer class="footer">
+The Bag Room &copy; 2026. Todos os direitos reservados.
+</footer>
+
+<script>
+function toggleMenuMobile(){
+  const menu = document.getElementById("menuMobile");
+  if(menu) menu.classList.toggle("open");
+}
+</script>
+</body>
+</html>
