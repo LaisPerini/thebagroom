@@ -12,9 +12,8 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Alugue a icônica Bvlgari Serpenti na The Bag Room. Bolsa de luxo autêntica com design sofisticado e acabamento impecável para eventos, viagens e momentos especiais.">
-<title>Bvlgari Serpenti | Aluguel de Bolsas de Luxo | The Bag Room</title>
 
+<title>Gucci Rajah · The Bag Room</title>
 
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
@@ -25,6 +24,23 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- VIDEO -->
+<div class="video-bubble" onclick="abrirVideo()">
+  <video autoplay muted loop playsinline>
+    <source src="/videos/gucci-rajah.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div id="videoModal" class="video-modal">
+  <div class="video-close" onclick="fecharVideo()">✕</div>
+
+  <video controls autoplay>
+    <source src="/videos/gucci-rajah.mp4" type="video/mp4">
+  </video>
+</div>
+
+
 
 <style>
 body{
@@ -170,7 +186,6 @@ color:#9b2c2c;
 .reserva-status.sucesso{
 color:#32633e;
 }
-
 .btn{
 margin-top:30px;
 padding:20px;
@@ -283,30 +298,21 @@ width: 24px;
 height: 24px;
 }
 
-.auth-selo-link{
-position:absolute;
-top:22px;
-left:28px;
-z-index:30;
-display:block;
-width:115px;
-height:28px;
-overflow:hidden;
-}
-
-.auth-selo{
-width:115px;
-height:28px;
-object-fit:contain;
-display:block;
-opacity:0.75;
-}
-
 @keyframes float {
 0% { transform: translateY(0); }
 50% { transform: translateY(-8px); }
 100% { transform: translateY(0); }
 }
+
+.social-btn img{
+  width: 26px;
+  height: 26px;
+}
+
+.social-btn:hover{
+  transform: scale(1.1);
+}
+
 
 .frete-opcao{
 border:1px solid #e5e5e5;
@@ -461,7 +467,7 @@ to{opacity:1;}
 .produto{grid-template-columns:1fr;}
 }
 
-/* BOTï¿½O MENU */
+/* BOTÃO MENU */
 .menu-mobile-btn{
 position:absolute;
 left:16px;
@@ -518,6 +524,71 @@ transition:0.3s;
 
 .menu-mobile-inner a:hover{
 opacity:0.6;
+}
+
+.auth-selo-link{
+position:absolute;
+top:22px;
+left:28px;
+z-index:30;
+display:block;
+width:115px;
+height:28px;
+overflow:hidden;
+}
+
+.auth-selo{
+width:115px;
+height:28px;
+object-fit:contain;
+display:block;
+opacity:0.75;
+}
+
+  .video-bubble{
+position:fixed;
+left:20px;
+bottom:100px;
+width:80px;
+height:80px;
+border-radius:50%;
+overflow:hidden;
+cursor:pointer;
+z-index:9999;
+background:#fff;
+box-shadow:0 8px 25px rgba(0,0,0,.18);
+border:2px solid #fff;
+}
+
+.video-bubble video{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.video-modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.85);
+z-index:10000;
+justify-content:center;
+align-items:center;
+}
+
+.video-modal video{
+width:90%;
+max-width:420px;
+border-radius:20px;
+}
+
+.video-close{
+position:absolute;
+top:30px;
+right:30px;
+color:#fff;
+font-size:30px;
+cursor:pointer;
 }
 
 /* DESKTOP */
@@ -676,8 +747,7 @@ object-fit:contain;
 display:block;
 opacity:0.75;
 }
-
-.showroom-card{
+  .showroom-card{
     margin-top:12px;
     padding:18px;
     background:#faf7ea;
@@ -727,8 +797,51 @@ opacity:0.75;
     letter-spacing:1px;
     background:white;
 }
-  
-  
+  .video-bubble{
+position:fixed;
+left:20px;
+bottom:100px;
+width:80px;
+height:80px;
+border-radius:50%;
+overflow:hidden;
+cursor:pointer;
+z-index:9999;
+background:#fff;
+box-shadow:0 8px 25px rgba(0,0,0,.18);
+border:2px solid #fff;
+}
+
+.video-bubble video{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.video-modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.85);
+z-index:10000;
+justify-content:center;
+align-items:center;
+}
+
+.video-modal video{
+width:90%;
+max-width:420px;
+border-radius:20px;
+}
+
+.video-close{
+position:absolute;
+top:30px;
+right:30px;
+color:#fff;
+font-size:30px;
+cursor:pointer;
+}
 }
 /* Menu padrao The Bag Room */
 .site-header {
@@ -867,18 +980,17 @@ body {
 
   <!-- ESQUERDA (IMAGEM) -->
   <div class="galeria">
-    
-      <a href="/certificado/bvlgari-micro-amarela-auth.html" class="auth-selo-link">
+      <a href="/certificado/gucci-rajah-auth.html" class="auth-selo-link">
   <img src="/selo-auth.jpg" class="auth-selo">
 </a>
 
     <div class="slider" id="slider">
-<img src="https://i.imgur.com/uKmvItm.jpg">
-<img src="https://i.imgur.com/7J3P9Fr.jpg">
-<img src="https://i.imgur.com/VBhQdfh.jpg">
-<img src="https://i.imgur.com/k5shGjv.jpg">
-<img src="https://i.imgur.com/gRt4hw5.jpg">
-                                        
+<img src="https://i.imgur.com/iUrTpzD.jpg">
+<img src="https://i.imgur.com/f5mnqqV.jpg">
+<img src="https://i.imgur.com/pFZDPk3.jpg">
+<img src="https://i.imgur.com/QuujuVb.jpg">
+<img src="https://i.imgur.com/DwBP3Nt.jpg">
+<img src="https://i.imgur.com/gKdalBP.jpg">
     </div>
     
     <div class="seta esquerda" onclick="slide(-1)">❮</div>
@@ -887,48 +999,49 @@ body {
     <div class="dots" id="dots"></div>
 
   </div>
+  
 
 
-  <!-- DIREITA (INFO + BOTï¿½O) -->
+  <!-- DIREITA (INFO + BOTÃO) -->
   <div class="info">
 
-    <div class="nome">Bvlgari Serpenti Micro</div>
+    <div class="nome">Gucci Rajah</div>
     <div class="preco">A partir de R$ 390</div>
 
 <div class="desc">
 
 <p>
-Confeccionada em couro de bezerro na cor amarela, com ferragens douradas, a Serpenti Forever possui aba frontal com o icônico fecho em formato de cabeça de serpente, símbolo da Maison. Conta com alça curta em corrente metálica inspirada no corpo da serpente. Modelo micro, delicado e sofisticado, ideal para produções modernas e elegantes.
+Confeccionada em couro na cor branca, com ferragens douradas, a Rajah possui aba frontal com aplicação do icônico tigre esmaltado, com detalhe de pedra vermelha nos olhos, além da clássica faixa Web em vermelho e azul. Conta com alça em corrente metálica, permitindo uso no ombro ou transversal. Modelo elegante e marcante, com identidade forte da Gucci.
 </p>
 
 <p>
 </p>
 
 <p>
-<strong>Estado da bolsa:</strong> Muito bom, com leves sinais de uso no couro.
+<strong>Estado da bolsa:</strong> Muito bom, com leves sinais de uso no couro
 </p>
 
 <div class="detalhes">
 
 <p>
   <i data-lucide="handbag" class="icon"></i>
-  <strong>Categoria:</strong> Mão
+  <strong>Categoria:</strong> Transpassada/Clutch
 </p>
 <p>
   <i data-lucide="spool" class="icon"></i>
-  <strong>Material:</strong> Couro de bezerro
+  <strong>Material:</strong> Couro de bezerro (calf leather)
 </p>
 <p>
   <i data-lucide="tag" class="icon"></i>
-  <strong>Marca:</strong> Bvlgari
+  <strong>Marca:</strong> Gucci
 </p>
 <p>
   <i data-lucide="palette" class="icon"></i>
-  <strong>Cor:</strong> Amarelo
+  <strong>Cor:</strong> Branco
 </p>
 <p>
   <i data-lucide="ruler" class="icon"></i>
-  <strong>Dimensões (L x A):</strong> 12 x 9 cm
+  <strong>Dimensões (L x A):</strong> 22 x 14 cm 
 </p>
 <p>
   <i data-lucide="credit-card" class="icon"></i>
@@ -937,7 +1050,7 @@ Confeccionada em couro de bezerro na cor amarela, com ferragens douradas, a Serp
 
 <p>
   <i data-lucide="badge-dollar-sign" class="icon"></i>
-  <strong>Valor em loja:</strong> R$ 7.050
+  <strong>Valor em loja:</strong> R$ 9.200
 </p>
 
 </div>
@@ -956,9 +1069,9 @@ Confeccionada em couro de bezerro na cor amarela, com ferragens douradas, a Serp
     <br>
 
     <input type="text" id="dataInicio" placeholder="Selecione a data">
-    <div id="calendarioStatus" class="calendario-status">Consultando disponibilidade...</div>
 
     <div id="devolucao"></div>
+    <div id="calendarioStatus" class="calendario-status">Consultando disponibilidade...</div>
 
     <br>
 
@@ -985,7 +1098,8 @@ Confeccionada em couro de bezerro na cor amarela, com ferragens douradas, a Serp
 
 </div>
 
- <!-- <div class="btn" onclick="alugar()">ALUGAR AGORA</div> -->
+ <!-- <div class="btn" id="botaoAlugar" onclick="alugar()">CONTINUAR ALUGUEL</div>
+    <div id="reservaStatus" class="reserva-status"></div> -->
 
 </div>
 
@@ -1014,7 +1128,7 @@ document.querySelectorAll('.opcao').forEach(opcao => {
 /* CALENDARIO + DISPONIBILIDADE SUPABASE */
 const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
 const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
-const BOLSA_SLUG = "bvlgari-micro-amarela";
+const BOLSA_SLUG = "gucci-rajah";
 const aluguelSupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let bolsaAtual = null;
@@ -1157,34 +1271,25 @@ async function iniciarCalendario(){
 
 iniciarCalendario();
 
+
 /* devolução */
 function atualizarDevolucao(){
 
 let dias = document.querySelector('input[name="dias"]:checked');
 let dataInput = document.getElementById('dataInicio').value;
 
-if(!dias || !dataInput) return true;
+if(!dias || !dataInput) return;
 
 let partes = dataInput.split("/");
-let dataInicio = new Date(partes[2], partes[1]-1, partes[0]);
-let quantidadeDias = parseInt(dias.value);
+let data = new Date(partes[2], partes[1]-1, partes[0]);
 
-if(periodoTemConflito(dataInicio, quantidadeDias)){
-document.getElementById('devolucao').innerHTML =
-`<span style="color:#9b2c2c;">Esse periodo cruza datas ja reservadas. Escolha outra data ou outro periodo.</span>`;
-return false;
-}
-
-let data = new Date(dataInicio);
-data.setDate(data.getDate() + quantidadeDias);
+data.setDate(data.getDate() + parseInt(dias.value));
 
 document.getElementById('devolucao').innerHTML =
 `Devolução prevista: <strong>${data.toLocaleDateString('pt-BR')}</strong>`;
-
-return true;
 }
 
-/* ?? FRETE COM SELEï¿½ï¿½O */
+/*  FRETE COM SELEÇÃO */
 /* FRETE COM VALIDACAO DE SP E PRAZO AUTOMATICO POR CEP */
 let freteSelecionado = null;
 
@@ -1607,129 +1712,8 @@ ${enderecoShowroom}
 `;
 }
 
-/* RESERVA REAL NO SUPABASE */
-async function alugar(){
+/*  WHATSAPP COMPLETO */
 
-let diasSelecionado = document.querySelector('input[name="dias"]:checked');
-let data = document.getElementById('dataInicio').value;
-let botao = document.getElementById("botaoAlugar");
-
-if(!data){
-alert("Escolha a data");
-return;
-}
-
-if(atualizarDevolucao() === false){
-alert("Esse periodo cruza datas ja reservadas. Escolha outra data ou outro periodo.");
-return;
-}
-
-if(!freteIdaSelecionado || !freteVoltaSelecionado){
-alert("Escolha entrega e devolução");
-return;
-}
-
-const {
-  data: { user }
-} = await aluguelSupabase.auth.getUser();
-
-if(!user){
-localStorage.setItem("reservaPendenteTheBagRoom", JSON.stringify({
-  bolsaSlug: BOLSA_SLUG,
-  dataInicio: data,
-  dias: Number(diasSelecionado.value),
-  freteIda: freteIdaSelecionado,
-  freteVolta: freteVoltaSelecionado,
-  prazoEntregaDiasUteis: freteIdaSelecionado?.nome === "SEDEX" ? Number(freteIdaSelecionado.prazo || 0) : 0,
-  dataPostagemLimite: obterDataPostagemLimiteISO()
-}));
-
-alert("Para reservar, entre na sua conta ou faca seu cadastro.");
-window.location.href = "/login.html";
-return;
-}
-
-// valor aluguel
-let textoOpcao = diasSelecionado.parentElement.innerText;
-
-let valorMatch = textoOpcao.match(/R\$\s*([\d.,]+)/);
-
-let valor = valorMatch 
-  ? parseFloat(valorMatch[1].replace(/\./g, '').replace(',', '.')) 
-  : 0;
-
-
-// frete
-let totalFrete = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
-
-// total
-let total = valor + totalFrete;
-let totalFormatado = total.toFixed(2).replace(".", ",");
-
-try{
-if(botao){
-  botao.style.pointerEvents = "none";
-  botao.style.opacity = "0.65";
-  botao.innerText = "CRIANDO RESERVA...";
-}
-
-setReservaStatus("Criando sua reserva no sistema...", "");
-
-const { data: pedido, error } = await aluguelSupabase.rpc("criar_pedido_aluguel", {
-  p_bolsa_slug: BOLSA_SLUG,
-  p_data_inicio: dataInputParaISO(data),
-  p_dias: Number(diasSelecionado.value),
-  p_valor_frete: totalFrete,
-  p_entrega_nome: freteIdaSelecionado.nome,
-  p_entrega_preco: freteIdaSelecionado.preco,
-  p_devolucao_nome: freteVoltaSelecionado.nome,
-  p_devolucao_preco: freteVoltaSelecionado.preco
-});
-
-if(error){
-  throw error;
-}
-
-const resumoPedido = {
-  ...pedido,
-  totalFormatado,
-  periodoTexto: textoOpcao,
-  freteIda: freteIdaSelecionado,
-  freteVolta: freteVoltaSelecionado,
-  prazoEntregaDiasUteis: freteIdaSelecionado?.nome === "SEDEX" ? Number(freteIdaSelecionado.prazo || 0) : 0,
-  dataPostagemLimite: obterDataPostagemLimiteISO()
-};
-
-localStorage.setItem("ultimoPedidoAluguelTheBagRoom", JSON.stringify(resumoPedido));
-setReservaStatus("Reserva criada. Redirecionando...", "sucesso");
-window.location.href = `pedido-aluguel-confirmado.html?pedido=${encodeURIComponent(pedido.pedido_id)}`;
-} catch(error){
-console.error("Erro ao criar reserva:", error);
-
-let mensagem = "Nao foi possivel criar a reserva. Tente novamente.";
-
-if(error.message && error.message.includes("datas_indisponiveis")){
-  mensagem = "Essas datas acabaram de ficar indisponiveis. Escolha outro periodo.";
-}
-
-if(error.message && error.message.includes("data_inicio_minima")){
-  mensagem = "Escolha uma data com pelo menos 3 dias de antecedencia.";
-}
-
-setReservaStatus(mensagem, "erro");
-alert(mensagem);
-} finally {
-if(botao){
-  botao.style.pointerEvents = "";
-  botao.style.opacity = "";
-  botao.innerText = "RESERVAR ALUGUEL";
-}
-}
-}
-
-
-
-/* Checkout de aluguel: a ultima declaracao substitui o fluxo antigo de reserva direta. */
 async function alugar(){
 let diasSelecionado = document.querySelector('input[name="dias"]:checked');
 let data = document.getElementById('dataInicio').value;
@@ -1773,8 +1757,8 @@ let dataFimBR = dataFimObj.toLocaleDateString("pt-BR");
 
 const checkout = {
   bolsaSlug: BOLSA_SLUG,
-  bolsaNome: "Bvlgari Serpenti Micro",
-  imagem: "https://i.imgur.com/uKmvItm.jpg",
+  bolsaNome: "Gucci Rajah",
+  imagem: "https://i.imgur.com/iUrTpzD.jpg",
   dataInicio: data,
   dataInicioISO,
   dataFim: dataFimBR,
@@ -1784,7 +1768,7 @@ const checkout = {
   valorAluguel: valor,
   valorFrete: totalFrete,
   valorTotal: total,
-  valorCaucao: 1000,
+  valorCaucao: 1000.00,
   cep: document.getElementById("cep").value || "",
   freteIda: freteIdaSelecionado,
   freteVolta: freteVoltaSelecionado,
@@ -1811,6 +1795,7 @@ if(botao){
 
 window.location.href = "/checkout-aluguel.html";
 }
+
 
 let imagens = document.querySelectorAll('#slider img');
 let indexAtual = 0;
@@ -1980,6 +1965,15 @@ function toggleFooter(el){
   el.classList.toggle('active');
 }
 </script>
+
+  <script>
+function abrirVideo(){
+document.getElementById('videoModal').style.display='flex';
+}
+
+function fecharVideo(){
+document.getElementById('videoModal').style.display='none';
+}
 
 </body>
 </html>
