@@ -329,6 +329,49 @@ gap:14px;
 grid-column:1 / -1;
 }
 
+.checkbox-row{
+display:flex;
+gap:18px;
+align-items:center;
+flex-wrap:wrap;
+margin-top:4px;
+}
+
+.checkbox-row label{
+display:inline-flex;
+align-items:center;
+gap:8px;
+font-size:12px;
+font-weight:700;
+letter-spacing:.08em;
+text-transform:uppercase;
+color:#555;
+}
+
+.checkbox-row input{
+width:16px;
+height:16px;
+accent-color:#111;
+}
+
+.price-grid{
+display:grid;
+grid-template-columns:repeat(6,minmax(92px,1fr));
+gap:10px;
+}
+
+.price-grid .field label{
+text-align:center;
+}
+
+.form-actions{
+display:flex;
+gap:10px;
+align-items:center;
+flex-wrap:wrap;
+margin-top:16px;
+}
+
 .card{
 padding:20px;
 }
@@ -524,6 +567,7 @@ background:#9b2c2c;
 .stats{grid-template-columns:repeat(2,minmax(0,1fr));}
 .details{grid-template-columns:repeat(2,minmax(0,1fr));}
 .controls{grid-template-columns:1fr 1fr;}
+.price-grid{grid-template-columns:repeat(3,minmax(0,1fr));}
 }
 
 @media(max-width:640px){
@@ -532,6 +576,7 @@ background:#9b2c2c;
 .top-actions{justify-content:flex-start;margin-top:16px;}
 .nav{grid-template-columns:1fr;}
 .stats,.details,.controls,.form-grid{grid-template-columns:1fr;}
+.price-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
 .client-info-grid,.client-docs{grid-template-columns:1fr;}
 .order-head{display:block;}
 .badge{margin-top:12px;}
@@ -632,8 +677,85 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 </section>
 
 <section id="bolsas" class="panel">
+<div class="card" style="margin-bottom:14px;">
+<h2>Cadastrar bolsa</h2>
+<p class="panel-intro">
+Cadastre uma nova bolsa para aluguel. Os campos de preço são opcionais, mas ajudam a deixar a página pronta para reserva.
+</p>
+<div class="form-grid">
+<div class="field">
+<label for="novaBolsaNome">Nome da bolsa</label>
+<input id="novaBolsaNome" placeholder="Ex: Bvlgari Serpenti Forever" oninput="sugerirSlugBolsa()">
+</div>
+<div class="field">
+<label for="novaBolsaSlug">Slug / página</label>
+<input id="novaBolsaSlug" placeholder="bvlgari-serpenti-forever">
+</div>
+<div class="field">
+<label for="novaBolsaMarca">Marca</label>
+<input id="novaBolsaMarca" placeholder="Bvlgari">
+</div>
+<div class="field">
+<label for="novaBolsaCategoria">Categoria</label>
+<input id="novaBolsaCategoria" placeholder="Bolsa">
+</div>
+<div class="field">
+<label for="novaBolsaCor">Cor</label>
+<input id="novaBolsaCor" placeholder="Branca">
+</div>
+<div class="field">
+<label for="novaBolsaMaterial">Material</label>
+<input id="novaBolsaMaterial" placeholder="Couro">
+</div>
+<div class="field">
+<label for="novaBolsaDimensoes">Dimensões</label>
+<input id="novaBolsaDimensoes" placeholder="20 x 14 x 8 cm">
+</div>
+<div class="field">
+<label for="novaBolsaEstado">Estado da bolsa</label>
+<input id="novaBolsaEstado" placeholder="Muito bom">
+</div>
+<div class="field">
+<label for="novaBolsaValorLoja">Valor loja</label>
+<input id="novaBolsaValorLoja" inputmode="decimal" placeholder="7050">
+</div>
+<div class="field">
+<label for="novaBolsaCaucao">Caução</label>
+<input id="novaBolsaCaucao" inputmode="decimal" placeholder="1000">
+</div>
+<div class="field full">
+<label for="novaBolsaImagem">URL da imagem principal</label>
+<input id="novaBolsaImagem" placeholder="https://i.imgur.com/imagem.jpg">
+</div>
+<div class="field full">
+<label for="novaBolsaDescricao">Descrição</label>
+<textarea id="novaBolsaDescricao" placeholder="Descreva a peça, acabamento, ocasião de uso e detalhes importantes."></textarea>
+</div>
+<div class="field full">
+<label>Preços de aluguel</label>
+<div class="price-grid">
+<div class="field"><label for="preco4">4 dias</label><input id="preco4" inputmode="decimal" placeholder="190"></div>
+<div class="field"><label for="preco7">7 dias</label><input id="preco7" inputmode="decimal" placeholder="290"></div>
+<div class="field"><label for="preco10">10 dias</label><input id="preco10" inputmode="decimal" placeholder="390"></div>
+<div class="field"><label for="preco15">15 dias</label><input id="preco15" inputmode="decimal" placeholder="490"></div>
+<div class="field"><label for="preco20">20 dias</label><input id="preco20" inputmode="decimal" placeholder="590"></div>
+<div class="field"><label for="preco30">30 dias</label><input id="preco30" inputmode="decimal" placeholder="790"></div>
+</div>
+</div>
+</div>
+<div class="checkbox-row">
+<label><input id="novaBolsaAtiva" type="checkbox" checked> Ativa</label>
+<label><input id="novaBolsaDestaque" type="checkbox"> Destaque</label>
+</div>
+<div class="form-actions">
+<button class="btn" type="button" onclick="cadastrarBolsa()">Cadastrar bolsa</button>
+<button class="btn secondary" type="button" onclick="limparFormularioBolsa()">Limpar</button>
+</div>
+<p id="bolsaStatus" class="message"></p>
+</div>
+
 <div class="card">
-<h2>Bolsas cadastradas</h2>
+<h2>Bolsas ativas</h2>
 <div id="listaBolsas" class="orders"></div>
 </div>
 </section>
@@ -891,12 +1013,14 @@ const select = document.getElementById("bloqueioBolsa");
 select.innerHTML = bolsas.map(bolsa => `<option value="${bolsa.id}">${bolsa.nome}</option>`).join("");
 
 const lista = document.getElementById("listaBolsas");
-if(!bolsas.length){
+const bolsasAtivas = bolsas.filter(bolsa => bolsa.ativa);
+
+if(!bolsasAtivas.length){
 lista.innerHTML = `<div class="empty"><strong>Nenhuma bolsa cadastrada.</strong></div>`;
 return;
 }
 
-lista.innerHTML = bolsas.map(bolsa => `
+lista.innerHTML = bolsasAtivas.map(bolsa => `
 <article class="order-card card">
 <div class="order-head">
 <div>
@@ -911,9 +1035,176 @@ lista.innerHTML = bolsas.map(bolsa => `
 <div class="detail"><span>Valor loja</span><strong>${moeda(bolsa.valor_loja)}</strong></div>
 <div class="detail"><span>Categoria</span><strong>${bolsa.categoria || "-"}</strong></div>
 <div class="detail"><span>Material</span><strong>${bolsa.material || "-"}</strong></div>
+<div class="detail"><span>Destaque</span><strong>${bolsa.destaque ? "Sim" : "Não"}</strong></div>
 </div>
 </article>
 `).join("");
+}
+
+function slugifyBolsa(valor){
+return String(valor || "")
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g, "")
+.toLowerCase()
+.replace(/&/g, "e")
+.replace(/[^a-z0-9]+/g, "-")
+.replace(/^-+|-+$/g, "")
+.slice(0, 80);
+}
+
+function sugerirSlugBolsa(){
+const nome = document.getElementById("novaBolsaNome");
+const slug = document.getElementById("novaBolsaSlug");
+if(!nome || !slug || slug.dataset.editado === "true") return;
+slug.value = slugifyBolsa(nome.value);
+}
+
+function configurarSlugManual(){
+const slug = document.getElementById("novaBolsaSlug");
+if(!slug) return;
+slug.addEventListener("input", () => {
+slug.dataset.editado = "true";
+slug.value = slugifyBolsa(slug.value);
+});
+}
+
+function valorDecimal(id){
+const campo = document.getElementById(id);
+const texto = String(campo?.value || "")
+.replace(/\s/g, "")
+.replace(/R\$/gi, "")
+.replace(/\./g, "")
+.replace(",", ".");
+
+if(!texto) return null;
+const numero = Number(texto);
+return Number.isFinite(numero) ? numero : null;
+}
+
+function campoTexto(id){
+return document.getElementById(id)?.value.trim() || "";
+}
+
+function limparFormularioBolsa(){
+[
+"novaBolsaNome",
+"novaBolsaSlug",
+"novaBolsaMarca",
+"novaBolsaCategoria",
+"novaBolsaCor",
+"novaBolsaMaterial",
+"novaBolsaDimensoes",
+"novaBolsaEstado",
+"novaBolsaValorLoja",
+"novaBolsaCaucao",
+"novaBolsaImagem",
+"novaBolsaDescricao",
+"preco4",
+"preco7",
+"preco10",
+"preco15",
+"preco20",
+"preco30"
+].forEach(id => {
+const campo = document.getElementById(id);
+if(campo) campo.value = "";
+});
+
+document.getElementById("novaBolsaAtiva").checked = true;
+document.getElementById("novaBolsaDestaque").checked = false;
+document.getElementById("novaBolsaSlug").dataset.editado = "";
+setMessage("bolsaStatus", "");
+}
+
+async function cadastrarBolsa(){
+const nome = campoTexto("novaBolsaNome");
+const marca = campoTexto("novaBolsaMarca");
+const slug = slugifyBolsa(campoTexto("novaBolsaSlug") || nome);
+
+if(!nome || !marca || !slug){
+setMessage("bolsaStatus", "Preencha pelo menos nome, marca e slug.", "error");
+return;
+}
+
+setMessage("bolsaStatus", "Cadastrando bolsa...");
+
+const dadosBolsa = {
+slug,
+nome,
+marca,
+categoria: campoTexto("novaBolsaCategoria") || "Bolsa",
+cor: campoTexto("novaBolsaCor") || null,
+material: campoTexto("novaBolsaMaterial") || null,
+dimensoes: campoTexto("novaBolsaDimensoes") || null,
+estado: campoTexto("novaBolsaEstado") || null,
+descricao: campoTexto("novaBolsaDescricao") || null,
+valor_loja: valorDecimal("novaBolsaValorLoja"),
+valor_caucao: valorDecimal("novaBolsaCaucao") || 0,
+ativa: document.getElementById("novaBolsaAtiva").checked,
+destaque: document.getElementById("novaBolsaDestaque").checked
+};
+
+const { data: bolsaCriada, error: bolsaError } = await supabaseClient
+.from("bolsas")
+.insert(dadosBolsa)
+.select("id")
+.single();
+
+if(bolsaError){
+const mensagem = bolsaError.message?.includes("duplicate key")
+? "Já existe uma bolsa com esse slug. Troque o slug e tente novamente."
+: "Não foi possível cadastrar a bolsa.";
+setMessage("bolsaStatus", mensagem, "error");
+console.error(bolsaError);
+return;
+}
+
+const imagem = campoTexto("novaBolsaImagem");
+if(imagem){
+const { error: imagemError } = await supabaseClient
+.from("bolsa_imagens")
+.insert({
+bolsa_id: bolsaCriada.id,
+url: imagem,
+alt: nome,
+ordem: 0,
+principal: true
+});
+
+if(imagemError){
+console.error(imagemError);
+setMessage("bolsaStatus", "Bolsa criada, mas não foi possível salvar a imagem principal.", "error");
+await carregarTudo();
+return;
+}
+}
+
+const precos = [4, 7, 10, 15, 20, 30]
+.map(dias => ({ dias, valor: valorDecimal(`preco${dias}`) }))
+.filter(item => item.valor !== null);
+
+if(precos.length){
+const { error: precosError } = await supabaseClient
+.from("bolsa_precos")
+.insert(precos.map(item => ({
+bolsa_id: bolsaCriada.id,
+dias: item.dias,
+valor: item.valor,
+ativo: true
+})));
+
+if(precosError){
+console.error(precosError);
+setMessage("bolsaStatus", "Bolsa criada, mas não foi possível salvar os preços.", "error");
+await carregarTudo();
+return;
+}
+}
+
+setMessage("bolsaStatus", "Bolsa cadastrada com sucesso.", "success");
+limparFormularioBolsa();
+await carregarTudo();
+abrirPainel("bolsas");
 }
 
 async function salvarPedido(pedidoId){
@@ -1258,7 +1549,7 @@ checkout_url
 .order("created_at", { ascending:false }),
 supabaseClient
 .from("bolsas")
-.select("id,slug,nome,marca,categoria,cor,material,valor_loja,valor_caucao,ativa")
+.select("id,slug,nome,marca,categoria,cor,material,valor_loja,valor_caucao,ativa,destaque")
 .order("nome", { ascending:true })
 ]);
 
@@ -1310,6 +1601,7 @@ return;
 
 document.getElementById("locked").style.display = "none";
 document.getElementById("app").style.display = "grid";
+configurarSlugManual();
 await carregarTudo();
 }
 
