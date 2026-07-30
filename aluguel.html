@@ -166,6 +166,10 @@ transition:transform 0.45s ease;
 transform:scale(0.97);
 }
 
+.card.oculto{
+  display:none !important;
+}
+
 /* nome e preço */
 .nome{
 margin-top:12px;
@@ -1376,7 +1380,10 @@ body {
     <label><input type="checkbox" value="Rosa" class="filtro-cor"> Rosa</label>
     <label><input type="checkbox" value="Multicolorido" class="filtro-cor"> Multicolorido</label>
     <label><input type="checkbox" value="Laranja" class="filtro-cor"> Laranja</label>
-        <label><input type="checkbox" value="Amarelo" class="filtro-cor"> Multicolorido</label>
+    <label><input type="checkbox" value="Amarelo" class="filtro-cor"> Amarelo</label>
+    <label><input type="checkbox" value="Vermelho" class="filtro-cor">Vermelho</label>
+    <label><input type="checkbox" value="Lilas" class="filtro-cor">Lilás</label>
+  <label><input type="checkbox" value="Azul" class="filtro-cor">Azul</label>
   </div>
 
 </div>
@@ -1415,7 +1422,7 @@ body {
 <div class="grid">
 
 
-<a href="https://www.thebagroom.com.br/aluguel/gucci-dionysus-veludo-azul.html" class="card" data-marca="Gucci" data-cor="Branco">
+<a href="https://www.thebagroom.com.br/aluguel/gucci-dionysus-veludo-azul.html" class="card" data-marca="Gucci" data-cor="Azul">
   <div class="img-box">
     <span class="tag">Disponível</span>
     <img src="https://i.imgur.com/cWeUrHz.jpg">
@@ -1831,32 +1838,45 @@ document.querySelectorAll('input[type=checkbox]').forEach(input=>{
 
 function aplicarFiltros(){
 
-  const marcasSelecionadas = Array.from(document.querySelectorAll('.filtro-marca:checked')).map(i=>i.value);
-  const coresSelecionadas = Array.from(document.querySelectorAll('.filtro-cor:checked')).map(i=>i.value);
-const precoMax = Number(document.getElementById('rangePreco').value);
+  const marcasSelecionadas = Array.from(
+    document.querySelectorAll('.filtro-marca:checked')
+  ).map(input => input.value);
+
+  const coresSelecionadas = Array.from(
+    document.querySelectorAll('.filtro-cor:checked')
+  ).map(input => input.value);
+
+  const precoMax = Number(
+    document.getElementById('rangePreco').value
+  );
 
   const cards = document.querySelectorAll('.card');
 
   cards.forEach(card => {
 
-    const marca = card.dataset.marca;
-    const cor = card.dataset.cor;
+    const marca = card.dataset.marca || "";
+    const cor = card.dataset.cor || "";
     const preco = extrairPreco(card);
-const matchPreco = preco <= precoMax;
 
-    const matchMarca = marcasSelecionadas.length === 0 || marcasSelecionadas.includes(marca);
-    const matchCor = coresSelecionadas.length === 0 || coresSelecionadas.includes(cor);
+    const matchMarca =
+      marcasSelecionadas.length === 0 ||
+      marcasSelecionadas.includes(marca);
 
-    if(matchMarca && matchCor && matchPreco){
-      card.style.display = "flex";
-    } else {
-      card.style.display = "none";
-    }
+    const matchCor =
+      coresSelecionadas.length === 0 ||
+      coresSelecionadas.includes(cor);
 
+    const matchPreco = preco <= precoMax;
+
+    const deveAparecer =
+      matchMarca &&
+      matchCor &&
+      matchPreco;
+
+    card.classList.toggle('oculto', !deveAparecer);
   });
 
   atualizarContador();
-
 }
 
 function ordenarProdutos(tipo){
@@ -2079,7 +2099,7 @@ async function carregarStatusCatalogo(){
 
 function atualizarContador(){
   const cards = Array.from(document.querySelectorAll('.card'));
-  const visiveis = cards.filter(card => card.style.display !== 'none');
+const visiveis = cards.filter(card => !card.classList.contains('oculto'));
   const total = document.getElementById('totalProdutos');
   const empty = document.getElementById('emptyResults');
 
