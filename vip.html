@@ -150,41 +150,154 @@ line-height:1.5;
 
 /* BOTÕES */
 
-.botao{
-display:block;
-background:white;
-color:black;
-padding:16px;
-margin:14px auto;
-width:90%;
-max-width:420px;
-text-decoration:none;
-border-radius:14px;
-font-size:17px;
-font-weight:500;
-box-shadow:0 8px 25px rgba(0,0,0,0.25);
-position:relative;
-overflow:hidden;
+.botoes{
+width:100%;
+margin-top:-35px;
 }
 
-/* brilho botão VIP */
+.botao{
+display:flex;
+align-items:center;
+width:90%;
+max-width:420px;
+min-height:66px;
+padding:9px 18px 9px 10px;
+margin:12px auto;
+box-sizing:border-box;
 
-.vip::after{
+background:rgba(255,255,255,0.97);
+color:#111;
+text-decoration:none;
+
+border:1px solid rgba(255,255,255,0.75);
+border-radius:18px;
+
+font-size:17px;
+font-weight:500;
+text-align:left;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,0.24),
+inset 0 1px 0 rgba(255,255,255,0.9);
+
+position:relative;
+overflow:hidden;
+
+-webkit-tap-highlight-color:transparent;
+transition:
+transform 0.2s ease,
+box-shadow 0.2s ease,
+background 0.2s ease;
+}
+
+.botao:active{
+transform:scale(0.98);
+box-shadow:0 5px 18px rgba(0,0,0,0.2);
+}
+
+.botao-conteudo{
+display:flex;
+align-items:center;
+gap:14px;
+flex:1;
+position:relative;
+z-index:2;
+}
+
+.botao-icone{
+width:46px;
+height:46px;
+min-width:46px;
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:#f0ede8;
+color:#111;
+}
+
+.botao-icone svg{
+width:23px;
+height:23px;
+stroke:currentColor;
+}
+
+.botao-texto{
+line-height:1.2;
+}
+
+.botao-seta{
+width:21px;
+height:21px;
+margin-left:12px;
+position:relative;
+z-index:2;
+stroke:#111;
+}
+
+/* BOTÃO VIP */
+
+.botao.vip{
+border:1px solid rgba(196,163,105,0.8);
+box-shadow:
+0 10px 30px rgba(0,0,0,0.26),
+0 0 0 1px rgba(196,163,105,0.12),
+inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+.botao.vip .botao-icone{
+background:#171717;
+color:white;
+}
+
+/* brilho delicado do botão VIP */
+
+.botao.vip::after{
 content:"";
 position:absolute;
 top:0;
-left:-100%;
-width:100%;
+left:-120%;
+width:65%;
 height:100%;
-background:linear-gradient(120deg,transparent,rgba(255,255,255,0.7),transparent);
-animation:brilho 3s infinite;
+
+background:linear-gradient(
+110deg,
+transparent,
+rgba(255,255,255,0.75),
+transparent
+);
+
+transform:skewX(-20deg);
+animation:brilho 4s infinite;
+z-index:1;
+pointer-events:none;
 }
 
 @keyframes brilho{
-0%{left:-100%}
-50%{left:100%}
-100%{left:100%}
+0%{
+left:-120%;
 }
+
+35%{
+left:140%;
+}
+
+100%{
+left:140%;
+}
+}
+
+@media (hover:hover){
+
+.botao:hover{
+transform:translateY(-2px);
+background:white;
+box-shadow:0 14px 34px rgba(0,0,0,0.3);
+}
+
+
 
 /* ICONES */
 
@@ -240,21 +353,207 @@ Peças selecionadas de luxo<br>
 Acesso antecipado no grupo VIP
 </div>
 
-<a class="botao vip" href="https://chat.whatsapp.com/J9gxW9Whk778OKfLGnjoWN?mode=gi_t">
-💎 Entrar no Grupo VIP
-</a>
+<div class="botoes">
 
-<a class="botao" href="https://www.thebagroom.com.br/aluguel.html">
-👛Alugue 
-</a>
+  <!-- GRUPO VIP -->
 
-<a class="botao" href="https://wa.me/5513996904227">
-👜 Desapegue Conosco
-</a>
+  <a
+    class="botao vip"
+    href="https://chat.whatsapp.com/J9gxW9Whk778OKfLGnjoWN?mode=gi_t"
+    aria-label="Entrar no Grupo VIP da The Bag Room"
+  >
 
-<a class="botao" href="https://www.thebagroom.com.br">
-✨ Site
-</a>
+    <div class="botao-conteudo">
+
+      <span class="botao-icone">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="1.7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M3 8.5 7 4h10l4 4.5L12 20 3 8.5Z"></path>
+          <path d="m7 4 2 4.5L12 4l3 4.5L17 4"></path>
+          <path d="M3 8.5h18"></path>
+          <path d="m9 8.5 3 11.5 3-11.5"></path>
+        </svg>
+
+      </span>
+
+      <span class="botao-texto">
+        Entrar no Grupo VIP
+      </span>
+
+    </div>
+
+    <svg
+      class="botao-seta"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m9 18 6-6-6-6"></path>
+    </svg>
+
+  </a>
+
+
+  <!-- ALUGUEL -->
+
+  <a
+    class="botao"
+    href="https://www.thebagroom.com.br/aluguel.html"
+    aria-label="Alugar bolsas de luxo"
+  >
+
+    <div class="botao-conteudo">
+
+      <span class="botao-icone">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M5 8h14l1 12H4L5 8Z"></path>
+          <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+        </svg>
+
+      </span>
+
+      <span class="botao-texto">
+        Alugue
+      </span>
+
+    </div>
+
+    <svg
+      class="botao-seta"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m9 18 6-6-6-6"></path>
+    </svg>
+
+  </a>
+
+
+  <!-- DESAPEGUE -->
+
+  <a
+    class="botao"
+    href="https://wa.me/5513996904227"
+    aria-label="Desapegar e consignar uma peça com a The Bag Room"
+  >
+
+    <div class="botao-conteudo">
+
+      <span class="botao-icone">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m8.5 12.5 2.2 2.2a1.8 1.8 0 0 0 2.6 0l4.3-4.3"></path>
+          <path d="m15.5 12.5-2.2-2.2a1.8 1.8 0 0 0-2.6 0l-4.3 4.3"></path>
+          <path d="m3 10 3-3 4 4"></path>
+          <path d="m21 10-3-3-4 4"></path>
+          <path d="M6 7 4.5 5.5 1.5 8.5 6 13"></path>
+          <path d="m18 7 1.5-1.5 3 3L18 13"></path>
+          <path d="m8 16 1 1"></path>
+          <path d="m11 17 1 1"></path>
+          <path d="m14 16 1 1"></path>
+        </svg>
+
+      </span>
+
+      <span class="botao-texto">
+        Desapegue Conosco
+      </span>
+
+    </div>
+
+    <svg
+      class="botao-seta"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m9 18 6-6-6-6"></path>
+    </svg>
+
+  </a>
+
+
+  <!-- SITE -->
+
+  <a
+    class="botao"
+    href="https://www.thebagroom.com.br"
+    aria-label="Acessar o site da The Bag Room"
+  >
+
+    <div class="botao-conteudo">
+
+      <span class="botao-icone">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M3 12h18"></path>
+          <path d="M12 3c2.5 2.5 3.8 5.5 3.8 9S14.5 18.5 12 21"></path>
+          <path d="M12 3C9.5 5.5 8.2 8.5 8.2 12S9.5 18.5 12 21"></path>
+        </svg>
+
+      </span>
+
+      <span class="botao-texto">
+        Site
+      </span>
+
+    </div>
+
+    <svg
+      class="botao-seta"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m9 18 6-6-6-6"></path>
+    </svg>
+
+  </a>
+
+</div>
 
 <div class="icones">
 
