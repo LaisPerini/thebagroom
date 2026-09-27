@@ -580,6 +580,44 @@ background:#32633e;
 background:#9b2c2c;
 }
 
+/* Dashboard operacional */
+.dashboard-filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:18px;}
+.dashboard-filters select,.dashboard-filters input{height:42px;border:1px solid #ddd6cd;border-radius:999px;background:#fff;padding:0 14px;font:inherit;min-width:150px;}
+.dashboard-status{margin-left:auto;font-size:12px;color:#777;}
+.dashboard-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:22px;}
+.kpi{display:block;padding:17px;text-decoration:none;color:inherit;cursor:pointer;transition:transform .18s ease,border-color .18s ease;}
+.kpi:hover,.kpi:focus-visible{transform:translateY(-2px);border-color:#c9ad84;outline:none;}
+.kpi .stat-value{font-family:'Playfair Display',Georgia,serif;font-size:30px;}
+.kpi-note{margin-top:7px;color:#888;font-size:11px;line-height:1.35;}
+.dashboard-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.75fr);gap:16px;margin-bottom:16px;}
+.dashboard-card{padding:20px;overflow:hidden;}
+.dashboard-card-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:18px;}
+.dashboard-card h2{font-size:27px;margin:0;}
+.dashboard-card h3{font-family:'Playfair Display',Georgia,serif;font-size:21px;margin:0;}
+.chart-summary{display:flex;gap:22px;flex-wrap:wrap;margin:0 0 16px;}
+.chart-summary span{font-size:11px;color:#777;text-transform:uppercase;letter-spacing:.1em;}
+.chart-summary strong{display:block;color:#111;font-size:18px;letter-spacing:0;margin-top:4px;}
+.chart-wrap{height:250px;position:relative;}
+#revenueChart{width:100%;height:100%;display:block;}
+.attention-list{display:grid;gap:9px;}
+.attention-item{width:100%;border:1px solid #eee8df;border-left:4px solid #b28a51;border-radius:12px;background:#fff;padding:12px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;}
+.attention-item.urgent{border-left-color:#9b2c2c;background:#fffafa;}
+.attention-item.info{border-left-color:#587187;}
+.attention-copy strong{font-size:13px;display:block;margin-bottom:3px;}.attention-copy span{font-size:11px;color:#777;}
+.attention-count{font-weight:700;font-size:18px;}
+.data-table{width:100%;border-collapse:collapse;font-size:13px;}
+.data-table th{text-align:left;color:#777;font-size:10px;text-transform:uppercase;letter-spacing:.12em;padding:0 10px 10px;border-bottom:1px solid #eee8df;}
+.data-table td{padding:13px 10px;border-bottom:1px solid #f0ebe5;vertical-align:middle;}
+.data-table tr:last-child td{border-bottom:0;}.data-table tr.clickable{cursor:pointer;}.data-table tr.clickable:hover{background:#faf8f5;}
+.status-pill{display:inline-flex;border-radius:999px;padding:6px 9px;background:#eee9e2;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;}
+.status-pill.danger{background:#f8dddd;color:#8b2525;}
+.bag-rank{display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid #eee8df;}
+.bag-rank:last-child{border-bottom:0;}.bag-thumb{width:42px;height:42px;border-radius:11px;object-fit:cover;background:#eee8df;}.bag-rank small{display:block;color:#777;margin-top:3px;}.bag-rank-value{text-align:right;font-weight:700;}
+.ga-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px;}.ga-metric{background:#faf8f5;border-radius:13px;padding:13px;}.ga-metric span{display:block;font-size:10px;color:#777;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}.ga-metric strong{font-size:22px;}
+.service-state{border:1px dashed #d7ccbe;border-radius:13px;padding:14px;color:#6b6259;font-size:12px;line-height:1.6;background:#fcfbf9;}
+.dashboard-empty{padding:18px;text-align:center;color:#777;font-size:13px;}
+.legacy-stats{display:none;}
+
 @media(max-width:1040px){
 .shell{grid-template-columns:1fr;}
 .sidebar{position:relative;height:auto;}
@@ -588,6 +626,7 @@ background:#9b2c2c;
 .details{grid-template-columns:repeat(2,minmax(0,1fr));}
 .controls{grid-template-columns:1fr 1fr;}
 .price-grid{grid-template-columns:repeat(3,minmax(0,1fr));}
+.dashboard-kpis{grid-template-columns:repeat(2,minmax(0,1fr));}.dashboard-grid{grid-template-columns:1fr;}
 }
 
 @media(max-width:640px){
@@ -600,6 +639,7 @@ background:#9b2c2c;
 .client-info-grid,.client-docs{grid-template-columns:1fr;}
 .order-head{display:block;}
 .badge{margin-top:12px;}
+.dashboard-filters select,.dashboard-filters input{width:100%;min-width:0;}.dashboard-status{margin-left:0;width:100%;}.dashboard-kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.kpi{padding:14px}.kpi .stat-value{font-size:24px}.dashboard-card{padding:16px}.dashboard-card-head{display:block}.dashboard-card-head .btn{margin-top:12px}.chart-wrap{height:210px}.table-scroll{overflow:visible}.data-table,.data-table tbody,.data-table tr,.data-table td{display:block;width:100%}.data-table thead{display:none}.data-table tr{border:1px solid #eee8df;border-radius:13px;padding:10px;margin-bottom:10px}.data-table td{display:flex;justify-content:space-between;gap:16px;padding:7px;border:0;text-align:right}.data-table td:before{content:attr(data-label);font-size:10px;color:#777;text-transform:uppercase;letter-spacing:.08em;text-align:left}.ga-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
 }
 </style>
 </head>
@@ -617,7 +657,8 @@ background:#9b2c2c;
 <aside class="sidebar">
 <div class="brand">THE BAG ROOM</div>
 <nav class="nav">
-<button type="button" class="active" data-panel="pedidos" onclick="abrirPainel('pedidos', this)">Aluguéis</button>
+<button type="button" class="active" data-panel="dashboard" onclick="abrirPainel('dashboard', this)">Dashboard</button>
+<button type="button" data-panel="pedidos" onclick="abrirPainel('pedidos', this)">Aluguéis</button>
 <button type="button" data-panel="bloqueios" onclick="abrirPainel('bloqueios', this)">Bloquear Datas</button>
 <button type="button" data-panel="bolsas" onclick="abrirPainel('bolsas', this)">Bolsas</button>
 <button type="button" data-panel="clientes" onclick="abrirPainel('clientes', this)">Validação</button>
@@ -632,7 +673,7 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 <div class="topbar">
 <div>
 <p class="eyebrow">Admin</p>
-<h1>Painel de Aluguéis</h1>
+<h1 id="pageTitle">Dashboard</h1>
 </div>
 <div class="top-actions">
 <button class="btn secondary" onclick="carregarTudo()">Atualizar</button>
@@ -641,7 +682,7 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 </div>
 </div>
 
-<section class="stats">
+<section class="stats legacy-stats" id="legacyStats">
 <div class="stat-card">
 <div class="stat-label">Pedidos</div>
 <div class="stat-value" id="statPedidos">0</div>
@@ -660,7 +701,59 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 </div>
 </section>
 
-<section id="pedidos" class="panel active">
+<section id="dashboard" class="panel active">
+<div class="dashboard-filters" aria-label="Filtros do dashboard">
+<select id="dashboardPeriod" onchange="renderDashboard()" aria-label="Período">
+<option value="30">Últimos 30 dias</option>
+<option value="7">Últimos 7 dias</option>
+<option value="month">Mês atual</option>
+<option value="previous">Mês anterior</option>
+</select>
+<select id="dashboardBrand" onchange="renderDashboard()" aria-label="Marca"><option value="">Todas as marcas</option></select>
+<select id="dashboardStatus" onchange="renderDashboard()" aria-label="Status"><option value="">Todos os status</option></select>
+<button class="btn secondary small" type="button" onclick="limparFiltrosDashboard()">Limpar filtros</button>
+<span class="dashboard-status" id="dashboardStatusText">Carregando operação...</span>
+</div>
+
+<div class="dashboard-kpis" id="dashboardKpis"></div>
+
+<div class="dashboard-grid">
+<article class="card dashboard-card">
+<div class="dashboard-card-head"><div><p class="eyebrow">Faturamento</p><h2>Receita de aluguel</h2></div></div>
+<div class="chart-summary" id="chartSummary"></div>
+<div class="chart-wrap"><canvas id="revenueChart" aria-label="Gráfico de faturamento no período"></canvas></div>
+</article>
+<article class="card dashboard-card">
+<div class="dashboard-card-head"><div><p class="eyebrow">Operação</p><h2>Precisa de atenção</h2></div></div>
+<div class="attention-list" id="attentionList"></div>
+</article>
+</div>
+
+<div class="dashboard-grid">
+<article class="card dashboard-card">
+<div class="dashboard-card-head"><div><p class="eyebrow">Agenda</p><h2>Aluguéis ativos e devoluções</h2></div><button class="btn secondary small" onclick="abrirPainel('pedidos')">Ver todos</button></div>
+<div class="table-scroll"><table class="data-table"><thead><tr><th>Cliente</th><th>Bolsa</th><th>Retirada</th><th>Devolução</th><th>Valor</th><th>Status</th></tr></thead><tbody id="activeRentalsBody"></tbody></table></div>
+</article>
+<article class="card dashboard-card">
+<div class="dashboard-card-head"><div><p class="eyebrow">Estoque</p><h2>Performance das bolsas</h2></div></div>
+<div id="bagPerformance"></div>
+</article>
+</div>
+
+<div class="dashboard-grid">
+<article class="card dashboard-card">
+<div class="dashboard-card-head"><div><p class="eyebrow">Aquisição</p><h2>Google Analytics 4</h2></div><button class="btn secondary small" onclick="carregarGA4()">Atualizar GA4</button></div>
+<div id="gaContent"><div class="service-state">Conectando à propriedade GA4 538615957 por meio da integração segura do servidor.</div></div>
+</article>
+<article class="card dashboard-card">
+<div class="dashboard-card-head"><div><p class="eyebrow">Clientes</p><h2>Recorrência</h2></div></div>
+<div class="ga-grid" id="customerMetrics"></div>
+<div id="topCustomers"></div>
+</article>
+</div>
+</section>
+
+<section id="pedidos" class="panel">
 <div class="toolbar">
 <input id="buscaPedidos" class="search" placeholder="Buscar por pedido, bolsa, cliente ou status" oninput="renderPedidos()">
 <span class="message" id="pedidosStatus">Carregando pedidos...</span>
@@ -866,6 +959,10 @@ let clientes = {};
 let clientesValidacao = [];
 let filtroClientesValidacao = "todos";
 let usuarioAtual = null;
+let reservas = [];
+let imagensBolsas = [];
+let ga4Data = null;
+const GA4_PROPERTY_ID = "538615957";
 
 function abrirPainel(panelId, button){
 document.querySelectorAll(".nav button").forEach(item => item.classList.remove("active"));
@@ -882,6 +979,9 @@ if(navButton) navButton.classList.add("active");
 }
 
 painel.classList.add("active");
+document.getElementById("legacyStats").style.display = panelId === "pedidos" ? "grid" : "none";
+const titulos = {dashboard:"Dashboard",pedidos:"Painel de Aluguéis",bloqueios:"Bloquear Datas",bolsas:"Bolsas",clientes:"Validação de clientes",ajuda:"Ajuda"};
+document.getElementById("pageTitle").textContent = titulos[panelId] || "Painel Admin";
 if(panelId === "clientes" && !clientesValidacao.length){ carregarValidacoes(); }
 painel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
@@ -1526,10 +1626,167 @@ clientes[cliente.usuario_auth_id] = cliente;
 });
 }
 
+function dataISO(data = new Date()){
+const local = new Date(data.getTime() - data.getTimezoneOffset() * 60000);
+return local.toISOString().slice(0,10);
+}
+
+function intervaloDashboard(){
+const valor = document.getElementById("dashboardPeriod")?.value || "30";
+const hoje = new Date(); hoje.setHours(0,0,0,0);
+let inicio = new Date(hoje); let fim = new Date(hoje); fim.setHours(23,59,59,999);
+if(valor === "month") inicio = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+else if(valor === "previous") { inicio = new Date(hoje.getFullYear(), hoje.getMonth()-1, 1); fim = new Date(hoje.getFullYear(), hoje.getMonth(), 0,23,59,59,999); }
+else inicio.setDate(inicio.getDate() - (Number(valor) - 1));
+return {inicio,fim,dias:Math.max(1,Math.round((fim-inicio)/86400000)+1)};
+}
+
+function itemPedido(pedido){ return primeiro(pedido.aluguel_itens); }
+function bolsaPedido(pedido){ return itemPedido(pedido)?.bolsas || {}; }
+function pagamentoAprovado(pedido){ return (pedido.pagamentos_aluguel || []).find(p => p.status === "aprovado"); }
+function statusEncerrado(status){ return ["devolvido","caucao_liberada","cancelado"].includes(status); }
+function statusAtivo(status){ return ["enviado","em_uso","devolucao_pendente"].includes(status); }
+
+function pedidosFiltrados(){
+const {inicio,fim} = intervaloDashboard();
+const marca = document.getElementById("dashboardBrand")?.value || "";
+const status = document.getElementById("dashboardStatus")?.value || "";
+return pedidos.filter(p => {
+const criado = new Date(p.created_at);
+return criado >= inicio && criado <= fim && (!marca || bolsaPedido(p).marca === marca) && (!status || p.status === status);
+});
+}
+
+function configurarFiltrosDashboard(){
+const marcaSelect = document.getElementById("dashboardBrand");
+const atual = marcaSelect.value;
+const marcas = [...new Set(bolsas.map(b => b.marca).filter(Boolean))].sort((a,b) => a.localeCompare(b,"pt-BR"));
+marcaSelect.innerHTML = '<option value="">Todas as marcas</option>' + marcas.map(m => `<option value="${safeText(m)}">${safeText(m)}</option>`).join("");
+marcaSelect.value = atual;
+const statusSelect = document.getElementById("dashboardStatus");
+if(statusSelect.options.length === 1) statusSelect.innerHTML += statusOptions.map(s => `<option value="${s}">${statusLabels[s]}</option>`).join("");
+}
+
+function limparFiltrosDashboard(){
+document.getElementById("dashboardPeriod").value = "30";
+document.getElementById("dashboardBrand").value = "";
+document.getElementById("dashboardStatus").value = "";
+renderDashboard();
+}
+
+function navegarDashboard(destino, filtro = ""){
+if(destino === "clientes") { abrirPainel("clientes"); if(filtro){ filtroClientesValidacao = filtro; renderClientesValidacao(); } return; }
+if(destino === "bolsas") { abrirPainel("bolsas"); return; }
+abrirPainel("pedidos");
+if(filtro){ document.getElementById("buscaPedidos").value = filtro; renderPedidos(); }
+}
+
+function cardKpi(rotulo, valor, nota, destino, filtro = ""){
+return `<button class="stat-card kpi" type="button" onclick="navegarDashboard('${destino}','${filtro}')"><div class="stat-label">${rotulo}</div><div class="stat-value">${valor}</div><div class="kpi-note">${nota}</div></button>`;
+}
+
+function renderDashboard(){
+if(!document.getElementById("dashboardKpis")) return;
+configurarFiltrosDashboard();
+const hoje = dataISO(); const amanhaDate = new Date(); amanhaDate.setDate(amanhaDate.getDate()+1); const amanha = dataISO(amanhaDate);
+const periodo = pedidosFiltrados();
+const pagosPeriodo = periodo.map(p => ({pedido:p,pagamento:pagamentoAprovado(p)})).filter(x => x.pagamento);
+const receitaPeriodo = pagosPeriodo.reduce((s,x) => s + Number(x.pagamento.valor || x.pedido.valor_total || 0),0);
+const pedidosHoje = pedidos.filter(p => dataISO(new Date(p.created_at)) === hoje);
+const pagosHoje = pedidosHoje.map(p => pagamentoAprovado(p)).filter(Boolean).reduce((s,p) => s + Number(p.valor || 0),0);
+const inicioMes = new Date(); inicioMes.setDate(1); inicioMes.setHours(0,0,0,0);
+const receitaMes = pedidos.filter(p => new Date(p.created_at)>=inicioMes).map(p => pagamentoAprovado(p)).filter(Boolean).reduce((s,p)=>s+Number(p.valor||0),0);
+const ativos = pedidos.filter(p => statusAtivo(p.status));
+const futuras = pedidos.filter(p => itemPedido(p)?.data_inicio > hoje && !statusEncerrado(p.status));
+const devolucoesHoje = pedidos.filter(p => itemPedido(p)?.data_fim === hoje && !statusEncerrado(p.status));
+const devolucoesAmanha = pedidos.filter(p => itemPedido(p)?.data_fim === amanha && !statusEncerrado(p.status));
+const atrasados = pedidos.filter(p => itemPedido(p)?.data_fim < hoje && !statusEncerrado(p.status));
+const bolsaIdsOcupadas = new Set(pedidos.filter(p => statusAtivo(p.status)).map(p => itemPedido(p)?.bolsas?.id).filter(Boolean));
+const bolsaIdsReservadas = new Set(pedidos.filter(p => itemPedido(p)?.data_inicio > hoje && !statusEncerrado(p.status)).map(p => itemPedido(p)?.bolsas?.id).filter(Boolean));
+const bolsasAtivas = bolsas.filter(b => b.ativa);
+const disponiveis = bolsasAtivas.filter(b => !bolsaIdsOcupadas.has(b.id) && !bolsaIdsReservadas.has(b.id));
+const ocupacao = bolsasAtivas.length ? Math.round((bolsaIdsOcupadas.size / bolsasAtivas.length) * 100) : 0;
+const pendentes = clientesValidacao.filter(c => c.status === "pendente");
+const caucoes = ativos.reduce((s,p) => s + Number(p.valor_caucao_total || itemPedido(p)?.valor_caucao || 0),0);
+const visitantesHoje = ga4Data?.today?.activeUsers;
+const conversao = ga4Data?.month?.activeUsers ? (pedidos.filter(p => new Date(p.created_at)>=inicioMes).length / Number(ga4Data.month.activeUsers) * 100) : null;
+document.getElementById("dashboardKpis").innerHTML = [
+cardKpi("Faturamento hoje",moeda(pagosHoje),`${pedidosHoje.length} novo(s) aluguel(is)`,"pedidos"),
+cardKpi("Faturamento no mês",moeda(receitaMes),`${pedidos.filter(p=>new Date(p.created_at)>=inicioMes).length} aluguel(is) no mês`,"pedidos"),
+cardKpi("Aluguéis ativos",ativos.length,"Em uso ou em devolução","pedidos","em uso"),
+cardKpi("Devoluções hoje",devolucoesHoje.length,devolucoesAmanha.length+" amanhã","pedidos",hoje),
+cardKpi("Aluguéis atrasados",atrasados.length,atrasados.length ? "Requer ação imediata" : "Tudo em dia","pedidos","devolução"),
+cardKpi("Reservas futuras",futuras.length,"Próximas retiradas","pedidos","reserva"),
+cardKpi("Bolsas disponíveis",disponiveis.length,bolsaIdsReservadas.size+" reservada(s)","bolsas"),
+cardKpi("Taxa de ocupação",ocupacao+"%",`${bolsaIdsOcupadas.size} de ${bolsasAtivas.length} bolsas`,"bolsas"),
+cardKpi("Visitantes hoje",visitantesHoje === undefined ? "—" : Number(visitantesHoje).toLocaleString("pt-BR"),"Google Analytics 4","dashboard"),
+cardKpi("Cadastros pendentes",pendentes.length,"Aguardando aprovação","clientes","pendente"),
+cardKpi("Cauções ativas",moeda(caucoes),ativos.length+" aluguel(is) ativo(s)","pedidos"),
+cardKpi("Conversão do site",conversao === null ? "—" : conversao.toFixed(1)+"%","Visitante → aluguel","dashboard")
+].join("");
+const ticket = pagosPeriodo.length ? receitaPeriodo / pagosPeriodo.length : 0;
+document.getElementById("chartSummary").innerHTML = `<span>Receita<strong>${moeda(receitaPeriodo)}</strong></span><span>Novos aluguéis<strong>${periodo.length}</strong></span><span>Ticket médio<strong>${moeda(ticket)}</strong></span>`;
+renderRevenueChart(periodo);
+renderAttention({atrasados,devolucoesHoje,devolucoesAmanha,pendentes});
+renderActiveRentals(ativos, atrasados);
+renderBagPerformance();
+renderCustomerMetrics();
+document.getElementById("dashboardStatusText").textContent = `Atualizado às ${new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}`;
+}
+
+function renderRevenueChart(lista){
+const canvas = document.getElementById("revenueChart"); if(!canvas) return;
+const rect = canvas.getBoundingClientRect(); const scale = window.devicePixelRatio || 1;
+canvas.width = Math.max(320,rect.width)*scale; canvas.height = Math.max(200,rect.height)*scale;
+const ctx = canvas.getContext("2d"); ctx.scale(scale,scale); const w=canvas.width/scale,h=canvas.height/scale;
+const {inicio,fim,dias} = intervaloDashboard(); const pontos=[];
+for(let i=0;i<dias;i++){const d=new Date(inicio);d.setDate(d.getDate()+i);if(d>fim)break;const key=dataISO(d);const valor=lista.filter(p=>dataISO(new Date(p.created_at))===key).map(p=>pagamentoAprovado(p)).filter(Boolean).reduce((s,p)=>s+Number(p.valor||0),0);pontos.push({key,valor});}
+const max=Math.max(...pontos.map(p=>p.valor),1), pad={l:10,r:10,t:12,b:28}, cw=w-pad.l-pad.r,ch=h-pad.t-pad.b;
+ctx.clearRect(0,0,w,h);ctx.strokeStyle="#e7dfd5";ctx.lineWidth=1;
+for(let i=0;i<4;i++){const y=pad.t+(ch/3)*i;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();}
+if(!pontos.length)return;ctx.beginPath();pontos.forEach((p,i)=>{const x=pad.l+(pontos.length===1?cw/2:i*cw/(pontos.length-1));const y=pad.t+ch-(p.valor/max)*ch;i?ctx.lineTo(x,y):ctx.moveTo(x,y);});ctx.strokeStyle="#a8824b";ctx.lineWidth=3;ctx.lineJoin="round";ctx.stroke();
+ctx.lineTo(w-pad.r,pad.t+ch);ctx.lineTo(pad.l,pad.t+ch);ctx.closePath();const grad=ctx.createLinearGradient(0,pad.t,0,h);grad.addColorStop(0,"rgba(168,130,75,.24)");grad.addColorStop(1,"rgba(168,130,75,0)");ctx.fillStyle=grad;ctx.fill();
+ctx.fillStyle="#777";ctx.font="10px Inter";ctx.textAlign="left";ctx.fillText(dataBR(pontos[0].key).slice(0,5),pad.l,h-7);ctx.textAlign="right";ctx.fillText(dataBR(pontos[pontos.length-1].key).slice(0,5),w-pad.r,h-7);
+}
+
+function renderAttention(dados){
+const itens=[
+{n:dados.atrasados.length,t:"Aluguéis atrasados",s:"Cobrar devolução",c:"urgent",d:"pedidos",f:"devolução"},
+{n:dados.devolucoesHoje.length,t:"Devoluções hoje",s:"Confirmar retorno das bolsas",c:"urgent",d:"pedidos",f:dataISO()},
+{n:dados.devolucoesAmanha.length,t:"Devoluções amanhã",s:"Preparar comunicação",c:"",d:"pedidos",f:""},
+{n:dados.pendentes.length,t:"Cadastros pendentes",s:"Revisar documentação",c:"",d:"clientes",f:"pendente"}
+].filter(i=>i.n);
+document.getElementById("attentionList").innerHTML = itens.length ? itens.map(i=>`<button class="attention-item ${i.c}" onclick="navegarDashboard('${i.d}','${i.f}')"><span class="attention-copy"><strong>${i.t}</strong><span>${i.s}</span></span><span class="attention-count">${i.n}</span></button>`).join("") : '<div class="dashboard-empty">Nenhuma pendência crítica agora.</div>';
+}
+
+function renderActiveRentals(ativos, atrasados){
+const lista=[...atrasados,...ativos.filter(p=>!atrasados.includes(p))].slice(0,8);
+document.getElementById("activeRentalsBody").innerHTML = lista.length ? lista.map(p=>{const item=itemPedido(p),bolsa=bolsaPedido(p),late=atrasados.includes(p);return `<tr class="clickable" onclick="navegarDashboard('pedidos','${safeText(p.numero||p.id)}')"><td data-label="Cliente">${safeText(nomeCliente(p))}</td><td data-label="Bolsa"><strong>${safeText(bolsa.nome||"-")}</strong><br><small>${safeText(bolsa.marca||"")}</small></td><td data-label="Retirada">${dataBR(item?.data_inicio)}</td><td data-label="Devolução">${dataBR(item?.data_fim)}</td><td data-label="Valor">${moeda(item?.valor_aluguel||p.valor_total)}</td><td data-label="Status"><span class="status-pill ${late?'danger':''}">${late?'Atrasado':safeText(statusLabels[p.status]||p.status)}</span></td></tr>`}).join("") : '<tr><td colspan="6" class="dashboard-empty">Nenhum aluguel ativo.</td></tr>';
+}
+
+function renderBagPerformance(){
+const perf = bolsas.map(b=>{const alugueis=pedidos.filter(p=>itemPedido(p)?.bolsas?.id===b.id && p.status!=="cancelado");const receita=aluguéisReceita(alugueis);const imagem=imagensBolsas.find(i=>i.bolsa_id===b.id);return {b,alugueis,receita,imagem};}).sort((a,b)=>b.receita-a.receita).slice(0,6);
+document.getElementById("bagPerformance").innerHTML = perf.length ? perf.map((x,i)=>`<div class="bag-rank"><img class="bag-thumb" src="${safeText(x.imagem?.url||'/favicon.png')}" alt=""><div><strong>${i+1}. ${safeText(x.b.nome)}</strong><small>${safeText(x.b.marca||'')} · ${x.alugueis.length} aluguel(is)</small></div><div class="bag-rank-value">${moeda(x.receita)}</div></div>`).join("") : '<div class="dashboard-empty">Sem dados de performance.</div>';
+}
+
+function aluguéisReceita(lista){return lista.map(p=>pagamentoAprovado(p)).filter(Boolean).reduce((s,p)=>s+Number(p.valor||0),0);}
+
+function renderCustomerMetrics(){
+const contagem={};pedidos.filter(p=>p.status!=="cancelado").forEach(p=>{if(p.cliente_auth_id)contagem[p.cliente_auth_id]=(contagem[p.cliente_auth_id]||0)+1;});
+const ids=Object.keys(contagem),recorrentes=ids.filter(id=>contagem[id]>=2),media=ids.length?Object.values(contagem).reduce((a,b)=>a+b,0)/ids.length:0;
+document.getElementById("customerMetrics").innerHTML=`<div class="ga-metric"><span>Total</span><strong>${clientesValidacao.length}</strong></div><div class="ga-metric"><span>Recorrentes</span><strong>${recorrentes.length}</strong></div><div class="ga-metric"><span>Taxa</span><strong>${ids.length?Math.round(recorrentes.length/ids.length*100):0}%</strong></div><div class="ga-metric"><span>Média</span><strong>${media.toFixed(1)}</strong></div>`;
+const top=ids.sort((a,b)=>contagem[b]-contagem[a]).slice(0,4);document.getElementById("topCustomers").innerHTML=top.map(id=>`<div class="bag-rank"><div class="bag-thumb" style="display:grid;place-items:center;font-weight:700">${safeText((clientes[id]?.nome_completo||'?').charAt(0))}</div><div><strong>${safeText(clientes[id]?.nome_completo||clientes[id]?.email||"Cliente")}</strong><small>${contagem[id]} aluguel(is)</small></div></div>`).join("");
+}
+
+async function carregarGA4(){
+const alvo=document.getElementById("gaContent");if(!alvo)return;alvo.innerHTML='<div class="service-state">Atualizando dados do Google Analytics…</div>';
+try{const {data,error}=await supabaseClient.functions.invoke("ga4-dashboard",{body:{propertyId:GA4_PROPERTY_ID}});if(error)throw error;ga4Data=data;alvo.innerHTML=`<div class="ga-grid"><div class="ga-metric"><span>Usuários hoje</span><strong>${Number(data.today?.activeUsers||0).toLocaleString("pt-BR")}</strong></div><div class="ga-metric"><span>Usuários no mês</span><strong>${Number(data.month?.activeUsers||0).toLocaleString("pt-BR")}</strong></div><div class="ga-metric"><span>Sessões</span><strong>${Number(data.month?.sessions||0).toLocaleString("pt-BR")}</strong></div><div class="ga-metric"><span>Visualizações</span><strong>${Number(data.month?.screenPageViews||0).toLocaleString("pt-BR")}</strong></div></div><div class="service-state">${(data.topPages||[]).slice(0,4).map(p=>`${safeText(p.pageTitle||p.pagePath)} — <strong>${Number(p.screenPageViews||0).toLocaleString("pt-BR")}</strong>`).join("<br>")||"Nenhuma página registrada no período."}</div>`;renderDashboard();}catch(error){console.warn("GA4 indisponível:",error);alvo.innerHTML='<div class="service-state"><strong>GA4 ainda não conectado.</strong><br>Os dados operacionais continuam disponíveis. Implante a função <code>ga4-dashboard</code> e configure as credenciais da conta de serviço.</div>';}
+}
+
 async function carregarTudo(){
 setMessage("pedidosStatus", "Carregando pedidos...");
 
-const [{ data: pedidosData, error: pedidosError }, { data: bolsasData, error: bolsasError }] = await Promise.all([
+const [{ data: pedidosData, error: pedidosError }, { data: bolsasData, error: bolsasError }, { data: reservasData, error: reservasError }, { data: imagensData, error: imagensError }] = await Promise.all([
 supabaseClient
 .from("aluguel_pedidos")
 .select(`
@@ -1547,6 +1804,7 @@ dias,
 valor_aluguel,
 valor_caucao,
 bolsas (
+id,
 nome,
 marca,
 slug
@@ -1570,7 +1828,15 @@ checkout_url
 supabaseClient
 .from("bolsas")
 .select("id,slug,nome,marca,categoria,cor,material,valor_loja,valor_caucao,ativa,destaque")
-.order("nome", { ascending:true })
+.order("nome", { ascending:true }),
+supabaseClient
+.from("bolsa_reservas")
+.select("id,bolsa_id,data_inicio,data_fim,status")
+.order("data_inicio", { ascending:true }),
+supabaseClient
+.from("bolsa_imagens")
+.select("bolsa_id,url,principal,ordem")
+.order("ordem", { ascending:true })
 ]);
 
 if(pedidosError){
@@ -1582,14 +1848,20 @@ return;
 if(bolsasError){
 console.error(bolsasError);
 }
+if(reservasError) console.warn("Não foi possível carregar reservas:", reservasError);
+if(imagensError) console.warn("Não foi possível carregar imagens:", imagensError);
 
 pedidos = pedidosData || [];
 bolsas = bolsasData || [];
+reservas = reservasData || [];
+imagensBolsas = imagensData || [];
 await carregarClientes();
 renderStats();
 renderPedidos();
 renderBolsas();
 await carregarValidacoes();
+renderDashboard();
+carregarGA4();
 setMessage("pedidosStatus", `${pedidos.length} pedido(s) carregado(s).`, "success");
 }
 
@@ -1634,5 +1906,3 @@ verificarAcesso();
 </script>
 </body>
 </html>
-
-
