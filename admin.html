@@ -28,13 +28,13 @@
 <link rel="icon" sizes="32x32" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-font-family:'Inter';
+font-family:'Inter',Arial,sans-serif;
 min-height:100vh;
 background:#f6f4f0;
 color:#111;
@@ -56,7 +56,8 @@ height:100vh;
 }
 
 .brand{
-font-family:'Inter';
+font-family:'Inter',Arial,sans-serif;
+font-weight:700;
 letter-spacing:6px;
 font-size:15px;
 line-height:1.4;
@@ -117,10 +118,11 @@ margin-bottom:8px;
 }
 
 h1{
-font-family:'Playfair Display',Georgia,serif;
+font-family:'Inter',Arial,sans-serif;
 font-size:clamp(38px,5vw,62px);
-line-height:1;
-font-weight:600;
+line-height:1.05;
+font-weight:700;
+letter-spacing:-.045em;
 }
 
 .top-actions{
@@ -246,10 +248,11 @@ margin-bottom:6px;
 }
 
 .order-title{
-font-family:'Playfair Display',Georgia,serif;
+font-family:'Inter',Arial,sans-serif;
 font-size:26px;
 line-height:1.1;
-font-weight:600;
+font-weight:700;
+letter-spacing:-.025em;
 }
 
 .order-client{
@@ -397,8 +400,10 @@ padding:20px;
 }
 
 .card h2{
-font-family:'Playfair Display',Georgia,serif;
+font-family:'Inter',Arial,sans-serif;
 font-size:30px;
+font-weight:700;
+letter-spacing:-.03em;
 margin-bottom:12px;
 }
 
@@ -424,8 +429,10 @@ line-height:1.7;
 
 .empty strong{
 display:block;
-font-family:'Playfair Display',Georgia,serif;
+font-family:'Inter',Arial,sans-serif;
 font-size:30px;
+font-weight:700;
+letter-spacing:-.03em;
 color:#111;
 margin-bottom:6px;
 }
@@ -495,9 +502,11 @@ border-bottom:1px solid #eee8df;
 }
 
 .client-card h2{
-font-family:'Playfair Display',Georgia,serif;
+font-family:'Inter',Arial,sans-serif;
 font-size:28px;
 line-height:1.1;
+font-weight:700;
+letter-spacing:-.025em;
 margin:0 0 6px;
 }
 
@@ -587,13 +596,13 @@ background:#9b2c2c;
 .dashboard-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:22px;}
 .kpi{display:block;padding:17px;text-decoration:none;color:inherit;cursor:pointer;transition:transform .18s ease,border-color .18s ease;}
 .kpi:hover,.kpi:focus-visible{transform:translateY(-2px);border-color:#c9ad84;outline:none;}
-.kpi .stat-value{font-family:'Playfair Display',Georgia,serif;font-size:30px;}
+.kpi .stat-value{font-family:'Inter',Arial,sans-serif;font-size:30px;font-weight:700;letter-spacing:-.035em;}
 .kpi-note{margin-top:7px;color:#888;font-size:11px;line-height:1.35;}
 .dashboard-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.75fr);gap:16px;margin-bottom:16px;}
 .dashboard-card{padding:20px;overflow:hidden;}
 .dashboard-card-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:18px;}
 .dashboard-card h2{font-size:27px;margin:0;}
-.dashboard-card h3{font-family:'Playfair Display',Georgia,serif;font-size:21px;margin:0;}
+.dashboard-card h3{font-family:'Inter',Arial,sans-serif;font-size:21px;font-weight:700;letter-spacing:-.025em;margin:0;}
 .chart-summary{display:flex;gap:22px;flex-wrap:wrap;margin:0 0 16px;}
 .chart-summary span{font-size:11px;color:#777;text-transform:uppercase;letter-spacing:.1em;}
 .chart-summary strong{display:block;color:#111;font-size:18px;letter-spacing:0;margin-top:4px;}
