@@ -98,6 +98,8 @@ line-height:1.7;
 
 .content{
 padding:32px;
+min-width:0;
+overflow-x:hidden;
 }
 
 .topbar{
@@ -598,7 +600,8 @@ background:#9b2c2c;
 .kpi:hover,.kpi:focus-visible{transform:translateY(-2px);border-color:#c9ad84;outline:none;}
 .kpi .stat-value{font-family:'Inter',Arial,sans-serif;font-size:30px;font-weight:700;letter-spacing:-.035em;}
 .kpi-note{margin-top:7px;color:#888;font-size:11px;line-height:1.35;}
-.dashboard-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.75fr);gap:16px;margin-bottom:16px;}
+.dashboard-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,.75fr);gap:16px;margin-bottom:16px;min-width:0;}
+.dashboard-grid>*{min-width:0;}
 .dashboard-card{padding:20px;overflow:hidden;}
 .dashboard-card-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:18px;}
 .dashboard-card h2{font-size:27px;margin:0;}
@@ -628,7 +631,29 @@ background:#9b2c2c;
 .legacy-stats{display:none;}
 .investment-summary{margin-top:18px;border-top:1px solid #eee8df;padding-top:18px;}
 .investment-summary h3{font-size:17px;margin:0 0 5px;}.investment-summary p{font-size:12px;color:#777;margin:0 0 12px;line-height:1.5;}
-.investment-table-wrap{overflow-x:auto;border:1px solid #eee8df;border-radius:14px;}.investment-table{min-width:920px;margin:0;}.investment-table td,.investment-table th{white-space:nowrap;}.investment-table td{font-weight:600;}.investment-placeholder{color:#aaa;font-weight:500;}
+.investment-table-wrap{overflow:visible;border:0;border-radius:14px;}
+.investment-table{min-width:0;width:100%;display:block;margin:0;}
+.investment-table thead{display:none;}
+.investment-table tbody{display:grid;gap:12px;width:100%;}
+.investment-table tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid #eee8df;border-radius:14px;padding:10px;background:#fff;width:100%;}
+.investment-table td{display:flex;flex-direction:column;justify-content:flex-start;gap:5px;min-width:0;padding:10px;border-bottom:1px solid #f3eee8;font-weight:600;white-space:normal;overflow-wrap:anywhere;}
+.investment-table td:before{content:attr(data-label);font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.1em;font-weight:700;}
+.investment-table td[colspan]{grid-column:1/-1;display:block;text-align:center;}
+.investment-table td[colspan]:before{display:none;}
+.investment-placeholder{color:#aaa;font-weight:500;}
+.portfolio-excel{display:table;table-layout:fixed;width:100%;border-collapse:collapse;font-size:11px;}
+.portfolio-excel thead{display:table-header-group;}
+.portfolio-excel tbody{display:table-row-group;}
+.portfolio-excel tr{display:table-row;border:0;padding:0;background:#fff;}
+.portfolio-excel tbody tr:nth-child(even){background:#faf8f5;}
+.portfolio-excel tbody tr:hover{background:#f4eee5;}
+.portfolio-excel th,.portfolio-excel td{display:table-cell;border:1px solid #ddd6cd;padding:9px 6px;vertical-align:middle;white-space:normal;overflow-wrap:anywhere;text-align:left;}
+.portfolio-excel th{background:#1b1b1b;color:#fff;font-size:9px;line-height:1.35;letter-spacing:.05em;}
+.portfolio-excel td:before{display:none;}
+.portfolio-excel td:nth-child(n+3){text-align:right;}
+.portfolio-excel .money-emphasis{font-weight:800;text-decoration:underline;text-decoration-color:#c8a776;text-underline-offset:3px;}
+.portfolio-excel tr.recovered td:first-child{border-left:4px solid #32633e;}
+.portfolio-excel tr.recovered .money-emphasis{color:#32633e;}
 
 @media(max-width:1040px){
 .shell{grid-template-columns:1fr;}
@@ -639,6 +664,7 @@ background:#9b2c2c;
 .controls{grid-template-columns:1fr 1fr;}
 .price-grid{grid-template-columns:repeat(3,minmax(0,1fr));}
 .dashboard-kpis{grid-template-columns:repeat(2,minmax(0,1fr));}.dashboard-grid{grid-template-columns:1fr;}
+.portfolio-excel{display:block;font-size:13px;}.portfolio-excel thead{display:none;}.portfolio-excel tbody{display:grid;gap:12px;}.portfolio-excel tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #eee8df;border-radius:14px;padding:10px;}.portfolio-excel th,.portfolio-excel td{display:flex;flex-direction:column;gap:5px;border:0;border-bottom:1px solid #f3eee8;padding:10px;text-align:left!important;}.portfolio-excel td:before{display:block;content:attr(data-label);font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.1em;font-weight:700;}.portfolio-excel tr.recovered td:first-child{border-left:4px solid #32633e;}
 }
 
 @media(max-width:640px){
@@ -651,8 +677,25 @@ background:#9b2c2c;
 .client-info-grid,.client-docs{grid-template-columns:1fr;}
 .order-head{display:block;}
 .badge{margin-top:12px;}
+.investment-table tr{grid-template-columns:1fr 1fr;}
 .dashboard-filters select,.dashboard-filters input{width:100%;min-width:0;}.dashboard-status{margin-left:0;width:100%;}.dashboard-kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.kpi{padding:14px}.kpi .stat-value{font-size:24px}.dashboard-card{padding:16px}.dashboard-card-head{display:block}.dashboard-card-head .btn{margin-top:12px}.chart-wrap{height:210px}.table-scroll{overflow:visible}.data-table,.data-table tbody,.data-table tr,.data-table td{display:block;width:100%}.data-table thead{display:none}.data-table tr{border:1px solid #eee8df;border-radius:13px;padding:10px;margin-bottom:10px}.data-table td{display:flex;justify-content:space-between;gap:16px;padding:7px;border:0;text-align:right}.data-table td:before{content:attr(data-label);font-size:10px;color:#777;text-transform:uppercase;letter-spacing:.08em;text-align:left}.ga-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
 }
+
+@media(max-width:420px){
+.investment-table tr{grid-template-columns:1fr;}
+}
+
+/* Estoque completo permanece uma tabela real em qualquer largura. */
+.portfolio-excel{display:table!important;table-layout:fixed!important;width:100%!important;border-collapse:collapse!important;font-size:clamp(7px,.72vw,11px)!important;}
+.portfolio-excel thead{display:table-header-group!important;}
+.portfolio-excel tbody{display:table-row-group!important;}
+.portfolio-excel tr{display:table-row!important;border:0!important;padding:0!important;background:#fff;}
+.portfolio-excel tbody tr:nth-child(even){background:#faf8f5;}
+.portfolio-excel th,.portfolio-excel td{display:table-cell!important;border:1px solid #ddd6cd!important;padding:clamp(4px,.6vw,9px) clamp(2px,.4vw,6px)!important;vertical-align:middle!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;text-align:left!important;line-height:1.35!important;}
+.portfolio-excel td:nth-child(n+3){text-align:right!important;}
+.portfolio-excel td:before{display:none!important;content:none!important;}
+.portfolio-excel th{background:#1b1b1b!important;color:#fff!important;font-size:clamp(7px,.62vw,9px)!important;}
+.portfolio-excel tr.recovered td:first-child{border-left:4px solid #32633e!important;}
 </style>
 </head>
 
@@ -774,8 +817,8 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 <article class="card dashboard-card">
 <div class="dashboard-card-head"><div><p class="eyebrow">Estoque completo</p><h2>Retorno por bolsa</h2></div></div>
 <div class="investment-table-wrap">
-<table class="data-table investment-table">
-<thead><tr><th>Marca</th><th>Modelo</th><th>Valor loja</th><th>Valor que paguei</th><th>Valor caução</th><th>Dias</th><th>Aluguel</th><th>% valor pago</th><th>% valor loja</th><th>Meta locação</th><th>Faturamento</th></tr></thead>
+<table class="data-table portfolio-excel">
+<thead><tr><th>🏷️ Marca</th><th>👜 Modelo</th><th>🏬 Valor loja</th><th>💳 Valor pago</th><th>🔒 Caução</th><th>📅 Dias</th><th>💵 Aluguel</th><th>📈 % pago</th><th>📊 % loja</th><th>🎯 Meta</th><th>💰 Faturamento</th></tr></thead>
 <tbody id="portfolioTableBody"></tbody>
 </table>
 </div>
@@ -1266,16 +1309,16 @@ const percentualLoja = aluguel && valorLoja ? aluguel / valorLoja * 100 : null;
 const metaLocacao = aluguel && valorPago ? Math.round(valorPago / aluguel) : null;
 const vazio = '<span class="investment-placeholder">—</span>';
 alvo.innerHTML = `<tr>
-<td>${marca ? safeText(marca) : vazio}</td>
-<td>${modelo ? safeText(modelo) : vazio}</td>
-<td>${valorLoja !== null ? moeda(valorLoja) : vazio}</td>
-<td>${valorPago !== null ? moeda(valorPago) : vazio}</td>
-<td>${caucao !== null ? moeda(caucao) : vazio}</td>
-<td>${planoMinimo ? planoMinimo.dias : vazio}</td>
-<td>${aluguel !== null ? moeda(aluguel) : vazio}</td>
-<td>${percentualPago !== null ? percentualPago.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%" : vazio}</td>
-<td>${percentualLoja !== null ? percentualLoja.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%" : vazio}</td>
-<td>${metaLocacao !== null ? metaLocacao : vazio}</td>
+<td data-label="Marca">${marca ? safeText(marca) : vazio}</td>
+<td data-label="Modelo">${modelo ? safeText(modelo) : vazio}</td>
+<td data-label="Valor loja">${valorLoja !== null ? moeda(valorLoja) : vazio}</td>
+<td data-label="Valor que paguei">${valorPago !== null ? moeda(valorPago) : vazio}</td>
+<td data-label="Valor caução">${caucao !== null ? moeda(caucao) : vazio}</td>
+<td data-label="Dias">${planoMinimo ? planoMinimo.dias : vazio}</td>
+<td data-label="Aluguel">${aluguel !== null ? moeda(aluguel) : vazio}</td>
+<td data-label="% valor pago">${percentualPago !== null ? percentualPago.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%" : vazio}</td>
+<td data-label="% valor loja">${percentualLoja !== null ? percentualLoja.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%" : vazio}</td>
+<td data-label="Meta locação">${metaLocacao !== null ? metaLocacao : vazio}</td>
 </tr>`;
 }
 
@@ -1896,13 +1939,13 @@ cardKpi("Receita acumulada",moeda(receita),"Pagamentos aprovados","pedidos"),
 cardKpi("Capital recuperado",retorno.toLocaleString("pt-BR",{maximumFractionDigits:1})+"%",`${recuperadas} bolsa(s) atingiram o valor pago`,"bolsas"),
 cardKpi("Bolsas sem aluguel",semAluguel,"Oportunidade de ação comercial","bolsas")
 ].join("");
-document.getElementById("portfolioTableBody").innerHTML=dados.sort((a,b)=>b.faturamento-a.faturamento).map(x=>`<tr>
+document.getElementById("portfolioTableBody").innerHTML=dados.sort((a,b)=>b.faturamento-a.faturamento).map(x=>`<tr class="${x.valorPago>0&&x.faturamento>=x.valorPago?'recovered':''}">
 <td data-label="Marca">${safeText(x.b.marca||"-")}</td><td data-label="Modelo"><strong>${safeText(x.b.nome||"-")}</strong></td>
 <td data-label="Valor loja">${x.valorLoja?moeda(x.valorLoja):"—"}</td><td data-label="Valor pago">${x.valorPago?moeda(x.valorPago):"—"}</td><td data-label="Caução">${moeda(x.b.valor_caucao)}</td>
 <td data-label="Dias">${x.plano?.dias||"—"}</td><td data-label="Aluguel">${x.aluguel?moeda(x.aluguel):"—"}</td>
 <td data-label="% valor pago">${x.pctPago!==null?x.pctPago.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
 <td data-label="% valor loja">${x.pctLoja!==null?x.pctLoja.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
-<td data-label="Meta locação">${x.meta??"—"}</td><td data-label="Faturamento"><strong>${moeda(x.faturamento)}</strong></td></tr>`).join("") || '<tr><td colspan="11" class="dashboard-empty">Nenhuma bolsa cadastrada.</td></tr>';
+<td data-label="Meta locação">${x.meta??"—"}</td><td data-label="Faturamento" class="money-emphasis">${moeda(x.faturamento)}</td></tr>`).join("") || '<tr><td colspan="11" class="dashboard-empty">Nenhuma bolsa cadastrada.</td></tr>';
 }
 
 function renderCustomerMetrics(){
