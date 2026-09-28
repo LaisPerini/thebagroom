@@ -626,6 +626,9 @@ background:#9b2c2c;
 .service-state{border:1px dashed #d7ccbe;border-radius:13px;padding:14px;color:#6b6259;font-size:12px;line-height:1.6;background:#fcfbf9;}
 .dashboard-empty{padding:18px;text-align:center;color:#777;font-size:13px;}
 .legacy-stats{display:none;}
+.investment-summary{margin-top:18px;border-top:1px solid #eee8df;padding-top:18px;}
+.investment-summary h3{font-size:17px;margin:0 0 5px;}.investment-summary p{font-size:12px;color:#777;margin:0 0 12px;line-height:1.5;}
+.investment-table-wrap{overflow-x:auto;border:1px solid #eee8df;border-radius:14px;}.investment-table{min-width:920px;margin:0;}.investment-table td,.investment-table th{white-space:nowrap;}.investment-table td{font-weight:600;}.investment-placeholder{color:#aaa;font-weight:500;}
 
 @media(max-width:1040px){
 .shell{grid-template-columns:1fr;}
@@ -744,8 +747,8 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 <div class="table-scroll"><table class="data-table"><thead><tr><th>Cliente</th><th>Bolsa</th><th>Retirada</th><th>Devolução</th><th>Valor</th><th>Status</th></tr></thead><tbody id="activeRentalsBody"></tbody></table></div>
 </article>
 <article class="card dashboard-card">
-<div class="dashboard-card-head"><div><p class="eyebrow">Estoque</p><h2>Performance das bolsas</h2></div></div>
-<div id="bagPerformance"></div>
+<div class="dashboard-card-head"><div><p class="eyebrow">Estoque · Top 20</p><h2>Performance das bolsas</h2></div></div>
+<div id="bagPerformance" style="max-height:620px;overflow-y:auto;padding-right:6px;"></div>
 </article>
 </div>
 
@@ -807,7 +810,7 @@ Cadastre uma nova bolsa para aluguel. Os campos de preço são opcionais, mas aj
 <div class="form-grid">
 <div class="field">
 <label for="novaBolsaNome">Nome da bolsa</label>
-<input id="novaBolsaNome" placeholder="Ex: Bvlgari Serpenti Forever" oninput="sugerirSlugBolsa()">
+<input id="novaBolsaNome" placeholder="Ex: Bvlgari Serpenti Forever" oninput="sugerirSlugBolsa();renderResumoCadastroBolsa()">
 </div>
 <div class="field">
 <label for="novaBolsaSlug">Slug / página</label>
@@ -815,7 +818,7 @@ Cadastre uma nova bolsa para aluguel. Os campos de preço são opcionais, mas aj
 </div>
 <div class="field">
 <label for="novaBolsaMarca">Marca</label>
-<input id="novaBolsaMarca" placeholder="Bvlgari">
+<input id="novaBolsaMarca" placeholder="Bvlgari" oninput="renderResumoCadastroBolsa()">
 </div>
 <div class="field">
 <label for="novaBolsaCategoria">Categoria</label>
@@ -839,11 +842,15 @@ Cadastre uma nova bolsa para aluguel. Os campos de preço são opcionais, mas aj
 </div>
 <div class="field">
 <label for="novaBolsaValorLoja">Valor loja</label>
-<input id="novaBolsaValorLoja" inputmode="decimal" placeholder="7050">
+<input id="novaBolsaValorLoja" inputmode="decimal" placeholder="7050" oninput="renderResumoCadastroBolsa()">
+</div>
+<div class="field">
+<label for="novaBolsaValorPago">Valor que paguei</label>
+<input id="novaBolsaValorPago" inputmode="decimal" placeholder="2464" oninput="renderResumoCadastroBolsa()">
 </div>
 <div class="field">
 <label for="novaBolsaCaucao">Caução</label>
-<input id="novaBolsaCaucao" inputmode="decimal" placeholder="1000">
+<input id="novaBolsaCaucao" inputmode="decimal" placeholder="1000" oninput="renderResumoCadastroBolsa()">
 </div>
 <div class="field full">
 <label for="novaBolsaImagem">URL da imagem principal</label>
@@ -856,13 +863,23 @@ Cadastre uma nova bolsa para aluguel. Os campos de preço são opcionais, mas aj
 <div class="field full">
 <label>Preços de aluguel</label>
 <div class="price-grid">
-<div class="field"><label for="preco4">4 dias</label><input id="preco4" inputmode="decimal" placeholder="190"></div>
-<div class="field"><label for="preco7">7 dias</label><input id="preco7" inputmode="decimal" placeholder="290"></div>
-<div class="field"><label for="preco10">10 dias</label><input id="preco10" inputmode="decimal" placeholder="390"></div>
-<div class="field"><label for="preco15">15 dias</label><input id="preco15" inputmode="decimal" placeholder="490"></div>
-<div class="field"><label for="preco20">20 dias</label><input id="preco20" inputmode="decimal" placeholder="590"></div>
-<div class="field"><label for="preco30">30 dias</label><input id="preco30" inputmode="decimal" placeholder="790"></div>
+<div class="field"><label for="preco4">4 dias</label><input id="preco4" inputmode="decimal" placeholder="190" oninput="renderResumoCadastroBolsa()"></div>
+<div class="field"><label for="preco7">7 dias</label><input id="preco7" inputmode="decimal" placeholder="290" oninput="renderResumoCadastroBolsa()"></div>
+<div class="field"><label for="preco10">10 dias</label><input id="preco10" inputmode="decimal" placeholder="390" oninput="renderResumoCadastroBolsa()"></div>
+<div class="field"><label for="preco15">15 dias</label><input id="preco15" inputmode="decimal" placeholder="490" oninput="renderResumoCadastroBolsa()"></div>
+<div class="field"><label for="preco20">20 dias</label><input id="preco20" inputmode="decimal" placeholder="590" oninput="renderResumoCadastroBolsa()"></div>
+<div class="field"><label for="preco30">30 dias</label><input id="preco30" inputmode="decimal" placeholder="790" oninput="renderResumoCadastroBolsa()"></div>
 </div>
+</div>
+</div>
+<div class="investment-summary">
+<h3>Resumo do investimento</h3>
+<p>Os percentuais usam o aluguel da menor duração preenchida. A meta estima quantas locações desse plano são necessárias para recuperar o valor pago.</p>
+<div class="investment-table-wrap">
+<table class="data-table investment-table">
+<thead><tr><th>Marca</th><th>Modelo</th><th>Valor loja</th><th>Valor que paguei</th><th>Valor caução</th><th>Dias</th><th>Aluguel</th><th>% valor pago</th><th>% valor loja</th><th>Meta locação</th></tr></thead>
+<tbody id="resumoCadastroBolsa"><tr><td colspan="10" class="investment-placeholder">Preencha os dados acima para visualizar os cálculos.</td></tr></tbody>
+</table>
 </div>
 </div>
 <div class="checkbox-row">
@@ -1214,6 +1231,36 @@ function campoTexto(id){
 return document.getElementById(id)?.value.trim() || "";
 }
 
+function renderResumoCadastroBolsa(){
+const alvo = document.getElementById("resumoCadastroBolsa");
+if(!alvo) return;
+const marca = campoTexto("novaBolsaMarca");
+const modelo = campoTexto("novaBolsaNome");
+const valorLoja = valorDecimal("novaBolsaValorLoja");
+const valorPago = valorDecimal("novaBolsaValorPago");
+const caucao = valorDecimal("novaBolsaCaucao");
+const planoMinimo = [4,7,10,15,20,30]
+.map(dias => ({ dias, valor: valorDecimal(`preco${dias}`) }))
+.find(plano => plano.valor !== null && plano.valor > 0);
+const aluguel = planoMinimo?.valor || null;
+const percentualPago = aluguel && valorPago ? aluguel / valorPago * 100 : null;
+const percentualLoja = aluguel && valorLoja ? aluguel / valorLoja * 100 : null;
+const metaLocacao = aluguel && valorPago ? Math.round(valorPago / aluguel) : null;
+const vazio = '<span class="investment-placeholder">—</span>';
+alvo.innerHTML = `<tr>
+<td>${marca ? safeText(marca) : vazio}</td>
+<td>${modelo ? safeText(modelo) : vazio}</td>
+<td>${valorLoja !== null ? moeda(valorLoja) : vazio}</td>
+<td>${valorPago !== null ? moeda(valorPago) : vazio}</td>
+<td>${caucao !== null ? moeda(caucao) : vazio}</td>
+<td>${planoMinimo ? planoMinimo.dias : vazio}</td>
+<td>${aluguel !== null ? moeda(aluguel) : vazio}</td>
+<td>${percentualPago !== null ? percentualPago.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%" : vazio}</td>
+<td>${percentualLoja !== null ? percentualLoja.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%" : vazio}</td>
+<td>${metaLocacao !== null ? metaLocacao : vazio}</td>
+</tr>`;
+}
+
 function limparFormularioBolsa(){
 [
 "novaBolsaNome",
@@ -1225,6 +1272,7 @@ function limparFormularioBolsa(){
 "novaBolsaDimensoes",
 "novaBolsaEstado",
 "novaBolsaValorLoja",
+"novaBolsaValorPago",
 "novaBolsaCaucao",
 "novaBolsaImagem",
 "novaBolsaDescricao",
@@ -1243,6 +1291,7 @@ document.getElementById("novaBolsaAtiva").checked = true;
 document.getElementById("novaBolsaDestaque").checked = false;
 document.getElementById("novaBolsaSlug").dataset.editado = "";
 setMessage("bolsaStatus", "");
+renderResumoCadastroBolsa();
 }
 
 async function cadastrarBolsa(){
@@ -1268,6 +1317,7 @@ dimensoes: campoTexto("novaBolsaDimensoes") || null,
 estado: campoTexto("novaBolsaEstado") || null,
 descricao: campoTexto("novaBolsaDescricao") || null,
 valor_loja: valorDecimal("novaBolsaValorLoja"),
+valor_pago: valorDecimal("novaBolsaValorPago"),
 valor_caucao: valorDecimal("novaBolsaCaucao") || 0,
 ativa: document.getElementById("novaBolsaAtiva").checked,
 destaque: document.getElementById("novaBolsaDestaque").checked
@@ -1282,6 +1332,8 @@ const { data: bolsaCriada, error: bolsaError } = await supabaseClient
 if(bolsaError){
 const mensagem = bolsaError.message?.includes("duplicate key")
 ? "Já existe uma bolsa com esse slug. Troque o slug e tente novamente."
+: bolsaError.message?.includes("valor_pago")
+? "Crie primeiro a coluna valor_pago no Supabase usando o SQL fornecido."
 : "Não foi possível cadastrar a bolsa.";
 setMessage("bolsaStatus", mensagem, "error");
 console.error(bolsaError);
@@ -1774,7 +1826,7 @@ document.getElementById("activeRentalsBody").innerHTML = lista.length ? lista.ma
 }
 
 function renderBagPerformance(){
-const perf = bolsas.map(b=>{const alugueis=pedidos.filter(p=>itemPedido(p)?.bolsas?.id===b.id && p.status!=="cancelado");const receita=aluguéisReceita(alugueis);const imagem=imagensBolsas.find(i=>i.bolsa_id===b.id);return {b,alugueis,receita,imagem};}).sort((a,b)=>b.receita-a.receita).slice(0,6);
+const perf = bolsas.map(b=>{const alugueis=pedidos.filter(p=>itemPedido(p)?.bolsas?.id===b.id && p.status!=="cancelado");const receita=aluguéisReceita(alugueis);const imagem=imagensBolsas.find(i=>i.bolsa_id===b.id);return {b,alugueis,receita,imagem};}).sort((a,b)=>b.receita-a.receita || b.alugueis.length-a.alugueis.length).slice(0,20);
 document.getElementById("bagPerformance").innerHTML = perf.length ? perf.map((x,i)=>`<div class="bag-rank"><img class="bag-thumb" src="${safeText(x.imagem?.url||'/favicon.png')}" alt=""><div><strong>${i+1}. ${safeText(x.b.nome)}</strong><small>${safeText(x.b.marca||'')} · ${x.alugueis.length} aluguel(is)</small></div><div class="bag-rank-value">${moeda(x.receita)}</div></div>`).join("") : '<div class="dashboard-empty">Sem dados de performance.</div>';
 }
 
