@@ -672,8 +672,8 @@ background:#9b2c2c;
 <button type="button" class="active" data-panel="dashboard" onclick="abrirPainel('dashboard', this)">Dashboard</button>
 <button type="button" data-panel="pedidos" onclick="abrirPainel('pedidos', this)">Aluguéis</button>
 <button type="button" data-panel="bloqueios" onclick="abrirPainel('bloqueios', this)">Bloquear Datas</button>
-<button type="button" data-panel="bolsas" onclick="abrirPainel('bolsas', this)">Bolsas</button>
-<button type="button" data-panel="clientes" onclick="abrirPainel('clientes', this)">Validação</button>
+<button type="button" data-panel="bolsas" onclick="abrirPainel('bolsas', this)">Cadastrar Bolsa</button>
+<button type="button" data-panel="clientes" onclick="abrirPainel('clientes', this)">Validação de Clientes</button>
 <button type="button" data-panel="ajuda" onclick="abrirPainel('ajuda', this)">Ajuda</button>
 </nav>
 <p class="sidebar-note">
@@ -715,12 +715,14 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 
 <section id="dashboard" class="panel active">
 <div class="dashboard-filters" aria-label="Filtros do dashboard">
-<select id="dashboardPeriod" onchange="renderDashboard()" aria-label="Período">
+<select id="dashboardPeriod" onchange="aplicarPeriodoDashboard()" aria-label="Período">
 <option value="30">Últimos 30 dias</option>
 <option value="7">Últimos 7 dias</option>
 <option value="month">Mês atual</option>
 <option value="previous">Mês anterior</option>
 </select>
+<input id="dashboardDateFrom" type="date" onchange="renderDashboard()" aria-label="Data inicial" title="Data inicial">
+<input id="dashboardDateTo" type="date" onchange="renderDashboard()" aria-label="Data final" title="Data final">
 <select id="dashboardBrand" onchange="renderDashboard()" aria-label="Marca"><option value="">Todas as marcas</option></select>
 <select id="dashboardStatus" onchange="renderDashboard()" aria-label="Status"><option value="">Todos os status</option></select>
 <button class="btn secondary small" type="button" onclick="limparFiltrosDashboard()">Limpar filtros</button>
@@ -747,7 +749,7 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 <div class="table-scroll"><table class="data-table"><thead><tr><th>Cliente</th><th>Bolsa</th><th>Retirada</th><th>Devolução</th><th>Valor</th><th>Status</th></tr></thead><tbody id="activeRentalsBody"></tbody></table></div>
 </article>
 <article class="card dashboard-card">
-<div class="dashboard-card-head"><div><p class="eyebrow">Estoque · Top 20</p><h2>Performance das bolsas</h2></div></div>
+<div class="dashboard-card-head"><div><p class="eyebrow">Estoque · Todas as bolsas</p><h2>Performance das bolsas</h2></div></div>
 <div id="bagPerformance" style="max-height:620px;overflow-y:auto;padding-right:6px;"></div>
 </article>
 </div>
@@ -763,6 +765,21 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 <div id="topCustomers"></div>
 </article>
 </div>
+
+<article class="card dashboard-card" style="margin-bottom:16px;">
+<div class="dashboard-card-head"><div><p class="eyebrow">Investimento</p><h2>Análises do portfólio</h2></div></div>
+<div class="dashboard-kpis" id="portfolioMetrics" style="margin-bottom:0;"></div>
+</article>
+
+<article class="card dashboard-card">
+<div class="dashboard-card-head"><div><p class="eyebrow">Estoque completo</p><h2>Retorno por bolsa</h2></div></div>
+<div class="investment-table-wrap">
+<table class="data-table investment-table">
+<thead><tr><th>Marca</th><th>Modelo</th><th>Valor loja</th><th>Valor que paguei</th><th>Valor caução</th><th>Dias</th><th>Aluguel</th><th>% valor pago</th><th>% valor loja</th><th>Meta locação</th><th>Faturamento</th></tr></thead>
+<tbody id="portfolioTableBody"></tbody>
+</table>
+</div>
+</article>
 </section>
 
 <section id="pedidos" class="panel">
@@ -987,6 +1004,7 @@ let filtroClientesValidacao = "todos";
 let usuarioAtual = null;
 let reservas = [];
 let imagensBolsas = [];
+let precosBolsas = [];
 let ga4Data = null;
 const GA4_PROPERTY_ID = "538615957";
 
@@ -1696,10 +1714,29 @@ function intervaloDashboard(){
 const valor = document.getElementById("dashboardPeriod")?.value || "30";
 const hoje = new Date(); hoje.setHours(0,0,0,0);
 let inicio = new Date(hoje); let fim = new Date(hoje); fim.setHours(23,59,59,999);
+const dataInicial = document.getElementById("dashboardDateFrom")?.value;
+const dataFinal = document.getElementById("dashboardDateTo")?.value;
+if(dataInicial && dataFinal){
+inicio = new Date(`${dataInicial}T00:00:00`);
+fim = new Date(`${dataFinal}T23:59:59`);
+return {inicio,fim,dias:Math.max(1,Math.round((fim-inicio)/86400000)+1)};
+}
 if(valor === "month") inicio = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
 else if(valor === "previous") { inicio = new Date(hoje.getFullYear(), hoje.getMonth()-1, 1); fim = new Date(hoje.getFullYear(), hoje.getMonth(), 0,23,59,59,999); }
 else inicio.setDate(inicio.getDate() - (Number(valor) - 1));
 return {inicio,fim,dias:Math.max(1,Math.round((fim-inicio)/86400000)+1)};
+}
+
+function aplicarPeriodoDashboard(){
+const valor = document.getElementById("dashboardPeriod")?.value || "30";
+const hoje = new Date(); hoje.setHours(0,0,0,0);
+let inicio = new Date(hoje); let fim = new Date(hoje);
+if(valor === "month") inicio = new Date(hoje.getFullYear(),hoje.getMonth(),1);
+else if(valor === "previous"){inicio = new Date(hoje.getFullYear(),hoje.getMonth()-1,1);fim = new Date(hoje.getFullYear(),hoje.getMonth(),0);}
+else inicio.setDate(inicio.getDate()-(Number(valor)-1));
+document.getElementById("dashboardDateFrom").value = dataISO(inicio);
+document.getElementById("dashboardDateTo").value = dataISO(fim);
+renderDashboard();
 }
 
 function itemPedido(pedido){ return primeiro(pedido.aluguel_itens); }
@@ -1719,6 +1756,7 @@ return criado >= inicio && criado <= fim && (!marca || bolsaPedido(p).marca === 
 }
 
 function configurarFiltrosDashboard(){
+if(!document.getElementById("dashboardDateFrom").value) aplicarDatasIniciaisDashboard();
 const marcaSelect = document.getElementById("dashboardBrand");
 const atual = marcaSelect.value;
 const marcas = [...new Set(bolsas.map(b => b.marca).filter(Boolean))].sort((a,b) => a.localeCompare(b,"pt-BR"));
@@ -1728,8 +1766,15 @@ const statusSelect = document.getElementById("dashboardStatus");
 if(statusSelect.options.length === 1) statusSelect.innerHTML += statusOptions.map(s => `<option value="${s}">${statusLabels[s]}</option>`).join("");
 }
 
+function aplicarDatasIniciaisDashboard(){
+const fim = new Date(); const inicio = new Date(); inicio.setDate(inicio.getDate()-29);
+document.getElementById("dashboardDateFrom").value = dataISO(inicio);
+document.getElementById("dashboardDateTo").value = dataISO(fim);
+}
+
 function limparFiltrosDashboard(){
 document.getElementById("dashboardPeriod").value = "30";
+aplicarDatasIniciaisDashboard();
 document.getElementById("dashboardBrand").value = "";
 document.getElementById("dashboardStatus").value = "";
 renderDashboard();
@@ -1792,6 +1837,7 @@ renderAttention({atrasados,devolucoesHoje,devolucoesAmanha,pendentes});
 renderActiveRentals(ativos, atrasados);
 renderBagPerformance();
 renderCustomerMetrics();
+renderPortfolioAnalysis();
 document.getElementById("dashboardStatusText").textContent = `Atualizado às ${new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}`;
 }
 
@@ -1826,11 +1872,38 @@ document.getElementById("activeRentalsBody").innerHTML = lista.length ? lista.ma
 }
 
 function renderBagPerformance(){
-const perf = bolsas.map(b=>{const alugueis=pedidos.filter(p=>itemPedido(p)?.bolsas?.id===b.id && p.status!=="cancelado");const receita=aluguéisReceita(alugueis);const imagem=imagensBolsas.find(i=>i.bolsa_id===b.id);return {b,alugueis,receita,imagem};}).sort((a,b)=>b.receita-a.receita || b.alugueis.length-a.alugueis.length).slice(0,20);
+const perf = bolsas.map(b=>{const alugueis=pedidos.filter(p=>itemPedido(p)?.bolsas?.id===b.id && p.status!=="cancelado");const receita=aluguéisReceita(alugueis);const imagem=imagensBolsas.find(i=>i.bolsa_id===b.id);return {b,alugueis,receita,imagem};}).sort((a,b)=>b.receita-a.receita || b.alugueis.length-a.alugueis.length);
 document.getElementById("bagPerformance").innerHTML = perf.length ? perf.map((x,i)=>`<div class="bag-rank"><img class="bag-thumb" src="${safeText(x.imagem?.url||'/favicon.png')}" alt=""><div><strong>${i+1}. ${safeText(x.b.nome)}</strong><small>${safeText(x.b.marca||'')} · ${x.alugueis.length} aluguel(is)</small></div><div class="bag-rank-value">${moeda(x.receita)}</div></div>`).join("") : '<div class="dashboard-empty">Sem dados de performance.</div>';
 }
 
 function aluguéisReceita(lista){return lista.map(p=>pagamentoAprovado(p)).filter(Boolean).reduce((s,p)=>s+Number(p.valor||0),0);}
+
+function renderPortfolioAnalysis(){
+const dados = bolsas.map(b=>{
+const planos = precosBolsas.filter(p=>p.bolsa_id===b.id && p.ativo!==false && Number(p.valor)>0).sort((a,b)=>Number(a.dias)-Number(b.dias));
+const plano = planos[0] || null;
+const alugueis = pedidos.filter(p=>itemPedido(p)?.bolsas?.id===b.id && p.status!=="cancelado");
+const faturamento = aluguéisReceita(alugueis);
+const valorPago = Number(b.valor_pago||0), valorLoja=Number(b.valor_loja||0), aluguel=Number(plano?.valor||0);
+return {b,plano,alugueis,faturamento,valorPago,valorLoja,aluguel,pctPago:valorPago&&aluguel?aluguel/valorPago*100:null,pctLoja:valorLoja&&aluguel?aluguel/valorLoja*100:null,meta:valorPago&&aluguel?Math.round(valorPago/aluguel):null};
+});
+const capital=dados.reduce((s,x)=>s+x.valorPago,0), receita=dados.reduce((s,x)=>s+x.faturamento,0);
+const semAluguel=dados.filter(x=>!x.alugueis.length).length, recuperadas=dados.filter(x=>x.valorPago>0&&x.faturamento>=x.valorPago).length;
+const retorno=capital?receita/capital*100:0;
+document.getElementById("portfolioMetrics").innerHTML=[
+cardKpi("Capital investido",moeda(capital),"Valores de aquisição informados","bolsas"),
+cardKpi("Receita acumulada",moeda(receita),"Pagamentos aprovados","pedidos"),
+cardKpi("Capital recuperado",retorno.toLocaleString("pt-BR",{maximumFractionDigits:1})+"%",`${recuperadas} bolsa(s) atingiram o valor pago`,"bolsas"),
+cardKpi("Bolsas sem aluguel",semAluguel,"Oportunidade de ação comercial","bolsas")
+].join("");
+document.getElementById("portfolioTableBody").innerHTML=dados.sort((a,b)=>b.faturamento-a.faturamento).map(x=>`<tr>
+<td data-label="Marca">${safeText(x.b.marca||"-")}</td><td data-label="Modelo"><strong>${safeText(x.b.nome||"-")}</strong></td>
+<td data-label="Valor loja">${x.valorLoja?moeda(x.valorLoja):"—"}</td><td data-label="Valor pago">${x.valorPago?moeda(x.valorPago):"—"}</td><td data-label="Caução">${moeda(x.b.valor_caucao)}</td>
+<td data-label="Dias">${x.plano?.dias||"—"}</td><td data-label="Aluguel">${x.aluguel?moeda(x.aluguel):"—"}</td>
+<td data-label="% valor pago">${x.pctPago!==null?x.pctPago.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
+<td data-label="% valor loja">${x.pctLoja!==null?x.pctLoja.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
+<td data-label="Meta locação">${x.meta??"—"}</td><td data-label="Faturamento"><strong>${moeda(x.faturamento)}</strong></td></tr>`).join("") || '<tr><td colspan="11" class="dashboard-empty">Nenhuma bolsa cadastrada.</td></tr>';
+}
 
 function renderCustomerMetrics(){
 const contagem={};pedidos.filter(p=>p.status!=="cancelado").forEach(p=>{if(p.cliente_auth_id)contagem[p.cliente_auth_id]=(contagem[p.cliente_auth_id]||0)+1;});
@@ -1847,7 +1920,7 @@ try{const {data,error}=await supabaseClient.functions.invoke("ga4-dashboard",{bo
 async function carregarTudo(){
 setMessage("pedidosStatus", "Carregando pedidos...");
 
-const [{ data: pedidosData, error: pedidosError }, { data: bolsasData, error: bolsasError }, { data: reservasData, error: reservasError }, { data: imagensData, error: imagensError }] = await Promise.all([
+const [{ data: pedidosData, error: pedidosError }, { data: bolsasData, error: bolsasError }, { data: reservasData, error: reservasError }, { data: imagensData, error: imagensError }, { data: precosData, error: precosError }, { data: investimentosData, error: investimentosError }] = await Promise.all([
 supabaseClient
 .from("aluguel_pedidos")
 .select(`
@@ -1897,7 +1970,14 @@ supabaseClient
 supabaseClient
 .from("bolsa_imagens")
 .select("bolsa_id,url,principal,ordem")
-.order("ordem", { ascending:true })
+.order("ordem", { ascending:true }),
+supabaseClient
+.from("bolsa_precos")
+.select("bolsa_id,dias,valor,ativo")
+.order("dias", { ascending:true }),
+supabaseClient
+.from("bolsas")
+.select("id,valor_pago")
 ]);
 
 if(pedidosError){
@@ -1911,11 +1991,15 @@ console.error(bolsasError);
 }
 if(reservasError) console.warn("Não foi possível carregar reservas:", reservasError);
 if(imagensError) console.warn("Não foi possível carregar imagens:", imagensError);
+if(precosError) console.warn("Não foi possível carregar preços:", precosError);
+if(investimentosError) console.warn("A coluna valor_pago ainda não foi criada:", investimentosError);
 
 pedidos = pedidosData || [];
-bolsas = bolsasData || [];
+const investimentos = new Map((investimentosData || []).map(item => [item.id,item.valor_pago]));
+bolsas = (bolsasData || []).map(bolsa => ({...bolsa,valor_pago:investimentos.get(bolsa.id) ?? null}));
 reservas = reservasData || [];
 imagensBolsas = imagensData || [];
+precosBolsas = precosData || [];
 await carregarClientes();
 renderStats();
 renderPedidos();
