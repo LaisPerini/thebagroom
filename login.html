@@ -131,6 +131,34 @@ text-decoration:none;
 color:#666;
 font-size:14px;
 }
+.auth-view[hidden]{display:none !important;}
+.auth-back{
+margin:0 0 18px;
+padding:0;
+min-height:0;
+border:0;
+background:transparent;
+color:#666;
+font-size:12px;
+letter-spacing:.06em;
+cursor:pointer;
+}
+.auth-status{
+min-height:22px;
+margin-top:14px;
+color:#666;
+font-size:12px;
+line-height:1.55;
+text-align:center;
+}
+.auth-status.error{color:#8a302a;}
+.auth-status.success{color:#315f3b;}
+.password-note{
+margin:-3px 0 13px;
+color:#777;
+font-size:11px;
+line-height:1.5;
+}
 .divisor{
 margin:12px 0;
 height:1px;
@@ -361,6 +389,7 @@ font-size:26px;
 <div class="container">
 <div class="login-card">
 
+<section class="auth-view" id="loginView">
 <h1 class="titulo">
 Minha Conta
 </h1>
@@ -388,9 +417,10 @@ id="btnEntrar"
 onclick="fazerLogin()">
 ENTRAR
 </button>
+<p class="auth-status" id="loginStatus" role="status" aria-live="polite"></p>
 
 <div class="links">
-<a href="#">
+<a href="#recuperar-senha" id="linkEsqueciSenha">
 Esqueci minha senha
 </a>
 </div>
@@ -404,6 +434,35 @@ Ainda não possui cadastro?
 Cadastre-se aqui
 </a>
 </div>
+</section>
+
+<section class="auth-view" id="recoveryView" hidden>
+<button class="auth-back" type="button" id="voltarLogin">← Voltar para o login</button>
+<h1 class="titulo">Recuperar senha</h1>
+<p class="subtitulo">Informe o e-mail usado no cadastro. Você receberá um link seguro para criar uma nova senha.</p>
+<div class="form-group">
+<label for="emailRecuperacao">E-mail</label>
+<input id="emailRecuperacao" type="email" autocomplete="email" placeholder="Digite seu e-mail">
+</div>
+<button class="btn" type="button" id="btnRecuperar">ENVIAR LINK</button>
+<p class="auth-status" id="recoveryStatus" role="status" aria-live="polite"></p>
+</section>
+
+<section class="auth-view" id="newPasswordView" hidden>
+<h1 class="titulo">Crie uma nova senha</h1>
+<p class="subtitulo">Escolha uma senha nova para acessar sua conta The Bag Room.</p>
+<div class="form-group">
+<label for="novaSenha">Nova senha</label>
+<input id="novaSenha" type="password" autocomplete="new-password" minlength="8" placeholder="Digite a nova senha">
+</div>
+<div class="form-group">
+<label for="confirmarNovaSenha">Confirmar nova senha</label>
+<input id="confirmarNovaSenha" type="password" autocomplete="new-password" minlength="8" placeholder="Digite novamente">
+</div>
+<p class="password-note">Use pelo menos 8 caracteres.</p>
+<button class="btn" type="button" id="btnNovaSenha">SALVAR NOVA SENHA</button>
+<p class="auth-status" id="newPasswordStatus" role="status" aria-live="polite"></p>
+</section>
 </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -482,6 +541,127 @@ localStorage.removeItem("proximoDestinoTheBagRoom");
 window.location.href = destino;
 }
 
+function mostrarAuthView(id){
+document.querySelectorAll('.auth-view').forEach(view => {
+view.hidden = view.id !== id;
+});
+}
+
+function definirStatus(id, mensagem, tipo = ''){
+const status = document.getElementById(id);
+if(!status) return;
+status.textContent = mensagem;
+status.className = `auth-status ${tipo}`.trim();
+}
+
+function abrirRecuperacao(event){
+if(event) event.preventDefault();
+const emailAtual = document.getElementById('email').value.trim();
+document.getElementById('emailRecuperacao').value = emailAtual;
+definirStatus('recoveryStatus', '');
+mostrarAuthView('recoveryView');
+document.getElementById('emailRecuperacao').focus();
+}
+
+async function enviarRecuperacao(){
+const emailInput = document.getElementById('emailRecuperacao');
+const email = emailInput.value.trim().toLowerCase();
+const btn = document.getElementById('btnRecuperar');
+
+if(!email || !emailInput.checkValidity()){
+definirStatus('recoveryStatus', 'Digite um e-mail válido.', 'error');
+emailInput.focus();
+return;
+}
+
+btn.disabled = true;
+btn.textContent = 'ENVIANDO...';
+definirStatus('recoveryStatus', 'Enviando seu link seguro...');
+
+const redirectTo = new URL('/login.html?modo=redefinir', window.location.origin).href;
+const { error } = await supabaseClient.auth.resetPasswordForEmail(email, { redirectTo });
+
+btn.disabled = false;
+btn.textContent = 'ENVIAR LINK';
+
+if(error){
+console.error('Erro ao solicitar recuperação:', error);
+definirStatus('recoveryStatus', 'Não foi possível enviar o link agora. Aguarde um momento e tente novamente.', 'error');
+return;
+}
+
+definirStatus(
+'recoveryStatus',
+'Se este e-mail estiver cadastrado, você receberá um link para criar uma nova senha. Confira também a pasta de spam.',
+'success'
+);
+}
+
+async function salvarNovaSenha(){
+const senha = document.getElementById('novaSenha').value;
+const confirmacao = document.getElementById('confirmarNovaSenha').value;
+const btn = document.getElementById('btnNovaSenha');
+
+if(senha.length < 8){
+definirStatus('newPasswordStatus', 'A nova senha precisa ter pelo menos 8 caracteres.', 'error');
+return;
+}
+
+if(senha !== confirmacao){
+definirStatus('newPasswordStatus', 'As senhas digitadas não são iguais.', 'error');
+return;
+}
+
+btn.disabled = true;
+btn.textContent = 'SALVANDO...';
+definirStatus('newPasswordStatus', 'Atualizando sua senha...');
+
+const { data: { session } } = await supabaseClient.auth.getSession();
+if(!session){
+btn.disabled = false;
+btn.textContent = 'SALVAR NOVA SENHA';
+definirStatus('newPasswordStatus', 'Este link expirou ou já foi utilizado. Solicite um novo link de recuperação.', 'error');
+return;
+}
+
+const { error } = await supabaseClient.auth.updateUser({ password: senha });
+if(error){
+console.error('Erro ao atualizar senha:', error);
+btn.disabled = false;
+btn.textContent = 'SALVAR NOVA SENHA';
+definirStatus('newPasswordStatus', 'Não foi possível atualizar a senha. Solicite um novo link e tente novamente.', 'error');
+return;
+}
+
+await supabaseClient.auth.signOut();
+history.replaceState({}, '', '/login.html');
+document.getElementById('senha').value = '';
+mostrarAuthView('loginView');
+definirStatus('loginStatus', 'Senha atualizada com sucesso. Entre usando sua nova senha.', 'success');
+}
+
+document.getElementById('linkEsqueciSenha').addEventListener('click', abrirRecuperacao);
+document.getElementById('voltarLogin').addEventListener('click', () => mostrarAuthView('loginView'));
+document.getElementById('btnRecuperar').addEventListener('click', enviarRecuperacao);
+document.getElementById('btnNovaSenha').addEventListener('click', salvarNovaSenha);
+document.getElementById('emailRecuperacao').addEventListener('keydown', event => {
+if(event.key === 'Enter') enviarRecuperacao();
+});
+document.getElementById('confirmarNovaSenha').addEventListener('keydown', event => {
+if(event.key === 'Enter') salvarNovaSenha();
+});
+
+supabaseClient.auth.onAuthStateChange((event) => {
+if(event === 'PASSWORD_RECOVERY'){
+mostrarAuthView('newPasswordView');
+definirStatus('newPasswordStatus', '');
+}
+});
+
+if(new URLSearchParams(window.location.search).get('modo') === 'redefinir'){
+mostrarAuthView('newPasswordView');
+}
+
 prepararRetorno();
 
 </script>
@@ -494,10 +674,6 @@ function toggleMenuMobile() {
   <script src="/luxury-refresh.js"></script>
 </body>
 </html>
-
-
-
-
 
 
 
