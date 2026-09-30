@@ -578,7 +578,10 @@ btn.disabled = true;
 btn.textContent = 'ENVIANDO...';
 definirStatus('recoveryStatus', 'Enviando seu link seguro...');
 
-const redirectTo = new URL('/login.html?modo=redefinir', window.location.origin).href;
+const emAmbienteLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+const redirectTo = emAmbienteLocal
+? new URL('/login.html?modo=redefinir', window.location.origin).href
+: 'https://www.thebagroom.com.br/login.html?modo=redefinir';
 const { error } = await supabaseClient.auth.resetPasswordForEmail(email, { redirectTo });
 
 btn.disabled = false;
@@ -658,7 +661,20 @@ definirStatus('newPasswordStatus', '');
 }
 });
 
-if(new URLSearchParams(window.location.search).get('modo') === 'redefinir'){
+const authHash = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+const erroRecuperacao = authHash.get('error_code');
+
+if(erroRecuperacao){
+mostrarAuthView('recoveryView');
+definirStatus(
+'recoveryStatus',
+erroRecuperacao === 'otp_expired'
+? 'Este link expirou ou já foi utilizado. Informe seu e-mail para receber um novo link.'
+: 'Este link de recuperação não é válido. Informe seu e-mail para receber um novo link.',
+'error'
+);
+history.replaceState({}, '', '/login.html#recuperar-senha');
+} else if(new URLSearchParams(window.location.search).get('modo') === 'redefinir'){
 mostrarAuthView('newPasswordView');
 }
 
@@ -674,7 +690,6 @@ function toggleMenuMobile() {
   <script src="/luxury-refresh.js"></script>
 </body>
 </html>
-
 
 
 
