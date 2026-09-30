@@ -336,6 +336,10 @@ color:#555;
 border:1px solid #ececec;
 margin:25px 0;
 }
+.field-feedback{display:block;min-height:18px;margin-top:7px;font-size:12px;line-height:1.4;color:#666;}
+.field-feedback.success{color:#32633e}.field-feedback.error{color:#9b2c2c}.field-feedback.loading{color:#8a6a3f}
+.submit-progress{display:none;margin-top:12px;padding:12px 14px;border-radius:12px;background:#f5f1eb;color:#5f5549;font-size:13px;line-height:1.5;text-align:center;}
+.submit-progress.show{display:block}.btn-enviar[disabled]{opacity:.7;cursor:wait;}
 .aceite-termos{
 display:flex;
 align-items:flex-start;
@@ -540,6 +544,7 @@ margin-top:2px;
 
 .site-header .menu-mobile-inner a:hover { opacity: 0.6; }
 </style>
+  <link rel="stylesheet" href="/luxury-refresh.css">
 </head>
 
 <body>
@@ -581,7 +586,7 @@ Preencha seus dados para aprovação e liberação das locações The Bag Room.
  Seus documentos são utilizados exclusivamente para validação cadastral e não são compartilhados com terceiros.
 </div>
 
-<form id="cadastroForm">
+<form id="cadastroForm" autocomplete="off">
   
 <h4 style="margin:30px 0 15px;font-family:'Inter';letter-spacing:2px;">
 DADOS PESSOAIS
@@ -598,9 +603,12 @@ DADOS PESSOAIS
 type="text"
 name="cpf"
 id="cpf"
+inputmode="numeric"
+autocomplete="off"
 maxlength="14"
 placeholder="000.000.000-00"
 required>
+<small id="cpfFeedback" class="field-feedback"></small>
 </div>
 
 <div class="form-group">
@@ -617,7 +625,7 @@ required>
 
 <div class="form-group">
 <label>E-mail</label>
-<input type="email" name="email" required>
+<input type="email" name="email" id="emailCliente" value="" autocomplete="off" required>
 </div>
 
 <div class="form-group">
@@ -666,9 +674,12 @@ ENDEREÇO
 type="text"
 name="cep"
 id="cep"
+inputmode="numeric"
+autocomplete="postal-code"
 maxlength="9"
 placeholder="00000-000"
 required>
+<small id="cepFeedback" class="field-feedback"></small>
 </div>
 
 <div class="form-group">
@@ -732,7 +743,7 @@ Selecione
 <div class="upload-box">
 Selecione o arquivo
 <br><br>
-<input type="file" id="documento">
+<input type="file" id="documento" accept="image/*,.pdf" required>
 </div>
 </div>
 
@@ -741,7 +752,7 @@ Selecione o arquivo
 <div class="upload-box">
 Selecione o arquivo
 <br><br>
-<input type="file"  id="selfie">
+<input type="file" id="selfie" accept="image/*" required>
 </div>
 </div>
 
@@ -750,7 +761,7 @@ Selecione o arquivo
 <div class="upload-box">
 Selecione o arquivo
 <br><br>
-<input type="file" id="comprovante">
+<input type="file" id="comprovante" accept="image/*,.pdf" required>
 </div>
 </div>
 
@@ -771,6 +782,7 @@ class="btn-enviar"
 id="btnEnviar">
 ENVIAR CADASTRO
 </button>
+<div id="submitProgress" class="submit-progress" role="status" aria-live="polite"></div>
 
 </form>
 
@@ -841,6 +853,9 @@ const supabaseClient = supabase.createClient(
 );
 
 let sessaoAtual = null;
+// Altere para true somente depois de contratar o SERPRO, configurar os secrets
+// e implantar a Edge Function validar-cpf-serpro.
+const SERPRO_CPF_ENABLED = false;
 
 function destinoDepoisCadastro(){
 const params = new URLSearchParams(window.location.search);
@@ -855,6 +870,56 @@ return "/checkout-aluguel.html";
 return "/minha-conta.html";
 }
 
+function somenteDigitos(valor){ return String(valor || '').replace(/\D/g,''); }
+
+function cpfMatematicamenteValido(valor){
+const cpf = somenteDigitos(valor);
+if(cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+for(let tamanho=9;tamanho<=10;tamanho++){
+let soma=0;
+for(let i=0;i<tamanho;i++) soma += Number(cpf[i]) * (tamanho + 1 - i);
+let digito = (soma * 10) % 11;
+if(digito === 10) digito = 0;
+if(digito !== Number(cpf[tamanho])) return false;
+}
+return true;
+}
+
+function dataNascimentoISO(valor){
+const match = String(valor||'').match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+if(!match) return null;
+const iso = `${match[3]}-${match[2]}-${match[1]}`;
+const data = new Date(`${iso}T12:00:00`);
+if(Number.isNaN(data.getTime()) || data.getFullYear()!==Number(match[3]) || data.getMonth()+1!==Number(match[2]) || data.getDate()!==Number(match[1]) || data > new Date()) return null;
+return iso;
+}
+
+function setFeedback(id,text,tipo=''){
+const elemento=document.getElementById(id);if(!elemento)return;
+elemento.textContent=text;elemento.className=`field-feedback ${tipo}`.trim();
+}
+
+async function validarCPFReceita(cpf,dataNascimento){
+if(!SERPRO_CPF_ENABLED){
+setFeedback('cpfFeedback','CPF validado matematicamente. Validação oficial não ativada.','success');
+return true;
+}
+setFeedback('cpfFeedback','Consultando a Receita Federal…','loading');
+const timeout = new Promise((_,reject)=>setTimeout(()=>reject(new Error('timeout')),12000));
+const consulta = supabaseClient.functions.invoke('validar-cpf-serpro',{body:{cpf:somenteDigitos(cpf),dataNascimento}});
+const {data,error}=await Promise.race([consulta,timeout]);
+if(error) throw error;
+if(!data?.configured) throw new Error('serpro_not_configured');
+if(!data?.valid){
+setFeedback('cpfFeedback',data?.reason==='irregular'?'CPF sem situação cadastral regular na Receita Federal.':'Confira o CPF e a data de nascimento informados.','error');
+return false;
+}
+setFeedback('cpfFeedback','CPF validado na Receita Federal.','success');
+return true;
+}
+
+function atualizarProgresso(texto){const el=document.getElementById('submitProgress');el.textContent=texto;el.classList.add('show');}
+
 window.addEventListener('load', function(){
 
 const formulario =
@@ -862,31 +927,26 @@ document.getElementById('cadastroForm');
 
 async function prepararCadastroLogado(){
 const { data: { session } } = await supabaseClient.auth.getSession();
-sessaoAtual = session;
-
-if(!sessaoAtual) return;
-
 const emailInput = document.querySelector('[name="email"]');
-if(emailInput){
-emailInput.value = sessaoAtual.user.email || "";
-emailInput.readOnly = true;
-}
-
-const senhaInput = document.getElementById('senha');
-const confirmarSenhaInput = document.getElementById('confirmar_senha');
-if(senhaInput) senhaInput.required = false;
-if(confirmarSenhaInput) confirmarSenhaInput.required = false;
+if(emailInput){ emailInput.value = ""; emailInput.readOnly = false; }
+sessaoAtual = null;
+if(!session) return;
 
 const { data: cadastroExistente } = await supabaseClient
 .from('validacao_clientes')
 .select('id,nome_completo,status')
-.eq('usuario_auth_id', sessaoAtual.user.id)
+.eq('usuario_auth_id', session.user.id)
 .maybeSingle();
 
 if(!cadastroExistente) return;
 
 const destino = destinoDepoisCadastro();
 if(!destino.includes("/checkout-aluguel.html")) return;
+sessaoAtual = session;
+const senhaInput = document.getElementById('senha');
+const confirmarSenhaInput = document.getElementById('confirmar_senha');
+if(senhaInput) senhaInput.required = false;
+if(confirmarSenhaInput) confirmarSenhaInput.required = false;
 
 formulario.style.display = "none";
 
@@ -927,171 +987,68 @@ window.location.href = "/minha-conta.html";
 prepararCadastroLogado();
 
 formulario.addEventListener('submit', async function(e){
-
 e.preventDefault();
-
-const btnEnviar =
-document.getElementById('btnEnviar');
-
-btnEnviar.disabled = true;
-btnEnviar.innerText = 'ENVIANDO...';
-
-const nome = document.querySelector('[name="nome_completo"]').value;
-const cpf = document.querySelector('[name="cpf"]').value;
-const dataNascimentoTexto =
-document.querySelector('[name="data_nascimento"]').value;
-
-const partes =
-dataNascimentoTexto.split('/');
-
-const dataNascimento =
-`${partes[2]}-${partes[1]}-${partes[0]}`;
-
-
-const senha =
-document.getElementById('senha').value;
-
-const confirmarSenha =
-document.getElementById('confirmar_senha').value;
-
-if(!sessaoAtual && senha.length < 8){
-    alert('A senha deve possuir no mínimo 8 caracteres.');
-    btnEnviar.disabled = false;
-    btnEnviar.innerText = 'ENVIAR CADASTRO';
-    return;
-}
-
-if(!sessaoAtual && senha !== confirmarSenha){
-    alert('As senhas não coincidem.');
-    btnEnviar.disabled = false;
-    btnEnviar.innerText = 'ENVIAR CADASTRO';
-    return;
-}
-
-const email = document.querySelector('[name="email"]').value;
-const celular = document.querySelector('[name="celular"]').value;
-const instagram = document.querySelector('[name="instagram"]').value;
-const cep = document.querySelector('[name="cep"]').value;
-const endereco = document.querySelector('[name="endereco"]').value;
-const numeroEndereco = document.querySelector('[name="numero_endereco"]').value;
-const complementoEndereco = document.querySelector('[name="complemento_endereco"]').value;
-const bairro = document.querySelector('[name="bairro"]').value;
-const cidade = document.querySelector('[name="cidade"]').value;
-const estado = document.querySelector('[name="estado"]').value;
-const motivoLocacao = document.querySelector('[name="motivo_locacao"]').value;
-const documentoFile = document.getElementById('documento').files[0];
-const selfieFile = document.getElementById('selfie').files[0];
-const comprovanteFile =document.getElementById('comprovante').files[0];
-const documentoPath =`documentos/${Date.now()}-${documentoFile.name}`;
-
-const selfiePath =
-`selfies/${Date.now()}-${selfieFile.name}`;
-
-const comprovantePath =
-`comprovantes/${Date.now()}-${comprovanteFile.name}`;
-
-let authData = { user: sessaoAtual?.user || null };
-
-if(!sessaoAtual){
-const { data: novoAuthData, error: authError } =
-await supabaseClient.auth.signUp({
-  email: email,
-  password: senha
-});
-
-if(authError){
-  alert('Erro ao criar acesso: ' + authError.message);
-  btnEnviar.disabled = false;
-  btnEnviar.innerText = 'ENVIAR CADASTRO';
-  return;
-}
-
-authData = novoAuthData;
-}
-
-if(!authData.user){
-alert('Não foi possível identificar sua conta. Entre novamente e tente outra vez.');
-btnEnviar.disabled = false;
-btnEnviar.innerText = 'ENVIAR CADASTRO';
-return;
-}
-
-
-// Upload Documento
-const { error: documentoError } =
-await supabaseClient.storage
-.from('documentos-clientes')
-.upload(documentoPath, documentoFile);
-
-if(documentoError){
-alert('Erro ao enviar documento: ' + documentoError.message);
-return;
-}
-
-// Upload Selfie
-const { error: selfieError } =
-await supabaseClient.storage
-.from('documentos-clientes')
-.upload(selfiePath, selfieFile);
-
-if(selfieError){
-alert('Erro ao enviar selfie: ' + selfieError.message);
-return;
-}
-
-// Upload Comprovante
-const { error: comprovanteError } =
-await supabaseClient.storage
-.from('documentos-clientes')
-.upload(comprovantePath, comprovanteFile);
-
-if(comprovanteError){
-alert('Erro ao enviar comprovante: ' + comprovanteError.message);
-return;
-}
-
-// Salvar dados na tabela
-const { data, error } =
-await supabaseClient
-.from('validacao_clientes')
-.insert([
-{
-usuario_auth_id: authData.user.id,
-nome_completo: nome,
-email: email,
-celular: celular,
-instagram: instagram,
-cep: cep,
-endereco: endereco,
-estado: estado,
-documento: documentoPath,
-selfie: selfiePath,
-comprovante: comprovantePath,
-status: 'pendente',
-cpf: cpf,
-data_nascimento: dataNascimento,
-numero_endereco: numeroEndereco,
-complemento_endereco: complementoEndereco,
-bairro: bairro,
-cidade: cidade,
-motivo_locacao: motivoLocacao
-}
+const btnEnviar=document.getElementById('btnEnviar');
+btnEnviar.disabled=true;btnEnviar.innerText='VALIDANDO DADOS…';
+try{
+const nome=document.querySelector('[name="nome_completo"]').value.trim();
+const cpf=document.querySelector('[name="cpf"]').value;
+const dataNascimento=dataNascimentoISO(document.querySelector('[name="data_nascimento"]').value);
+const senha=document.getElementById('senha').value;
+const confirmarSenha=document.getElementById('confirmar_senha').value;
+if(!cpfMatematicamenteValido(cpf)){setFeedback('cpfFeedback','Informe um CPF válido.','error');throw new Error('cpf_local');}
+if(!dataNascimento) throw new Error('data_nascimento');
+if(!sessaoAtual&&senha.length<8) throw new Error('senha_curta');
+if(!sessaoAtual&&senha!==confirmarSenha) throw new Error('senha_diferente');
+const cpfValido=await validarCPFReceita(cpf,dataNascimento);if(!cpfValido)return;
+const email=document.querySelector('[name="email"]').value.trim().toLowerCase();
+const celular=document.querySelector('[name="celular"]').value;
+const instagram=document.querySelector('[name="instagram"]').value;
+const cep=document.querySelector('[name="cep"]').value;
+const endereco=document.querySelector('[name="endereco"]').value;
+const numeroEndereco=document.querySelector('[name="numero_endereco"]').value;
+const complementoEndereco=document.querySelector('[name="complemento_endereco"]').value;
+const bairro=document.querySelector('[name="bairro"]').value;
+const cidade=document.querySelector('[name="cidade"]').value;
+const estado=document.querySelector('[name="estado"]').value;
+const motivoLocacao=document.querySelector('[name="motivo_locacao"]').value;
+const documentoFile=document.getElementById('documento').files[0];
+const selfieFile=document.getElementById('selfie').files[0];
+const comprovanteFile=document.getElementById('comprovante').files[0];
+if(!documentoFile||!selfieFile||!comprovanteFile) throw new Error('arquivos');
+if([documentoFile,selfieFile,comprovanteFile].some(file=>file.size>10*1024*1024)) throw new Error('arquivo_grande');
+atualizarProgresso('Criando acesso seguro…');
+let authData={user:sessaoAtual?.user||null};
+if(!sessaoAtual){const {data,error}=await supabaseClient.auth.signUp({email,password:senha});if(error)throw new Error(`auth:${error.message}`);authData=data;}
+if(!authData.user) throw new Error('conta');
+const prefixo=`${authData.user.id}/${Date.now()}`;
+const caminhos={documento:`${prefixo}-documento-${documentoFile.name}`,selfie:`${prefixo}-selfie-${selfieFile.name}`,comprovante:`${prefixo}-comprovante-${comprovanteFile.name}`};
+atualizarProgresso('Enviando os documentos em paralelo…');
+const uploads=await Promise.all([
+supabaseClient.storage.from('documentos-clientes').upload(caminhos.documento,documentoFile),
+supabaseClient.storage.from('documentos-clientes').upload(caminhos.selfie,selfieFile),
+supabaseClient.storage.from('documentos-clientes').upload(caminhos.comprovante,comprovanteFile)
 ]);
-
-if(error){
-alert('Erro: ' + error.message);
-return;
+const uploadComErro=uploads.find(item=>item.error);if(uploadComErro)throw new Error(`upload:${uploadComErro.error.message}`);
+atualizarProgresso('Salvando seus dados…');
+const {error}=await supabaseClient.from('validacao_clientes').insert({usuario_auth_id:authData.user.id,nome_completo:nome,email,celular,instagram,cep,endereco,estado,documento:caminhos.documento,selfie:caminhos.selfie,comprovante:caminhos.comprovante,status:'pendente',cpf,data_nascimento:dataNascimento,numero_endereco:numeroEndereco,complemento_endereco:complementoEndereco,bairro,cidade,motivo_locacao:motivoLocacao});
+if(error)throw new Error(`database:${error.message}`);
+btnEnviar.innerText='CADASTRO ENVIADO ✓';atualizarProgresso('Cadastro enviado com sucesso.');
+localStorage.removeItem('proximoDestinoTheBagRoom');window.location.href='/minha-conta.html';
+}catch(error){
+console.error(error);
+const mensagens={cpf_local:'Informe um CPF válido.',data_nascimento:'Informe uma data de nascimento válida.',senha_curta:'A senha deve possuir no mínimo 8 caracteres.',senha_diferente:'As senhas não coincidem.',arquivos:'Selecione os três documentos solicitados.',arquivo_grande:'Cada arquivo deve ter no máximo 10 MB.',conta:'Não foi possível criar sua conta.'};
+const chave=error.message;
+let mensagem=mensagens[chave]||'Não foi possível concluir o cadastro. Tente novamente.';
+if(chave==='timeout')mensagem='A validação do CPF demorou mais que o esperado. Tente novamente.';
+if(chave==='serpro_not_configured')mensagem='A validação oficial do CPF ainda não está disponível. Tente novamente mais tarde.';
+if(chave.startsWith('auth:'))mensagem='Não foi possível criar o acesso. Confira o e-mail ou tente entrar em uma conta existente.';
+if(chave.startsWith('upload:'))mensagem='Não foi possível enviar os documentos. Verifique sua conexão e tente novamente.';
+if(chave.startsWith('database:'))mensagem='Os documentos foram enviados, mas não foi possível salvar o cadastro. Entre em contato com o atendimento.';
+atualizarProgresso(mensagem);alert(mensagem);
+}finally{
+if(btnEnviar.innerText!=='CADASTRO ENVIADO ✓'){btnEnviar.disabled=false;btnEnviar.innerText='ENVIAR CADASTRO';}
 }
-
-btnEnviar.innerText =
-'CADASTRO ENVIADO ✓';
-
-alert('Cadastro enviado com sucesso!');
-
-localStorage.removeItem("proximoDestinoTheBagRoom");
-window.location.href = "/minha-conta.html";
-
-
 });
 });
 
@@ -1103,21 +1060,23 @@ const cep =
 this.value.replace(/\D/g,'');
 
 if(cep.length !== 8){
+setFeedback('cepFeedback','Informe os 8 números do CEP.','error');
 return;
 }
 
 try{
-
-const resposta =
-await fetch(
-`https://viacep.com.br/ws/${cep}/json/`
-);
+setFeedback('cepFeedback','Buscando endereço…','loading');
+const controller=new AbortController();
+const timeout=setTimeout(()=>controller.abort(),6000);
+const resposta=await fetch(`https://viacep.com.br/ws/${cep}/json/`,{signal:controller.signal});
+clearTimeout(timeout);
+if(!resposta.ok)throw new Error('consulta');
 
 const dados =
 await resposta.json();
 
 if(dados.erro){
-alert('CEP não encontrado');
+setFeedback('cepFeedback','CEP não encontrado. Confira e tente novamente.','error');
 return;
 }
 
@@ -1132,11 +1091,11 @@ dados.localidade || '';
 
 document.getElementById('estado').value =
 dados.uf || '';
+setFeedback('cepFeedback','Endereço preenchido automaticamente. Complete o número.','success');
+document.getElementById('numero_endereco').focus();
 
 }catch(error){
-
-alert('Erro ao consultar CEP');
-
+setFeedback('cepFeedback','Não foi possível consultar o CEP. Você pode preencher o endereço manualmente.','error');
 }
 
 });
@@ -1214,7 +1173,13 @@ valor = valor.replace(
 );
 
 e.target.value = valor;
+setFeedback('cpfFeedback','');
 
+});
+
+document.getElementById('cpf').addEventListener('blur',function(){
+if(!this.value)return;
+setFeedback('cpfFeedback',cpfMatematicamenteValido(this.value)?'CPF com formato válido. A confirmação oficial será feita ao enviar.':'Informe um CPF válido.',cpfMatematicamenteValido(this.value)?'success':'error');
 });
 
 document
@@ -1253,14 +1218,9 @@ e.target.value = valor;
 
 
 
+  <script src="/luxury-refresh.js"></script>
 </body>
 </html>
-
-
-
-
-
-
 
 
 
