@@ -185,7 +185,7 @@
       if (cautionRow && !info.querySelector('.tbr-caution')) {
         const caution = document.createElement('div');
         caution.className = 'tbr-caution';
-        caution.innerHTML = `<span>${cautionRow.textContent.replace(/valor do cau[cç][aã]o:/i, 'Caução de segurança:').trim()}</span><button type="button" aria-label="Como funciona a caução">i</button><small>O valor é apenas pré-autorizado no cartão e liberado após a devolução da peça nas condições acordadas.</small>`;
+        caution.innerHTML = `<span>${cautionRow.textContent.replace(/valor do cau[cç][aã]o:/i, 'Caução de segurança:').trim()}</span><button type="button" aria-label="Como funciona a caução">?</button><small>O valor é apenas pré-autorizado no cartão e liberado após a devolução da peça nas condições acordadas.</small>`;
         (info.querySelector(':scope > .preco') || name).insertAdjacentElement('afterend', caution);
       }
 
@@ -197,7 +197,16 @@
           ? `<a class="tbr-certificate-link" href="${certificateLink.getAttribute('href')}" target="_blank" rel="noopener">Ver certificado de autenticidade</a>`
           : '';
         authenticity.innerHTML = `<strong>Autenticidade garantida</strong><p>Todas as peças da The Bag Room passam por processo de verificação de autenticidade.</p><div class="tbr-authenticity-links">${certificateAction}<a href="/autenticidade.html">Saiba mais sobre autenticidade</a></div>`;
-        (rentButton || info.lastElementChild).insertAdjacentElement('afterend', authenticity);
+        const product = document.querySelector('.produto');
+        if (product && gallery) {
+          const media = document.createElement('div');
+          media.className = 'tbr-product-media';
+          product.insertBefore(media, gallery);
+          media.appendChild(gallery);
+          media.appendChild(authenticity);
+        }
+        else if (product) product.appendChild(authenticity);
+        else (rentButton || info.lastElementChild).insertAdjacentElement('afterend', authenticity);
       }
     }
 
