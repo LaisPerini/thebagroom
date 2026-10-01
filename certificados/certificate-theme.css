@@ -233,12 +233,14 @@ header h1{
     font-size:18px!important;
   }
 
-  .internal-title{
-    width:100%!important;
-    height:58vw!important;
-    min-height:270px;
-    max-height:430px;
-  }
+.internal-title{
+  width:min(100%,1600px)!important;
+  height:clamp(430px,58vw,700px)!important;
+  margin:0 auto;
+  padding:0!important;
+  background-position:center!important;
+  border-bottom:1px solid var(--cert-line);
+}
 
   .hero-seal{
     inset:auto 16px 16px auto!important;
