@@ -278,3 +278,10 @@ header h1{
   .certificate-card{padding:8px!important}
   .footer-luxo{margin:58px 20px 0!important}
 }
+body .internal-title {
+  background-image: var(--certificate-hero) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
