@@ -554,6 +554,70 @@ status.textContent = mensagem;
 status.className = `auth-status ${tipo}`.trim();
 }
 
+async function inicializarSessaoRecuperacao(){
+const params = new URLSearchParams(window.location.search);
+const hash = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+const erroRecuperacao = hash.get('error_code');
+
+if(erroRecuperacao){
+mostrarAuthView('recoveryView');
+definirStatus(
+'recoveryStatus',
+erroRecuperacao === 'otp_expired'
+? 'Este link expirou ou já foi utilizado. Informe seu e-mail para receber um novo link.'
+: 'Este link de recuperação não é válido. Informe seu e-mail para receber um novo link.',
+'error'
+);
+history.replaceState({}, '', '/login.html#recuperar-senha');
+return false;
+}
+
+const accessToken = hash.get('access_token');
+const refreshToken = hash.get('refresh_token');
+
+if(accessToken && refreshToken){
+const { error } = await supabaseClient.auth.setSession({
+access_token: accessToken,
+refresh_token: refreshToken
+});
+
+if(error){
+console.error('Erro ao preparar recuperação:', error);
+mostrarAuthView('recoveryView');
+definirStatus('recoveryStatus', 'Este link não é mais válido. Solicite um novo link de recuperação.', 'error');
+return false;
+}
+
+history.replaceState({}, '', '/login.html?modo=redefinir');
+mostrarAuthView('newPasswordView');
+return true;
+}
+
+const code = params.get('code');
+if(code){
+const { error } = await supabaseClient.auth.exchangeCodeForSession(code);
+if(error){
+console.error('Erro ao confirmar recuperação:', error);
+mostrarAuthView('recoveryView');
+definirStatus('recoveryStatus', 'Este link não é mais válido. Solicite um novo link de recuperação.', 'error');
+return false;
+}
+history.replaceState({}, '', '/login.html?modo=redefinir');
+mostrarAuthView('newPasswordView');
+return true;
+}
+
+if(params.get('modo') === 'redefinir'){
+mostrarAuthView('newPasswordView');
+const { data: { session } } = await supabaseClient.auth.getSession();
+return Boolean(session);
+}
+
+return false;
+}
+
+const recoverySessionPromise = inicializarSessaoRecuperacao();
+
 function abrirRecuperacao(event){
 if(event) event.preventDefault();
 const emailAtual = document.getElementById('email').value.trim();
@@ -616,8 +680,9 @@ btn.disabled = true;
 btn.textContent = 'SALVANDO...';
 definirStatus('newPasswordStatus', 'Atualizando sua senha...');
 
-const { data: { session } } = await supabaseClient.auth.getSession();
-if(!session){
+await recoverySessionPromise;
+const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+if(sessionError || !session){
 btn.disabled = false;
 btn.textContent = 'SALVAR NOVA SENHA';
 definirStatus('newPasswordStatus', 'Este link expirou ou já foi utilizado. Solicite um novo link de recuperação.', 'error');
@@ -629,7 +694,13 @@ if(error){
 console.error('Erro ao atualizar senha:', error);
 btn.disabled = false;
 btn.textContent = 'SALVAR NOVA SENHA';
-definirStatus('newPasswordStatus', 'Não foi possível atualizar a senha. Solicite um novo link e tente novamente.', 'error');
+const mensagemErro = String(error.message || '').toLowerCase();
+const mensagem = mensagemErro.includes('different from the old password') || mensagemErro.includes('same password')
+? 'A nova senha precisa ser diferente da senha anterior.'
+: mensagemErro.includes('weak') || mensagemErro.includes('password strength')
+? 'Escolha uma senha mais forte, combinando letras, números e símbolos.'
+: 'Não foi possível atualizar a senha. Solicite um novo link e tente novamente.';
+definirStatus('newPasswordStatus', mensagem, 'error');
 return;
 }
 
@@ -658,23 +729,6 @@ definirStatus('newPasswordStatus', '');
 }
 });
 
-const authHash = new URLSearchParams(window.location.hash.replace(/^#/, ''));
-const erroRecuperacao = authHash.get('error_code');
-
-if(erroRecuperacao){
-mostrarAuthView('recoveryView');
-definirStatus(
-'recoveryStatus',
-erroRecuperacao === 'otp_expired'
-? 'Este link expirou ou já foi utilizado. Informe seu e-mail para receber um novo link.'
-: 'Este link de recuperação não é válido. Informe seu e-mail para receber um novo link.',
-'error'
-);
-history.replaceState({}, '', '/login.html#recuperar-senha');
-} else if(new URLSearchParams(window.location.search).get('modo') === 'redefinir'){
-mostrarAuthView('newPasswordView');
-}
-
 prepararRetorno();
 
 </script>
@@ -687,7 +741,6 @@ function toggleMenuMobile() {
   <script src="/luxury-refresh.js"></script>
 </body>
 </html>
-
 
 
 
