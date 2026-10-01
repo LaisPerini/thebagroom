@@ -1033,6 +1033,9 @@ const uploadComErro=uploads.find(item=>item.error);if(uploadComErro)throw new Er
 atualizarProgresso('Salvando seus dados…');
 const {error}=await supabaseClient.from('validacao_clientes').insert({usuario_auth_id:authData.user.id,nome_completo:nome,email,celular,instagram,cep,endereco,estado,documento:caminhos.documento,selfie:caminhos.selfie,comprovante:caminhos.comprovante,status:'pendente',cpf,data_nascimento:dataNascimento,numero_endereco:numeroEndereco,complemento_endereco:complementoEndereco,bairro,cidade,motivo_locacao:motivoLocacao});
 if(error)throw new Error(`database:${error.message}`);
+atualizarProgresso('Avisando a curadoria…');
+const {error:erroNotificacao}=await supabaseClient.functions.invoke('notificar-novo-cliente',{body:{}});
+if(erroNotificacao)console.warn('Cadastro salvo, mas o aviso por e-mail não foi enviado:',erroNotificacao);
 btnEnviar.innerText='CADASTRO ENVIADO ✓';atualizarProgresso('Cadastro enviado com sucesso.');
 localStorage.removeItem('proximoDestinoTheBagRoom');window.location.href='/minha-conta.html';
 }catch(error){
@@ -1221,8 +1224,6 @@ e.target.value = valor;
   <script src="/luxury-refresh.js"></script>
 </body>
 </html>
-
-
 
 
 

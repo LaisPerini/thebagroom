@@ -2083,6 +2083,12 @@ document.getElementById("locked").style.display = "none";
 document.getElementById("app").style.display = "grid";
 configurarSlugManual();
 await carregarTudo();
+const adminParams = new URLSearchParams(window.location.search);
+if(adminParams.get("panel") === "clientes"){
+filtroClientesValidacao = adminParams.get("filter") || "todos";
+abrirPainel("clientes");
+renderClientesValidacao();
+}
 }
 
 async function sair(){
