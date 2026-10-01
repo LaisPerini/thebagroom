@@ -471,8 +471,20 @@ body.tbr-catalog .card .img-box img { width: 100% !important; height: 100% !impo
 body.tbr-catalog .card:hover .img-box img { transform: scale(1.025); }
 body.tbr-catalog .card .tag { top: 12px !important; left: 12px !important; padding: 6px 9px !important; border-radius: 0 !important; background: rgba(255,254,250,.92) !important; color: var(--tbr-ink) !important; font-size: 9px !important; letter-spacing: .1em; text-transform: uppercase; }
 body.tbr-catalog .card .nome { margin-top: 16px !important; display: block !important; }
-body.tbr-catalog .card .marca { display: block; margin-bottom: 4px; font-size: 10px !important; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
-body.tbr-catalog .card .modelo { display: block; font: 400 21px/1.22 var(--tbr-serif) !important; }
+body.tbr-catalog .card .marca {
+  display: block;
+  margin-bottom: 4px;
+  font: 400 21px/1.22 var(--tbr-serif) !important;
+  letter-spacing: 0;
+  text-transform: none;
+}
+body.tbr-catalog .card .modelo {
+  display: block;
+  color: var(--tbr-muted);
+  font: 500 11px/1.45 var(--tbr-sans) !important;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
 body.tbr-catalog .card .preco { margin-top: 8px !important; color: var(--tbr-muted); font-size: 13px !important; }
 body.tbr-catalog .filtro-modal { border-radius: 0 !important; box-shadow: none !important; border-right: 1px solid var(--tbr-line); }
 body.tbr-catalog .filtro-header { border-bottom: 1px solid var(--tbr-line); }
@@ -845,7 +857,8 @@ body.tbr-utility label { font-size: 11px !important; font-weight: 600 !important
   body.tbr-catalog .rental-hero-media { height: 58vh !important; min-height: 430px; }
   body.tbr-catalog .barra-filtros { padding: 15px 14px !important; }
   body.tbr-catalog .grid { padding: 42px 0 80px !important; grid-template-columns: minmax(0, 1fr) !important; gap: 52px !important; }
-  body.tbr-catalog .card .modelo { font-size: 22px !important; }
+  body.tbr-catalog .card .marca { font-size: 22px !important; }
+  body.tbr-catalog .card .modelo { font-size: 11px !important; }
   body.tbr-catalog .card .nome,
   body.tbr-catalog .card .marca,
   body.tbr-catalog .card .modelo { color: #111 !important; }
