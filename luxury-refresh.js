@@ -159,7 +159,10 @@
         eyebrow.className = 'tbr-product-brand';
         eyebrow.textContent = brand;
         name.insertAdjacentElement('beforebegin', eyebrow);
-        name.textContent = name.textContent.replace(new RegExp(`^${brand}\\s*`, 'i'), '').trim() || name.textContent;
+        const model = name.textContent.trim().replace(new RegExp(`^${brand}\\s*`, 'i'), '').trim();
+        name.classList.add('tbr-product-model');
+        if (model) name.textContent = model;
+        else name.hidden = true;
       }
 
       const options = info.querySelector('.opcoes');
