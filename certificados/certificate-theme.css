@@ -1,0 +1,278 @@
+:root{
+  --cert-ink:#171614;
+  --cert-muted:#6b675f;
+  --cert-line:#dcd7cf;
+  --cert-paper:#fffefa;
+  --cert-canvas:#f3f0ea;
+}
+
+html{background:var(--cert-canvas)}
+
+body{
+  background:var(--cert-canvas)!important;
+  color:var(--cert-ink)!important;
+  -webkit-font-smoothing:antialiased;
+}
+
+header{
+  min-height:82px;
+  padding:0 34px!important;
+  align-items:center;
+  background:rgba(255,254,250,.97)!important;
+  border-bottom:1px solid var(--cert-line)!important;
+  box-shadow:none!important;
+}
+
+header h1{
+  font-family:'Playfair Display',serif;
+  font-size:21px!important;
+  font-weight:500!important;
+  letter-spacing:.34em!important;
+}
+
+.top-space{height:82px!important}
+
+.menu-mobile-btn{
+  left:30px!important;
+  font-family:'Inter',sans-serif;
+  font-size:0!important;
+  width:34px;
+  height:20px;
+}
+
+.menu-mobile-btn::before,
+.menu-mobile-btn::after{
+  content:"";
+  position:absolute;
+  left:0;
+  width:28px;
+  height:1px;
+  background:var(--cert-ink);
+}
+
+.menu-mobile-btn::before{top:5px}
+.menu-mobile-btn::after{bottom:5px}
+
+.internal-title{
+  width:min(100%,1600px)!important;
+  height:clamp(430px,58vw,700px)!important;
+  margin:0 auto;
+  padding:0!important;
+  background-position:center!important;
+  border-bottom:1px solid var(--cert-line);
+}
+
+.internal-title::after{
+  background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.18))!important;
+}
+
+.internal-title::before{
+  content:"PEÇA AUTENTICADA · THE BAG ROOM";
+  position:absolute;
+  left:42px;
+  bottom:34px;
+  z-index:6;
+  padding:13px 16px;
+  background:rgba(255,254,250,.94);
+  border:1px solid rgba(255,255,255,.72);
+  font-family:'Inter',sans-serif;
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:.2em;
+  color:var(--cert-ink);
+}
+
+.hero-seal{
+  inset:auto 42px 34px auto!important;
+  width:auto!important;
+  height:auto!important;
+  padding:10px 13px;
+  background:rgba(255,254,250,.94);
+  border:1px solid rgba(255,255,255,.7);
+  opacity:1!important;
+  box-shadow:0 8px 28px rgba(0,0,0,.12);
+}
+
+.hero-seal img{
+  width:138px!important;
+  max-width:138px!important;
+  height:auto!important;
+}
+
+.content-box{
+  max-width:1120px!important;
+  padding:80px 42px 40px!important;
+}
+
+.auth-brand{
+  position:relative;
+  margin:0 0 42px!important;
+  padding:34px 0 30px;
+  border-top:1px solid var(--cert-ink);
+  border-bottom:1px solid var(--cert-line);
+  font-size:clamp(42px,6vw,76px)!important;
+  line-height:1.03;
+  font-weight:500!important;
+  letter-spacing:-.025em!important;
+}
+
+.auth-brand::before{
+  content:"CERTIFICADO DE AUTENTICIDADE";
+  display:block;
+  margin-bottom:18px;
+  font-family:'Inter',sans-serif;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.24em;
+}
+
+.auth-text{
+  max-width:820px;
+  margin:0 0 20px!important;
+  font-size:15px!important;
+  line-height:1.85!important;
+  color:#4e4a44!important;
+}
+
+.auth-buttons{
+  margin:38px 0 32px!important;
+  gap:10px!important;
+}
+
+.auth-btn{
+  border:1px solid var(--cert-ink)!important;
+  border-radius:0!important;
+  padding:15px 22px!important;
+  background:var(--cert-ink)!important;
+  color:#fff!important;
+  font-size:10px!important;
+  line-height:1.45;
+  letter-spacing:.16em!important;
+}
+
+.auth-btn:hover{
+  background:transparent!important;
+  color:var(--cert-ink)!important;
+}
+
+.info-box{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0;
+  margin:0 0 50px!important;
+  padding:0!important;
+  border:1px solid var(--cert-line)!important;
+  border-radius:0!important;
+  background:var(--cert-paper)!important;
+}
+
+.info-box p{
+  margin:0!important;
+  padding:22px 24px;
+  border-right:1px solid var(--cert-line);
+  font-size:12px!important;
+  line-height:1.7!important;
+}
+
+.info-box p:last-child{border-right:0}
+.info-box strong{
+  display:block;
+  margin-bottom:7px;
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--cert-muted);
+}
+
+.certificate-card{
+  margin-top:0!important;
+  padding:18px!important;
+  border:1px solid var(--cert-line);
+  border-radius:0!important;
+  background:var(--cert-paper)!important;
+  box-shadow:none!important;
+}
+
+.certificate-image{
+  border-radius:0!important;
+  background:#fff;
+}
+
+.whats-btn{
+  width:min(100%,520px)!important;
+  margin:48px auto!important;
+  border-radius:0!important;
+  background:var(--cert-ink)!important;
+}
+
+.footer-luxo{
+  max-width:1120px;
+  margin:80px auto 0!important;
+  border-top:1px solid var(--cert-ink)!important;
+}
+
+.footer-item{padding:22px 4px!important}
+
+@media(max-width:768px){
+  header{min-height:68px;padding:0 18px!important}
+  header h1{font-size:16px!important;letter-spacing:.27em!important}
+  .top-space{height:68px!important}
+  .menu-mobile-btn{left:18px!important}
+
+  .menu-mobile{
+    width:min(86%,340px)!important;
+    padding-top:74px!important;
+    background:#fffefa!important;
+  }
+
+  .menu-mobile-inner{gap:0!important;padding:0 28px!important}
+  .menu-mobile-inner a{
+    padding:13px 0;
+    border-bottom:1px solid var(--cert-line);
+    font-size:18px!important;
+  }
+
+  .internal-title{
+    width:100%!important;
+    height:58vw!important;
+    min-height:270px;
+    max-height:430px;
+  }
+
+  .hero-seal{
+    inset:auto 16px 16px auto!important;
+    padding:7px 9px;
+  }
+
+  .internal-title::before{
+    left:16px;
+    bottom:16px;
+    max-width:calc(100% - 150px);
+    padding:10px 11px;
+    font-size:8px;
+    line-height:1.5;
+  }
+
+  .hero-seal img{width:96px!important;max-width:96px!important}
+
+  .content-box{padding:46px 20px 24px!important}
+
+  .auth-brand{
+    margin-bottom:28px!important;
+    padding:25px 0 22px;
+    font-size:clamp(34px,11vw,48px)!important;
+  }
+
+  .auth-brand::before{font-size:9px;margin-bottom:14px}
+  .auth-text{font-size:14px!important;line-height:1.75!important}
+  .auth-buttons{margin:30px 0 24px!important}
+  .auth-btn{width:100%;text-align:center}
+
+  .info-box{grid-template-columns:1fr;margin-bottom:32px!important}
+  .info-box p{padding:17px 18px;border-right:0;border-bottom:1px solid var(--cert-line)}
+  .info-box p:last-child{border-bottom:0}
+
+  .certificate-card{padding:8px!important}
+  .footer-luxo{margin:58px 20px 0!important}
+}
