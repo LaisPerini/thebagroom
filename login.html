@@ -578,10 +578,7 @@ btn.disabled = true;
 btn.textContent = 'ENVIANDO...';
 definirStatus('recoveryStatus', 'Enviando seu link seguro...');
 
-const emAmbienteLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-const redirectTo = emAmbienteLocal
-? new URL('/login.html?modo=redefinir', window.location.origin).href
-: 'https://www.thebagroom.com.br/login.html?modo=redefinir';
+const redirectTo = 'https://www.thebagroom.com.br/login.html?modo=redefinir';
 const { error } = await supabaseClient.auth.resetPasswordForEmail(email, { redirectTo });
 
 btn.disabled = false;
@@ -690,7 +687,6 @@ function toggleMenuMobile() {
   <script src="/luxury-refresh.js"></script>
 </body>
 </html>
-
 
 
 
