@@ -90,6 +90,8 @@ body.tbr-editorial .internal-title{
 }
 
 .hero-seal{
+  pointer-events:auto!important;
+  text-decoration:none;
   inset:auto 42px 34px auto!important;
   width:auto!important;
   height:auto!important;
@@ -104,6 +106,8 @@ body.tbr-editorial .internal-title{
   width:138px!important;
   max-width:138px!important;
   height:auto!important;
+  max-height:190px;
+  object-fit:contain;
 }
 
 .content-box{
@@ -261,7 +265,7 @@ body.tbr-editorial .internal-title{
     line-height:1.5;
   }
 
-  .hero-seal img{width:96px!important;max-width:96px!important}
+  .hero-seal img{width:96px!important;max-width:96px!important;max-height:130px}
 
   .content-box{padding:46px 20px 24px!important}
 
