@@ -1686,7 +1686,7 @@ let dataFimBR = dataFimObj.toLocaleDateString("pt-BR");
 const checkout = {
   bolsaSlug: BOLSA_SLUG,
   bolsaNome: window.tbrBagFields?.nome || "Michael Kors Jet Set",
-  imagem: "https://i.imgur.com/gDcOX88.jpg",
+  imagem: window.tbrGalleryImage || "https://i.imgur.com/gDcOX88.jpg",
   dataInicio: data,
   dataInicioISO,
   dataFim: dataFimBR,
@@ -1894,11 +1894,10 @@ function toggleFooter(el){
 }
 </script>
 
-  <script src="/luxury-refresh.js?v=20261002-16"></script>
-  <script src="/bag-fields.js?v=20261002-20"></script>
+  <script src="/luxury-refresh.js?v=20261002-21"></script>
+  <script src="/bag-fields.js?v=20261002-21"></script>
 </body>
 </html>
-
 
 
 

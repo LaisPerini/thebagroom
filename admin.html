@@ -896,10 +896,14 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 
 <section id="bolsas" class="panel">
 <div class="card" style="margin-bottom:14px;">
-<h2>Cadastrar bolsa</h2>
+<h2 id="tituloEditorBolsa">Cadastrar ou editar bolsa</h2>
 <p class="panel-intro">
-Cadastre uma nova bolsa para aluguel. Os campos de preço são opcionais, mas ajudam a deixar a página pronta para reserva.
+Selecione uma bolsa para editar seus dados, preços e fotos. Ao salvar, as páginas conectadas ao banco serão atualizadas na próxima abertura. Os destaques editoriais não serão alterados.
 </p>
+<div class="field" style="margin-bottom:20px;">
+<label for="editarBolsaSelect">Bolsa para editar</label>
+<select id="editarBolsaSelect" onchange="selecionarBolsaEditor(this.value)"><option value="">Nova bolsa</option></select>
+</div>
 <div class="form-grid">
 <div class="field">
 <label for="novaBolsaNome">Nome da bolsa</label>
@@ -946,8 +950,14 @@ Cadastre uma nova bolsa para aluguel. Os campos de preço são opcionais, mas aj
 <input id="novaBolsaCaucao" inputmode="decimal" placeholder="1000" oninput="renderResumoCadastroBolsa()">
 </div>
 <div class="field full">
-<label for="novaBolsaImagem">URL da imagem principal</label>
-<input id="novaBolsaImagem" placeholder="https://i.imgur.com/imagem.jpg">
+<label for="novaBolsaImagem">Capa do catálogo — aluguel.html</label>
+<input id="novaBolsaImagem" type="url" placeholder="https://i.imgur.com/imagem.jpg" oninput="previsualizarFotosEditor()">
+</div>
+<div class="field full">
+<label for="novaBolsaGaleria">Fotos da página da bolsa — um link por linha</label>
+<textarea id="novaBolsaGaleria" rows="6" placeholder="https://i.imgur.com/foto1.jpg&#10;https://i.imgur.com/foto2.jpg" oninput="previsualizarFotosEditor()"></textarea>
+<p class="message">A ordem dos links será a ordem da galeria. A primeira foto também será enviada ao checkout. A capa do catálogo pode ser diferente.</p>
+<div id="fotosEditorPreview" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
 </div>
 <div class="field full">
 <label for="novaBolsaDescricao">Descrição</label>
@@ -980,7 +990,7 @@ Cadastre uma nova bolsa para aluguel. Os campos de preço são opcionais, mas aj
 <label><input id="novaBolsaDestaque" type="checkbox"> Destaque</label>
 </div>
 <div class="form-actions">
-<button class="btn" type="button" onclick="cadastrarBolsa()">Cadastrar bolsa</button>
+<button id="salvarBolsaEditor" class="btn" type="button" onclick="cadastrarBolsa()">Cadastrar bolsa</button>
 <button class="btn secondary" type="button" onclick="limparFormularioBolsa()">Limpar</button>
 </div>
 <p id="bolsaStatus" class="message"></p>
@@ -2179,5 +2189,7 @@ window.location.href = "/index.html";
 
 verificarAcesso();
 </script>
+<script src="/bag-manual-photos.js?v=20261002-21"></script>
+<script src="/admin-bag-editor.js?v=20261002-21"></script>
 </body>
 </html>

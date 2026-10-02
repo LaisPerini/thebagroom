@@ -1805,7 +1805,7 @@ let dataFimBR = dataFimObj.toLocaleDateString("pt-BR");
 const checkout = {
   bolsaSlug: BOLSA_SLUG,
   bolsaNome: window.tbrBagFields?.nome || "Dolce Gabbana Sicily",
-  imagem: "https://i.imgur.com/F1HCbgn.jpg",
+  imagem: window.tbrGalleryImage || "https://i.imgur.com/F1HCbgn.jpg",
   dataInicio: data,
   dataInicioISO,
   dataFim: dataFimBR,
@@ -2024,11 +2024,10 @@ document.getElementById('videoModal').style.display='none';
 }
 </script>
 
-  <script src="/luxury-refresh.js?v=20261002-16"></script>
-  <script src="/bag-fields.js?v=20261002-20"></script>
+  <script src="/luxury-refresh.js?v=20261002-21"></script>
+  <script src="/bag-fields.js?v=20261002-21"></script>
 </body>
 </html>
-
 
 
 

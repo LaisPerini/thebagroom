@@ -17,6 +17,32 @@
     const name = String(bag.nome || ''), brand = String(bag.marca || '');
     return (brand && name.toLowerCase().startsWith(brand.toLowerCase()) ? name.slice(brand.length).trim() : name) || name;
   }
+  function safeImage(value) { try { const url=new URL(value); return /^https?:$/.test(url.protocol) && !url.username && !url.password ? url.href : null; } catch (_) { return null; } }
+  async function photoSettings(query) {
+    // The optional columns exist only after installing the Admin editor SQL.
+    try { return await read('bolsas',{select:'id,imagem_capa_url,galeria_automatica',...query}); } catch (_) { return []; }
+  }
+  function updateGallery(rows,bag) {
+    const gallery=document.getElementById('slider');if(!gallery)return;
+    const photos=rows.map(row=>({url:safeImage(row.url),alt:row.alt})).filter(row=>row.url);
+    if(!photos.length)return;
+    const existing=Array.from(gallery.querySelectorAll('img'));
+    existing.slice(photos.length).forEach(img=>img.remove());
+    photos.forEach((photo,index)=>{
+      let img=existing[index];
+      if(!img){img=document.createElement('img');gallery.appendChild(img);img.addEventListener('click',()=>{if(typeof indexAtual!=='undefined')indexAtual=index;if(typeof atualizarZoom==='function' && typeof zoomOverlay!=='undefined'){atualizarZoom();zoomOverlay.style.display='flex';}});}
+      img.src=photo.url;img.alt=photo.alt||bag.nome;img.loading=index?'lazy':'eager';
+    });
+    // Keep the original scrolling, zoom, swipe and CSS; only update their references.
+    if(typeof imagens!=='undefined')imagens=gallery.querySelectorAll('img');
+    if(typeof images!=='undefined')images=gallery.querySelectorAll('img');
+    if(typeof indexAtual!=='undefined')indexAtual=0;
+    gallery.scrollLeft=0;
+    const dotsNode=document.getElementById('dots');
+    if(dotsNode){dotsNode.replaceChildren();photos.forEach((_,i)=>{const dot=document.createElement('span');if(!i)dot.className='active';dotsNode.appendChild(dot);});if(typeof dots!=='undefined')dots=dotsNode.querySelectorAll('span');}
+    text('.tbr-gallery-count','1 / '+photos.length);
+    window.tbrGalleryImage=photos[0].url;
+  }
   function detail(prefix, value) {
     if (value == null) return;
     document.querySelectorAll('.info .desc strong').forEach(label => {
@@ -49,6 +75,11 @@
       if (!bag) throw new Error('Bolsa não encontrada.');
       const plans = validPlans(await read('bolsa_precos', { select: 'dias,valor,ativo', bolsa_id: 'eq.' + bag.id, order: 'dias.asc' }));
       window.tbrBagFields = bag;
+      const photoConfig=(await photoSettings({id:'eq.'+bag.id}))[0];
+      if(photoConfig?.galeria_automatica){
+        try { updateGallery(await read('bolsa_imagens',{select:'url,alt,ordem',bolsa_id:'eq.'+bag.id,order:'ordem.asc'}),bag); }
+        catch(error){console.warn('Não foi possível atualizar a galeria; fotos atuais mantidas.',error);}
+      }
       text('.tbr-product-brand', bag.marca);
       text('.info > .nome', model(bag));
       document.title = bag.nome + ' | The Bag Room';
@@ -96,11 +127,14 @@
     if (!location.pathname.endsWith('/aluguel.html')) return;
     try {
       const [bags,rows] = await Promise.all([read('bolsas',{select:fields}),read('bolsa_precos',{select:'bolsa_id,dias,valor,ativo',ativo:'eq.true',order:'dias.asc'})]);
+      const photoConfigs=await photoSettings({});
       document.querySelectorAll('.grid .card').forEach(card => {
         const slug = card.dataset.bolsaSlug || card.getAttribute('href')?.split('/').pop().replace('.html','');
         const bag = bags.find(row => row.slug === slug); if (!bag) return;
         const plans = validPlans(rows.filter(row => row.bolsa_id === bag.id));
         text('.marca',bag.marca,card); text('.modelo',model(bag),card);
+        const cover=safeImage(photoConfigs.find(config=>config.id===bag.id)?.imagem_capa_url);
+        if(cover){const img=card.querySelector('.img-box img');if(img){img.src=cover;img.alt=bag.nome;}}
         card.dataset.marca = bag.marca || ''; card.dataset.cor = bag.cor || '';
         card.dataset.price = plans.length ? Math.min(...plans.map(p => Number(p.valor))) : '';
         text('.preco',plans.length ? 'A partir de ' + currency(card.dataset.price) : 'Preço sob consulta',card);
