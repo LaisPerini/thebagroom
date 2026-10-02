@@ -140,7 +140,7 @@
       if (dots) {
         const syncCount = () => {
           const active = Array.from(dots.children).findIndex((dot) => dot.classList.contains('active'));
-          count.textContent = `${Math.max(0, active) + 1} / ${slider.querySelectorAll('img').length}`;
+          count.textContent = `${Math.max(0, active) + 1} / ${images.length}`;
         };
         new MutationObserver(syncCount).observe(dots, { subtree: true, attributes: true, attributeFilter: ['class'] });
         syncCount();
