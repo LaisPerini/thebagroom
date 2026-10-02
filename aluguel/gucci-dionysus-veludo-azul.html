@@ -1799,7 +1799,7 @@ let dataFimBR = dataFimObj.toLocaleDateString("pt-BR");
 
 const checkout = {
   bolsaSlug: BOLSA_SLUG,
-  bolsaNome: "Gucci Dionysys Veludo Azul",
+  bolsaNome: window.tbrBagFields?.nome || "Gucci Dionysys Veludo Azul",
   imagem: "https://i.imgur.com/cWeUrHz.jpg",
   dataInicio: data,
   dataInicioISO,
@@ -1810,7 +1810,7 @@ const checkout = {
   valorAluguel: valor,
   valorFrete: totalFrete,
   valorTotal: total,
-  valorCaucao: 2000.00,
+  valorCaucao: Number(window.tbrBagFields?.valor_caucao ?? 2000.00),
   cep: document.getElementById("cep").value || "",
   freteIda: freteIdaSelecionado,
   freteVolta: freteVoltaSelecionado,
@@ -2019,9 +2019,9 @@ document.getElementById('videoModal').style.display='none';
 </script>
 
   <script src="/luxury-refresh.js?v=20261002-16"></script>
+  <script src="/bag-fields.js?v=20261002-20"></script>
 </body>
 </html>
-
 
 
 

@@ -1753,7 +1753,7 @@ let dataFimBR = dataFimObj.toLocaleDateString("pt-BR");
 
 const checkout = {
   bolsaSlug: BOLSA_SLUG,
-  bolsaNome: "Dolce Gabbana Devotion Box",
+  bolsaNome: window.tbrBagFields?.nome || "Dolce Gabbana Devotion Box",
   imagem: "https://i.imgur.com/RAJHFek.jpg",
   dataInicio: data,
   dataInicioISO,
@@ -1764,7 +1764,7 @@ const checkout = {
   valorAluguel: valor,
   valorFrete: totalFrete,
   valorTotal: total,
-  valorCaucao: 3000.00,
+  valorCaucao: Number(window.tbrBagFields?.valor_caucao ?? 3000.00),
   cep: document.getElementById("cep").value || "",
   freteIda: freteIdaSelecionado,
   freteVolta: freteVoltaSelecionado,
@@ -1976,9 +1976,9 @@ document.getElementById('videoModal').style.display='none';
 </script>
 
   <script src="/luxury-refresh.js?v=20261002-16"></script>
+  <script src="/bag-fields.js?v=20261002-20"></script>
 </body>
 </html>
-
 
 
 

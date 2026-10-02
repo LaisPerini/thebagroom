@@ -1806,7 +1806,7 @@ let dataFimBR = dataFimObj.toLocaleDateString("pt-BR");
 
 const checkout = {
   bolsaSlug: BOLSA_SLUG,
-  bolsaNome: "Bvlgari Serpenti",
+  bolsaNome: window.tbrBagFields?.nome || "Bvlgari Serpenti",
   imagem: "https://i.imgur.com/8GdXEuT.jpg",
   dataInicio: data,
   dataInicioISO,
@@ -1817,7 +1817,7 @@ const checkout = {
   valorAluguel: valor,
   valorFrete: totalFrete,
   valorTotal: total,
-  valorCaucao: 2500.00,
+  valorCaucao: Number(window.tbrBagFields?.valor_caucao ?? 2500.00),
   cep: document.getElementById("cep").value || "",
   freteIda: freteIdaSelecionado,
   freteVolta: freteVoltaSelecionado,
@@ -2026,9 +2026,9 @@ document.getElementById('videoModal').style.display='none';
 </script>
 
   <script src="/luxury-refresh.js?v=20261002-16"></script>
+  <script src="/bag-fields.js?v=20261002-20"></script>
 </body>
 </html>
-
 
 
 

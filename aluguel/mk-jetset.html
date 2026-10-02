@@ -1685,7 +1685,7 @@ let dataFimBR = dataFimObj.toLocaleDateString("pt-BR");
 
 const checkout = {
   bolsaSlug: BOLSA_SLUG,
-  bolsaNome: "Michael Kors Jet Set",
+  bolsaNome: window.tbrBagFields?.nome || "Michael Kors Jet Set",
   imagem: "https://i.imgur.com/gDcOX88.jpg",
   dataInicio: data,
   dataInicioISO,
@@ -1696,7 +1696,7 @@ const checkout = {
   valorAluguel: valor,
   valorFrete: totalFrete,
   valorTotal: total,
-  valorCaucao: 500.00,
+  valorCaucao: Number(window.tbrBagFields?.valor_caucao ?? 500.00),
   cep: document.getElementById("cep").value || "",
   freteIda: freteIdaSelecionado,
   freteVolta: freteVoltaSelecionado,
@@ -1895,9 +1895,9 @@ function toggleFooter(el){
 </script>
 
   <script src="/luxury-refresh.js?v=20261002-16"></script>
+  <script src="/bag-fields.js?v=20261002-20"></script>
 </body>
 </html>
-
 
 
 
