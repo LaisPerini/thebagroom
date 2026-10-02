@@ -1934,8 +1934,9 @@ function ordenarProdutos(tipo){
 }
 
 function extrairPreco(card){
+  if (card.dataset.price) return Number(card.dataset.price);
   const texto = card.querySelector('.preco').innerText;
-  return Number(texto.replace(/[^\d]/g, ""));
+  return Number(texto.replace(/[^\d,]/g, "").replace(',', '.'));
 }
 
 const heroFeatureSlides = Array.from(document.querySelectorAll('.hero-feature-link'));
@@ -2143,5 +2144,6 @@ window.addEventListener('load', prepararCatalogo);
 </script>
 
   <script src="/luxury-refresh.js?v=20261002-16"></script>
+  <script src="/bag-data.js?v=20261002-18"></script>
 </body>
 </html>

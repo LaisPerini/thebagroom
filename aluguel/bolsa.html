@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,26 +12,28 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <meta name="description" content="Alugue a icônica Bvlgari Serpenti na The Bag Room. Bolsa de luxo autêntica com design sofisticado e acabamento impecável para eventos, viagens e momentos especiais.">
-<title>Bvlgari Serpenti | Aluguel a partir de R$ 690 | The Bag Room</title>
+<title>Bvlgari Serpenti | Aluguel a partir de R$ 390 | The Bag Room</title>
 
+<!-- Compartilhamento no Instagram, WhatsApp e Facebook -->
 <meta property="og:type" content="product">
 <meta property="og:site_name" content="The Bag Room">
 
-<meta property="og:title" content="Bvlgari Serpenti Forever | Aluguel a partir de R$ 690 | The Bag Room">
-<meta property="og:description" content="Alugue a Bvlgari Serpenti Forever branca na The Bag Room. Bolsa de luxo autêntica disponível para aluguel.">
+<meta property="og:title" content="Bvlgari Serpenti | Aluguel a partir de R$ 390 | The Bag Room">
+<meta property="og:description" content="Alugue a Bvlgari Serpenti Micro Amarela autêntica na The Bag Room. Disponível para aluguel a partir de 4 dias.">
 
-<meta property="og:url" content="https://www.thebagroom.com.br/aluguel/bvlgari-serpenti-branca.html">
+<meta property="og:url" content="https://www.thebagroom.com.br/aluguel/bvlgari-micro-amarela.html">
 
-<meta property="og:image" content="https://i.imgur.com/A2FaCOI.jpg">
-<meta property="og:image:secure_url" content="https://i.imgur.com/A2FaCOI.jpg">
-<meta property="og:image:alt" content="Bvlgari Serpenti Forever branca disponível para aluguel">
+<meta property="og:image" content="https://i.imgur.com/uKmvItm.jpg">
+<meta property="og:image:secure_url" content="https://i.imgur.com/uKmvItm.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:alt" content="Bolsa Bvlgari Serpenti Micro Amarela disponível para aluguel na The Bag Room">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Bvlgari Serpenti Forever | Aluguel a partir de R$ 690 | The Bag Room">
-<meta name="twitter:description" content="Bolsa de luxo autêntica disponível para aluguel.">
-<meta name="twitter:image" content="https://i.imgur.com/A2FaCOI.jpg">
+<meta name="twitter:title" content="Bvlgari Serpenti Micro Amarela | Aluguel a partir de R$ 390 | The Bag Room">
+<meta name="twitter:description" content="Bolsa de luxo autêntica disponível para aluguel a partir de 4 dias.">
+<meta name="twitter:image" content="https://i.imgur.com/uKmvItm.jpg">
+
 
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
@@ -43,23 +44,6 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<!-- VIDEO -->
-<div class="video-bubble" onclick="abrirVideo()">
-  <video autoplay muted loop playsinline>
-    <source src="/videos/bvlgari-serpenti-branca.mp4" type="video/mp4">
-  </video>
-</div>
-
-<div id="videoModal" class="video-modal">
-  <div class="video-close" onclick="fecharVideo()">✕</div>
-
-  <video controls autoplay>
-    <source src="/videos/bvlgari-serpenti-branca.mp4" type="video/mp4">
-  </video>
-</div>
-
-
 
 <style>
 body{
@@ -205,6 +189,7 @@ color:#9b2c2c;
 .reserva-status.sucesso{
 color:#32633e;
 }
+
 .btn{
 margin-top:30px;
 padding:20px;
@@ -317,21 +302,30 @@ width: 24px;
 height: 24px;
 }
 
+.auth-selo-link{
+position:absolute;
+top:22px;
+left:28px;
+z-index:30;
+display:block;
+width:115px;
+height:28px;
+overflow:hidden;
+}
+
+.auth-selo{
+width:115px;
+height:28px;
+object-fit:contain;
+display:block;
+opacity:0.75;
+}
+
 @keyframes float {
 0% { transform: translateY(0); }
 50% { transform: translateY(-8px); }
 100% { transform: translateY(0); }
 }
-
-.social-btn img{
-  width: 26px;
-  height: 26px;
-}
-
-.social-btn:hover{
-  transform: scale(1.1);
-}
-
 
 .frete-opcao{
 border:1px solid #e5e5e5;
@@ -477,25 +471,6 @@ animation:fadeIn 0.3s ease;
   object-fit:contain;
 }
 
-.auth-selo-link{
-position:absolute;
-top:22px;
-left:28px;
-z-index:30;
-display:block;
-width:115px;
-height:28px;
-overflow:hidden;
-}
-
-.auth-selo{
-width:115px;
-height:28px;
-object-fit:contain;
-display:block;
-opacity:0.75;
-}
-
 @keyframes fadeIn{
 from{opacity:0;}
 to{opacity:1;}
@@ -505,7 +480,7 @@ to{opacity:1;}
 .produto{grid-template-columns:1fr;}
 }
 
-/* BOTÃO MENU */
+/* BOTï¿½O MENU */
 .menu-mobile-btn{
 position:absolute;
 left:16px;
@@ -562,52 +537,6 @@ transition:0.3s;
 
 .menu-mobile-inner a:hover{
 opacity:0.6;
-}
-
-.video-bubble{
-position:fixed;
-left:20px;
-bottom:100px;
-width:80px;
-height:80px;
-border-radius:50%;
-overflow:hidden;
-cursor:pointer;
-z-index:9999;
-background:#fff;
-box-shadow:0 8px 25px rgba(0,0,0,.18);
-border:2px solid #fff;
-}
-
-.video-bubble video{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.video-modal{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.85);
-z-index:10000;
-justify-content:center;
-align-items:center;
-}
-
-.video-modal video{
-width:90%;
-max-width:420px;
-border-radius:20px;
-}
-
-.video-close{
-position:absolute;
-top:30px;
-right:30px;
-color:#fff;
-font-size:30px;
-cursor:pointer;
 }
 
 /* DESKTOP */
@@ -767,52 +696,6 @@ display:block;
 opacity:0.75;
 }
 
-.video-bubble{
-position:fixed;
-left:20px;
-bottom:100px;
-width:80px;
-height:80px;
-border-radius:50%;
-overflow:hidden;
-cursor:pointer;
-z-index:9999;
-background:#fff;
-box-shadow:0 8px 25px rgba(0,0,0,.18);
-border:2px solid #fff;
-}
-
-.video-bubble video{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.video-modal{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.85);
-z-index:10000;
-justify-content:center;
-align-items:center;
-}
-
-.video-modal video{
-width:90%;
-max-width:420px;
-border-radius:20px;
-}
-
-.video-close{
-position:absolute;
-top:30px;
-right:30px;
-color:#fff;
-font-size:30px;
-cursor:pointer;
-}
-
 .showroom-card{
     margin-top:12px;
     padding:18px;
@@ -863,6 +746,7 @@ cursor:pointer;
     letter-spacing:1px;
     background:white;
 }
+  
   
 }
 /* Menu padrao The Bag Room */
@@ -1030,16 +914,17 @@ body {
   <!-- ESQUERDA (IMAGEM) -->
   <div class="galeria">
     
-      <a href="/certificados/bvlgari-serpenti-branca-auth.html" class="auth-selo-link">
+      <a href="/certificados/bvlgari-micro-amarela-auth.html" class="auth-selo-link">
   <img src="/selo-auth.jpg" class="auth-selo">
 </a>
 
     <div class="slider" id="slider">
-<img src="https://i.imgur.com/A2FaCOI.jpg">
-<img src="https://i.imgur.com/AOwuabT.jpg">
-<img src="https://i.imgur.com/S0EM5aK.jpg">
-<img src="https://i.imgur.com/EdPXLh4.jpg">
-<img src="https://i.imgur.com/OtrUNo5.jpg">
+<img src="https://i.imgur.com/uKmvItm.jpg">
+<img src="https://i.imgur.com/7J3P9Fr.jpg">
+<img src="https://i.imgur.com/VBhQdfh.jpg">
+<img src="https://i.imgur.com/k5shGjv.jpg">
+<img src="https://i.imgur.com/gRt4hw5.jpg">
+                                        
     </div>
     
     <div class="seta esquerda" onclick="slide(-1)">❮</div>
@@ -1048,34 +933,32 @@ body {
     <div class="dots" id="dots"></div>
 
   </div>
-  
 
-  <!-- DIREITA (INFO + BOTÃO) -->
+
+  <!-- DIREITA (INFO + BOTï¿½O) -->
   <div class="info">
 
-    <div class="nome">Bvlgari Serpenti Forever Leather Top Handle</div>
-    <div class="preco">A partir de R$ 690</div>
+    <div class="nome">Bvlgari Serpenti Micro</div>
+    <div class="preco">A partir de R$ 390</div>
 
 <div class="desc">
 
 <p>
-Confeccionada em couro de bezerro na cor branca com detalhes em preto, e ferragens douradas, a Serpenti Forever possui aba frontal com o icônico fecho em formato de cabeça de serpente, símbolo da Maison. Conta com alça de mão estruturada e alça longa removível, permitindo uso no ombro ou transversal. Modelo elegante e sofisticado, com contraste moderno.
+Confeccionada em couro de bezerro na cor amarela, com ferragens douradas, a Serpenti Forever possui aba frontal com o icônico fecho em formato de cabeça de serpente, símbolo da Maison. Conta com alça curta em corrente metálica inspirada no corpo da serpente. Modelo micro, delicado e sofisticado, ideal para produções modernas e elegantes.
 </p>
 
 <p>
-Conta com alça em corrente metálica, podendo ser usada no ombro ou transversal. 
-Modelo elegante, estruturado e atemporal.
 </p>
 
 <p>
-<strong>Estado da bolsa:</strong> Muito bom, com leves sinais de uso no couro e discretas marcas nas ferragens.
+<strong>Estado da bolsa:</strong> Muito bom, com leves sinais de uso no couro.
 </p>
 
 <div class="detalhes">
 
 <p>
   <i data-lucide="handbag" class="icon"></i>
-  <strong>Categoria:</strong> Transpassada / Mão
+  <strong>Categoria:</strong> Mão
 </p>
 <p>
   <i data-lucide="spool" class="icon"></i>
@@ -1087,20 +970,20 @@ Modelo elegante, estruturado e atemporal.
 </p>
 <p>
   <i data-lucide="palette" class="icon"></i>
-  <strong>Cor:</strong> Branco
+  <strong>Cor:</strong> Amarelo
 </p>
 <p>
   <i data-lucide="ruler" class="icon"></i>
-  <strong>Dimensões (L x A):</strong> 20 x 16 cm 
+  <strong>Dimensões (L x A):</strong> 12 x 9 cm
 </p>
 <p>
   <i data-lucide="credit-card" class="icon"></i>
-  <strong>Valor do caução:</strong>R$ 2.000,00
+  <strong>Valor do caução:</strong>R$ 1.000,00
 </p>
 
 <p>
   <i data-lucide="badge-dollar-sign" class="icon"></i>
-  <strong>Valor em loja:</strong> R$ 25.200
+  <strong>Valor em loja:</strong> R$ 7.050
 </p>
 
 </div>
@@ -1108,20 +991,20 @@ Modelo elegante, estruturado e atemporal.
 </div>
 
     <div class="opcoes">
-      <label class="opcao active"><input type="radio" name="dias" value="4" checked>4 dias • R$ 690</label>
-      <label class="opcao"><input type="radio" name="dias" value="7">7 dias • R$ 890</label>
-      <label class="opcao"><input type="radio" name="dias" value="10">10 dias • R$ 1.090</label>
-      <label class="opcao"><input type="radio" name="dias" value="15">15 dias • R$ 1.390</label>
-      <label class="opcao"><input type="radio" name="dias" value="20">20 dias • R$ 1.590</label>
-      <label class="opcao"><input type="radio" name="dias" value="30">30 dias • R$ 1.990</label>
+      <label class="opcao active"><input type="radio" name="dias" value="4" checked>4 dias • R$ 390</label>
+      <label class="opcao"><input type="radio" name="dias" value="7">7 dias • R$ 490</label>
+      <label class="opcao"><input type="radio" name="dias" value="10">10 dias • R$ 590</label>
+      <label class="opcao"><input type="radio" name="dias" value="15">15 dias • R$ 790</label>
+      <label class="opcao"><input type="radio" name="dias" value="20">20 dias • R$ 890</label>
+      <label class="opcao"><input type="radio" name="dias" value="30">30 dias • R$ 1.190</label>
     </div>
 
     <br>
 
     <input type="text" id="dataInicio" placeholder="Selecione a data">
+    <div id="calendarioStatus" class="calendario-status">Consultando disponibilidade...</div>
 
     <div id="devolucao"></div>
-    <div id="calendarioStatus" class="calendario-status">Consultando disponibilidade...</div>
 
     <br>
 
@@ -1148,8 +1031,7 @@ Modelo elegante, estruturado e atemporal.
 
 </div>
 
- <!-- <div class="btn" id="botaoAlugar" onclick="alugar()">CONTINUAR ALUGUEL</div>
-    <div id="reservaStatus" class="reserva-status"></div> -->
+ <!-- <div class="btn" onclick="alugar()">ALUGAR AGORA</div> -->
 
 </div>
 
@@ -1178,7 +1060,7 @@ document.querySelectorAll('.opcao').forEach(opcao => {
 /* CALENDARIO + DISPONIBILIDADE SUPABASE */
 const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
 const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
-const BOLSA_SLUG = new URLSearchParams(location.search).get("slug") || "bvlgari-serpenti-branca";
+const BOLSA_SLUG = new URLSearchParams(location.search).get("slug") || "";
 const aluguelSupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let bolsaAtual = null;
@@ -1321,25 +1203,34 @@ async function iniciarCalendario(){
 
 iniciarCalendario();
 
-
 /* devolução */
 function atualizarDevolucao(){
 
 let dias = document.querySelector('input[name="dias"]:checked');
 let dataInput = document.getElementById('dataInicio').value;
 
-if(!dias || !dataInput) return;
+if(!dias || !dataInput) return true;
 
 let partes = dataInput.split("/");
-let data = new Date(partes[2], partes[1]-1, partes[0]);
+let dataInicio = new Date(partes[2], partes[1]-1, partes[0]);
+let quantidadeDias = parseInt(dias.value);
 
-data.setDate(data.getDate() + parseInt(dias.value));
+if(periodoTemConflito(dataInicio, quantidadeDias)){
+document.getElementById('devolucao').innerHTML =
+`<span style="color:#9b2c2c;">Esse periodo cruza datas ja reservadas. Escolha outra data ou outro periodo.</span>`;
+return false;
+}
+
+let data = new Date(dataInicio);
+data.setDate(data.getDate() + quantidadeDias);
 
 document.getElementById('devolucao').innerHTML =
 `Devolução prevista: <strong>${data.toLocaleDateString('pt-BR')}</strong>`;
+
+return true;
 }
 
-/*  FRETE COM SELEÇÃO */
+/* ?? FRETE COM SELEï¿½ï¿½O */
 /* FRETE COM VALIDACAO DE SP E PRAZO AUTOMATICO POR CEP */
 let freteSelecionado = null;
 
@@ -1762,8 +1653,129 @@ ${enderecoShowroom}
 `;
 }
 
-/*  WHATSAPP COMPLETO */
+/* RESERVA REAL NO SUPABASE */
+async function alugar(){
 
+let diasSelecionado = document.querySelector('input[name="dias"]:checked');
+let data = document.getElementById('dataInicio').value;
+let botao = document.getElementById("botaoAlugar");
+
+if(!data){
+alert("Escolha a data");
+return;
+}
+
+if(atualizarDevolucao() === false){
+alert("Esse periodo cruza datas ja reservadas. Escolha outra data ou outro periodo.");
+return;
+}
+
+if(!freteIdaSelecionado || !freteVoltaSelecionado){
+alert("Escolha entrega e devolução");
+return;
+}
+
+const {
+  data: { user }
+} = await aluguelSupabase.auth.getUser();
+
+if(!user){
+localStorage.setItem("reservaPendenteTheBagRoom", JSON.stringify({
+  bolsaSlug: BOLSA_SLUG,
+  dataInicio: data,
+  dias: Number(diasSelecionado.value),
+  freteIda: freteIdaSelecionado,
+  freteVolta: freteVoltaSelecionado,
+  prazoEntregaDiasUteis: freteIdaSelecionado?.nome === "SEDEX" ? Number(freteIdaSelecionado.prazo || 0) : 0,
+  dataPostagemLimite: obterDataPostagemLimiteISO()
+}));
+
+alert("Para reservar, entre na sua conta ou faca seu cadastro.");
+window.location.href = "/login.html";
+return;
+}
+
+// valor aluguel
+let textoOpcao = diasSelecionado.parentElement.innerText;
+
+let valorMatch = textoOpcao.match(/R\$\s*([\d.,]+)/);
+
+let valor = valorMatch 
+  ? parseFloat(valorMatch[1].replace(/\./g, '').replace(',', '.')) 
+  : 0;
+
+
+// frete
+let totalFrete = freteIdaSelecionado.preco + freteVoltaSelecionado.preco;
+
+// total
+let total = valor + totalFrete;
+let totalFormatado = total.toFixed(2).replace(".", ",");
+
+try{
+if(botao){
+  botao.style.pointerEvents = "none";
+  botao.style.opacity = "0.65";
+  botao.innerText = "CRIANDO RESERVA...";
+}
+
+setReservaStatus("Criando sua reserva no sistema...", "");
+
+const { data: pedido, error } = await aluguelSupabase.rpc("criar_pedido_aluguel", {
+  p_bolsa_slug: BOLSA_SLUG,
+  p_data_inicio: dataInputParaISO(data),
+  p_dias: Number(diasSelecionado.value),
+  p_valor_frete: totalFrete,
+  p_entrega_nome: freteIdaSelecionado.nome,
+  p_entrega_preco: freteIdaSelecionado.preco,
+  p_devolucao_nome: freteVoltaSelecionado.nome,
+  p_devolucao_preco: freteVoltaSelecionado.preco
+});
+
+if(error){
+  throw error;
+}
+
+const resumoPedido = {
+  ...pedido,
+  totalFormatado,
+  periodoTexto: textoOpcao,
+  freteIda: freteIdaSelecionado,
+  freteVolta: freteVoltaSelecionado,
+  prazoEntregaDiasUteis: freteIdaSelecionado?.nome === "SEDEX" ? Number(freteIdaSelecionado.prazo || 0) : 0,
+  dataPostagemLimite: obterDataPostagemLimiteISO()
+};
+
+localStorage.setItem("ultimoPedidoAluguelTheBagRoom", JSON.stringify(resumoPedido));
+setReservaStatus("Reserva criada. Redirecionando...", "sucesso");
+window.location.href = `pedido-aluguel-confirmado.html?pedido=${encodeURIComponent(pedido.pedido_id)}`;
+} catch(error){
+console.error("Erro ao criar reserva:", error);
+
+let mensagem = "Nao foi possivel criar a reserva. Tente novamente.";
+
+if(error.message && error.message.includes("datas_indisponiveis")){
+  mensagem = "Essas datas acabaram de ficar indisponiveis. Escolha outro periodo.";
+}
+
+if(error.message && error.message.includes("data_inicio_minima")){
+  mensagem = "Escolha uma data com pelo menos 3 dias de antecedencia.";
+}
+
+setReservaStatus(mensagem, "erro");
+alert(mensagem);
+} finally {
+if(botao){
+  botao.style.pointerEvents = "";
+  botao.style.opacity = "";
+  botao.innerText = "RESERVAR ALUGUEL";
+}
+}
+}
+
+
+
+/* Checkout de aluguel: a ultima declaracao substitui o fluxo antigo de reserva direta. */
 async function alugar(){
 let diasSelecionado = document.querySelector('input[name="dias"]:checked');
 let data = document.getElementById('dataInicio').value;
@@ -1807,8 +1819,8 @@ let dataFimBR = dataFimObj.toLocaleDateString("pt-BR");
 
 const checkout = {
   bolsaSlug: BOLSA_SLUG,
-  bolsaNome: window.tbrBolsa?.nome || "Bvlgari Serpenti Forever Leather Top Handle",
-  imagem: window.tbrBolsa?.imagem || "https://i.imgur.com/A2FaCOI.jpg",
+  bolsaNome: window.tbrBolsa?.nome || "Bvlgari Serpenti Micro",
+  imagem: window.tbrBolsa?.imagem || "https://i.imgur.com/uKmvItm.jpg",
   dataInicio: data,
   dataInicioISO,
   dataFim: dataFimBR,
@@ -1818,7 +1830,7 @@ const checkout = {
   valorAluguel: valor,
   valorFrete: totalFrete,
   valorTotal: total,
-  valorCaucao: Number(window.tbrBolsa?.valor_caucao ?? 2000.00),
+  valorCaucao: Number(window.tbrBolsa?.valor_caucao ?? 1000),
   cep: document.getElementById("cep").value || "",
   freteIda: freteIdaSelecionado,
   freteVolta: freteVoltaSelecionado,
@@ -1845,7 +1857,6 @@ if(botao){
 
 window.location.href = "/checkout-aluguel.html";
 }
-
 
 let imagens = document.querySelectorAll('#slider img');
 let indexAtual = 0;
@@ -2013,16 +2024,6 @@ function atualizarTotal(){
 <script>
 function toggleFooter(el){
   el.classList.toggle('active');
-}
-</script>
-
-<script>
-function abrirVideo(){
-document.getElementById('videoModal').style.display='flex';
-}
-
-function fecharVideo(){
-document.getElementById('videoModal').style.display='none';
 }
 </script>
 

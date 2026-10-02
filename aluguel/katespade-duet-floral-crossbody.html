@@ -1067,7 +1067,7 @@ document.querySelectorAll('.opcao').forEach(opcao => {
 /* CALENDARIO + DISPONIBILIDADE SUPABASE */
 const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
 const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
-const BOLSA_SLUG = "katespade-duet-floral-crossbody";
+const BOLSA_SLUG = new URLSearchParams(location.search).get("slug") || "katespade-duet-floral-crossbody";
 const aluguelSupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let bolsaAtual = null;
@@ -1696,8 +1696,8 @@ let dataFimBR = dataFimObj.toLocaleDateString("pt-BR");
 
 const checkout = {
   bolsaSlug: BOLSA_SLUG,
-  bolsaNome: "Kate Spade Duet Floral Crossbody",
-  imagem: "https://i.imgur.com/xYyX7Da.jpg",
+  bolsaNome: window.tbrBolsa?.nome || "Kate Spade Duet Floral Crossbody",
+  imagem: window.tbrBolsa?.imagem || "https://i.imgur.com/xYyX7Da.jpg",
   dataInicio: data,
   dataInicioISO,
   dataFim: dataFimBR,
@@ -1707,7 +1707,7 @@ const checkout = {
   valorAluguel: valor,
   valorFrete: totalFrete,
   valorTotal: total,
-  valorCaucao: 1000.00,
+  valorCaucao: Number(window.tbrBolsa?.valor_caucao ?? 1000.00),
   cep: document.getElementById("cep").value || "",
   freteIda: freteIdaSelecionado,
   freteVolta: freteVoltaSelecionado,
@@ -1906,9 +1906,9 @@ function toggleFooter(el){
 </script>
 
   <script src="/luxury-refresh.js?v=20261002-16"></script>
+  <script src="/bag-data.js?v=20261002-18"></script>
 </body>
 </html>
-
 
 
 

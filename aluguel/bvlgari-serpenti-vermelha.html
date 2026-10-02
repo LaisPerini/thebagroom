@@ -1177,7 +1177,7 @@ document.querySelectorAll('.opcao').forEach(opcao => {
 /* CALENDARIO + DISPONIBILIDADE SUPABASE */
 const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
 const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
-const BOLSA_SLUG = "bvlgari-serpenti-vermelha";
+const BOLSA_SLUG = new URLSearchParams(location.search).get("slug") || "bvlgari-serpenti-vermelha";
 const aluguelSupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let bolsaAtual = null;
@@ -1806,8 +1806,8 @@ let dataFimBR = dataFimObj.toLocaleDateString("pt-BR");
 
 const checkout = {
   bolsaSlug: BOLSA_SLUG,
-  bolsaNome: "Bvlgari Serpenti",
-  imagem: "https://i.imgur.com/8GdXEuT.jpg",
+  bolsaNome: window.tbrBolsa?.nome || "Bvlgari Serpenti",
+  imagem: window.tbrBolsa?.imagem || "https://i.imgur.com/8GdXEuT.jpg",
   dataInicio: data,
   dataInicioISO,
   dataFim: dataFimBR,
@@ -1817,7 +1817,7 @@ const checkout = {
   valorAluguel: valor,
   valorFrete: totalFrete,
   valorTotal: total,
-  valorCaucao: 2500.00,
+  valorCaucao: Number(window.tbrBolsa?.valor_caucao ?? 2500.00),
   cep: document.getElementById("cep").value || "",
   freteIda: freteIdaSelecionado,
   freteVolta: freteVoltaSelecionado,
@@ -2026,9 +2026,9 @@ document.getElementById('videoModal').style.display='none';
 </script>
 
   <script src="/luxury-refresh.js?v=20261002-16"></script>
+  <script src="/bag-data.js?v=20261002-18"></script>
 </body>
 </html>
-
 
 
 
