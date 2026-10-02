@@ -14,6 +14,11 @@
   const header = document.querySelector('.site-header') || document.querySelector('body > header');
   if (header) {
     header.classList.add('site-header');
+    header.querySelectorAll('.menu-mobile-btn').forEach((toggle) => {
+      toggle.classList.add('tbr-menu-toggle');
+      toggle.setAttribute('aria-label', 'Abrir menu');
+      toggle.innerHTML = '<svg class="tbr-menu-icon" width="24" height="16" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path d="M1 4h22M1 12h22" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>';
+    });
     const brand = header.querySelector('.brand') || header.querySelector('h1');
     if (brand) brand.classList.add('brand');
     if (brand && !brand.querySelector('a')) {

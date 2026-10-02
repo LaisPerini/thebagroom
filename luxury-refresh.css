@@ -87,6 +87,33 @@ a { color: inherit; }
 }
 .menu-mobile-btn::before { transform: translateY(-4px); }
 .menu-mobile-btn::after { transform: translateY(4px); }
+
+/* One shared icon replaces legacy text and page-specific pseudo-elements. */
+body .site-header .menu-mobile-btn.tbr-menu-toggle {
+  position: absolute !important;
+  left: 18px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  padding: 0 !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  color: var(--tbr-ink) !important;
+}
+body .site-header .menu-mobile-btn.tbr-menu-toggle::before,
+body .site-header .menu-mobile-btn.tbr-menu-toggle::after {
+  content: none !important;
+  display: none !important;
+}
+body .site-header .tbr-menu-toggle .tbr-menu-icon {
+  display: block !important;
+  width: 24px !important;
+  height: 16px !important;
+  margin: 0 !important;
+}
 .luxury-desktop-nav {
   position: absolute;
   left: 42px;

@@ -818,7 +818,7 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 <div class="dashboard-card-head"><div><p class="eyebrow">Estoque completo</p><h2>Retorno por bolsa</h2></div></div>
 <div class="investment-table-wrap">
 <table class="data-table portfolio-excel">
-<thead><tr><th>🏷️ Marca</th><th>👜 Modelo</th><th>🏬 Valor loja</th><th>💳 Valor pago</th><th>🔒 Caução</th><th>📅 Dias</th><th>💵 Aluguel</th><th>📈 % pago</th><th>📊 % loja</th><th>🎯 Meta</th><th>💰 Faturamento</th></tr></thead>
+<thead><tr><th>Slug</th><th>Vlr. loja</th><th>Vlr. pago</th><th>Caução</th><th>Dias</th><th>Aluguel</th><th>% pago</th><th>% loja</th><th>Meta</th><th>Fat.</th></tr></thead>
 <tbody id="portfolioTableBody"></tbody>
 </table>
 </div>
@@ -937,7 +937,7 @@ Cadastre uma nova bolsa para aluguel. Os campos de preço são opcionais, mas aj
 <p>Os percentuais usam o aluguel da menor duração preenchida. A meta estima quantas locações desse plano são necessárias para recuperar o valor pago.</p>
 <div class="investment-table-wrap">
 <table class="data-table investment-table">
-<thead><tr><th>Marca</th><th>slug</th><th>Valor loja</th><th>Valor que paguei</th><th>Valor caução</th><th>Dias</th><th>Aluguel</th><th>% valor pago</th><th>% valor loja</th><th>Meta locação</th></tr></thead>
+<thead><tr><th>Marca</th><th>Modelo</th><th>Valor loja</th><th>Valor que paguei</th><th>Valor caução</th><th>Dias</th><th>Aluguel</th><th>% valor pago</th><th>% valor loja</th><th>Meta locação</th></tr></thead>
 <tbody id="resumoCadastroBolsa"><tr><td colspan="10" class="investment-placeholder">Preencha os dados acima para visualizar os cálculos.</td></tr></tbody>
 </table>
 </div>
@@ -1075,6 +1075,10 @@ painel.scrollIntoView({ behavior: "smooth", block: "start" });
 
 function moeda(valor){
 return Number(valor || 0).toLocaleString("pt-BR", { style:"currency", currency:"BRL" });
+}
+
+function moedaPortfolio(valor){
+return moeda(valor).replace(/,00$/, "");
 }
 
 function dataBR(data){
@@ -1940,12 +1944,12 @@ cardKpi("Capital recuperado",retorno.toLocaleString("pt-BR",{maximumFractionDigi
 cardKpi("Bolsas sem aluguel",semAluguel,"Oportunidade de ação comercial","bolsas")
 ].join("");
 document.getElementById("portfolioTableBody").innerHTML=dados.sort((a,b)=>b.faturamento-a.faturamento).map(x=>`<tr class="${x.valorPago>0&&x.faturamento>=x.valorPago?'recovered':''}">
-<td data-label="Marca">${safeText(x.b.marca||"-")}</td><td data-label="Modelo"><strong>${safeText(x.b.nome||"-")}</strong></td>
-<td data-label="Valor loja">${x.valorLoja?moeda(x.valorLoja):"—"}</td><td data-label="Valor pago">${x.valorPago?moeda(x.valorPago):"—"}</td><td data-label="Caução">${moeda(x.b.valor_caucao)}</td>
-<td data-label="Dias">${x.plano?.dias||"—"}</td><td data-label="Aluguel">${x.aluguel?moeda(x.aluguel):"—"}</td>
-<td data-label="% valor pago">${x.pctPago!==null?x.pctPago.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
-<td data-label="% valor loja">${x.pctLoja!==null?x.pctLoja.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
-<td data-label="Meta locação">${x.meta??"—"}</td><td data-label="Faturamento" class="money-emphasis">${moeda(x.faturamento)}</td></tr>`).join("") || '<tr><td colspan="11" class="dashboard-empty">Nenhuma bolsa cadastrada.</td></tr>';
+<td data-label="Slug"><strong>${safeText(x.b.slug||"—")}</strong></td>
+<td data-label="Vlr. loja">${x.valorLoja?moedaPortfolio(x.valorLoja):"—"}</td><td data-label="Vlr. pago">${x.valorPago?moedaPortfolio(x.valorPago):"—"}</td><td data-label="Caução">${moedaPortfolio(x.b.valor_caucao)}</td>
+<td data-label="Dias">${x.plano?.dias||"—"}</td><td data-label="Aluguel">${x.aluguel?moedaPortfolio(x.aluguel):"—"}</td>
+<td data-label="% pago">${x.pctPago!==null?x.pctPago.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
+<td data-label="% loja">${x.pctLoja!==null?x.pctLoja.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
+<td data-label="Meta">${x.meta??"—"}</td><td data-label="Fat." class="money-emphasis">${moedaPortfolio(x.faturamento)}</td></tr>`).join("") || '<tr><td colspan="10" class="dashboard-empty">Nenhuma bolsa cadastrada.</td></tr>';
 }
 
 function renderCustomerMetrics(){
