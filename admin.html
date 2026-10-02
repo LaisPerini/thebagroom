@@ -701,6 +701,23 @@ background:#9b2c2c;
 .portfolio-excel th{background:#1b1b1b!important;color:#fff!important;font-size:clamp(7px,.62vw,9px)!important;}
 .portfolio-excel tr.recovered td:first-child{border-left:4px solid #32633e!important;}
 
+.portfolio-mobile{display:none;}
+@media(max-width:768px){
+  .portfolio-table-wrap{display:none;}
+  .portfolio-mobile{display:block;}
+  .portfolio-mobile section+section{margin-top:24px;}
+  .portfolio-mobile h3{font-size:14px;margin:0 0 10px;}
+  .portfolio-mobile table{display:table!important;width:100%!important;table-layout:fixed;border-collapse:collapse;font-size:11px;}
+  .portfolio-mobile thead{display:table-header-group!important;}
+  .portfolio-mobile tbody{display:table-row-group!important;}
+  .portfolio-mobile tr{display:table-row!important;padding:0!important;border:0!important;}
+  .portfolio-mobile th,.portfolio-mobile td{display:table-cell!important;width:auto!important;padding:9px 4px!important;border:1px solid #ddd6cd!important;vertical-align:middle;line-height:1.4;text-align:right!important;white-space:nowrap;}
+  .portfolio-mobile th{background:#1b1b1b;color:#fff;font-size:10px;white-space:normal;text-align:left!important;}
+  .portfolio-mobile th:first-child,.portfolio-mobile td:first-child{width:32%!important;text-align:left!important;white-space:normal;overflow-wrap:anywhere;}
+  .portfolio-mobile section:nth-child(2) th:nth-child(2),.portfolio-mobile section:nth-child(2) td:nth-child(2){width:8%!important;}
+  .portfolio-mobile td:before{display:none!important;content:none!important;}
+  .portfolio-mobile tbody tr:nth-child(even){background:#faf8f5;}
+}
 @media(max-width:768px){
   .portfolio-table-wrap{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;border-radius:0;}
   .portfolio-excel{width:1100px!important;min-width:1100px!important;font-size:12px!important;}
@@ -837,6 +854,7 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 <tbody id="portfolioTableBody"></tbody>
 </table>
 </div>
+<div class="portfolio-mobile" id="portfolioMobileTables"></div>
 </article>
 </section>
 
@@ -1979,6 +1997,36 @@ document.getElementById("portfolioTableBody").innerHTML=dados.sort((a,b)=>b.fatu
 <td data-label="% pago">${x.pctPago!==null?x.pctPago.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
 <td data-label="% loja">${x.pctLoja!==null?x.pctLoja.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
 <td data-label="Meta">${x.meta??"—"}</td><td data-label="Fat." class="money-emphasis">${moedaPortfolio(x.faturamento)}</td></tr>`).join("") || '<tr><td colspan="10" class="dashboard-empty">Nenhuma bolsa cadastrada.</td></tr>';
+renderPortfolioMobile();
+}
+
+function renderPortfolioMobile(){
+const source=document.getElementById("portfolioTableBody");
+const target=document.getElementById("portfolioMobileTables");
+const headers=source.closest("table").querySelectorAll("thead th");
+target.replaceChildren();
+if(!source.rows.length || source.rows[0].cells.length!==10){
+target.innerHTML='<p class="dashboard-empty">Nenhuma bolsa cadastrada.</p>';
+return;
+}
+const groups=[
+{title:"Valores da bolsa",columns:[0,1,2,3]},
+{title:"Aluguel e percentuais",columns:[0,4,5,6,7]},
+{title:"Meta e faturamento",columns:[0,8,9]}
+];
+groups.forEach(group=>{
+const section=document.createElement("section");
+const title=document.createElement("h3");title.textContent=group.title;section.appendChild(title);
+const table=document.createElement("table");
+const head=table.createTHead().insertRow();
+group.columns.forEach(index=>head.appendChild(headers[index].cloneNode(true)));
+const body=table.createTBody();
+Array.from(source.rows).forEach(row=>{
+const copy=body.insertRow();copy.className=row.className;
+group.columns.forEach(index=>copy.appendChild(row.cells[index].cloneNode(true)));
+});
+section.appendChild(table);target.appendChild(section);
+});
 }
 
 function renderCustomerMetrics(){
