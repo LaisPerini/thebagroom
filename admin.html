@@ -700,6 +700,17 @@ background:#9b2c2c;
 .portfolio-excel td:before{display:none!important;content:none!important;}
 .portfolio-excel th{background:#1b1b1b!important;color:#fff!important;font-size:clamp(7px,.62vw,9px)!important;}
 .portfolio-excel tr.recovered td:first-child{border-left:4px solid #32633e!important;}
+
+@media(max-width:768px){
+  .portfolio-table-wrap{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;border-radius:0;}
+  .portfolio-excel{width:1100px!important;min-width:1100px!important;font-size:12px!important;}
+  .portfolio-excel th,.portfolio-excel td{width:auto!important;padding:12px 10px!important;white-space:nowrap!important;overflow-wrap:normal!important;}
+  .portfolio-excel th{font-size:11px!important;}
+  .portfolio-excel th:first-child,.portfolio-excel td:first-child{width:220px!important;position:sticky;left:0;z-index:1;background:#fff;white-space:normal!important;overflow-wrap:break-word!important;}
+  .portfolio-excel tbody tr:nth-child(even) td:first-child{background:#faf8f5;}
+  .portfolio-excel th:first-child{z-index:2;background:#1b1b1b!important;}
+  .portfolio-excel td:nth-child(n+2){text-align:right!important;}
+}
 </style>
 </head>
 
@@ -820,7 +831,7 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 
 <article class="card dashboard-card">
 <div class="dashboard-card-head"><div><p class="eyebrow">Estoque completo</p><h2>Retorno por bolsa</h2></div></div>
-<div class="investment-table-wrap">
+<div class="investment-table-wrap portfolio-table-wrap">
 <table class="data-table portfolio-excel">
 <thead><tr><th>Slug</th><th>Vlr. loja</th><th>Vlr. pago</th><th>Caução</th><th>Dias</th><th>Aluguel</th><th>% pago</th><th>% loja</th><th>Meta</th><th>Fat.</th></tr></thead>
 <tbody id="portfolioTableBody"></tbody>

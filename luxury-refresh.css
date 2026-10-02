@@ -89,6 +89,7 @@ a { color: inherit; }
 .menu-mobile-btn::after { transform: translateY(4px); }
 
 /* One shared icon replaces legacy text and page-specific pseudo-elements. */
+body .site-header .menu-mobile-btn,
 body .site-header .menu-mobile-btn.tbr-menu-toggle {
   position: absolute !important;
   left: 18px !important;
