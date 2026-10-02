@@ -94,7 +94,7 @@ Deno.serve(async req => {
     const [todayReport, monthReport, pagesReport, sourcesReport, devicesReport, citiesReport, eventsReport] = await Promise.all([
       runReport(token, configuredProperty, { dateRanges: [{ startDate: "today", endDate: "today" }], metrics: commonMetrics }),
       runReport(token, configuredProperty, { dateRanges: [{ startDate: "30daysAgo", endDate: "today" }], metrics: commonMetrics }),
-      runReport(token, configuredProperty, { dateRanges: [{ startDate: "30daysAgo", endDate: "today" }], dimensions: [{ name: "pageTitle" }, { name: "pagePath" }], metrics: [{ name: "screenPageViews" }], orderBys: [{ metric: { metricName: "screenPageViews" }, desc: true }], limit: 10 }),
+      runReport(token, configuredProperty, { dateRanges: [{ startDate: "30daysAgo", endDate: "today" }], dimensions: [{ name: "pagePath" }], metrics: [{ name: "screenPageViews" }], orderBys: [{ metric: { metricName: "screenPageViews" }, desc: true }], limit: 10000 }),
       runReport(token, configuredProperty, { dateRanges: [{ startDate: "30daysAgo", endDate: "today" }], dimensions: [{ name: "sessionDefaultChannelGroup" }], metrics: [{ name: "sessions" }], orderBys: [{ metric: { metricName: "sessions" }, desc: true }], limit: 10 }),
       runReport(token, configuredProperty, { dateRanges: [{ startDate: "30daysAgo", endDate: "today" }], dimensions: [{ name: "deviceCategory" }], metrics: [{ name: "activeUsers" }] }),
       runReport(token, configuredProperty, { dateRanges: [{ startDate: "30daysAgo", endDate: "today" }], dimensions: [{ name: "city" }], metrics: [{ name: "activeUsers" }], orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }], limit: 10 }),
@@ -107,6 +107,7 @@ Deno.serve(async req => {
       today: metrics(todayReport),
       month: metrics(monthReport),
       topPages: rows(pagesReport),
+      pagesTotal: pagesReport.rowCount || 0,
       sources: rows(sourcesReport),
       devices: rows(devicesReport),
       cities: rows(citiesReport),

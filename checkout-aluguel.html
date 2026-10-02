@@ -659,6 +659,13 @@ Entrega selecionada como retirada no showroom. O endereço de entrega não é ob
 
 <div class="line"><span>Aluguel</span><strong id="valorAluguel">R$ 0,00</strong></div>
 <div class="line"><span>Frete</span><strong id="valorFrete">R$ 0,00</strong></div>
+<div class="field" style="margin:16px 0;">
+<label for="cupomCodigo">Cupom de desconto</label>
+<input id="cupomCodigo" placeholder="Digite seu código" autocomplete="off" maxlength="40">
+<button id="aplicarCupom" class="btn secondary" type="button" style="margin-top:8px;" onclick="aplicarCupomAluguel()">Aplicar cupom</button>
+<p id="cupomStatus" class="status" role="status"></p>
+</div>
+<div id="linhaDesconto" class="line hidden"><span>Desconto no aluguel</span><strong id="valorDesconto">R$ 0,00</strong></div>
 <div class="line total"><span>Total agora</span><strong id="valorTotal">R$ 0,00</strong></div>
 <div class="line">
 <span class="line-label">
@@ -1084,7 +1091,8 @@ setStatus("Criando pedido e preparando pagamento...");
 
 try{
 const periodoBloqueio = calcularPeriodoBloqueioLogistico();
-const { data: pedido, error } = await supabaseClient.rpc("criar_pedido_aluguel", {
+const { data: pedido, error } = await supabaseClient.rpc("criar_pedido_com_cupom", {
+p_checkout: {
 p_bolsa_slug: checkout.bolsaSlug,
 p_data_inicio: checkout.dataInicioISO,
 p_dias: Number(checkout.dias),
@@ -1103,6 +1111,8 @@ p_endereco_cidade: document.getElementById("cidade").value.trim() || null,
 p_endereco_estado: document.getElementById("estado").value.trim() || null,
 p_bloqueio_data_inicio: periodoBloqueio.inicio,
 p_bloqueio_data_fim: periodoBloqueio.fim
+},
+p_codigo: document.getElementById("cupomCodigo").value.trim() || null
 });
 
 if(error) throw error;
@@ -1146,6 +1156,9 @@ window.location.href = result.checkout_url;
 console.error(error);
 let mensagem = "Nao foi possivel finalizar o aluguel. Tente novamente.";
 const erro = String(error?.message || error || "");
+if(erro.includes("cupom_")){
+mensagem = "Este cupom está inválido, indisponível ou já foi utilizado. Revise o código antes de tentar novamente.";
+}
 
 if(erro.includes("datas_indisponiveis")){
 mensagem = "Essas datas acabaram de ficar indisponiveis. Volte para a bolsa e escolha outro periodo.";
@@ -1220,10 +1233,9 @@ function toggleMenuMobile() {
 }
 </script>
   <script src="/luxury-refresh.js?v=20261002-16"></script>
+<script src="/checkout-coupons.js?v=20261002-22"></script>
 </body>
 </html>
-
-
 
 
 

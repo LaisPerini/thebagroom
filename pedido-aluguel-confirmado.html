@@ -276,7 +276,7 @@
       <div class="row"><span>Período</span><strong id="pedidoPeriodo">Carregando...</strong></div>
       <div class="row"><span>Total do aluguel</span><strong id="pedidoTotal">Carregando...</strong></div>
       <div class="row"><span>Caução</span><strong id="pedidoCaucao">Carregando...</strong></div>
-      <div class="row"><span>Status</span><strong>Aguardando pagamento</strong></div>
+      <div class="row"><span>Status</span><strong id="pedidoStatus">Consulte em Minha Conta</strong></div>
     </div>
 
     <div class="actions">
@@ -306,7 +306,8 @@
 
     const pedido = JSON.parse(localStorage.getItem('ultimoPedidoAluguelTheBagRoom') || 'null');
 
-    if(pedido){
+    const pedidoDaUrl = new URLSearchParams(window.location.search).get('pedido');
+    if(pedido && (!pedidoDaUrl || pedidoDaUrl === pedido.pedido_id)){
       pedidoAtual = pedido;
       document.getElementById('pedidoNumero').innerText = pedido.numero || pedido.pedido_id || 'Pedido criado';
       document.getElementById('pedidoBolsa').innerText = pedido.bolsa || 'Bvlgari Serpenti Micro';
@@ -321,8 +322,29 @@
       document.getElementById('pedidoCaucao').innerText = 'Consulte em Minha Conta';
     }
 
+    async function conferirPedido(){
+      const id = new URLSearchParams(window.location.search).get('pedido') || pedidoAtual?.pedido_id;
+      document.getElementById('btnPagar').style.display = 'none';
+      if(!id) return;
+      const {data, error} = await supabaseClient.from('aluguel_pedidos').select('id,numero,status,valor_total,valor_caucao_total').eq('id',id).maybeSingle();
+      if(error || !data) return;
+      pedidoAtual = {...pedidoAtual, pedido_id:data.id};
+      document.getElementById('pedidoNumero').innerText = data.numero || data.id;
+      document.getElementById('pedidoTotal').innerText = moeda(data.valor_total);
+      document.getElementById('pedidoCaucao').innerText = moeda(data.valor_caucao_total);
+      document.getElementById('pedidoStatus').innerText = data.status.replaceAll('_',' ');
+      if(data.status === 'aguardando_pagamento') document.getElementById('btnPagar').style.display = 'inline-flex';
+      if(data.status === 'pagamento_aprovado' && Number(data.valor_total) === 0){
+        document.querySelector('main h1').innerText = 'Seu aluguel de cortesia foi confirmado.';
+        document.querySelector('.intro').innerText = 'O cupom foi aplicado e não há pagamento do aluguel. Acompanhe os próximos passos em Minha Conta.';
+        document.getElementById('pedidoStatus').innerText = 'Cortesia confirmada';
+        document.querySelector('.note').innerText = 'A caução e as condições do contrato continuam válidas.';
+      }
+    }
+    conferirPedido().catch(console.error);
+
     async function pagarAluguel(){
-      const pedidoId = pedidoAtual?.pedido_id || new URLSearchParams(window.location.search).get('pedido');
+      const pedidoId = new URLSearchParams(window.location.search).get('pedido') || pedidoAtual?.pedido_id;
 
       if(!pedidoId){
         alert('Abra Minha Conta para localizar o pedido e iniciar o pagamento.');
@@ -405,8 +427,6 @@ function toggleMenuMobile() {
   <script src="/luxury-refresh.js?v=20261002-16"></script>
 </body>
 </html>
-
-
 
 
 

@@ -1,0 +1,16 @@
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
+const admin=fs.readFileSync('admin.html','utf8');
+const resumo=admin.slice(admin.indexOf('function renderResumoCadastroBolsa(){'),admin.indexOf('function limparFormularioBolsa(){'));
+const nodes={resumoCadastroBolsa:{},novaBolsaDif:{}};
+const values={novaBolsaValorLoja:7050,novaBolsaValorPago:2464,preco4:390};
+const money=v=>Number(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+const context={document:{getElementById:id=>nodes[id]},campoTexto:()=>'',valorDecimal:id=>values[id]??null,moeda:money,moedaPortfolio:money,safeText:v=>v};
+vm.runInNewContext(resumo+'\nrenderResumoCadastroBolsa();',context);
+assert.equal(nodes.novaBolsaDif.value,money(4586));assert.match(nodes.resumoCadastroBolsa.innerHTML,/data-label="Dif\."/);
+values.novaBolsaValorPago=0;vm.runInNewContext('renderResumoCadastroBolsa();',context);assert.equal(nodes.novaBolsaDif.value,money(7050));
+delete values.novaBolsaValorPago;vm.runInNewContext('renderResumoCadastroBolsa();',context);assert.equal(nodes.novaBolsaDif.value,'');
+const ga=fs.readFileSync('admin-ga-pages.js','utf8').replace('  window.carregarGA4=async function()', '  window.testGroupPages=groupPages;\n  window.carregarGA4=async function()');
+const analytics={window:{carregarGA4(){}},document:{}};vm.runInNewContext(ga,analytics);
+const grouped=analytics.window.testGroupPages([{pagePath:'/index.html',screenPageViews:5},{pagePath:'/aluguel.html',screenPageViews:7},{pagePath:'/index.html',screenPageViews:4}]);
+assert.equal(grouped[0].path,'/index.html');assert.equal(grouped[0].views,9);assert.equal(grouped.length,2);
+console.log('PASS: Dif. calculado, zero/missing tratados, GA4 agrega visualizações por página.');
