@@ -482,6 +482,7 @@ body{padding:16px 0;}
 .menu-mobile-inner a:hover { opacity: 0.6; }
 </style>
   <link rel="stylesheet" href="/luxury-refresh.css?v=20261002-16">
+<link rel="stylesheet" href="/account-refresh.css?v=20261002-23">
 </head>
 
 <body>
@@ -505,8 +506,10 @@ body{padding:16px 0;}
 </header>
 <div class="container">
 <main class="card">
+<p class="account-eyebrow">Seu espaço The Bag Room</p>
 <h1 class="titulo">Minha Conta</h1>
 <p id="nomeBoasVindas" class="boas-vindas">Carregando...</p>
+<p class="account-intro">Seus dados, reservas e próximos passos, em um só lugar.</p>
 
 <section class="status">
 <h3 id="statusTitulo">Carregando...</h3>
@@ -818,7 +821,7 @@ ${renderProgresso(pedido.status)}
 </div>
 <div class="detail">
 <span>Caução</span>
-<strong>${caucao ? caucaoLabels[caucao.status] || caucao.status : `Pendente - ${moeda(pedido.valor_caucao_total)}`}</strong>
+<strong>${Number(pedido.valor_caucao_total) === 0 ? 'Isenta' : caucao ? caucaoLabels[caucao.status] || caucao.status : `Pendente - ${moeda(pedido.valor_caucao_total)}`}</strong>
 </div>
 <div class="detail wide">
 <span>Endereço de entrega/devolução</span>
@@ -1067,8 +1070,5 @@ function toggleMenuMobile() {
   <script src="/luxury-refresh.js?v=20261002-16"></script>
 </body>
 </html>
-
-
-
 
 

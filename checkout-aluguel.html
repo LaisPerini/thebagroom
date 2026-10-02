@@ -696,7 +696,7 @@ e
 
 <div class="actions">
 <button class="btn" id="finalizarBtn" onclick="finalizarAluguel()">Finalizar aluguel</button>
-<a class="btn secondary" href="/aluguel/bvlgari-micro-amarela.html">Voltar para a bolsa</a>
+<a class="btn secondary" id="voltarParaBolsa" href="/aluguel.html">Voltar para a bolsa</a>
 </div>
 <p id="checkoutStatus" class="status"></p>
 </aside>
@@ -745,6 +745,8 @@ return null;
 }
 
 function preencherResumo(){
+const slug = String(checkout.bolsaSlug || '');
+document.getElementById('voltarParaBolsa').href = /^[a-z0-9_-]+$/.test(slug) ? `/aluguel/${slug}.html` : '/aluguel.html';
 document.getElementById("bagImage").src = checkout.imagem || "https://i.imgur.com/uKmvItm.jpg";
 document.getElementById("bagImage").alt = checkout.bolsaNome || "Bolsa The Bag Room";
 document.getElementById("bagName").innerText = checkout.bolsaNome || "Bolsa de luxo";
@@ -1233,9 +1235,7 @@ function toggleMenuMobile() {
 }
 </script>
   <script src="/luxury-refresh.js?v=20261002-16"></script>
-<script src="/checkout-coupons.js?v=20261002-22"></script>
+<script src="/checkout-coupons.js?v=20261002-23"></script>
 </body>
 </html>
-
-
 

@@ -1462,29 +1462,7 @@ resultado.innerHTML = "Calculando prazo e frete...";
 const meuCep = "11060-003";
 
 try{
-// IDA
-let idaResponse = await fetch("https://thebagroomtest.onrender.com/frete", {
-  method:"POST",
-  headers:{ "Content-Type":"application/json" },
-  body: JSON.stringify({
-    from:{ postal_code: meuCep },
-    to:{ postal_code: cep }
-  })
-});
-
-let idaData = await idaResponse.json();
-
-// VOLTA
-let voltaResponse = await fetch("https://thebagroomtest.onrender.com/frete", {
-  method:"POST",
-  headers:{ "Content-Type":"application/json" },
-  body: JSON.stringify({
-    from:{ postal_code: cep },
-    to:{ postal_code: meuCep }
-  })
-});
-
-let voltaData = await voltaResponse.json();
+const [idaData, voltaData] = await window.tbrQuoteRoundTrip(meuCep, cep);
 
 let html = "";
 
@@ -1904,9 +1882,9 @@ function toggleFooter(el){
 
   <script src="/luxury-refresh.js?v=20261002-21"></script>
   <script src="/bag-fields.js?v=20261002-21"></script>
+<script src="/freight-fast.js?v=20261002-23"></script>
 </body>
 </html>
-
 
 
 

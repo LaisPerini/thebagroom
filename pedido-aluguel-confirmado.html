@@ -338,7 +338,7 @@
         document.querySelector('main h1').innerText = 'Seu aluguel de cortesia foi confirmado.';
         document.querySelector('.intro').innerText = 'O cupom foi aplicado e não há pagamento do aluguel. Acompanhe os próximos passos em Minha Conta.';
         document.getElementById('pedidoStatus').innerText = 'Cortesia confirmada';
-        document.querySelector('.note').innerText = 'A caução e as condições do contrato continuam válidas.';
+        document.querySelector('.note').innerText = Number(data.valor_caucao_total) === 0 ? 'Caução isenta. As demais condições do contrato continuam válidas.' : 'As condições do contrato continuam válidas.';
       }
     }
     conferirPedido().catch(console.error);
@@ -427,6 +427,5 @@ function toggleMenuMobile() {
   <script src="/luxury-refresh.js?v=20261002-16"></script>
 </body>
 </html>
-
 
 

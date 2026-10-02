@@ -31,7 +31,7 @@ Deno.serve(async (req) => {
     const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
     const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
-    const adminEmail = Deno.env.get("ADMIN_NOTIFICATION_EMAIL") || "thebagroom.br@gmail.com";
+    const adminEmail = "thebagroom.br@gmail.com";
     // Until a custom domain is verified in Resend, Gmail and other public
     // addresses cannot be used as the sender. Resend's onboarding sender is
     // valid for deliveries to the account owner's verified email.
@@ -73,6 +73,7 @@ Deno.serve(async (req) => {
       headers: {
         Authorization: `Bearer ${resendApiKey}`,
         "Content-Type": "application/json",
+        "Idempotency-Key": `novo-cliente-${cliente.id}`,
       },
       body: JSON.stringify({
         from: fromEmail,
