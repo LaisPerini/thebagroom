@@ -1041,7 +1041,7 @@ document.querySelectorAll('.opcao').forEach(opcao => {
 /* CALENDARIO + DISPONIBILIDADE SUPABASE */
 const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
 const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
-const BOLSA_SLUG = new URLSearchParams(location.search).get("slug") || "katespade-carey-tissel-tweed-micro";
+const BOLSA_SLUG = "katespade-carey-tissel-tweed-micro";
 const aluguelSupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let bolsaAtual = null;
@@ -1670,8 +1670,8 @@ let dataFimBR = dataFimObj.toLocaleDateString("pt-BR");
 
 const checkout = {
   bolsaSlug: BOLSA_SLUG,
-  bolsaNome: window.tbrBolsa?.nome || "Kate Spade Carey Tinsel Tweed Micro",
-  imagem: window.tbrBolsa?.imagem || "https://i.imgur.com/b1odo1O.jpg",
+  bolsaNome: "Kate Spade Carey Tinsel Tweed Micro",
+  imagem: "https://i.imgur.com/b1odo1O.jpg",
   dataInicio: data,
   dataInicioISO,
   dataFim: dataFimBR,
@@ -1681,7 +1681,7 @@ const checkout = {
   valorAluguel: valor,
   valorFrete: totalFrete,
   valorTotal: total,
-  valorCaucao: Number(window.tbrBolsa?.valor_caucao ?? 1000.00),
+  valorCaucao: 1000.00,
   cep: document.getElementById("cep").value || "",
   freteIda: freteIdaSelecionado,
   freteVolta: freteVoltaSelecionado,
@@ -1880,9 +1880,10 @@ function toggleFooter(el){
 </script>
 
   <script src="/luxury-refresh.js?v=20261002-16"></script>
-  <script src="/bag-data.js?v=20261002-19"></script>
 </body>
 </html>
+
+
 
 
 
