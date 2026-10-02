@@ -200,7 +200,7 @@ margin-bottom:8px;
 }
 
 .stat-value{
-font-size:28px;
+font-size:22px;
 font-weight:700;
 }
 
@@ -491,21 +491,21 @@ gap:14px;
 }
 
 .client-card{
-padding:18px;
+padding:14px;
 }
 
 .client-card-head{
 display:flex;
 justify-content:space-between;
-gap:16px;
-padding-bottom:14px;
-margin-bottom:14px;
+gap:12px;
+padding-bottom:10px;
+margin-bottom:10px;
 border-bottom:1px solid #eee8df;
 }
 
 .client-card h2{
 font-family:'Inter',Arial,sans-serif;
-font-size:28px;
+font-size:22px;
 line-height:1.1;
 font-weight:700;
 letter-spacing:-.025em;
@@ -521,9 +521,13 @@ line-height:1.5;
 .client-info-grid{
 display:grid;
 grid-template-columns:repeat(3,minmax(0,1fr));
-gap:10px;
-margin-bottom:14px;
+gap:8px;
+margin-bottom:10px;
 }
+
+.client-card .detail{padding:9px;min-width:0;}
+.client-card .detail strong{font-size:12px;overflow-wrap:anywhere;}
+.client-card .doc-link,.client-card .doc-empty{padding:9px;min-height:60px;}
 
 .client-docs{
 display:grid;
@@ -598,7 +602,7 @@ background:#9b2c2c;
 .dashboard-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:22px;}
 .kpi{display:block;padding:17px;text-decoration:none;color:inherit;cursor:pointer;transition:transform .18s ease,border-color .18s ease;}
 .kpi:hover,.kpi:focus-visible{transform:translateY(-2px);border-color:#c9ad84;outline:none;}
-.kpi .stat-value{font-family:'Inter',Arial,sans-serif;font-size:30px;font-weight:700;letter-spacing:-.035em;}
+.kpi .stat-value{font-family:'Inter',Arial,sans-serif;font-size:24px;font-weight:700;letter-spacing:-.035em;}
 .kpi-note{margin-top:7px;color:#888;font-size:11px;line-height:1.35;}
 .dashboard-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,.75fr);gap:16px;margin-bottom:16px;min-width:0;}
 .dashboard-grid>*{min-width:0;}
@@ -625,7 +629,7 @@ background:#9b2c2c;
 .status-pill.danger{background:#f8dddd;color:#8b2525;}
 .bag-rank{display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid #eee8df;}
 .bag-rank:last-child{border-bottom:0;}.bag-thumb{width:42px;height:42px;border-radius:11px;object-fit:cover;background:#eee8df;}.bag-rank small{display:block;color:#777;margin-top:3px;}.bag-rank-value{text-align:right;font-weight:700;}
-.ga-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px;}.ga-metric{background:#faf8f5;border-radius:13px;padding:13px;}.ga-metric span{display:block;font-size:10px;color:#777;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}.ga-metric strong{font-size:22px;}
+.ga-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px;}.ga-metric{background:#faf8f5;border-radius:13px;padding:13px;}.ga-metric span{display:block;font-size:10px;color:#777;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}.ga-metric strong{font-size:18px;}
 .service-state{border:1px dashed #d7ccbe;border-radius:13px;padding:14px;color:#6b6259;font-size:12px;line-height:1.6;background:#fcfbf9;}
 .dashboard-empty{padding:18px;text-align:center;color:#777;font-size:13px;}
 .legacy-stats{display:none;}
@@ -678,7 +682,7 @@ background:#9b2c2c;
 .order-head{display:block;}
 .badge{margin-top:12px;}
 .investment-table tr{grid-template-columns:1fr 1fr;}
-.dashboard-filters select,.dashboard-filters input{width:100%;min-width:0;}.dashboard-status{margin-left:0;width:100%;}.dashboard-kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.kpi{padding:14px}.kpi .stat-value{font-size:24px}.dashboard-card{padding:16px}.dashboard-card-head{display:block}.dashboard-card-head .btn{margin-top:12px}.chart-wrap{height:210px}.table-scroll{overflow:visible}.data-table,.data-table tbody,.data-table tr,.data-table td{display:block;width:100%}.data-table thead{display:none}.data-table tr{border:1px solid #eee8df;border-radius:13px;padding:10px;margin-bottom:10px}.data-table td{display:flex;justify-content:space-between;gap:16px;padding:7px;border:0;text-align:right}.data-table td:before{content:attr(data-label);font-size:10px;color:#777;text-transform:uppercase;letter-spacing:.08em;text-align:left}.ga-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+.dashboard-filters select,.dashboard-filters input{width:100%;min-width:0;}.dashboard-status{margin-left:0;width:100%;}.dashboard-kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.kpi{padding:14px}.kpi .stat-value{font-size:20px}.dashboard-card{padding:16px}.dashboard-card-head{display:block}.dashboard-card-head .btn{margin-top:12px}.chart-wrap{height:210px}.table-scroll{overflow:visible}.data-table,.data-table tbody,.data-table tr,.data-table td{display:block;width:100%}.data-table thead{display:none}.data-table tr{border:1px solid #eee8df;border-radius:13px;padding:10px;margin-bottom:10px}.data-table td{display:flex;justify-content:space-between;gap:16px;padding:7px;border:0;text-align:right}.data-table td:before{content:attr(data-label);font-size:10px;color:#777;text-transform:uppercase;letter-spacing:.08em;text-align:left}.ga-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
 }
 
 @media(max-width:420px){
@@ -1644,9 +1648,16 @@ cliente.nome_completo,
 cliente.email,
 cliente.celular,
 cliente.instagram,
+cliente.cpf,
+cliente.data_nascimento,
 cliente.cep,
 cliente.endereco,
+cliente.numero_endereco,
+cliente.complemento_endereco,
+cliente.bairro,
+cliente.cidade,
 cliente.estado,
+cliente.motivo_locacao,
 cliente.status
 ].join(" ").toLowerCase();
 return statusOk && texto.includes(busca);
@@ -1673,10 +1684,17 @@ lista.innerHTML = filtrados.map(cliente => `
 </div>
 
 <div class="client-info-grid">
+<div class="detail"><span>CPF</span><strong>${safeText(cliente.cpf || "-")}</strong></div>
+<div class="detail"><span>Data de nascimento</span><strong>${safeText(dataBR(cliente.data_nascimento))}</strong></div>
 <div class="detail"><span>Instagram</span><strong>${safeText(cliente.instagram ? "@" + cliente.instagram : "-")}</strong></div>
 <div class="detail"><span>CEP</span><strong>${safeText(cliente.cep || "-")}</strong></div>
 <div class="detail"><span>Estado</span><strong>${safeText(cliente.estado || "-")}</strong></div>
 <div class="detail"><span>Endereço</span><strong>${safeText(cliente.endereco || "-")}</strong></div>
+<div class="detail"><span>Número</span><strong>${safeText(cliente.numero_endereco || "-")}</strong></div>
+<div class="detail"><span>Complemento</span><strong>${safeText(cliente.complemento_endereco || "-")}</strong></div>
+<div class="detail"><span>Bairro</span><strong>${safeText(cliente.bairro || "-")}</strong></div>
+<div class="detail"><span>Cidade</span><strong>${safeText(cliente.cidade || "-")}</strong></div>
+<div class="detail"><span>Motivo da locação</span><strong>${safeText(cliente.motivo_locacao || "-")}</strong></div>
 <div class="detail"><span>Cadastro</span><strong>${dataHoraBR(cliente.created_date || cliente.created_at)}</strong></div>
 <div class="detail"><span>ID usuário</span><strong>${safeText(cliente.usuario_auth_id || "-")}</strong></div>
 </div>
@@ -1938,8 +1956,8 @@ const capital=dados.reduce((s,x)=>s+x.valorPago,0), receita=dados.reduce((s,x)=>
 const semAluguel=dados.filter(x=>!x.alugueis.length).length, recuperadas=dados.filter(x=>x.valorPago>0&&x.faturamento>=x.valorPago).length;
 const retorno=capital?receita/capital*100:0;
 document.getElementById("portfolioMetrics").innerHTML=[
-cardKpi("Capital investido",moeda(capital),"Valores de aquisição informados","bolsas"),
-cardKpi("Receita acumulada",moeda(receita),"Pagamentos aprovados","pedidos"),
+cardKpi("Capital investido",Number(capital||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0,minimumFractionDigits:0}),"Valores de aquisição informados","bolsas"),
+cardKpi("Receita acumulada",Number(receita||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0,minimumFractionDigits:0}),"Pagamentos aprovados","pedidos"),
 cardKpi("Capital recuperado",retorno.toLocaleString("pt-BR",{maximumFractionDigits:1})+"%",`${recuperadas} bolsa(s) atingiram o valor pago`,"bolsas"),
 cardKpi("Bolsas sem aluguel",semAluguel,"Oportunidade de ação comercial","bolsas")
 ].join("");
