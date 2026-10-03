@@ -1,5 +1,7 @@
 const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
 const source=fs.readFileSync('freight-fast.js','utf8');
+assert.match(source,/controller\.abort\(\),90000/,'Permite inicialização do Render Free');
+assert.match(source,/clearTimeout\(slowNotice\)/,'Limpa aviso ao finalizar');
 let calls=0,started=[],resolve=[];
 const context={window:{},document:{},Date,Map,AbortController,setTimeout,clearTimeout,fetch:async(url,options)=>{calls++;started.push(JSON.parse(options.body));await new Promise(r=>resolve.push(r));return {ok:true,json:async()=>[{name:'SEDEX',price:'20',delivery_time:2}]};}};
 vm.runInNewContext(source,context);

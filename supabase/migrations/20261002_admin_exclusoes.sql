@@ -4,14 +4,13 @@ create or replace function public.admin_excluir_registro(p_tipo text,p_id text,p
 returns jsonb language plpgsql security definer set search_path=public as $$
 declare uid uuid; affected integer;
 begin
- if auth.uid() is null or not public.is_admin() then raise exception 'admin_obrigatorio'; end if;
+ if auth.uid() is null or not coalesce(public.is_admin(),false) then raise exception 'admin_obrigatorio'; end if;
  if p_confirmacao<>'APAGAR' or p_confirmacao is null then raise exception 'confirmacao_obrigatoria'; end if;
  if p_tipo='pedido' then
   perform 1 from public.aluguel_pedidos where id::text=p_id for update;
   if not found then raise exception 'registro_nao_encontrado'; end if;
-  if exists(select 1 from public.pagamentos_aluguel where pedido_id::text=p_id) or exists(select 1 from public.caucoes where pedido_id::text=p_id) then raise exception 'pedido_com_pagamento_ou_caucao'; end if;
-  if exists(select 1 from public.cupons_usos where pedido_id::text=p_id and consumido) then raise exception 'cupom_consumido'; end if;
-  delete from public.cupons_usos where pedido_id::text=p_id and not consumido;
+  -- A exclusão completa também remove o uso de cupom vinculado ao pedido.
+  delete from public.cupons_usos where pedido_id::text=p_id;
   delete from public.aluguel_pedidos where id::text=p_id;
  elsif p_tipo='bolsa' then
   perform 1 from public.bolsas where id::text=p_id for update;

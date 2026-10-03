@@ -7,7 +7,7 @@ const serviceRoleKey=Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")??"";
 const mercadoPagoAccessToken=Deno.env.get("MERCADO_PAGO_ACCESS_TOKEN")??"";
 const siteUrl=Deno.env.get("SITE_URL")??"https://www.thebagroom.com.br";
 const contratoAluguelVersao="2026-07-02";
-const contratoAluguelUrl=`${siteUrl}/contrato-aluguel`;
+const contratoAluguelUrl=`${siteUrl}/contrato-aluguel.html`;
 const termosUsoUrl=`${siteUrl}/termos-de-uso.html`;
 const textoAceiteContrato="Li e concordo com o Contrato de Locação e Termos de Uso.";
 function jsonResponse(body:unknown,status=200){return new Response(JSON.stringify(body),{status,headers:{...corsHeaders,"Content-Type":"application/json"}});}
@@ -53,7 +53,7 @@ serve(async(req)=>{
   };
   const preferenceResponse=await fetch("https://api.mercadopago.com/checkout/preferences",{method:"POST",headers:{Authorization:`Bearer ${mercadoPagoAccessToken}`,"Content-Type":"application/json"},body:JSON.stringify(preferencePayload)});
   const preference=await preferenceResponse.json();
-  if(!preferenceResponse.ok){console.error("Mercado Pago preference error",preference);return jsonResponse({error:"mercado_pago_error",details:preference},502);}
+  if(!preferenceResponse.ok){console.error("Mercado Pago preference error",preferenceResponse.status);return jsonResponse({error:"mercado_pago_error"},502);}
   const checkoutUrl=preference.init_point??preference.sandbox_init_point;
   const {error:pagamentoError}=await supabase.from("pagamentos_aluguel").insert({pedido_id:pedido.id,provider:"mercado_pago",provider_payment_id:preference.id,status:"pendente",valor:valorTotal,moeda:"BRL",checkout_url:checkoutUrl,raw_response:preference});
   if(pagamentoError){console.error("Payment insert error",pagamentoError);return jsonResponse({error:"payment_record_error"},500);}
