@@ -1648,8 +1648,7 @@ return "pending";
 function documentoUrl(caminho){
 if(!caminho) return "";
 if(/^https?:\/\//i.test(caminho)) return caminho;
-const { data } = supabaseClient.storage.from("documentos-clientes").getPublicUrl(caminho);
-return data?.publicUrl || "";
+return caminho;
 }
 
 function renderDocumentoCliente(label, caminho){
@@ -1664,10 +1663,10 @@ return `
 }
 
 return `
-<a class="doc-link" href="${safeText(url)}" target="_blank" rel="noopener">
+<button type="button" class="doc-link" data-private-document="${safeText(url)}">
 <span>${label}</span>
 <strong>Abrir arquivo</strong>
-</a>
+</button>
 `;
 }
 
@@ -2205,5 +2204,6 @@ verificarAcesso();
 <script src="/admin-ga-pages.js?v=20261002-22"></script>
 <script src="/admin-coupons.js?v=20261002-23"></script>
 <script src="/admin-delete.js?v=20261002-24"></script>
+<script src="/private-documents.js?v=20261002-25"></script>
 </body>
 </html>

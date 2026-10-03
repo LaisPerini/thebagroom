@@ -1021,6 +1021,8 @@ atualizarProgresso('Criando acesso seguro…');
 let authData={user:sessaoAtual?.user||null};
 if(!sessaoAtual){const {data,error}=await supabaseClient.auth.signUp({email,password:senha});if(error)throw new Error(`auth:${error.message}`);authData=data;}
 if(!authData.user) throw new Error('conta');
+const {data:sessaoUpload}=await supabaseClient.auth.getSession();
+if(!sessaoUpload.session) throw new Error('confirmar_email');
 const prefixo=`${authData.user.id}/${Date.now()}`;
 const caminhos={documento:`${prefixo}-documento-${documentoFile.name}`,selfie:`${prefixo}-selfie-${selfieFile.name}`,comprovante:`${prefixo}-comprovante-${comprovanteFile.name}`};
 atualizarProgresso('Enviando os documentos em paralelo…');
@@ -1042,6 +1044,7 @@ localStorage.removeItem('proximoDestinoTheBagRoom');window.location.href='/minha
 console.error(error);
 const mensagens={cpf_local:'Informe um CPF válido.',data_nascimento:'Informe uma data de nascimento válida.',senha_curta:'A senha deve possuir no mínimo 8 caracteres.',senha_diferente:'As senhas não coincidem.',arquivos:'Selecione os três documentos solicitados.',arquivo_grande:'Cada arquivo deve ter no máximo 10 MB.',conta:'Não foi possível criar sua conta.'};
 const chave=error.message;
+if(chave==='confirmar_email'){alert('Confirme seu e-mail e entre na sua conta antes de enviar os documentos.');return;}
 let mensagem=mensagens[chave]||'Não foi possível concluir o cadastro. Tente novamente.';
 if(chave==='timeout')mensagem='A validação do CPF demorou mais que o esperado. Tente novamente.';
 if(chave==='serpro_not_configured')mensagem='A validação oficial do CPF ainda não está disponível. Tente novamente mais tarde.';
@@ -1224,5 +1227,4 @@ e.target.value = valor;
   <script src="/luxury-refresh.js?v=20261002-16"></script>
 </body>
 </html>
-
 
