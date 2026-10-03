@@ -482,7 +482,7 @@ body{padding:16px 0;}
 .menu-mobile-inner a:hover { opacity: 0.6; }
 </style>
   <link rel="stylesheet" href="/luxury-refresh.css?v=20261002-16">
-<link rel="stylesheet" href="/account-refresh.css?v=20261002-23">
+<link rel="stylesheet" href="/account-refresh.css?v=20261002-24">
 </head>
 
 <body>
@@ -569,6 +569,7 @@ Precisa de ajuda para escolher uma bolsa, acompanhar uma reserva ou tirar dúvid
 </main>
 </div>
 
+<script src="/bag-manual-photos.js?v=20261002-24"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
@@ -760,6 +761,10 @@ container.innerHTML = documentos.map(documento => `
 `).join("");
 }
 
+function fotoBolsaPedido(bolsa){
+const raw=bolsa?.imagem_capa_url || window.TBR_MANUAL_PHOTOS?.[bolsa?.slug]?.cover || '';
+try{const url=new URL(raw);return url.protocol==='https:'?url.href.replaceAll('"','&quot;'):'';}catch{return '';}
+}
 function renderAlugueis(pedidos, enderecosPorId = {}){
 const lista = document.getElementById("listaAlugueis");
 
@@ -784,13 +789,17 @@ const caucao = primeiroOuVazio(pedido.caucoes);
 const envio = (pedido.rastreamentos_aluguel || []).find(r => r.tipo === "envio");
 const devolucao = (pedido.rastreamentos_aluguel || []).find(r => r.tipo === "devolucao");
 const endereco = enderecosPorId[pedido.endereco_entrega_id];
+const foto = fotoBolsaPedido(bolsa);
 
 return `
 <article class="rental-card">
 <div class="rental-head">
+<div class="rental-product">
+${foto ? `<img class="rental-thumb" src="${foto}" alt="Bolsa do pedido" loading="lazy" referrerpolicy="no-referrer">` : ''}
 <div>
 <div class="rental-kicker">${pedido.numero || "Pedido de aluguel"}</div>
 <h2 class="rental-title">${bolsa?.nome || "Bolsa de luxo"}</h2>
+</div>
 </div>
 <span class="badge">${statusTexto(pedido.status)}</span>
 </div>
@@ -998,7 +1007,8 @@ valor_caucao,
 bolsas (
 nome,
 marca,
-slug
+slug,
+imagem_capa_url
 )
 ),
 pagamentos_aluguel (
@@ -1070,5 +1080,3 @@ function toggleMenuMobile() {
   <script src="/luxury-refresh.js?v=20261002-16"></script>
 </body>
 </html>
-
-

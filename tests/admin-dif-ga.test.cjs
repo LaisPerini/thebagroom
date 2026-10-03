@@ -6,7 +6,7 @@ const values={novaBolsaValorLoja:7050,novaBolsaValorPago:2464,preco4:390};
 const money=v=>Number(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
 const context={document:{getElementById:id=>nodes[id]},campoTexto:()=>'',valorDecimal:id=>values[id]??null,moeda:money,moedaPortfolio:money,safeText:v=>v};
 vm.runInNewContext(resumo+'\nrenderResumoCadastroBolsa();',context);
-assert.equal(nodes.novaBolsaDif.value,money(4586));assert.match(nodes.resumoCadastroBolsa.innerHTML,/data-label="Dif\."/);
+assert.equal(nodes.novaBolsaDif.value,money(4586));assert.match(nodes.resumoCadastroBolsa.innerHTML,/data-label="Dif\. Vlr\."/);
 values.novaBolsaValorPago=0;vm.runInNewContext('renderResumoCadastroBolsa();',context);assert.equal(nodes.novaBolsaDif.value,money(7050));
 delete values.novaBolsaValorPago;vm.runInNewContext('renderResumoCadastroBolsa();',context);assert.equal(nodes.novaBolsaDif.value,'');
 const ga=fs.readFileSync('admin-ga-pages.js','utf8').replace('  window.carregarGA4=async function()', '  window.testGroupPages=groupPages;\n  window.carregarGA4=async function()');

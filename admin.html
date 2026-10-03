@@ -850,7 +850,7 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 <div class="dashboard-card-head"><div><p class="eyebrow">Estoque completo</p><h2>Retorno por bolsa</h2></div></div>
 <div class="investment-table-wrap portfolio-table-wrap">
 <table class="data-table portfolio-excel">
-<thead><tr><th>Slug</th><th>Vlr. loja</th><th>Vlr. pago</th><th>Caução</th><th>Dias</th><th>Aluguel</th><th>% pago</th><th>% loja</th><th>Meta</th><th>Fat.</th><th>Dif.</th></tr></thead>
+<thead><tr><th>Slug</th><th>Vlr. loja</th><th>Vlr. pago</th><th>Dif. Vlr.</th><th>Caução</th><th>Dias</th><th>Aluguel</th><th>% pago</th><th>% loja</th><th>Meta</th><th>Fat.</th></tr></thead>
 <tbody id="portfolioTableBody"></tbody>
 </table>
 </div>
@@ -946,7 +946,7 @@ Selecione uma bolsa para editar seus dados, preços e fotos. Ao salvar, as pági
 <input id="novaBolsaValorPago" inputmode="decimal" placeholder="2464" oninput="renderResumoCadastroBolsa()">
 </div>
 <div class="field">
-<label for="novaBolsaDif">Dif. — economia na compra</label>
+<label for="novaBolsaDif">Dif. Vlr. — economia na compra</label>
 <input id="novaBolsaDif" readonly placeholder="Vlr. loja − Vlr. pago">
 </div>
 <div class="field">
@@ -984,7 +984,7 @@ Selecione uma bolsa para editar seus dados, preços e fotos. Ao salvar, as pági
 <p>Os percentuais usam o aluguel da menor duração preenchida. A meta estima quantas locações desse plano são necessárias para recuperar o valor pago.</p>
 <div class="investment-table-wrap">
 <table class="data-table investment-table">
-<thead><tr><th>Marca</th><th>Modelo</th><th>Valor loja</th><th>Valor que paguei</th><th>Valor caução</th><th>Dias</th><th>Aluguel</th><th>% valor pago</th><th>% valor loja</th><th>Meta locação</th><th>Dif.</th></tr></thead>
+<thead><tr><th>Marca</th><th>Modelo</th><th>Valor loja</th><th>Valor que paguei</th><th>Dif. Vlr.</th><th>Valor caução</th><th>Dias</th><th>Aluguel</th><th>% valor pago</th><th>% valor loja</th><th>Meta locação</th></tr></thead>
 <tbody id="resumoCadastroBolsa"><tr><td colspan="11" class="investment-placeholder">Preencha os dados acima para visualizar os cálculos.</td></tr></tbody>
 </table>
 </div>
@@ -1260,6 +1260,7 @@ ${statusOptions.map(status => `<option value="${status}" ${pedido.status === sta
 <input id="devolucao-${pedido.id}" value="${devolucao?.codigo_rastreio || ""}" placeholder="Código de devolução">
 </div>
 <button class="btn small" onclick="salvarPedido('${pedido.id}')">Salvar</button>
+<button class="btn secondary small admin-delete" onclick="excluirRegistroAdmin('pedido','${pedido.id}')">Apagar aluguel</button>
 </div>
 </article>
 `;
@@ -1295,6 +1296,7 @@ lista.innerHTML = bolsasAtivas.map(bolsa => `
 <div class="detail"><span>Material</span><strong>${bolsa.material || "-"}</strong></div>
 <div class="detail"><span>Destaque</span><strong>${bolsa.destaque ? "Sim" : "Não"}</strong></div>
 </div>
+<button class="btn secondary small admin-delete" onclick="excluirRegistroAdmin('bolsa','${bolsa.id}')">Apagar bolsa</button>
 </article>
 `).join("");
 }
@@ -1366,13 +1368,13 @@ alvo.innerHTML = `<tr>
 <td data-label="Modelo">${modelo ? safeText(modelo) : vazio}</td>
 <td data-label="Valor loja">${valorLoja !== null ? moeda(valorLoja) : vazio}</td>
 <td data-label="Valor que paguei">${valorPago !== null ? moeda(valorPago) : vazio}</td>
+<td data-label="Dif. Vlr.">${diferenca !== null ? moedaPortfolio(diferenca) : vazio}</td>
 <td data-label="Valor caução">${caucao !== null ? moeda(caucao) : vazio}</td>
 <td data-label="Dias">${planoMinimo ? planoMinimo.dias : vazio}</td>
 <td data-label="Aluguel">${aluguel !== null ? moeda(aluguel) : vazio}</td>
 <td data-label="% valor pago">${percentualPago !== null ? percentualPago.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%" : vazio}</td>
 <td data-label="% valor loja">${percentualLoja !== null ? percentualLoja.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%" : vazio}</td>
 <td data-label="Meta locação">${metaLocacao !== null ? metaLocacao : vazio}</td>
-<td data-label="Dif.">${diferenca !== null ? moedaPortfolio(diferenca) : vazio}</td>
 </tr>`;
 }
 
@@ -1754,6 +1756,7 @@ ${renderDocumentoCliente("Comprovante", cliente.comprovante)}
 <div class="client-actions">
 <button class="btn approve small" onclick="alterarStatusCliente(${Number(cliente.id)}, 'aprovado')">Aprovar</button>
 <button class="btn reject small" onclick="alterarStatusCliente(${Number(cliente.id)}, 'reprovado')">Reprovar</button>
+<button class="btn secondary small admin-delete" onclick="excluirRegistroAdmin('cliente','${Number(cliente.id)}')">Apagar cadastro</button>
 </div>
 </article>
 `).join("");
@@ -2009,11 +2012,11 @@ cardKpi("Bolsas sem aluguel",semAluguel,"Oportunidade de ação comercial","bols
 ].join("");
 document.getElementById("portfolioTableBody").innerHTML=dados.sort((a,b)=>b.faturamento-a.faturamento).map(x=>`<tr class="${x.valorPago>0&&x.faturamento>=x.valorPago?'recovered':''}">
 <td data-label="Slug"><strong>${safeText(x.b.slug||"—")}</strong></td>
-<td data-label="Vlr. loja">${x.valorLoja?moedaPortfolio(x.valorLoja):"—"}</td><td data-label="Vlr. pago">${x.valorPago?moedaPortfolio(x.valorPago):"—"}</td><td data-label="Caução">${moedaPortfolio(x.b.valor_caucao)}</td>
+<td data-label="Vlr. loja">${x.valorLoja?moedaPortfolio(x.valorLoja):"—"}</td><td data-label="Vlr. pago">${x.valorPago?moedaPortfolio(x.valorPago):"—"}</td><td data-label="Dif. Vlr.">${x.b.valor_loja!=null&&x.b.valor_pago!=null?moedaPortfolio(x.valorLoja-x.valorPago):"—"}</td><td data-label="Caução">${moedaPortfolio(x.b.valor_caucao)}</td>
 <td data-label="Dias">${x.plano?.dias||"—"}</td><td data-label="Aluguel">${x.aluguel?moedaPortfolio(x.aluguel):"—"}</td>
 <td data-label="% pago">${x.pctPago!==null?x.pctPago.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
 <td data-label="% loja">${x.pctLoja!==null?x.pctLoja.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
-<td data-label="Meta">${x.meta??"—"}</td><td data-label="Fat." class="money-emphasis">${moedaPortfolio(x.faturamento)}</td><td data-label="Dif.">${x.b.valor_loja!=null&&x.b.valor_pago!=null?moedaPortfolio(x.valorLoja-x.valorPago):"—"}</td></tr>`).join("") || '<tr><td colspan="11" class="dashboard-empty">Nenhuma bolsa cadastrada.</td></tr>';
+<td data-label="Meta">${x.meta??"—"}</td><td data-label="Fat." class="money-emphasis">${moedaPortfolio(x.faturamento)}</td></tr>`).join("") || '<tr><td colspan="11" class="dashboard-empty">Nenhuma bolsa cadastrada.</td></tr>';
 renderPortfolioMobile();
 }
 
@@ -2027,10 +2030,10 @@ target.innerHTML='<p class="dashboard-empty">Nenhuma bolsa cadastrada.</p>';
 return;
 }
 const groups=[
-{title:"Valores da bolsa",columns:[0,1,2,3]},
-{title:"Aluguel e percentuais",columns:[0,4,5,6,7]},
-{title:"Meta e faturamento",columns:[0,8,9]},
-{title:"Economia na compra",columns:[0,1,2,10]}
+{title:"Valores da bolsa",columns:[0,1,2,4]},
+{title:"Aluguel e percentuais",columns:[0,5,6,7,8]},
+{title:"Meta e faturamento",columns:[0,9,10]},
+{title:"Economia na compra",columns:[0,1,2,3]}
 ];
 groups.forEach(group=>{
 const section=document.createElement("section");
@@ -2201,5 +2204,6 @@ verificarAcesso();
 <script src="/admin-bag-editor.js?v=20261002-21"></script>
 <script src="/admin-ga-pages.js?v=20261002-22"></script>
 <script src="/admin-coupons.js?v=20261002-23"></script>
+<script src="/admin-delete.js?v=20261002-24"></script>
 </body>
 </html>
