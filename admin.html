@@ -701,6 +701,8 @@ background:#9b2c2c;
 .portfolio-excel th{background:#1b1b1b!important;color:#fff!important;font-size:clamp(7px,.62vw,9px)!important;}
 .portfolio-excel tr.recovered td:first-child{border-left:4px solid #32633e!important;}
 
+.portfolio-excel tfoot{display:table-footer-group!important;}
+.portfolio-totals td{background:#eee9df!important;font-weight:700;border-top:2px solid #988264!important;}
 .portfolio-mobile{display:none;}
 @media(max-width:768px){
   .portfolio-table-wrap{display:none;}
@@ -853,6 +855,7 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 <table class="data-table portfolio-excel">
 <thead><tr><th>Slug</th><th>Vlr. loja</th><th>Vlr. pago</th><th>Dif. Vlr.</th><th>Caução</th><th>Dias</th><th>Aluguel</th><th>% pago</th><th>% loja</th><th>Meta</th><th>Fat.</th></tr></thead>
 <tbody id="portfolioTableBody"></tbody>
+<tfoot id="portfolioTableTotals"></tfoot>
 </table>
 </div>
 <div class="portfolio-mobile" id="portfolioMobileTables"></div>
@@ -2002,10 +2005,15 @@ const valorPago = Number(b.valor_pago||0), valorLoja=Number(b.valor_loja||0), al
 return {b,plano,alugueis,faturamento,valorPago,valorLoja,aluguel,pctPago:valorPago&&aluguel?aluguel/valorPago*100:null,pctLoja:valorLoja&&aluguel?aluguel/valorLoja*100:null,meta:valorPago&&aluguel?Math.round(valorPago/aluguel):null};
 });
 const capital=dados.reduce((s,x)=>s+x.valorPago,0), receita=dados.reduce((s,x)=>s+x.faturamento,0);
+const valorLojaTotal=dados.reduce((s,x)=>s+x.valorLoja,0);
+const diferencaTotal=dados.reduce((s,x)=>s+(x.b.valor_loja!=null&&x.b.valor_pago!=null?x.valorLoja-x.valorPago:0),0);
+const caucaoTotal=dados.reduce((s,x)=>s+Number(x.b.valor_caucao||0),0);
+const aluguelTotal=dados.reduce((s,x)=>s+x.aluguel,0);
 const semAluguel=dados.filter(x=>!x.alugueis.length).length, recuperadas=dados.filter(x=>x.valorPago>0&&x.faturamento>=x.valorPago).length;
 const retorno=capital?receita/capital*100:0;
 document.getElementById("portfolioMetrics").innerHTML=[
 cardKpi("Capital investido",Number(capital||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0,minimumFractionDigits:0}),"Valores de aquisição informados","bolsas"),
+cardKpi("Valor Loja",Number(valorLojaTotal||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0,minimumFractionDigits:0}),"Soma dos valores de loja informados","bolsas"),
 cardKpi("Receita acumulada",Number(receita||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0,minimumFractionDigits:0}),"Pagamentos aprovados","pedidos"),
 cardKpi("Capital recuperado",retorno.toLocaleString("pt-BR",{maximumFractionDigits:1})+"%",`${recuperadas} bolsa(s) atingiram o valor pago`,"bolsas"),
 cardKpi("Bolsas sem aluguel",semAluguel,"Oportunidade de ação comercial","bolsas")
@@ -2017,6 +2025,7 @@ document.getElementById("portfolioTableBody").innerHTML=dados.sort((a,b)=>b.fatu
 <td data-label="% pago">${x.pctPago!==null?x.pctPago.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
 <td data-label="% loja">${x.pctLoja!==null?x.pctLoja.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
 <td data-label="Meta">${x.meta??"—"}</td><td data-label="Fat." class="money-emphasis">${moedaPortfolio(x.faturamento)}</td></tr>`).join("") || '<tr><td colspan="11" class="dashboard-empty">Nenhuma bolsa cadastrada.</td></tr>';
+document.getElementById("portfolioTableTotals").innerHTML=`<tr class="portfolio-totals"><td data-label="Slug"><strong>Total</strong></td><td data-label="Vlr. loja">${moedaPortfolio(valorLojaTotal)}</td><td data-label="Vlr. pago">${moedaPortfolio(capital)}</td><td data-label="Dif. Vlr.">${moedaPortfolio(diferencaTotal)}</td><td data-label="Caução">${moedaPortfolio(caucaoTotal)}</td><td data-label="Dias">—</td><td data-label="Aluguel">${moedaPortfolio(aluguelTotal)}</td><td data-label="% pago">—</td><td data-label="% loja">—</td><td data-label="Meta">—</td><td data-label="Fat." class="money-emphasis">${moedaPortfolio(receita)}</td></tr>`;
 renderPortfolioMobile();
 }
 
@@ -2046,6 +2055,8 @@ Array.from(source.rows).forEach(row=>{
 const copy=body.insertRow();copy.className=row.className;
 group.columns.forEach(index=>copy.appendChild(row.cells[index].cloneNode(true)));
 });
+const totalRow=document.getElementById("portfolioTableTotals")?.rows[0];
+if(totalRow){const foot=table.createTFoot().insertRow();foot.className="portfolio-totals";group.columns.forEach(index=>foot.appendChild(totalRow.cells[index].cloneNode(true)));}
 section.appendChild(table);target.appendChild(section);
 });
 }
