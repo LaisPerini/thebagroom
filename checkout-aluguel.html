@@ -726,6 +726,32 @@ let sessionAtual = null;
 let clienteAtual = null;
 const LOGIN_CHECKOUT_KEY = "loginConfirmadoCheckoutTheBagRoomV2";
 const LOGIN_CHECKOUT_NONCE_KEY = "loginTentativaCheckoutTheBagRoomV2";
+const CHECKOUT_DRAFT_KEY = "rascunhoCheckoutTheBagRoomV1";
+let checkoutDraftFinalizado = false;
+function identidadeRascunhoCheckout(){
+return JSON.stringify([checkout?.bolsaSlug,checkout?.dataInicio,checkout?.dataFim,checkout?.dias]);
+}
+function salvarRascunhoCheckout(){
+if(!checkout || checkoutDraftFinalizado) return;
+const campos={};
+for(const id of ["numero","complemento","cupomCodigo"]){campos[id]=document.getElementById(id)?.value || "";}
+try{sessionStorage.setItem(CHECKOUT_DRAFT_KEY,JSON.stringify({versao:1,identidade:identidadeRascunhoCheckout(),at:Date.now(),usuario:sessionAtual?.user?.id||null,campos}));}catch(_){}
+}
+function restaurarRascunhoCheckout(){
+try{
+const draft=JSON.parse(sessionStorage.getItem(CHECKOUT_DRAFT_KEY)||"null");
+if(!draft)return;
+if(draft.versao!==1 || draft.identidade!==identidadeRascunhoCheckout() || !Number.isFinite(draft.at) || draft.at>Date.now() || Date.now()-draft.at>86400000 || (draft.usuario && sessionAtual?.user?.id && draft.usuario!==sessionAtual.user.id)){
+sessionStorage.removeItem(CHECKOUT_DRAFT_KEY);return;
+}
+for(const id of ["numero","complemento","cupomCodigo"]){const campo=document.getElementById(id);if(campo&&typeof draft.campos?.[id]==="string")campo.value=draft.campos[id];}
+}catch(_){try{sessionStorage.removeItem(CHECKOUT_DRAFT_KEY);}catch(_){}}
+}
+function configurarRascunhoCheckout(){
+for(const id of ["numero","complemento","cupomCodigo"]){document.getElementById(id)?.addEventListener("input",salvarRascunhoCheckout);}
+document.getElementById("loginCheckoutLink")?.addEventListener("click",salvarRascunhoCheckout);
+window.addEventListener("pagehide",salvarRascunhoCheckout);
+}
 
 function moeda(valor){
 return Number(valor || 0).toLocaleString("pt-BR", { style:"currency", currency:"BRL" });
@@ -1053,6 +1079,7 @@ return true;
 }
 
 async function finalizarAluguel(){
+salvarRascunhoCheckout();
 if(!sessionAtual){
 localStorage.setItem("proximoDestinoTheBagRoom", "/checkout-aluguel.html");
 window.location.href = "/login.html?next=/checkout-aluguel.html";
@@ -1151,6 +1178,8 @@ throw new Error(`${result.error || "checkout_error"} ${detalhes}`.trim());
 }
 
 sessionStorage.removeItem(LOGIN_CHECKOUT_KEY);
+checkoutDraftFinalizado=true;
+sessionStorage.removeItem(CHECKOUT_DRAFT_KEY);
 sessionStorage.removeItem(LOGIN_CHECKOUT_NONCE_KEY);
 localStorage.removeItem("checkoutAluguelTheBagRoom");
 
@@ -1194,7 +1223,11 @@ return;
 document.getElementById("checkoutPage").classList.remove("hidden");
 configurarCepAutoCompletar();
 preencherResumo();
+restaurarRascunhoCheckout();
+configurarRascunhoCheckout();
 await preencherCliente();
+restaurarRascunhoCheckout();
+if(typeof window.aplicarCupomAluguel==="function") await window.aplicarCupomAluguel();
 }
 
 function configurarInfoCaucao(){
