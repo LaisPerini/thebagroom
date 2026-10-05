@@ -655,6 +655,8 @@ return [linha1, linha2, linha3].filter(Boolean).join("<br>");
 }
 
 function proximoPasso(pedido, pagamento, caucao){
+if(pedido.status === "cancelado") return "Pedido cancelado. Fale com a curadoria se precisar de ajuda.";
+if(pedido.status === "aguardando_pagamento" && pagamento?.status === "recusado") return "O pagamento foi recusado. Tente pagar novamente ou fale com a curadoria.";
 if(pedido.status === "aguardando_pagamento") return "Finalize o pagamento para confirmar sua reserva.";
 if(pedido.status === "pagamento_aprovado") return "Pagamento aprovado. Nossa equipe vai analisar o cadastro e preparar a confirmação.";
 if(pedido.status === "cadastro_em_analise") return "Cadastro em análise. Se faltar algum documento, a curadoria entrará em contato.";
@@ -1078,6 +1080,6 @@ function toggleMenuMobile() {
   if (menu) menu.classList.toggle('open');
 }
 </script>
-  <script src="/luxury-refresh.js?v=20261003-legal"></script>
+  <script src="/luxury-refresh.js?v=20261005-freight"></script>
 </body>
 </html>

@@ -286,7 +286,7 @@
       };
 
       const cached = shippingCache.get(cep);
-      if (cached && Date.now() - cached.time < 10 * 60 * 1000) {
+      if (cached && Date.now() - cached.time < 5 * 60 * 1000) {
         try { renderOptions(cached.data); } catch (_) { shippingMessage(result, 'Não há entrega disponível para esse CEP.', 'error'); }
         return;
       }
@@ -296,17 +296,25 @@
         button.disabled = true;
         button.setAttribute('aria-busy', 'true');
       }
+      const slowShippingNotice = setTimeout(() => {
+        shippingMessage(result, 'Consultando a transportadora. A primeira consulta pode levar um pouco mais de tempo…', 'loading');
+      }, 12000);
       activeShippingRequest = (async () => {
         try {
-          const endereco = await fetchJson(`https://viacep.com.br/ws/${cep}/json/`, {}, 7000);
-          if (endereco.erro) throw new Error('cep_not_found');
           const endpoint = 'https://thebagroomtest.onrender.com/frete';
           const headers = { 'Content-Type': 'application/json' };
           const origin = '11060-003';
-          const [idaData, voltaData] = await Promise.all([
-            fetchJson(endpoint, { method: 'POST', headers, body: JSON.stringify({ from: { postal_code: origin }, to: { postal_code: cep } }) }, 15000),
-            fetchJson(endpoint, { method: 'POST', headers, body: JSON.stringify({ from: { postal_code: cep }, to: { postal_code: origin } }) }, 15000)
-          ]);
+          const addressRequest = typeof window.validarCepEstadoSP === 'function'
+            ? window.validarCepEstadoSP(cep)
+            : fetchJson(`https://viacep.com.br/ws/${cep}/json/`, {}, 10000);
+          const quoteRequest = typeof window.tbrQuoteRoundTrip === 'function'
+            ? window.tbrQuoteRoundTrip(origin, cep)
+            : Promise.all([
+              fetchJson(endpoint, { method: 'POST', headers, body: JSON.stringify({ from: { postal_code: origin }, to: { postal_code: cep } }) }, 90000),
+              fetchJson(endpoint, { method: 'POST', headers, body: JSON.stringify({ from: { postal_code: cep }, to: { postal_code: origin } }) }, 90000)
+            ]);
+          const [endereco, [idaData, voltaData]] = await Promise.all([addressRequest, quoteRequest]);
+          if (endereco.erro) throw new Error('cep_not_found');
           const data = { endereco, idaData, voltaData };
           shippingCache.set(cep, { time: Date.now(), data });
           renderOptions(data);
@@ -320,6 +328,7 @@
                 : 'O serviço de entrega está indisponível no momento. Tente novamente em instantes.';
           shippingMessage(result, message, 'error');
         } finally {
+          clearTimeout(slowShippingNotice);
           activeShippingRequest = null;
           if (button) {
             button.disabled = false;
