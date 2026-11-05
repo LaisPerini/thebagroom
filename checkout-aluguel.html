@@ -1086,17 +1086,16 @@ window.location.href = "/login.html?next=/checkout-aluguel.html";
 return;
 }
 
-const loginNonce = sessionStorage.getItem(LOGIN_CHECKOUT_NONCE_KEY);
-const loginConfirmado = sessionStorage.getItem(LOGIN_CHECKOUT_KEY);
-
-if(!loginNonce || loginConfirmado !== `${sessionAtual.user.id}:${loginNonce}`){
-const novoNonce = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-sessionStorage.setItem(LOGIN_CHECKOUT_NONCE_KEY, novoNonce);
-sessionStorage.removeItem(LOGIN_CHECKOUT_KEY);
+// Cliente já logada segue direto para o pagamento.
+// O servidor de pagamento confere o login e se o pedido pertence à cliente.
+// Só pede login de novo se a sessão realmente tiver expirado.
+const { data: { session: sessaoValida } } = await supabaseClient.auth.getSession();
+if(!sessaoValida){
 localStorage.setItem("proximoDestinoTheBagRoom", "/checkout-aluguel.html");
 window.location.href = "/login.html?next=/checkout-aluguel.html";
 return;
 }
+sessionAtual = sessaoValida;
 
 if(!clienteAtual){
 localStorage.setItem("proximoDestinoTheBagRoom", "/checkout-aluguel.html");
@@ -1188,6 +1187,13 @@ window.location.href = result.checkout_url;
 console.error(error);
 let mensagem = "Nao foi possivel finalizar o aluguel. Tente novamente.";
 const erro = String(error?.message || error || "");
+if(erro.includes("invalid_user")){
+// Sessão expirou no meio do caminho: entra de novo e volta com o checkout preenchido
+salvarRascunhoCheckout();
+localStorage.setItem("proximoDestinoTheBagRoom", "/checkout-aluguel.html");
+window.location.href = "/login.html?next=/checkout-aluguel.html";
+return;
+}
 if(erro.includes("cupom_")){
 mensagem = "Este cupom está inválido, indisponível ou já foi utilizado. Revise o código antes de tentar novamente.";
 }
