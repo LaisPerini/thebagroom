@@ -19,6 +19,6 @@ const accepted=simulate(JSON.stringify({version:1,analytics:true,at:Date.now()})
 assert.equal(accepted.scripts.length,1);
 assert.match(accepted.scripts[0].src,/googletagmanager/);
 assert.equal(accepted.context.window['ga-disable-G-KPVTBY5VK8'],false);
-function inspect(dir){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const file=path.join(dir,e.name);if(e.isDirectory())inspect(file);else if(e.name.endsWith('.html')){const text=fs.readFileSync(file,'utf8');assert.doesNotMatch(text,/src=["']https:\/\/www\.googletagmanager\.com\/gtag/);assert.match(text,/src="\/cookie-preferences.js"/);}}}
+function inspect(dir){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const file=path.join(dir,e.name);if(e.isDirectory())inspect(file);else if(e.name.endsWith('.html')){const text=fs.readFileSync(file,'utf8');assert.doesNotMatch(text,/src=["']https:\/\/www\.googletagmanager\.com\/gtag/);assert.match(text,/src="\/cookie-preferences\.js(\?v=[^"]*)?"/);}}}
 inspect(root);
 console.log('PASS: Analytics bloqueado por padrão, recusa, dados corrompidos e preferência vencida; aceite carrega; HTML sem carregamento direto.');
