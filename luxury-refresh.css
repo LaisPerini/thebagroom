@@ -1068,86 +1068,106 @@ body.tbr-editorial .content-box h2 {
   letter-spacing: .005em;
 }
 
-/* ===== Slide de destaques do catálogo — celular =====
-   Foto de ponta a ponta, sem caixa bege; legenda editorial; barra de progresso. */
+/* ===== Slide de destaques do catálogo (computador e celular) =====
+   Foto quadrada sem caixa bege nem sombra; legenda editorial; barra de progresso. */
+body.tbr-catalog .rental-hero { background: var(--tbr-paper) !important; }
+body.tbr-catalog .rental-hero::before,
+body.tbr-catalog .rental-hero-media::after { display: none !important; }
+body.tbr-catalog .rental-hero-media {
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 48px max(40px, calc((100vw - 1440px) / 2)) 48px 24px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background: transparent !important;
+}
+body.tbr-catalog .hero-feature-link {
+  width: min(500px, 100%, calc(100vh - 330px)) !important;
+  animation: tbrSlideFade .5s ease !important;
+}
+body.tbr-catalog .hero-feature-link img {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  aspect-ratio: 1 / 1;
+  object-fit: cover !important;
+  filter: none !important;
+  background: var(--tbr-stone);
+}
+body.tbr-catalog .hero-feature-caption {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 !important;
+  padding: 20px 0 0 !important;
+  min-height: 0 !important;
+  text-align: left !important;
+  font: 500 10px/1.2 var(--tbr-sans) !important;
+  letter-spacing: .2em !important;
+  text-transform: uppercase !important;
+  color: var(--tbr-muted) !important;
+}
+body.tbr-catalog .hero-feature-caption span {
+  margin-top: 8px !important;
+  padding-right: 110px;
+  font: 400 26px/1.15 var(--tbr-serif) !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--tbr-ink) !important;
+}
+body.tbr-catalog .hero-feature-caption::after {
+  content: 'Ver bolsa \2192';
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  font: 500 10px/1 var(--tbr-sans);
+  letter-spacing: .16em;
+  color: var(--tbr-ink);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 4px;
+  transition: opacity .2s ease;
+}
+body.tbr-catalog .hero-feature-link:hover .hero-feature-caption::after { opacity: .6; }
+body.tbr-catalog .hero-feature-dots {
+  display: flex !important;
+  width: min(500px, 100%, calc(100vh - 330px));
+  gap: 4px !important;
+  margin: 24px 0 0 !important;
+  min-height: 0 !important;
+}
+body.tbr-catalog .hero-feature-dot,
+body.tbr-catalog .hero-feature-dot.active {
+  flex: 1 1 0;
+  width: auto !important;
+  min-width: 0 !important;
+  height: 2px !important;
+  border-radius: 0 !important;
+  background: var(--tbr-line) !important;
+  position: relative;
+  cursor: pointer;
+}
+body.tbr-catalog .hero-feature-dot.active { background: var(--tbr-ink) !important; }
+/* área de toque maior sem aumentar a barra */
+body.tbr-catalog .hero-feature-dot::before { content: ''; position: absolute; inset: -12px 0; }
+
+/* Celular: foto de ponta a ponta */
 @media (max-width: 760px) {
   body.tbr-catalog .rental-hero-media {
-    height: auto !important;
-    min-height: 0 !important;
+    display: block !important;
     width: calc(100% + 44px) !important;
     margin: 0 -22px !important;
     padding: 0 0 28px !important;
-    display: block !important;
-    background: var(--tbr-paper) !important;
   }
-  body.tbr-catalog .rental-hero-media::after { display: none !important; }
-  body.tbr-catalog .hero-feature-link {
-    width: 100% !important;
-    animation: tbrSlideFade .5s ease !important;
-  }
-  body.tbr-catalog .hero-feature-link img {
-    display: block;
-    width: 100% !important;
-    height: auto !important;
-    max-height: none !important;
-    aspect-ratio: 1 / 1;
-    object-fit: cover !important;
-    filter: none !important;
-    background: var(--tbr-stone);
-  }
-  body.tbr-catalog .hero-feature-caption {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin: 0 !important;
-    padding: 18px 22px 0 !important;
-    min-height: 0 !important;
-    text-align: left !important;
-    font: 500 10px/1.2 var(--tbr-sans) !important;
-    letter-spacing: .2em !important;
-    text-transform: uppercase !important;
-    color: var(--tbr-muted) !important;
-  }
-  body.tbr-catalog .hero-feature-caption span {
-    margin-top: 8px !important;
-    padding-right: 96px;
-    font: 400 22px/1.15 var(--tbr-serif) !important;
-    letter-spacing: 0 !important;
-    text-transform: none !important;
-    color: var(--tbr-ink) !important;
-  }
-  body.tbr-catalog .hero-feature-caption::after {
-    content: 'Ver bolsa \2192';
-    position: absolute;
-    right: 22px;
-    bottom: 3px;
-    font: 500 10px/1 var(--tbr-sans);
-    letter-spacing: .16em;
-    color: var(--tbr-ink);
-    border-bottom: 1px solid currentColor;
-    padding-bottom: 4px;
-  }
-  body.tbr-catalog .hero-feature-dots {
-    display: flex !important;
-    gap: 4px !important;
-    margin: 22px 22px 0 !important;
-    min-height: 0 !important;
-  }
-  body.tbr-catalog .hero-feature-dot,
-  body.tbr-catalog .hero-feature-dot.active {
-    flex: 1 1 0;
-    width: auto !important;
-    min-width: 0 !important;
-    height: 2px !important;
-    border-radius: 0 !important;
-    background: var(--tbr-line) !important;
-    position: relative;
-    overflow: hidden;
-  }
-  body.tbr-catalog .hero-feature-dot.active { background: var(--tbr-ink) !important; }
-  /* área de toque maior sem aumentar a barra */
-  body.tbr-catalog .hero-feature-dot::before { content: ''; position: absolute; inset: -12px 0; }
+  body.tbr-catalog .hero-feature-link { width: 100% !important; }
+  body.tbr-catalog .hero-feature-caption { padding: 18px 22px 0 !important; }
+  body.tbr-catalog .hero-feature-caption span { font-size: 22px !important; padding-right: 96px; }
+  body.tbr-catalog .hero-feature-caption::after { right: 22px; bottom: 3px; }
+  body.tbr-catalog .hero-feature-dots { width: auto !important; margin: 22px 22px 0 !important; }
 }
 @keyframes tbrSlideFade { from { opacity: .35; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { body.tbr-catalog .hero-feature-link { animation: none !important; } }
