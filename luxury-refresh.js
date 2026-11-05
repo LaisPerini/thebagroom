@@ -11,14 +11,35 @@
   else if (/cadastro|checkout|login|minha-conta|pedido-aluguel|contrato/.test(path)) body.classList.add('tbr-utility');
   else body.classList.add('tbr-editorial');
 
+  /* ===== Cabeçalho e menu (padrão único em todas as páginas) ===== */
+  const NAV = [
+    ['/aluguel.html', 'Alugar'],
+    ['/como-alugar.html', 'Como funciona'],
+    ['/como-desapegar.html', 'Desapegar'],
+    ['/autenticidade.html', 'Autenticidade'],
+    ['/universo/universo-do-luxo.html', 'Journal'],
+    ['/quem-somos.html', 'Sobre']
+  ];
+  const WHATSAPP = 'https://wa.me/5513996904227';
+  const ICON_USER = '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8.5" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4 21c1.2-4.2 4.3-6.3 8-6.3s6.8 2.1 8 6.3" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>';
+
   const header = document.querySelector('.site-header') || document.querySelector('body > header');
+  const mobileMenu = document.getElementById('menuMobile');
+
   if (header) {
     header.classList.add('site-header');
+    header.querySelectorAll('.luxury-desktop-nav, .luxury-header-actions').forEach((el) => el.remove());
+
     header.querySelectorAll('.menu-mobile-btn').forEach((toggle) => {
       toggle.classList.add('tbr-menu-toggle');
+      toggle.setAttribute('role', 'button');
+      toggle.setAttribute('tabindex', '0');
       toggle.setAttribute('aria-label', 'Abrir menu');
-      toggle.innerHTML = '<svg class="tbr-menu-icon" width="24" height="16" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path d="M1 4h22M1 12h22" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>';
+      toggle.setAttribute('aria-controls', 'menuMobile');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.innerHTML = '<svg class="tbr-menu-icon" width="26" height="12" viewBox="0 0 26 12" aria-hidden="true" focusable="false"><path d="M0 1h26M0 11h18" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>';
     });
+
     const brand = header.querySelector('.brand') || header.querySelector('h1');
     if (brand) brand.classList.add('brand');
     if (brand && !brand.querySelector('a')) {
@@ -31,52 +52,91 @@
       brand.appendChild(link);
     }
 
-    if (!header.querySelector('.luxury-desktop-nav')) {
+    if (!header.querySelector('.tbr-head-left')) {
+      const left = document.createElement('div');
+      left.className = 'tbr-head-left';
+      left.innerHTML = `<a href="${WHATSAPP}" target="_blank" rel="noopener">Falar com a curadoria</a>`;
+      header.appendChild(left);
+
+      const right = document.createElement('div');
+      right.className = 'tbr-head-right';
+      right.innerHTML = `<a href="/login.html" aria-label="Minha conta">${ICON_USER}<span>Minha conta</span></a>`;
+      header.appendChild(right);
+
       const nav = document.createElement('nav');
-      nav.className = 'luxury-desktop-nav';
+      nav.className = 'tbr-nav';
       nav.setAttribute('aria-label', 'Navegação principal');
-      nav.innerHTML = [
-        ['/index.html', 'Home'],
-        ['/aluguel.html', 'Alugar'],
-        ['/como-alugar.html', 'Como funciona'],
-        ['/autenticidade.html', 'Autenticidade'],
-        ['/quem-somos.html', 'Sobre']
-      ].map(([href, label]) => `<a href="${href}">${label}</a>`).join('');
-      header.insertBefore(nav, brand || header.firstChild);
+      nav.innerHTML = NAV.map(([href, label]) => `<a href="${href}">${label}</a>`).join('');
+      header.appendChild(nav);
     }
 
-    if (!header.querySelector('.luxury-header-actions')) {
-      const actions = document.createElement('div');
-      actions.className = 'luxury-header-actions';
-      actions.innerHTML = '<a class="tbr-sell-link" href="/como-desapegar.html">Desapegue sua bolsa</a><a href="/login.html">Minha conta</a><a class="tbr-appointment" href="https://wa.me/5513996904227" target="_blank" rel="noopener">Falar com a curadoria</a>';
-      header.appendChild(actions);
-    }
-
-    const mobileInner = header.querySelector('.menu-mobile-inner');
-    if (mobileInner) {
-      mobileInner.innerHTML = '<a href="/index.html">Home</a><a href="/aluguel.html">Alugar</a><a href="/como-alugar.html">Como funciona</a><a href="/autenticidade.html">Autenticidade</a><a href="/como-desapegar.html">Desapegue sua bolsa</a><a href="/universo/universo-do-luxo.html">Journal</a><a href="/quem-somos.html">Sobre</a><a href="/login.html">Minha conta</a><a href="https://wa.me/5513996904227" target="_blank" rel="noopener">Falar com a curadoria</a>';
+    if (mobileMenu) {
+      // Fora do cabeçalho o menu cobre a tela inteira (o blur do cabeçalho o prenderia)
+      document.body.appendChild(mobileMenu);
+      mobileMenu.classList.add('tbr-drawer');
+      const close = mobileMenu.querySelector('.close-menu');
+      if (close) {
+        close.setAttribute('role', 'button');
+        close.setAttribute('tabindex', '0');
+        close.innerHTML = '<span>Fechar</span><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>';
+      }
+      const inner = mobileMenu.querySelector('.menu-mobile-inner');
+      if (inner) {
+        const primary = [['/index.html', 'Início'], ...NAV];
+        inner.innerHTML =
+          '<p class="tbr-drawer-brand">THE BAG ROOM</p>' +
+          '<div class="tbr-drawer-primary">' + primary.map(([href, label], i) => `<a href="${href}" style="--i:${i}">${label}</a>`).join('') + '</div>' +
+          '<div class="tbr-drawer-secondary">' +
+            `<a href="/login.html">Minha conta</a>` +
+            `<a href="${WHATSAPP}" target="_blank" rel="noopener">Falar com a curadoria</a>` +
+            '<a href="https://instagram.com/thebagroom.br" target="_blank" rel="noopener">Instagram</a>' +
+          '</div>' +
+          '<p class="tbr-drawer-address">Av. Ana Costa, 471 · Gonzaga · Santos</p>';
+      }
     }
 
     const activePath = path.endsWith('/') ? '/index.html' : path;
-    header.querySelectorAll('a').forEach((link) => {
+    document.querySelectorAll('.site-header a, .tbr-drawer a').forEach((link) => {
       try {
         const linkPath = new URL(link.href, location.href).pathname.toLowerCase();
-        if (linkPath === activePath) link.setAttribute('aria-current', 'page');
+        const inJournal = activePath.startsWith('/universo/') && linkPath === '/universo/universo-do-luxo.html';
+        const inRental = activePath.startsWith('/aluguel/') && linkPath === '/aluguel.html';
+        if (linkPath === activePath || inJournal || inRental) link.setAttribute('aria-current', 'page');
       } catch (_) {}
     });
+
+    // Cabeçalho compacto ao rolar
+    let ticking = false;
+    const onScroll = () => {
+      body.classList.toggle('tbr-scrolled', window.scrollY > 40);
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    onScroll();
   }
 
-  const mobileMenu = document.getElementById('menuMobile');
   if (mobileMenu) {
-    const syncMenuState = () => body.classList.toggle('tbr-menu-open', mobileMenu.classList.contains('open'));
+    if (typeof window.toggleMenuMobile !== 'function') {
+      window.toggleMenuMobile = () => mobileMenu.classList.toggle('open');
+    }
+    const syncMenuState = () => {
+      const open = mobileMenu.classList.contains('open');
+      body.classList.toggle('tbr-menu-open', open);
+      document.querySelectorAll('.menu-mobile-btn').forEach((b) => b.setAttribute('aria-expanded', String(open)));
+    };
     const observer = new MutationObserver(syncMenuState);
     observer.observe(mobileMenu, { attributes: true, attributeFilter: ['class'] });
     mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
       mobileMenu.classList.remove('open');
-      syncMenuState();
     }));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && mobileMenu.classList.contains('open')) mobileMenu.classList.remove('open');
+      if ((event.key === 'Enter' || event.key === ' ') && event.target.matches && event.target.matches('.menu-mobile-btn, .close-menu')) {
+        event.preventDefault();
+        window.toggleMenuMobile();
+      }
+    });
   }
-
   if (body.classList.contains('tbr-home')) {
     const hero = document.querySelector('.hero');
     if (hero && !document.querySelector('.tbr-trust-strip')) {

@@ -45,14 +45,17 @@
     const token=revision;
     setMessage('bolsaStatus','Carregando dados da bolsa...');
     try {
-      const [bagResult,priceResult,imageResult] = await Promise.all([
+      const [bagResult,priceResult,imageResult,costResult] = await Promise.all([
         supabaseClient.from('bolsas').select('*').eq('id',id).single(),
         supabaseClient.from('bolsa_precos').select('*').eq('bolsa_id',id).order('dias'),
-        supabaseClient.from('bolsa_imagens').select('*').eq('bolsa_id',id).order('ordem')
+        supabaseClient.from('bolsa_imagens').select('*').eq('bolsa_id',id).order('ordem'),
+        // Valor pago fica numa tabela privada, legível só por admin
+        supabaseClient.from('bolsas_custos').select('valor_pago').eq('bolsa_id',id).maybeSingle()
       ]);
       if(token!==revision)return;
       if(bagResult.error||priceResult.error||imageResult.error)throw bagResult.error||priceResult.error||imageResult.error;
-      const bag=bagResult.data;
+      if(costResult.error)console.warn('Valor pago indisponível:',costResult.error);
+      const bag={...bagResult.data,valor_pago:costResult.data?.valor_pago ?? bagResult.data?.valor_pago ?? null};
       Object.entries(fields).forEach(([field,id])=>{const value=bag[field];byId(id).value=typeof value==='number'?value.toLocaleString('pt-BR',{useGrouping:false,maximumFractionDigits:2}):value??'';});
       byId('novaBolsaSlug').dataset.editado='true';
       byId('novaBolsaAtiva').checked=Boolean(bag.ativa);byId('novaBolsaDestaque').checked=Boolean(bag.destaque);

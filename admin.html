@@ -2,6 +2,9 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Painel Admin | The Bag Room</title>
 
@@ -26,9 +29,6 @@
 <meta name="twitter:image" content="https://i.imgur.com/aCDhajb.jpg">
 
 <link rel="icon" sizes="32x32" href="/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -731,6 +731,7 @@ background:#9b2c2c;
   .portfolio-excel td:nth-child(n+2){text-align:right!important;}
 }
 </style>
+<link rel="stylesheet" href="/admin-theme.css?v=20261105">
 <script src="/cookie-preferences.js" defer></script>
 </head>
 
@@ -1438,7 +1439,6 @@ dimensoes: campoTexto("novaBolsaDimensoes") || null,
 estado: campoTexto("novaBolsaEstado") || null,
 descricao: campoTexto("novaBolsaDescricao") || null,
 valor_loja: valorDecimal("novaBolsaValorLoja"),
-valor_pago: valorDecimal("novaBolsaValorPago"),
 valor_caucao: valorDecimal("novaBolsaCaucao") || 0,
 ativa: document.getElementById("novaBolsaAtiva").checked,
 destaque: document.getElementById("novaBolsaDestaque").checked
@@ -1453,8 +1453,6 @@ const { data: bolsaCriada, error: bolsaError } = await supabaseClient
 if(bolsaError){
 const mensagem = bolsaError.message?.includes("duplicate key")
 ? "Já existe uma bolsa com esse slug. Troque o slug e tente novamente."
-: bolsaError.message?.includes("valor_pago")
-? "Crie primeiro a coluna valor_pago no Supabase usando o SQL fornecido."
 : "Não foi possível cadastrar a bolsa.";
 setMessage("bolsaStatus", mensagem, "error");
 console.error(bolsaError);
@@ -2132,8 +2130,8 @@ supabaseClient
 .select("bolsa_id,dias,valor,ativo")
 .order("dias", { ascending:true }),
 supabaseClient
-.from("bolsas")
-.select("id,valor_pago")
+.from("bolsas_custos")
+.select("bolsa_id,valor_pago")
 ]);
 
 if(pedidosError){
@@ -2148,10 +2146,10 @@ console.error(bolsasError);
 if(reservasError) console.warn("Não foi possível carregar reservas:", reservasError);
 if(imagensError) console.warn("Não foi possível carregar imagens:", imagensError);
 if(precosError) console.warn("Não foi possível carregar preços:", precosError);
-if(investimentosError) console.warn("A coluna valor_pago ainda não foi criada:", investimentosError);
+if(investimentosError) console.warn("Valores pagos indisponíveis. Rode o SQL 20261105_valor_pago_privado.sql no Supabase:", investimentosError);
 
 pedidos = pedidosData || [];
-const investimentos = new Map((investimentosData || []).map(item => [item.id,item.valor_pago]));
+const investimentos = new Map((investimentosData || []).map(item => [item.bolsa_id,item.valor_pago]));
 bolsas = (bolsasData || []).map(bolsa => ({...bolsa,valor_pago:investimentos.get(bolsa.id) ?? null}));
 reservas = reservasData || [];
 imagensBolsas = imagensData || [];

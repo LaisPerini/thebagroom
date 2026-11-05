@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Áreas de cliente e administração (não precisam aparecer no Google)
+Disallow: /admin.html
+Disallow: /login.html
+Disallow: /minha-conta.html
+Disallow: /cadastro-locacao.html
+Disallow: /checkout-aluguel.html
+Disallow: /contrato-aluguel.html
+Disallow: /pedido-aluguel-confirmado.html
+
+# Arquivos técnicos do projeto
+Disallow: /supabase/
+Disallow: /tests/
+Disallow: /*.md$
+
+Sitemap: https://www.thebagroom.com.br/sitemap.xml

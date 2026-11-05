@@ -47,7 +47,7 @@
   window.TBRCookies = { open };
   function mount() {
     const style = document.createElement('style');
-    style.textContent = '#tbr-cookie-panel{position:fixed;bottom:16px;left:16px;right:16px;margin:auto;max-width:760px;padding:20px;background:#fff;color:#222;border:1px solid #999;z-index:2147483646;font:14px/1.6 Arial,sans-serif;box-shadow:0 4px 20px #0002;max-height:70dvh;overflow:auto}#tbr-cookie-panel p{margin:10px 0;color:#222}#tbr-cookie-panel a{color:#222;text-decoration:underline}#tbr-cookie-panel div{display:flex;gap:12px;flex-wrap:wrap}#tbr-cookie-panel button{flex:1;min-width:145px;padding:12px;background:#fff;color:#111;border:1px solid #111;cursor:pointer;font:600 14px Arial,sans-serif}#tbr-cookie-panel button:focus-visible{outline:3px solid #836841;outline-offset:3px}';
+    style.textContent = '#tbr-cookie-panel{position:fixed;bottom:16px;left:16px;right:16px;margin:auto;max-width:760px;padding:20px;background:#fff;color:#222;border:1px solid #999;z-index:2147483646;font:14px/1.6 Inter,Arial,sans-serif;box-shadow:0 4px 20px #0002;max-height:70dvh;overflow:auto}#tbr-cookie-panel p{margin:10px 0;color:#222}#tbr-cookie-panel a{color:#222;text-decoration:underline}#tbr-cookie-panel div{display:flex;gap:12px;flex-wrap:wrap}#tbr-cookie-panel button{flex:1;min-width:145px;padding:12px;background:#fff;color:#111;border:1px solid #111;cursor:pointer;font:600 14px Inter,Arial,sans-serif}#tbr-cookie-panel button:focus-visible{outline:3px solid #836841;outline-offset:3px}';
     document.head.appendChild(style);
     if (!choice) open(); else if (!choice.analytics) clearAnalyticsCookies();
   }
