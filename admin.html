@@ -731,8 +731,8 @@ background:#9b2c2c;
   .portfolio-excel td:nth-child(n+2){text-align:right!important;}
 }
 </style>
-<link rel="stylesheet" href="/admin-theme.css?v=20261105">
-<script src="/cookie-preferences.js" defer></script>
+<link rel="stylesheet" href="/admin-theme.css?v=20261105-2">
+<script src="/cookie-preferences.js?v=20261105-2" defer></script>
 </head>
 
 <body>
@@ -2210,10 +2210,16 @@ window.location.href = "/index.html";
 verificarAcesso();
 </script>
 <script src="/bag-manual-photos.js?v=20261002-21"></script>
-<script src="/admin-bag-editor.js?v=20261002-21"></script>
+<script src="/admin-bag-editor.js?v=20261105-2"></script>
 <script src="/admin-ga-pages.js?v=20261002-22"></script>
 <script src="/admin-coupons.js?v=20261003-frete"></script>
 <script src="/admin-delete.js?v=20261002-24"></script>
+<script>
+// Celular: mantém a aba ativa visível na faixa de abas
+(function(){const abrir=window.abrirPainel;if(typeof abrir!=='function')return;
+window.abrirPainel=function(id,btn){const r=abrir.apply(this,arguments);const ativo=document.querySelector('.nav button.active');
+if(ativo&&window.matchMedia('(max-width:1040px)').matches){const nav=ativo.parentElement;nav.scrollTo({left:ativo.offsetLeft-(nav.clientWidth-ativo.offsetWidth)/2,behavior:'smooth'});}return r;};})();
+</script>
 <script src="/private-documents.js?v=20261002-25"></script>
 </body>
 </html>

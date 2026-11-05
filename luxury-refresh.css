@@ -735,8 +735,14 @@ body.tbr-product .flatpickr-day.selected { background: var(--tbr-ink) !important
 .tbr-product-assurance span:last-child { padding-right: 0; border-right: 0; }
 
 /* Editorial, informational and transactional pages */
-body.tbr-editorial .internal-title,
-body.tbr-utility .internal-title { padding: 90px 40px 55px !important; background: var(--tbr-paper) !important; border-bottom: 1px solid var(--tbr-line); }
+/* Topo com título escrito: fundo liso. Topo sem título (capa de artigo): mostra a foto. */
+body.tbr-editorial .internal-title:has(h2),
+body.tbr-utility .internal-title:has(h2) { padding: 90px 40px 55px !important; background: var(--tbr-paper) !important; border-bottom: 1px solid var(--tbr-line); }
+body.tbr-editorial .internal-title.tbr-internal-hero:not(:has(h2, .hero-seal)) { height: clamp(320px, 58vh, 560px) !important; min-height: 0 !important; background-color: var(--tbr-stone); }
+body.tbr-editorial .internal-title.tbr-internal-hero:not(:has(h2, .hero-seal))::after { background: rgba(0, 0, 0, .1); }
+/* Foto de produto em fundo branco: bolsa inteira, sem corte */
+body .internal-title.tbr-cover-produto { background-color: #fefefe !important; background-size: contain !important; background-repeat: no-repeat !important; background-position: center !important; }
+body .internal-title.tbr-cover-produto::after { display: none; }
 body.tbr-editorial .internal-title h2,
 body.tbr-utility .internal-title h2 { max-width: 1000px; margin: auto !important; font-size: clamp(48px, 6vw, 84px) !important; }
 body.tbr-editorial .content-box,
@@ -1032,7 +1038,8 @@ body.tbr-utility label { font-size: 11px !important; font-weight: 600 !important
   body.tbr-product .tbr-mobile-rent span { font-size: 12px; }
   body.tbr-product .tbr-mobile-rent button { min-height: 44px; padding: 0 22px; border: 1px solid var(--tbr-ink); border-radius: 0; background: var(--tbr-ink); color: white; font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
   body.tbr-product .footer-luxo { padding-bottom: 100px !important; }
-  body.tbr-editorial .internal-title, body.tbr-utility .internal-title { padding: 68px 20px 40px !important; }
+  body.tbr-editorial .internal-title:has(h2), body.tbr-utility .internal-title:has(h2) { padding: 68px 20px 40px !important; }
+  body.tbr-editorial .internal-title.tbr-internal-hero:not(:has(h2, .hero-seal)) { height: 300px !important; }
   .tbr-internal-hero, body.tbr-editorial .tbr-internal-hero { height: 430px !important; min-height: 430px !important; }
   body.tbr-editorial .content-box, body.tbr-utility .content-box { padding: 55px 20px 80px !important; }
   .footer-luxo { padding: 58px 20px 26px !important; grid-template-columns: 1fr !important; }

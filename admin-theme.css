@@ -336,7 +336,9 @@ h1,
 
 /* ---------- Tablet e celular ---------- */
 @media (max-width: 1040px) {
-  .shell { grid-template-columns: 1fr; }
+  /* minmax(0,1fr): a faixa de abas rola para o lado em vez de alargar a página */
+  .shell { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; align-content: start; }
+  .sidebar, .content { min-width: 0; max-width: 100vw; }
   .sidebar {
     position: sticky;
     top: 0;
