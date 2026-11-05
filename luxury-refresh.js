@@ -206,9 +206,26 @@
         syncCount();
       }
 
+      // Contador acompanha a rolagem da galeria (dedo, setas ou pontos)
+      let countFrame = 0;
+      slider.addEventListener('scroll', () => {
+        cancelAnimationFrame(countFrame);
+        countFrame = requestAnimationFrame(() => {
+          const width = slider.clientWidth || 1;
+          const total = slider.querySelectorAll('img').length;
+          const index = Math.min(total - 1, Math.max(0, Math.round(slider.scrollLeft / width)));
+          count.textContent = `${index + 1} / ${total}`;
+        });
+      }, { passive: true });
+
+      // Arraste por script só quando a galeria NÃO rola sozinha.
+      // No celular ela rola nativamente com o dedo; somar o script fazia a galeria
+      // andar duas fotos ou parar no meio, mostrando fotos cortadas.
+      const scrollsNatively = () => /auto|scroll/.test(getComputedStyle(slider).overflowX);
       let touchStartX = 0;
       gallery.addEventListener('touchstart', (event) => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
       gallery.addEventListener('touchend', (event) => {
+        if (scrollsNatively()) return;
         const distance = event.changedTouches[0].clientX - touchStartX;
         if (Math.abs(distance) > 45 && typeof window.slide === 'function') window.slide(distance < 0 ? 1 : -1);
       }, { passive: true });

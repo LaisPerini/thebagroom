@@ -1077,7 +1077,7 @@ body.tbr-catalog .rental-hero-media {
   height: auto !important;
   min-height: 0 !important;
   margin: 0 !important;
-  padding: 48px max(40px, calc((100vw - 1440px) / 2)) 48px 24px !important;
+  padding: 32px clamp(24px, 4vw, 64px) 40px 24px !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
@@ -1085,7 +1085,7 @@ body.tbr-catalog .rental-hero-media {
   background: transparent !important;
 }
 body.tbr-catalog .hero-feature-link {
-  width: min(500px, 100%, calc(100vh - 330px)) !important;
+  width: min(100%, clamp(480px, calc(100vh - 320px), 620px)) !important;
   animation: tbrSlideFade .5s ease !important;
 }
 body.tbr-catalog .hero-feature-link img {
@@ -1094,9 +1094,10 @@ body.tbr-catalog .hero-feature-link img {
   height: auto !important;
   max-height: none !important;
   aspect-ratio: 1 / 1;
-  object-fit: cover !important;
-  filter: none !important;
-  background: var(--tbr-stone);
+  object-fit: contain !important;
+  /* As fotos são recortes com fundo transparente: a bolsa flutua sobre a página */
+  background: transparent !important;
+  filter: drop-shadow(0 26px 28px rgba(23, 22, 19, .16)) !important;
 }
 body.tbr-catalog .hero-feature-caption {
   position: relative;
@@ -1135,7 +1136,7 @@ body.tbr-catalog .hero-feature-caption::after {
 body.tbr-catalog .hero-feature-link:hover .hero-feature-caption::after { opacity: .6; }
 body.tbr-catalog .hero-feature-dots {
   display: flex !important;
-  width: min(500px, 100%, calc(100vh - 330px));
+  width: min(100%, clamp(480px, calc(100vh - 320px), 620px));
   gap: 4px !important;
   margin: 24px 0 0 !important;
   min-height: 0 !important;
@@ -1154,6 +1155,11 @@ body.tbr-catalog .hero-feature-dot.active {
 body.tbr-catalog .hero-feature-dot.active { background: var(--tbr-ink) !important; }
 /* área de toque maior sem aumentar a barra */
 body.tbr-catalog .hero-feature-dot::before { content: ''; position: absolute; inset: -12px 0; }
+
+/* Computador: margens fixas para o título não ficar espremido em telas largas */
+@media (min-width: 761px) {
+  body.tbr-catalog .rental-hero-content { padding: 90px 24px 70px clamp(24px, 4vw, 72px) !important; }
+}
 
 /* Celular: foto de ponta a ponta */
 @media (max-width: 760px) {
