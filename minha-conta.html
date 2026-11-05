@@ -484,7 +484,205 @@ body{padding:16px 0;}
 .menu-mobile-inner a:hover { opacity: 0.6; }
 </style>
   <link rel="stylesheet" href="/luxury-refresh.css?v=20261105-7">
-<link rel="stylesheet" href="/account-refresh.css?v=20261002-24">
+<style>
+/* ===== Minha Conta — estilo aplicativo, nas cores da marca ===== */
+body { background: #f3efe8 !important; }
+.mc, .mc-dialog, .mc-toast {
+  --mc-ink: #171613;
+  --mc-ink-2: #2b2824;
+  --mc-gold: #b08a52;
+  --mc-gold-soft: #e9dcc6;
+  --mc-cream: #f3efe8;
+  --mc-muted: #756f66;
+  --mc-line: #ebe5db;
+  --mc-radius: 16px;
+  --mc-shadow: 0 1px 2px rgba(23, 22, 19, .04), 0 10px 28px -14px rgba(23, 22, 19, .22);
+  --mc-serif: var(--tbr-serif, 'DM Serif Display', Georgia, serif);
+  --mc-sans: var(--tbr-sans, 'Inter', Arial, sans-serif);
+}
+.mc { max-width: 980px; margin: 0 auto; padding: 28px clamp(14px, 3vw, 32px) 88px; font-family: var(--mc-sans); color: var(--mc-ink); }
+.mc *, .mc *::before, .mc *::after { box-sizing: border-box; }
+.mc svg { width: 22px; height: 22px; flex: none; }
+
+/* Topo */
+.mc-hero { position: relative; overflow: hidden; padding: 28px; border-radius: 22px; color: #fff;
+  background: radial-gradient(120% 140% at 100% 0%, #3a332a 0%, var(--mc-ink) 55%); box-shadow: var(--mc-shadow); }
+.mc-hero::after { content: ''; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 50%; border: 1px solid rgba(233, 220, 198, .18); }
+.mc-hero-inner { position: relative; z-index: 1; display: flex; align-items: center; gap: 18px; }
+.mc-avatar { flex: none; width: 68px; height: 68px; border-radius: 50%; display: grid; place-items: center;
+  background: linear-gradient(145deg, #d8bd8f, var(--mc-gold)); color: var(--mc-ink); font: 400 30px/1 var(--mc-serif); box-shadow: 0 0 0 4px rgba(255, 255, 255, .08); }
+.mc-hero-text { flex: 1; min-width: 0; }
+.mc-eyebrow { margin: 0 0 6px; font-size: 10px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--mc-gold-soft); }
+.mc-title { margin: 0; font: 400 clamp(28px, 4.2vw, 40px)/1.08 var(--mc-serif); letter-spacing: 0; color: #fff; }
+.mc-since { margin: 6px 0 0; font-size: 13px; color: rgba(255, 255, 255, .62); }
+.mc-since:empty { display: none; }
+.mc-logout { display: inline-flex; align-items: center; gap: 8px; min-height: 0 !important; height: auto; padding: 10px 14px; border: 1px solid rgba(255, 255, 255, .22); border-radius: 999px;
+  background: transparent; color: #fff; font: 500 12px/1 var(--mc-sans); cursor: pointer; }
+.mc-logout svg { width: 16px; height: 16px; }
+.mc-logout:hover { background: rgba(255, 255, 255, .08); }
+.mc-stats { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 24px; }
+.mc-stats div { padding: 14px 16px; border-radius: 12px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .08); }
+.mc-stats strong { display: block; font: 400 28px/1 var(--mc-serif); color: #fff; }
+.mc-stats span { display: block; margin-top: 6px; font-size: 11px; color: rgba(255, 255, 255, .62); }
+
+/* Cantos arredondados: vence o estilo geral de botões do site */
+.mc button, .mc .mc-btn, .mc-dialog .mc-btn { border-radius: 12px !important; }
+.mc .mc-logout, .mc .mc-pill { border-radius: 999px !important; }
+.mc .mc-tabs button { border-radius: var(--mc-radius) !important; }
+.mc .mc-link { border-radius: 0 !important; }
+
+/* Abas */
+.mc-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0 0; }
+.mc-tabs button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 84px !important; padding: 14px 10px;
+  border: 1px solid var(--mc-line); border-radius: var(--mc-radius); background: #fff; color: var(--mc-ink); box-shadow: var(--mc-shadow);
+  font: 600 12px/1.2 var(--mc-sans); cursor: pointer; transition: transform .15s ease, background .2s ease; }
+.mc-tabs button:hover { transform: translateY(-1px); }
+.mc-tabs button.active { background: var(--mc-ink); border-color: var(--mc-ink); color: #fff; }
+.mc-tabs button.active svg { color: var(--mc-gold); }
+.mc-tabs button:focus-visible { outline: 2px solid var(--mc-gold); outline-offset: 2px; }
+
+/* Aviso de cadastro */
+.mc-alert { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 18px; padding: 16px 18px; border-radius: var(--mc-radius);
+  background: #fbf4e7; border: 1px solid #ecdcbf; }
+.mc-alert strong { display: block; font-size: 14px; }
+.mc-alert p { margin: 4px 0 0; font-size: 13px; color: var(--mc-muted); }
+.mc-alert[hidden] { display: none; }
+
+.mc-panel-area { margin-top: 26px; }
+.mc-panel-area[hidden] { display: none; }
+.mc-section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+.mc-section-title { margin: 0; font: 400 24px/1.2 var(--mc-serif); }
+.mc-link { display: inline-block; min-height: 0 !important; height: auto; width: auto; padding: 3px 0; background: none; border: 0; border-bottom: 1px solid currentColor;
+  font: 600 11px/1 var(--mc-sans); letter-spacing: .1em; text-transform: uppercase; color: var(--mc-ink); text-decoration: none; cursor: pointer; }
+.mc-link:hover { opacity: .65; }
+.mc-link-danger { color: #a03f35; }
+
+/* Botões */
+.mc-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; border: 1px solid var(--mc-ink); border-radius: 12px;
+  background: var(--mc-ink); color: #fff !important; font: 600 12px/1 var(--mc-sans); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: opacity .2s ease; }
+.mc-btn:hover { opacity: .88; }
+.mc-btn:disabled { opacity: .5; cursor: wait; }
+.mc-btn-outline { background: #fff; color: var(--mc-ink) !important; border-color: var(--mc-line); }
+.mc-btn-danger { background: #a03f35; border-color: #a03f35; }
+
+/* Pedidos */
+.mc-list { display: grid; gap: 16px; }
+.mc-order { padding: 20px; background: #fff; border-radius: 20px; box-shadow: var(--mc-shadow); border: 1px solid var(--mc-line); }
+.mc-order-top { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 16px; align-items: center; }
+.mc-thumb { width: 96px; height: 96px; border-radius: 14px; background: var(--mc-cream); display: grid; place-items: center; overflow: hidden; }
+.mc-thumb img { width: 88%; height: 88%; object-fit: contain; filter: drop-shadow(0 8px 10px rgba(23, 22, 19, .14)); }
+.mc-thumb span { font: 400 34px var(--mc-serif); color: var(--mc-gold); }
+.mc-brand { margin: 0 0 4px; font-size: 10px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--mc-gold); }
+.mc-order-id h3 { margin: 0; font: 400 24px/1.12 var(--mc-serif); }
+.mc-dates { display: inline-flex; margin: 8px 0 0; padding: 5px 10px; border-radius: 999px; background: var(--mc-cream); font-size: 12px; color: var(--mc-ink-2); }
+
+.mc-pill { justify-self: end; align-self: start; padding: 7px 11px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; background: #e7f0e8; color: #2f5a3a; }
+.mc-pill::before { content: ''; display: inline-block; width: 6px; height: 6px; margin-right: 6px; border-radius: 50%; background: currentColor; vertical-align: 1px; }
+.mc-pill.warn { background: #fbefd9; color: #8a5a17; }
+.mc-pill.muted { background: #efece7; color: var(--mc-muted); }
+
+.mc-next { margin: 18px 0 0; padding: 12px 14px; border-radius: 12px; background: var(--mc-cream); font-size: 14px; line-height: 1.5; }
+.mc-tracking { margin: 10px 0 0; font-size: 13px; color: var(--mc-muted); }
+.mc-tracking a, .mc-details a { color: var(--mc-ink); }
+
+.mc-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 18px 0 0; padding: 0; list-style: none; }
+.mc-steps li { position: relative; padding-top: 14px; font-size: 10px; letter-spacing: .04em; color: #aaa49b; }
+.mc-steps li::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 4px; border-radius: 4px; background: var(--mc-line); }
+.mc-steps li.done::before { background: var(--mc-gold); }
+.mc-steps li.now::before { background: var(--mc-ink); }
+.mc-steps li.done { color: var(--mc-muted); }
+.mc-steps li.now { color: var(--mc-ink); font-weight: 600; }
+
+.mc-keyinfo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+.mc-keyinfo div { padding: 12px 14px; border-radius: 12px; border: 1px solid var(--mc-line); }
+.mc-keyinfo span { display: block; font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--mc-muted); }
+.mc-keyinfo strong { display: block; margin-top: 5px; font-size: 14px; font-weight: 600; overflow-wrap: anywhere; }
+
+.mc-details { margin-top: 14px; }
+.mc-details summary { display: flex; justify-content: center; align-items: center; gap: 6px; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 600;
+  color: var(--mc-ink-2); cursor: pointer; list-style: none; background: #faf8f4; }
+.mc-details summary::-webkit-details-marker { display: none; }
+.mc-details summary::after { content: '⌄'; font-size: 14px; line-height: 1; transform: translateY(-2px); }
+.mc-details[open] summary::after { transform: rotate(180deg) translateY(-2px); }
+.mc-details dl, .mc-data { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 22px; margin: 14px 0 0; }
+.mc-details dl .wide { grid-column: 1 / -1; }
+.mc-details dt, .mc-data dt { margin: 0 0 4px; font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--mc-muted); }
+.mc-details dd, .mc-data dd { margin: 0; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+.mc-details small { color: var(--mc-muted); }
+
+.mc-actions { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 16px; }
+.mc-actions .mc-btn { background: linear-gradient(135deg, #c39b60, var(--mc-gold)); border-color: var(--mc-gold); color: #fff !important; }
+.mc-inline-error { margin: 10px 0 0; font-size: 13px; color: #a03f35; }
+.mc-inline-error[hidden] { display: none; }
+
+.mc-empty { padding: 36px 24px; text-align: center; background: #fff; border-radius: 20px; box-shadow: var(--mc-shadow); }
+.mc-empty p { margin: 0 0 6px; font-size: 14px; color: var(--mc-muted); }
+.mc-empty strong { color: var(--mc-ink); font-weight: 600; }
+.mc-empty .mc-btn { margin-top: 16px; }
+
+.mc-history { margin-top: 18px; padding: 0 20px; background: #fff; border-radius: 20px; box-shadow: var(--mc-shadow); }
+.mc-history summary { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; cursor: pointer; list-style: none; font: 400 20px/1.2 var(--mc-serif); }
+.mc-history summary::-webkit-details-marker { display: none; }
+.mc-count { min-width: 26px; padding: 4px 8px; border-radius: 999px; background: var(--mc-cream); font: 600 12px var(--mc-sans); text-align: center; }
+.mc-history-row { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid var(--mc-line); font-size: 13px; color: var(--mc-muted); }
+.mc-history-row strong { color: var(--mc-ink); font-weight: 600; }
+
+/* Meus dados e ajuda */
+.mc-card { padding: 24px; background: #fff; border-radius: 20px; box-shadow: var(--mc-shadow); }
+.mc-card-title { margin: 0; font: 400 24px/1.2 var(--mc-serif); }
+.mc-data { margin-top: 18px; }
+.mc-data a { color: var(--mc-ink); }
+.mc-note { margin: 20px 0 0; padding-top: 16px; border-top: 1px solid var(--mc-line); font-size: 13px; color: var(--mc-muted); }
+.mc-help-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.mc-help-card { display: block; padding: 20px; background: #fff; border-radius: 18px; box-shadow: var(--mc-shadow); color: var(--mc-ink); text-decoration: none; transition: transform .15s ease; }
+.mc-help-card:hover { transform: translateY(-2px); }
+.mc-help-card strong { display: block; font: 400 19px/1.2 var(--mc-serif); }
+.mc-help-card span { display: block; margin-top: 6px; font-size: 13px; color: var(--mc-muted); }
+.mc-help-card:first-child { background: var(--mc-ink); color: #fff; }
+.mc-help-card:first-child span { color: rgba(255, 255, 255, .65); }
+
+/* Janela de confirmação e aviso */
+.mc-dialog { position: fixed; inset: 0; margin: auto; height: fit-content; width: min(420px, calc(100vw - 32px)); padding: 26px; border: 0; border-radius: 20px; background: #fff;
+  color: var(--mc-ink); font-family: var(--mc-sans); box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .35); }
+.mc-dialog::backdrop { background: rgba(23, 22, 19, .5); }
+.mc-dialog h2 { margin: 0 0 10px; font: 400 24px/1.2 var(--mc-serif); }
+.mc-dialog p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--mc-muted); }
+.mc-dialog-error { margin-top: 12px !important; color: #a03f35 !important; }
+.mc-dialog-error[hidden] { display: none; }
+.mc-dialog-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+.mc-dialog-actions .mc-btn { flex: 1 1 140px; }
+.mc-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 3000; padding: 14px 20px; border-radius: 14px; background: var(--mc-ink); color: #fff;
+  font: 500 13px var(--mc-sans); box-shadow: 0 14px 30px rgba(0, 0, 0, .2); }
+.mc-toast[hidden] { display: none; }
+
+@media (max-width: 600px) {
+  .mc { padding-top: 16px; }
+  .mc-hero { padding: 22px 18px; border-radius: 20px; }
+  .mc-avatar { width: 56px; height: 56px; font-size: 24px; }
+  .mc-logout span { display: none; }
+  .mc-logout { padding: 10px; }
+  .mc-stats { gap: 8px; }
+  .mc-stats div { padding: 12px 10px; }
+  .mc-stats strong { font-size: 24px; }
+  .mc-stats span { font-size: 10px; }
+  .mc-tabs { gap: 8px; }
+  .mc-tabs button { min-height: 76px !important; font-size: 11px; }
+  .mc-order { padding: 16px; }
+  .mc-order-top { grid-template-columns: 76px minmax(0, 1fr); gap: 14px; }
+  .mc-thumb { width: 76px; height: 76px; }
+  .mc-order-id h3 { font-size: 21px; }
+  .mc-pill { grid-column: 1 / -1; justify-self: start; }
+  .mc-steps li { font-size: 0; }
+  .mc-steps li.now { font-size: 10px; white-space: nowrap; }
+  .mc-keyinfo { grid-template-columns: 1fr 1fr; }
+  .mc-keyinfo div:first-child { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: baseline; }
+  .mc-keyinfo div:first-child strong { margin: 0; font-size: 17px; }
+  .mc-actions .mc-btn { flex: 1 1 100%; }
+  .mc-actions .mc-link { margin: 4px auto 0; }
+  .mc-alert { flex-direction: column; align-items: flex-start; }
+  .mc-details dl, .mc-help-grid { grid-template-columns: 1fr; }
+}
+</style>
 <script src="/cookie-preferences.js?v=20261105-2" defer></script>
 </head>
 
@@ -507,70 +705,99 @@ body{padding:16px 0;}
     </div>
   </nav>
 </header>
-<div class="container">
-<main class="card">
-<p class="account-eyebrow">Seu espaço The Bag Room</p>
-<h1 class="titulo">Minha Conta</h1>
-<p id="nomeBoasVindas" class="boas-vindas">Carregando...</p>
-<p class="account-intro">Seus dados, reservas e próximos passos, em um só lugar.</p>
+<main class="mc" id="minhaConta">
+  <section class="mc-hero">
+    <div class="mc-hero-inner">
+      <div class="mc-avatar" id="avatarCliente" aria-hidden="true">·</div>
+      <div class="mc-hero-text">
+        <p class="mc-eyebrow">Minha conta</p>
+        <h1 class="mc-title" id="nomeBoasVindas">Olá</h1>
+        <p class="mc-since" id="clienteDesde"></p>
+      </div>
+      <button type="button" class="mc-logout" onclick="sair()">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        <span>Sair</span>
+      </button>
+    </div>
+    <div class="mc-stats">
+      <div><strong id="statAtivos">–</strong><span>Em andamento</span></div>
+      <div><strong id="statPendentes">–</strong><span>Aguardando pagamento</span></div>
+      <div><strong id="statTotal">–</strong><span>Aluguéis no total</span></div>
+    </div>
+  </section>
 
-<section class="status">
-<h3 id="statusTitulo">Carregando...</h3>
-<p id="statusTexto">Carregando...</p>
-</section>
+  <nav class="mc-tabs" role="tablist" aria-label="Seções da conta">
+    <button type="button" role="tab" id="tab-alugueis" aria-controls="painel-alugueis" aria-selected="true" class="active" onclick="abrirAba('alugueis')">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8zM9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      <span>Meus aluguéis</span>
+    </button>
+    <button type="button" role="tab" id="tab-dados" aria-controls="painel-dados" aria-selected="false" onclick="abrirAba('dados')">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4 21c1.2-4.2 4.3-6.3 8-6.3s6.8 2.1 8 6.3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      <span>Meus dados</span>
+    </button>
+    <button type="button" role="tab" id="tab-ajuda" aria-controls="painel-ajuda" aria-selected="false" onclick="abrirAba('ajuda')">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4V5z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      <span>Ajuda</span>
+    </button>
+  </nav>
 
-<div class="grid">
-<aside>
-<section class="section">
-<div class="section-title">Meus Dados</div>
-<div class="info-card">
-<div class="info-item">
-<div class="info-label">Nome</div>
-<div class="info-value" id="nomeCliente">Carregando...</div>
-</div>
-<div class="info-item">
-<div class="info-label">E-mail</div>
-<div class="info-value" id="emailCliente">Carregando...</div>
-</div>
-<div class="info-item">
-<div class="info-label">Celular</div>
-<div class="info-value" id="celularCliente">Carregando...</div>
-</div>
-</div>
-</section>
+  <div id="avisoCadastro" class="mc-alert" hidden></div>
 
-<section class="section">
-<div class="section-title">Documentos</div>
-<div class="info-card" id="documentosCliente">
-<p class="loading">Carregando documentos...</p>
-</div>
-</section>
+  <section class="mc-panel-area" id="painel-alugueis" role="tabpanel" aria-labelledby="tab-alugueis">
+    <div class="mc-section-head">
+      <h2 class="mc-section-title">Em andamento</h2>
+      <a class="mc-link" href="/aluguel.html">Alugar outra bolsa</a>
+    </div>
+    <div id="listaAlugueis" class="mc-list">
+      <div class="mc-empty"><p>Carregando seus aluguéis…</p></div>
+    </div>
 
-<section class="section">
-<div class="section-title">The Bag Room Concierge</div>
-<div class="info-card" style="text-align:center;">
-<p style="margin-bottom:18px;line-height:1.7;color:#666;">
-Precisa de ajuda para escolher uma bolsa, acompanhar uma reserva ou tirar dúvidas? Nossa equipe está pronta para ajudar.
-</p>
-<a href="https://wa.me/5513996904227" target="_blank" class="btn">Falar com especialista</a>
-</div>
-</section>
-</aside>
+    <details class="mc-history" id="historico" hidden>
+      <summary><span>Histórico</span><span class="mc-count" id="historicoTotal"></span></summary>
+      <div id="listaHistorico" class="mc-history-list"></div>
+    </details>
+  </section>
 
-<section>
-<div class="section-title">Meus Aluguéis</div>
-<div id="listaAlugueis" class="rental-list">
-<div class="empty-card">
-<strong>Carregando seus aluguéis...</strong>
-<p>Estamos buscando suas reservas no sistema.</p>
-</div>
-</div>
-</section>
-</div>
+  <section class="mc-panel-area" id="painel-dados" role="tabpanel" aria-labelledby="tab-dados" hidden>
+    <div class="mc-card">
+      <h2 class="mc-card-title">Meus dados</h2>
+      <dl class="mc-data">
+        <div><dt>Nome</dt><dd id="nomeCliente">—</dd></div>
+        <div><dt>E-mail</dt><dd id="emailCliente">—</dd></div>
+        <div><dt>Celular</dt><dd id="celularCliente">—</dd></div>
+        <div><dt>Cadastro</dt><dd id="cadastroCliente">—</dd></div>
+        <div><dt>Documentos</dt><dd id="documentosCliente">—</dd></div>
+      </dl>
+      <p class="mc-note">Precisa alterar algum dado? Fale com a curadoria.</p>
+    </div>
+  </section>
 
-<button class="btn-sair" onclick="sair()">SAIR</button>
+  <section class="mc-panel-area" id="painel-ajuda" role="tabpanel" aria-labelledby="tab-ajuda" hidden>
+    <div class="mc-help-grid">
+      <a class="mc-help-card" href="https://wa.me/5513996904227" target="_blank" rel="noopener">
+        <strong>Falar com a curadoria</strong><span>Atendimento pelo WhatsApp</span>
+      </a>
+      <a class="mc-help-card" href="/como-alugar.html"><strong>Como funciona o aluguel</strong><span>Passo a passo, prazos e caução</span></a>
+      <a class="mc-help-card" href="/entrega-e-devolucao.html"><strong>Entrega e devolução</strong><span>Envio, retirada e cancelamento</span></a>
+      <a class="mc-help-card" href="/autenticidade.html"><strong>Autenticidade</strong><span>Como garantimos cada peça</span></a>
+    </div>
+  </section>
 </main>
-</div>
+
+<dialog class="mc-dialog" id="dialogoCancelar" aria-labelledby="dialogoTitulo">
+  <form method="dialog">
+    <h2 id="dialogoTitulo">Cancelar este pedido?</h2>
+    <p id="dialogoTexto">As datas serão liberadas e o pedido sairá da sua conta. Essa ação não pode ser desfeita.</p>
+    <p class="mc-dialog-error" id="dialogoErro" hidden></p>
+    <div class="mc-dialog-actions">
+      <button class="mc-btn mc-btn-outline" value="manter">Manter pedido</button>
+      <button class="mc-btn mc-btn-danger" value="cancelar" id="dialogoConfirmar" type="button">Sim, cancelar</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="mc-toast" id="aviso" role="status" aria-live="polite" hidden></div>
+
 
 <script src="/bag-manual-photos.js?v=20261002-24"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -579,6 +806,7 @@ const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
 const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const CHECKOUT_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/mercado-pago-checkout`;
+const WHATSAPP = "https://wa.me/5513996904227";
 
 const statusLabels = {
 aguardando_pagamento: "Aguardando pagamento",
@@ -590,393 +818,333 @@ enviado: "Enviado",
 em_uso: "Em uso",
 devolucao_pendente: "Devolução pendente",
 devolvido: "Devolvido",
-caucao_liberada: "Caução liberada",
+caucao_liberada: "Concluído",
 cancelado: "Cancelado"
 };
-
 const pagamentoLabels = {
 pendente: "Aguardando pagamento",
-aprovado: "Pagamento aprovado",
-recusado: "Pagamento recusado",
-cancelado: "Pagamento cancelado",
-estornado: "Pagamento estornado"
+aprovado: "Aprovado",
+recusado: "Recusado",
+cancelado: "Cancelado",
+estornado: "Estornado"
 };
-
 const caucaoLabels = {
-nao_solicitada: "Caução não solicitada",
+nao_solicitada: "Não solicitada",
 aguardando_autorizacao: "Aguardando autorização",
-autorizada: "Caução autorizada",
-capturada: "Caução capturada",
-liberada: "Caução liberada",
-cancelada: "Caução cancelada",
-falhou: "Falha na caução"
+autorizada: "Autorizada",
+capturada: "Capturada",
+liberada: "Liberada",
+cancelada: "Cancelada",
+falhou: "Falha na autorização"
 };
+// Pedidos cancelados não aparecem; concluídos vão para o histórico.
+const OCULTOS = new Set(["cancelado"]);
+const CONCLUIDOS = new Set(["caucao_liberada"]);
 
-Object.assign(statusLabels, {
-cadastro_em_analise: "Cadastro em análise",
-em_preparacao: "Em preparação",
-devolucao_pendente: "Devolução pendente",
-caucao_liberada: "Caução liberada"
-});
+let pedidosCarregados = [];
+let enderecosCarregados = {};
 
-Object.assign(caucaoLabels, {
-nao_solicitada: "Caução não solicitada",
-aguardando_autorizacao: "Aguardando autorização",
-autorizada: "Caução autorizada",
-capturada: "Caução capturada",
-liberada: "Caução liberada",
-cancelada: "Caução cancelada",
-falhou: "Falha na caução"
-});
-
+function esc(valor){
+return String(valor ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+}
 function moeda(valor){
 return Number(valor || 0).toLocaleString("pt-BR", { style:"currency", currency:"BRL" });
 }
-
-function dataBR(data){
-if(!data) return "A definir";
-const partes = data.split("-");
-if(partes.length !== 3) return data;
-return `${partes[2]}/${partes[1]}/${partes[0]}`;
+function dataCurta(data){
+if(!data) return "a definir";
+const [a, m, d] = String(data).split("-").map(Number);
+if(!a || !m || !d) return esc(data);
+return new Date(a, m - 1, d).toLocaleDateString("pt-BR", { day:"2-digit", month:"short" }).replace(".", "");
 }
-
-function statusTexto(status){
-return statusLabels[status] || status || "Em andamento";
-}
-
-function primeiroOuVazio(lista){
+function primeiro(lista){
 return Array.isArray(lista) && lista.length ? lista[0] : null;
 }
 
-function enderecoTexto(endereco){
-if(!endereco) return "Aguardando endereço";
-const linha1 = [endereco.endereco, endereco.numero].filter(Boolean).join(", ");
-const linha2 = [endereco.complemento, endereco.bairro].filter(Boolean).join(" - ");
-const linha3 = [endereco.cidade, endereco.estado, endereco.cep].filter(Boolean).join(" / ");
-return [linha1, linha2, linha3].filter(Boolean).join("<br>");
-}
-
 function proximoPasso(pedido, pagamento, caucao){
-if(pedido.status === "cancelado") return "Pedido cancelado. Fale com a curadoria se precisar de ajuda.";
-if(pedido.status === "aguardando_pagamento" && pagamento?.status === "recusado") return "O pagamento foi recusado. Tente pagar novamente ou fale com a curadoria.";
-if(pedido.status === "aguardando_pagamento") return "Finalize o pagamento para confirmar sua reserva.";
-if(pedido.status === "pagamento_aprovado") return "Pagamento aprovado. Nossa equipe vai analisar o cadastro e preparar a confirmação.";
-if(pedido.status === "cadastro_em_analise") return "Cadastro em análise. Se faltar algum documento, a curadoria entrará em contato.";
-if(pedido.status === "reserva_confirmada") return "Reserva confirmada. A bolsa será preparada para o período escolhido.";
-if(pedido.status === "em_preparacao") return "Bolsa em preparação para envio ou retirada.";
-if(pedido.status === "enviado") return "Bolsa enviada. Acompanhe o código de rastreio abaixo.";
-if(pedido.status === "em_uso") return "Aproveite seu aluguel. Depois, acompanhe as instruções de devolução.";
-if(pedido.status === "devolucao_pendente") return "A devolução está pendente. Envie ou entregue a bolsa conforme combinado.";
-if(pedido.status === "devolvido") return "Bolsa devolvida. A curadoria fará a conferência final.";
-if(pedido.status === "caucao_liberada") return "Aluguel concluído e caução liberada.";
-if(pedido.status === "cancelado") return "Pedido cancelado. Fale com a curadoria se precisar de ajuda.";
-if(caucao?.status === "aguardando_autorizacao") return "Falta autorizar a caução antes da retirada ou envio.";
-if(pagamento?.status === "recusado") return "O pagamento foi recusado. Tente pagar novamente ou fale com a curadoria.";
-return "Acompanhe aqui as próximas atualizações do seu aluguel.";
+if(pedido.status === "aguardando_pagamento" && pagamento?.status === "recusado") return "O pagamento foi recusado. Tente novamente ou fale com a curadoria.";
+if(pedido.status === "aguardando_pagamento") return "Finalize o pagamento para garantir a sua reserva.";
+if(caucao?.status === "aguardando_autorizacao") return "Falta autorizar a caução antes do envio ou retirada.";
+const passos = {
+pagamento_aprovado: "Pagamento aprovado. Estamos preparando a confirmação da sua reserva.",
+cadastro_em_analise: "Estamos analisando o seu cadastro. Se faltar algo, entraremos em contato.",
+reserva_confirmada: "Reserva confirmada. A bolsa será preparada para as suas datas.",
+em_preparacao: "Sua bolsa está sendo preparada para envio ou retirada.",
+enviado: "Sua bolsa está a caminho. Acompanhe pelo código de rastreio.",
+em_uso: "Aproveite! Perto do fim do período, enviaremos as instruções de devolução.",
+devolucao_pendente: "Hora de devolver a bolsa, conforme combinado.",
+devolvido: "Bolsa recebida. Estamos fazendo a conferência final.",
+caucao_liberada: "Aluguel concluído e caução liberada."
+};
+return passos[pedido.status] || "Acompanhe aqui as próximas atualizações.";
 }
 
 function etapaAtual(status){
-const mapa = {
-aguardando_pagamento: 0,
-pagamento_aprovado: 1,
-cadastro_em_analise: 1,
-reserva_confirmada: 2,
-em_preparacao: 2,
-enviado: 3,
-em_uso: 3,
-devolucao_pendente: 4,
-devolvido: 4,
-caucao_liberada: 4
-};
+const mapa = { aguardando_pagamento:0, pagamento_aprovado:1, cadastro_em_analise:1, reserva_confirmada:1, em_preparacao:2, enviado:2, em_uso:3, devolucao_pendente:4, devolvido:4, caucao_liberada:5 };
 return mapa[status] ?? 0;
 }
-
 function renderProgresso(status){
-const etapas = ["Pagamento", "Cadastro", "Reserva", "Uso", "Devolução"];
+const etapas = ["Pagamento", "Confirmação", "Envio", "Em uso", "Devolução"];
 const atual = etapaAtual(status);
+return `<ol class="mc-steps" aria-label="Etapa atual: ${esc(etapas[Math.min(atual, 4)])}">${etapas.map((etapa, i) =>
+`<li class="${i < atual ? "done" : ""} ${i === atual ? "now" : ""}"><span>${etapa}</span></li>`).join("")}</ol>`;
+}
+
+function tomStatus(status){
+if(status === "aguardando_pagamento" || status === "devolucao_pendente") return "warn";
+if(CONCLUIDOS.has(status)) return "muted";
+return "ok";
+}
+
+function fotoBolsa(bolsa){
+const raw = bolsa?.imagem_capa_url || window.TBR_MANUAL_PHOTOS?.[bolsa?.slug]?.cover || "";
+try{ const url = new URL(raw); return url.protocol === "https:" ? url.href : ""; }catch{ return ""; }
+}
+
+function enderecoTexto(endereco){
+if(!endereco) return "Retirada na loja ou endereço a confirmar";
+const linha1 = [endereco.endereco, endereco.numero].filter(Boolean).join(", ");
+const linha2 = [endereco.complemento, endereco.bairro].filter(Boolean).join(" · ");
+const linha3 = [endereco.cidade, endereco.estado].filter(Boolean).join(" / ") + (endereco.cep ? ` · ${endereco.cep}` : "");
+return [linha1, linha2, linha3].filter(Boolean).map(esc).join("<br>");
+}
+
+function rastreioHtml(r){
+if(!r?.codigo_rastreio) return "Ainda não informado";
+const url = (() => { try{ const u = new URL(r.url_rastreio); return /^https?:$/.test(u.protocol) ? u.href : ""; }catch{ return ""; } })();
+const codigo = esc(r.codigo_rastreio) + (r.transportadora ? ` <small>${esc(r.transportadora)}</small>` : "");
+return url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${codigo}</a>` : codigo;
+}
+
+function cartaoPedido(pedido){
+const item = primeiro(pedido.aluguel_itens);
+const bolsa = item?.bolsas;
+const pagamento = primeiro(pedido.pagamentos_aluguel);
+const caucao = primeiro(pedido.caucoes);
+const envio = (pedido.rastreamentos_aluguel || []).find(r => r.tipo === "envio");
+const devolucao = (pedido.rastreamentos_aluguel || []).find(r => r.tipo === "devolucao");
+const foto = fotoBolsa(bolsa);
+const naoPago = pedido.status === "aguardando_pagamento";
+const caucaoTexto = Number(pedido.valor_caucao_total) === 0 ? "Isenta"
+  : caucao ? `${caucaoLabels[caucao.status] || esc(caucao.status)}`
+  : `${moeda(pedido.valor_caucao_total)}`;
+const nome = bolsa?.nome || "Bolsa de luxo";
+
 return `
-<div class="progress-line">
-${etapas.map((etapa, index) => `
-<div class="progress-step ${index < atual ? "done" : ""} ${index === atual ? "active" : ""}">
-${etapa}
-</div>
-`).join("")}
-</div>
-`;
+<article class="mc-order" data-pedido="${esc(pedido.id)}">
+  <div class="mc-order-top">
+    <div class="mc-thumb">${foto ? `<img src="${esc(foto)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<span>${esc(nome.charAt(0))}</span>`}</div>
+    <div class="mc-order-id">
+      <p class="mc-brand">${esc(bolsa?.marca || "")}</p>
+      <h3>${esc(nome)}</h3>
+      <p class="mc-dates">${dataCurta(item?.data_inicio)} – ${dataCurta(item?.data_fim)} · ${esc(item?.dias || "-")} dias</p>
+    </div>
+    <span class="mc-pill ${tomStatus(pedido.status)}">${esc(statusLabels[pedido.status] || pedido.status || "Em andamento")}</span>
+  </div>
+
+  <p class="mc-next">${proximoPasso(pedido, pagamento, caucao)}</p>
+  ${pedido.status === "enviado" && envio?.codigo_rastreio ? `<p class="mc-tracking">Rastreio: ${rastreioHtml(envio)}</p>` : ""}
+  ${renderProgresso(pedido.status)}
+
+
+
+  <div class="mc-keyinfo">
+    <div><span>Total</span><strong>${moeda(pedido.valor_total)}</strong></div>
+    <div><span>Pagamento</span><strong>${pagamento ? (pagamentoLabels[pagamento.status] || esc(pagamento.status)) : "Pendente"}</strong></div>
+    <div><span>Caução</span><strong>${caucaoTexto}</strong></div>
+  </div>
+
+  <details class="mc-details">
+    <summary>Mostrar mais</summary>
+    <dl>
+      <div><dt>Pedido</dt><dd>${esc(pedido.numero || "—")}</dd></div>
+      <div><dt>Período</dt><dd>${esc(item?.dias || "-")} dias</dd></div>
+      <div class="wide"><dt>Entrega e devolução</dt><dd>${enderecoTexto(enderecosCarregados[pedido.endereco_entrega_id])}</dd></div>
+      <div><dt>Rastreio do envio</dt><dd>${rastreioHtml(envio)}</dd></div>
+      <div><dt>Rastreio da devolução</dt><dd>${rastreioHtml(devolucao)}</dd></div>
+    </dl>
+  </details>
+  ${naoPago ? `
+  <div class="mc-actions">
+    <button type="button" class="mc-btn" onclick="pagarAluguel('${esc(pedido.id)}', this)">Pagar ${moeda(pedido.valor_total)}</button>
+    <button type="button" class="mc-link mc-link-danger" onclick="pedirCancelamento('${esc(pedido.id)}', '${esc(nome)}')">Cancelar pedido</button>
+  </div>
+  <p class="mc-inline-error" hidden></p>` : ""}
+</article>`;
 }
 
-function renderStatusCadastro(cliente){
-const titulo = document.getElementById("statusTitulo");
-const texto = document.getElementById("statusTexto");
-
-if(!cliente || !cliente.status){
-titulo.innerText = "Cadastro em análise";
-texto.innerText = "Complete seu cadastro para seguir com seus aluguéis.";
-return;
+function linhaHistorico(pedido){
+const item = primeiro(pedido.aluguel_itens);
+const bolsa = item?.bolsas;
+return `<div class="mc-history-row"><span><strong>${esc(bolsa?.nome || "Bolsa de luxo")}</strong> · ${dataCurta(item?.data_inicio)} – ${dataCurta(item?.data_fim)}</span><span>${moeda(pedido.valor_total)}</span></div>`;
 }
 
-if(cliente.status === "pendente"){
-titulo.innerText = "Cadastro em análise";
-texto.innerText = "Seu cadastro está sendo analisado pela equipe The Bag Room.";
+function renderAlugueis(){
+const visiveis = pedidosCarregados.filter(p => !OCULTOS.has(p.status));
+// Pedidos que pedem ação da cliente aparecem primeiro
+const ativos = visiveis.filter(p => !CONCLUIDOS.has(p.status))
+  .sort((a, b) => (a.status === "aguardando_pagamento" ? 0 : 1) - (b.status === "aguardando_pagamento" ? 0 : 1));
+const concluidos = visiveis.filter(p => CONCLUIDOS.has(p.status));
+document.getElementById("statAtivos").textContent = String(ativos.length);
+document.getElementById("statPendentes").textContent = String(ativos.filter(p => p.status === "aguardando_pagamento").length);
+document.getElementById("statTotal").textContent = String(visiveis.length);
+const lista = document.getElementById("listaAlugueis");
+
+lista.innerHTML = ativos.length ? ativos.map(cartaoPedido).join("") : `
+<div class="mc-empty">
+  <p><strong>${concluidos.length ? "Nenhum aluguel em andamento." : "Você ainda não tem aluguéis."}</strong></p>
+  <p>Escolha a bolsa perfeita para a sua próxima ocasião.</p>
+  <a class="mc-btn" href="/aluguel.html">Ver bolsas</a>
+</div>`;
+
+const historico = document.getElementById("historico");
+historico.hidden = !concluidos.length;
+document.getElementById("historicoTotal").textContent = concluidos.length ? String(concluidos.length) : "";
+document.getElementById("listaHistorico").innerHTML = concluidos.map(linhaHistorico).join("");
 }
 
-if(cliente.status === "aprovado"){
-titulo.innerText = "Cadastro aprovado";
-texto.innerText = "Sua conta está liberada para acompanhar reservas e aluguéis.";
+function renderAvisoCadastro(cliente){
+const aviso = document.getElementById("avisoCadastro");
+let html = "";
+// Cadastro aprovado: nada a mostrar
+if(!cliente){
+html = `<div><strong>Complete o seu cadastro</strong><p>Ele é necessário para alugar. Leva poucos minutos.</p></div><a class="mc-btn" href="/cadastro-locacao.html?next=/minha-conta.html">Fazer cadastro</a>`;
+} else if(cliente.status === "pendente"){
+html = `<div><strong>Cadastro em análise</strong><p>Estamos conferindo os seus dados. Avisaremos assim que estiver aprovado.</p></div>`;
+} else if(cliente.status === "reprovado"){
+html = `<div><strong>Cadastro não aprovado</strong><p>Fale com a nossa curadoria para entender o que falta.</p></div><a class="mc-btn mc-btn-outline" href="${WHATSAPP}" target="_blank" rel="noopener">Falar com a curadoria</a>`;
 }
-
-if(cliente.status === "reprovado"){
-titulo.innerText = "Cadastro não aprovado";
-texto.innerText = "Entre em contato com nossa equipe para mais informações.";
-}
+aviso.innerHTML = html;
+aviso.hidden = !html;
 }
 
 function renderDados(cliente, user){
 const nome = cliente?.nome_completo || user.user_metadata?.nome || user.email || "Cliente";
-const email = cliente?.email || user.email || "-";
-const celular = cliente?.celular || "-";
-
-document.getElementById("nomeCliente").innerText = nome;
-document.getElementById("emailCliente").innerText = email;
-document.getElementById("celularCliente").innerText = celular;
-document.getElementById("nomeBoasVindas").innerText = `Olá, ${nome.split(" ")[0]}`;
+document.getElementById("nomeCliente").textContent = nome;
+document.getElementById("emailCliente").textContent = cliente?.email || user.email || "—";
+document.getElementById("celularCliente").textContent = cliente?.celular || "—";
+document.getElementById("nomeBoasVindas").textContent = `Olá, ${nome.split(" ")[0]}`;
+document.getElementById("avatarCliente").textContent = (nome.trim().charAt(0) || "·").toUpperCase();
+const desde = user.created_at ? new Date(user.created_at) : null;
+document.getElementById("clienteDesde").textContent = desde && !isNaN(desde) ? `Cliente desde ${desde.toLocaleDateString("pt-BR", { month:"long", year:"numeric" })}` : "";
+const rotulosCadastro = { aprovado:"Aprovado", pendente:"Em análise", reprovado:"Não aprovado" };
+document.getElementById("cadastroCliente").textContent = cliente ? (rotulosCadastro[cliente.status] || "Em análise") : "Não enviado";
 }
 
 function renderDocumentos(documentos){
-const container = document.getElementById("documentosCliente");
-
+const alvo = document.getElementById("documentosCliente");
 if(!documentos || !documentos.length){
-container.innerHTML = `
-<div class="info-item">
-<div class="info-label">Status</div>
-<div class="info-value">Nenhum documento enviado ainda.</div>
-</div>
-<div class="actions">
-<a href="https://wa.me/5513996904227" target="_blank" class="btn secondary">Enviar documentos</a>
-</div>
-`;
+alvo.innerHTML = `Nenhum enviado · <a href="${WHATSAPP}" target="_blank" rel="noopener">enviar</a>`;
 return;
 }
-
-container.innerHTML = documentos.map(documento => `
-<div class="info-item">
-<div class="info-label">${documento.tipo || "Documento"}</div>
-<div class="info-value">${documento.status || "pendente"}</div>
-</div>
-`).join("");
+const pendentes = documentos.filter(d => d.status && d.status !== "aprovado");
+alvo.textContent = pendentes.length ? `${pendentes.length} em análise` : "Enviados";
 }
 
-function fotoBolsaPedido(bolsa){
-const raw=bolsa?.imagem_capa_url || window.TBR_MANUAL_PHOTOS?.[bolsa?.slug]?.cover || '';
-try{const url=new URL(raw);return url.protocol==='https:'?url.href.replaceAll('"','&quot;'):'';}catch{return '';}
-}
-function renderAlugueis(pedidos, enderecosPorId = {}){
-const lista = document.getElementById("listaAlugueis");
-
-if(!pedidos || !pedidos.length){
-lista.innerHTML = `
-<div class="empty-card">
-<strong>Você ainda não possui aluguéis.</strong>
-<p>Quando uma reserva for criada, ela aparecerá aqui com status, datas, pagamento, caução e rastreio.</p>
-<div class="actions" style="justify-content:center;">
-<a href="/aluguel.html" class="btn">Ver bolsas</a>
-</div>
-</div>
-`;
-return;
+function abrirAba(nome){
+["alugueis","dados","ajuda"].forEach(aba => {
+const ativa = aba === nome;
+const botao = document.getElementById(`tab-${aba}`);
+botao.classList.toggle("active", ativa);
+botao.setAttribute("aria-selected", String(ativa));
+document.getElementById(`painel-${aba}`).hidden = !ativa;
+});
 }
 
-lista.innerHTML = pedidos.map(pedido => {
-const item = primeiroOuVazio(pedido.aluguel_itens);
-const bolsa = item?.bolsas;
-const pagamento = primeiroOuVazio(pedido.pagamentos_aluguel);
-const caucao = primeiroOuVazio(pedido.caucoes);
-const envio = (pedido.rastreamentos_aluguel || []).find(r => r.tipo === "envio");
-const devolucao = (pedido.rastreamentos_aluguel || []).find(r => r.tipo === "devolucao");
-const endereco = enderecosPorId[pedido.endereco_entrega_id];
-const foto = fotoBolsaPedido(bolsa);
-
-return `
-<article class="rental-card">
-<div class="rental-head">
-<div class="rental-product">
-${foto ? `<img class="rental-thumb" src="${foto}" alt="Bolsa do pedido" loading="lazy" referrerpolicy="no-referrer">` : ''}
-<div>
-<div class="rental-kicker">${pedido.numero || "Pedido de aluguel"}</div>
-<h2 class="rental-title">${bolsa?.nome || "Bolsa de luxo"}</h2>
-</div>
-</div>
-<span class="badge">${statusTexto(pedido.status)}</span>
-</div>
-
-<div class="next-step">
-<span>Próximo passo</span>
-<strong>${proximoPasso(pedido, pagamento, caucao)}</strong>
-</div>
-
-${renderProgresso(pedido.status)}
-
-<div class="rental-details">
-<div class="detail">
-<span>Datas reservadas</span>
-<strong>${dataBR(item?.data_inicio)} até ${dataBR(item?.data_fim)}</strong>
-</div>
-<div class="detail">
-<span>Período</span>
-<strong>${item?.dias || "-"} dias</strong>
-</div>
-<div class="detail">
-<span>Pagamento</span>
-<strong>${pagamento ? pagamentoLabels[pagamento.status] || pagamento.status : "Aguardando pagamento"}</strong>
-</div>
-<div class="detail">
-<span>Total do aluguel</span>
-<strong>${moeda(pedido.valor_total)}</strong>
-</div>
-<div class="detail">
-<span>Caução</span>
-<strong>${Number(pedido.valor_caucao_total) === 0 ? 'Isenta' : caucao ? caucaoLabels[caucao.status] || caucao.status : `Pendente - ${moeda(pedido.valor_caucao_total)}`}</strong>
-</div>
-<div class="detail wide">
-<span>Endereço de entrega/devolução</span>
-<strong>${enderecoTexto(endereco)}</strong>
-</div>
-<div class="detail">
-<span>Rastreio envio</span>
-<strong>${envio?.codigo_rastreio || "Ainda não informado"}</strong>
-</div>
-<div class="detail">
-<span>Rastreio devolução</span>
-<strong>${devolucao?.codigo_rastreio || "Ainda não informado"}</strong>
-</div>
-</div>
-
-${pedido.status === "aguardando_pagamento" ? `
-<div class="actions">
-<button class="btn" onclick="pagarAluguel('${pedido.id}')">Pagar aluguel</button>
-<button class="btn secondary" onclick="cancelarPedido('${pedido.id}', '${pedido.numero || "pedido"}')">Cancelar pedido</button>
-<a href="https://wa.me/5513996904227" target="_blank" class="btn secondary">Falar com a curadoria</a>
-</div>
-` : ""}
-</article>
-`;
-}).join("");
+function mostrarAviso(texto){
+const toast = document.getElementById("aviso");
+toast.textContent = texto;
+toast.hidden = false;
+clearTimeout(mostrarAviso.timer);
+mostrarAviso.timer = setTimeout(() => { toast.hidden = true; }, 4000);
 }
 
-async function cancelarPedido(pedidoId, numero){
-const confirmar = confirm(`Cancelar ${numero}? As datas serão liberadas e o pedido ficará marcado como cancelado.`);
+/* ===== Cancelamento ===== */
+let pedidoParaCancelar = null;
+function pedirCancelamento(pedidoId, nomeBolsa){
+pedidoParaCancelar = pedidoId;
+const dialogo = document.getElementById("dialogoCancelar");
+document.getElementById("dialogoTitulo").textContent = `Cancelar o aluguel da ${nomeBolsa}?`;
+document.getElementById("dialogoErro").hidden = true;
+const confirmar = document.getElementById("dialogoConfirmar");
+confirmar.disabled = false;
+confirmar.textContent = "Sim, cancelar";
+if(typeof dialogo.showModal === "function") dialogo.showModal();
+else if(confirm("Cancelar este pedido? As datas serão liberadas.")) confirmarCancelamento();
+}
 
-if(!confirmar) return;
+async function confirmarCancelamento(){
+const dialogo = document.getElementById("dialogoCancelar");
+const erroBox = document.getElementById("dialogoErro");
+const botao = document.getElementById("dialogoConfirmar");
+if(!pedidoParaCancelar) return;
 
 const { data: { session } } = await supabaseClient.auth.getSession();
+if(!session){ window.location.href = "/login.html?next=/minha-conta.html"; return; }
 
-if(!session){
-window.location.href = "/login.html";
-return;
-}
-
+botao.disabled = true;
+botao.textContent = "Cancelando…";
 try{
-const { error } = await supabaseClient.rpc("cancelar_pedido_aluguel_cliente", {
-p_pedido_id: pedidoId
-});
-
+const { error } = await supabaseClient.rpc("cancelar_pedido_aluguel_cliente", { p_pedido_id: pedidoParaCancelar });
 if(error) throw error;
-
-alert("Pedido cancelado. As datas foram liberadas.");
-await carregarCliente();
+pedidosCarregados = pedidosCarregados.map(p => p.id === pedidoParaCancelar ? { ...p, status:"cancelado" } : p);
+renderAlugueis();
+if(dialogo.open) dialogo.close();
+mostrarAviso("Pedido cancelado. As datas foram liberadas.");
+pedidoParaCancelar = null;
 } catch(error){
 console.error("Erro ao cancelar pedido:", error);
 const erro = String(error?.message || error || "");
-
-if(erro.includes("cancelamento_nao_permitido")){
-alert("Esse pedido não pode mais ser cancelado pela área da cliente. Fale com a curadoria.");
-return;
-}
-
-if(erro.includes("Could not find the function") || erro.includes("PGRST202")){
-alert("A função de cancelamento ainda não foi criada no Supabase. Rode o arquivo aluguel-supabase-etapa10-cancelamento.sql.");
-return;
-}
-
-alert("Não foi possível cancelar o pedido agora. Tente novamente ou fale com a curadoria.");
+erroBox.textContent = erro.includes("cancelamento_nao_permitido")
+  ? "Este pedido não pode mais ser cancelado por aqui. Fale com a curadoria."
+  : "Não foi possível cancelar agora. Tente novamente ou fale com a curadoria.";
+erroBox.hidden = false;
+botao.disabled = false;
+botao.textContent = "Tentar de novo";
 }
 }
 
-async function pagarAluguel(pedidoId){
+/* ===== Pagamento ===== */
+async function pagarAluguel(pedidoId, botao){
+const cartao = botao?.closest(".mc-order");
+const erroBox = cartao?.querySelector(".mc-inline-error");
+if(erroBox) erroBox.hidden = true;
+
 const { data: { session } } = await supabaseClient.auth.getSession();
+if(!session){ window.location.href = "/login.html?next=/minha-conta.html"; return; }
 
-if(!session){
-window.location.href = "/login.html";
-return;
-}
-
+const textoOriginal = botao ? botao.textContent : "";
+if(botao){ botao.disabled = true; botao.textContent = "Abrindo pagamento…"; }
 try{
 const response = await fetch(CHECKOUT_FUNCTION_URL, {
 method: "POST",
-headers: {
-"Content-Type": "application/json",
-"Authorization": `Bearer ${session.access_token}`
-},
+headers: { "Content-Type": "application/json", "Authorization": `Bearer ${session.access_token}` },
 body: JSON.stringify({ pedido_id: pedidoId })
 });
-
 const responseText = await response.text();
 let result = {};
-
-try{
-result = responseText ? JSON.parse(responseText) : {};
-} catch(parseError){
-result = { error: responseText || "invalid_function_response" };
-}
-
-if(!response.ok || !result.checkout_url){
-throw new Error(result.error || "checkout_error");
-}
-
+try{ result = responseText ? JSON.parse(responseText) : {}; }catch{ result = { error: responseText || "invalid_function_response" }; }
+if(!response.ok || !result.checkout_url) throw new Error(result.error || "checkout_error");
 window.location.href = result.checkout_url;
 } catch(error){
 console.error("Erro ao criar pagamento:", error);
-alert(mensagemErroPagamento(error));
+if(botao){ botao.disabled = false; botao.textContent = textoOriginal; }
+const mensagem = mensagemErroPagamento(error);
+if(erroBox){ erroBox.textContent = mensagem; erroBox.hidden = false; } else mostrarAviso(mensagem);
 }
 }
 
 function mensagemErroPagamento(error){
 const erro = String(error?.message || error || "");
-
-if(erro.includes("FunctionsFetchError") || erro.includes("Failed to fetch")){
-return "A função de pagamento ainda não respondeu. Verifique se a Edge Function mercado-pago-checkout foi publicada no Supabase.";
+if(erro.includes("invalid_user")) return "Sua sessão expirou. Entre novamente para pagar.";
+if(erro.includes("forbidden")) return "Este pedido não pertence à conta conectada.";
+if(erro.includes("pedido_not_found")) return "Pedido não encontrado. Fale com a curadoria.";
+return "Não foi possível abrir o pagamento agora. Tente novamente ou fale com a curadoria.";
 }
 
-if(erro.includes("missing_server_configuration")){
-return "Falta configurar os Secrets da Edge Function: MERCADO_PAGO_ACCESS_TOKEN e SITE_URL.";
-}
-
-if(erro.includes("pedido_not_found")){
-return "Pedido não encontrado para pagamento.";
-}
-
-if(erro.includes("forbidden")){
-return "Esse pedido não pertence ao usuário logado.";
-}
-
-if(erro.includes("mercado_pago_error")){
-return "O Mercado Pago recusou a criação do checkout. Confira o Access Token e as credenciais.";
-}
-
-if(erro.includes("checkout_error") || erro.includes("not found") || erro.includes("404")){
-return "A função mercado-pago-checkout parece não estar publicada no Supabase.";
-}
-
-return "Não foi possível iniciar o pagamento agora. Tente novamente ou fale com a curadoria.";
-}
-
+/* ===== Carregamento ===== */
 async function carregarCliente(){
 const { data: { user } } = await supabaseClient.auth.getUser();
-
-if(!user){
-window.location.href = "/login.html";
-return;
-}
+if(!user){ window.location.href = "/login.html"; return; }
 
 const { data: cliente } = await supabaseClient
 .from("validacao_clientes")
@@ -985,88 +1153,37 @@ const { data: cliente } = await supabaseClient
 .maybeSingle();
 
 renderDados(cliente, user);
-renderStatusCadastro(cliente);
+renderAvisoCadastro(cliente);
 
 const [{ data: documentos }, { data: pedidos, error: pedidosError }] = await Promise.all([
-supabaseClient
-.from("cliente_documentos")
-.select("tipo,status,created_at")
-.eq("cliente_auth_id", user.id)
-.order("created_at", { ascending:false }),
-supabaseClient
-.from("aluguel_pedidos")
-.select(`
-id,
-numero,
-status,
-created_at,
-valor_total,
-valor_caucao_total,
-endereco_entrega_id,
-aluguel_itens (
-data_inicio,
-data_fim,
-dias,
-valor_aluguel,
-valor_caucao,
-bolsas (
-nome,
-marca,
-slug,
-imagem_capa_url
-)
-),
-pagamentos_aluguel (
-status,
-valor,
-paid_at
-),
-caucoes (
-status,
-valor,
-expira_em,
-capturada_em,
-liberada_em
-),
-rastreamentos_aluguel (
-tipo,
-transportadora,
-codigo_rastreio,
-url_rastreio
-)
-`)
-.eq("cliente_auth_id", user.id)
-.order("created_at", { ascending:false })
+supabaseClient.from("cliente_documentos").select("tipo,status,created_at").eq("cliente_auth_id", user.id).order("created_at", { ascending:false }),
+supabaseClient.from("aluguel_pedidos").select(`
+id, numero, status, created_at, valor_total, valor_caucao_total, endereco_entrega_id,
+aluguel_itens ( data_inicio, data_fim, dias, valor_aluguel, valor_caucao, bolsas ( nome, marca, slug, imagem_capa_url ) ),
+pagamentos_aluguel ( status, valor, paid_at ),
+caucoes ( status, valor, expira_em, capturada_em, liberada_em ),
+rastreamentos_aluguel ( tipo, transportadora, codigo_rastreio, url_rastreio )
+`).eq("cliente_auth_id", user.id).order("created_at", { ascending:false })
 ]);
 
 renderDocumentos(documentos || []);
 
 if(pedidosError){
-document.getElementById("listaAlugueis").innerHTML = `
-<div class="empty-card">
-<strong>Não foi possível carregar seus aluguéis.</strong>
-<p>Tente novamente em alguns instantes ou fale com a curadoria.</p>
-</div>
-`;
 console.error("Erro ao carregar aluguéis:", pedidosError);
+document.getElementById("listaAlugueis").innerHTML = `<div class="mc-empty"><p><strong>Não foi possível carregar seus aluguéis.</strong></p><p>Tente novamente em instantes ou fale com a curadoria.</p></div>`;
 return;
 }
 
-const enderecoIds = [...new Set((pedidos || []).map(pedido => pedido.endereco_entrega_id).filter(Boolean))];
-let enderecosPorId = {};
-
+pedidosCarregados = pedidos || [];
+const enderecoIds = [...new Set(pedidosCarregados.filter(p => !OCULTOS.has(p.status)).map(p => p.endereco_entrega_id).filter(Boolean))];
 if(enderecoIds.length){
-const { data: enderecos, error: enderecosError } = await supabaseClient
+const { data: enderecos, error } = await supabaseClient
 .from("cliente_enderecos")
 .select("id,nome_destinatario,cep,endereco,numero,complemento,bairro,cidade,estado")
 .in("id", enderecoIds);
-
-if(!enderecosError && enderecos){
-enderecosPorId = Object.fromEntries(enderecos.map(endereco => [endereco.id, endereco]));
+if(!error && enderecos) enderecosCarregados = Object.fromEntries(enderecos.map(e => [e.id, e]));
 }
-}
-
-renderAlugueis(pedidos || [], enderecosPorId);
+renderAlugueis();
 }
 
 async function sair(){
@@ -1074,6 +1191,7 @@ await supabaseClient.auth.signOut();
 window.location.href = "/index.html";
 }
 
+document.getElementById("dialogoConfirmar").addEventListener("click", confirmarCancelamento);
 carregarCliente();
 </script>
 <script>
