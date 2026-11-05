@@ -60,7 +60,7 @@
 
       const right = document.createElement('div');
       right.className = 'tbr-head-right';
-      right.innerHTML = `<a href="/login.html" aria-label="Minha conta">${ICON_USER}<span>Minha conta</span></a>`;
+      right.innerHTML = `<a href="/minha-conta.html" aria-label="Minha conta">${ICON_USER}<span>Minha conta</span></a>`;
       header.appendChild(right);
 
       const nav = document.createElement('nav');
@@ -87,7 +87,7 @@
           '<p class="tbr-drawer-brand">THE BAG ROOM</p>' +
           '<div class="tbr-drawer-primary">' + primary.map(([href, label], i) => `<a href="${href}" style="--i:${i}">${label}</a>`).join('') + '</div>' +
           '<div class="tbr-drawer-secondary">' +
-            `<a href="/login.html">Minha conta</a>` +
+            `<a href="/minha-conta.html">Minha conta</a>` +
             `<a href="${WHATSAPP}" target="_blank" rel="noopener">Falar com a curadoria</a>` +
             '<a href="https://instagram.com/thebagroom.br" target="_blank" rel="noopener">Instagram</a>' +
           '</div>' +

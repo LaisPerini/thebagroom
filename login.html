@@ -621,6 +621,17 @@ return false;
 
 const recoverySessionPromise = inicializarSessaoRecuperacao();
 
+// Cliente já logada não precisa ver o formulário: segue para a conta
+// (ou para o destino indicado em ?next=). Não interfere na recuperação de senha.
+recoverySessionPromise.then(async (emRecuperacao) => {
+const params = new URLSearchParams(window.location.search);
+if(emRecuperacao || params.get("modo") === "redefinir" || /type=recovery/.test(window.location.hash)) return;
+const { data: { session } } = await supabaseClient.auth.getSession();
+if(!session) return;
+const next = params.get("next") || "";
+window.location.replace(next.includes("/checkout-aluguel.html") ? "/checkout-aluguel.html" : "/minha-conta.html");
+}).catch(() => {});
+
 function abrirRecuperacao(event){
 if(event) event.preventDefault();
 const emailAtual = document.getElementById('email').value.trim();
