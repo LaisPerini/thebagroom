@@ -1229,3 +1229,13 @@ body.tbr-product .detalhes p strong {
 .tbr-faq .tbr-faq-more { margin-top: 26px !important; font-size: 14px !important; color: var(--tbr-muted) !important; }
 .tbr-faq .tbr-faq-more a { color: var(--tbr-ink); }
 @media (max-width: 640px) { .tbr-faq { margin: 48px auto 56px; padding: 0 20px; } .tbr-faq summary { font-size: 15px; } }
+
+/* Catálogo (aluguel.html) no computador: marca, modelo e preço centralizados */
+@media (min-width: 761px) {
+  body.tbr-catalog .card .nome,
+  body.tbr-catalog .card .marca,
+  body.tbr-catalog .card .modelo,
+  body.tbr-catalog .card .preco,
+  body.tbr-catalog .card .card-status { text-align: center !important; }
+  body.tbr-catalog .card .card-action { margin-left: auto !important; margin-right: auto !important; }
+}

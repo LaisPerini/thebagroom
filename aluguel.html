@@ -1259,7 +1259,7 @@ body {
   }
 }
 </style>
-  <link rel="stylesheet" href="/luxury-refresh.css?v=20261105-8">
+  <link rel="stylesheet" href="/luxury-refresh.css?v=20261105-9">
   <style>:where(h1.tbr-title){font-size:1.5em;margin-block:.83em;font-weight:bold;}
 
     /* Hierarquia dos cards: a marca é o título principal. */
@@ -1794,7 +1794,7 @@ data-cor="Verde">
 
 <div class="empty-results" id="emptyResults">
   <strong>Nenhuma bolsa encontrada</strong>
-  <p>Ajuste os filtros para ver outros modelos disponiveis para aluguel.</p>
+  <p>Ajuste os filtros para ver outros modelos disponíveis para aluguel.</p>
 </div>
 
 </div>
@@ -2135,7 +2135,7 @@ function prepararCatalogo(){
     if(card.classList.contains('card') && !card.querySelector('.card-status')){
       const status = document.createElement('div');
       status.className = 'card-status';
-      status.textContent = 'Calendario online';
+      status.textContent = 'Calendário online';
       card.appendChild(status);
 
       const action = document.createElement('div');
@@ -2180,9 +2180,9 @@ async function carregarStatusCatalogo(){
 
       if(bolsa.ativa){
         if(tag) tag.textContent = 'Para alugar';
-        if(status) status.textContent = 'Confira datas disponiveis';
+        if(status) status.textContent = 'Confira datas disponíveis';
       } else {
-        if(tag) tag.textContent = 'Indisponivel';
+        if(tag) tag.textContent = 'Indisponível';
         if(status) status.textContent = 'Temporariamente fora da curadoria';
       }
     });
