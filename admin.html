@@ -662,6 +662,13 @@ background:#9b2c2c;
 .price-autofill-hint{margin:12px 0 0;font-size:12px;line-height:1.55;color:#6f6a62;}
 .price-autofill-hint button{margin-left:4px;padding:0;border:0;background:none;color:#171613;font:inherit;font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
 .price-grid input[data-auto="1"]{color:#8a6a3b;}
+.portfolio-excel th[data-sort],.portfolio-mobile th[data-sort]{cursor:pointer;user-select:none;}
+.portfolio-excel th[data-sort]:hover,.portfolio-mobile th[data-sort]:hover{background:#2c2a26!important;}
+.portfolio-excel th[data-sort]::after,.portfolio-mobile th[data-sort]::after{content:"↕";margin-left:4px;opacity:.35;font-size:.95em;}
+.portfolio-excel th.sorted::after,.portfolio-mobile th.sorted::after{content:"↓";opacity:1;color:#d8b77e;}
+.portfolio-excel th.sorted.asc::after,.portfolio-mobile th.sorted.asc::after{content:"↑";}
+.portfolio-mobile th[data-sort]:not(.sorted)::after{content:none;}
+.portfolio-mobile th.sorted::after{margin-left:2px;}
 
 @media(max-width:1040px){
 .shell{grid-template-columns:1fr;}
@@ -860,7 +867,7 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 <div class="dashboard-card-head"><div><p class="eyebrow">Estoque completo</p><h2>Retorno por bolsa</h2></div></div>
 <div class="investment-table-wrap portfolio-table-wrap">
 <table class="data-table portfolio-excel">
-<thead><tr><th>Slug</th><th>Vlr. loja</th><th>Vlr. pago</th><th>Dif. Vlr.</th><th>Caução</th><th>Dias</th><th>Aluguel</th><th title="3% do valor de loja">Vlr. sugerido</th><th>% pago</th><th>% loja</th><th>Meta</th><th>Fat.</th></tr></thead>
+<thead><tr><th data-sort="slug" tabindex="0" role="columnheader" aria-sort="none">Slug</th><th data-sort="loja" tabindex="0" role="columnheader" aria-sort="none">Vlr. loja</th><th data-sort="pago" tabindex="0" role="columnheader" aria-sort="none">Vlr. pago</th><th data-sort="dif" tabindex="0" role="columnheader" aria-sort="none">Dif. Vlr.</th><th data-sort="caucao" tabindex="0" role="columnheader" aria-sort="none">Caução</th><th data-sort="dias" tabindex="0" role="columnheader" aria-sort="none">Dias</th><th data-sort="aluguel" tabindex="0" role="columnheader" aria-sort="none">Aluguel</th><th data-sort="sugerido" title="3% do valor de loja" tabindex="0" role="columnheader" aria-sort="none">Vlr. sugerido</th><th data-sort="pctPago" tabindex="0" role="columnheader" aria-sort="none">% pago</th><th data-sort="pctLoja" tabindex="0" role="columnheader" aria-sort="none">% loja</th><th data-sort="meta" tabindex="0" role="columnheader" aria-sort="none">Meta</th><th data-sort="fat" tabindex="0" role="columnheader" aria-sort="none">Fat.</th></tr></thead>
 <tbody id="portfolioTableBody"></tbody>
 <tfoot id="portfolioTableTotals"></tfoot>
 </table>
@@ -1136,6 +1143,48 @@ return Number(valor || 0).toLocaleString("pt-BR", { style:"currency", currency:"
 }
 
 const TAXA_SUGERIDA = 0.03; // valor sugerido de aluguel = 3% do valor de loja
+let portfolioSort = { key: "fat", dir: "desc" };
+function valorOrdenacaoPortfolio(x,key){
+const temLoja=x.b.valor_loja!=null, temPago=x.b.valor_pago!=null;
+switch(key){
+case "slug": return String(x.b.slug||"").toLowerCase();
+case "loja": return x.valorLoja||null;
+case "pago": return x.valorPago||null;
+case "dif": return temLoja&&temPago?x.valorLoja-x.valorPago:null;
+case "caucao": return x.b.valor_caucao!=null?Number(x.b.valor_caucao):null;
+case "dias": return x.plano?.dias!=null?Number(x.plano.dias):null;
+case "aluguel": return x.aluguel||null;
+case "sugerido": return x.valorLoja?x.valorLoja*TAXA_SUGERIDA:null;
+case "pctPago": return x.pctPago;
+case "pctLoja": return x.pctLoja;
+case "meta": return x.meta;
+default: return x.faturamento;
+}
+}
+function ordenarPortfolio(lista){
+const {key,dir}=portfolioSort, sinal=dir==="asc"?1:-1;
+return [...lista].sort((a,b)=>{
+const va=valorOrdenacaoPortfolio(a,key), vb=valorOrdenacaoPortfolio(b,key);
+if(va==null&&vb==null) return 0;
+if(va==null) return 1; if(vb==null) return -1; // vazios sempre no fim
+if(typeof va==="string") return va.localeCompare(vb,"pt-BR")*sinal;
+return (va-vb)*sinal || String(a.b.slug||"").localeCompare(String(b.b.slug||""),"pt-BR");
+});
+}
+function marcarOrdenacaoPortfolio(){
+document.querySelectorAll(".portfolio-excel th[data-sort], .portfolio-mobile th[data-sort]").forEach(th=>{
+const ativo=th.dataset.sort===portfolioSort.key;
+th.classList.toggle("sorted",ativo);th.classList.toggle("asc",ativo&&portfolioSort.dir==="asc");
+th.setAttribute("aria-sort",ativo?(portfolioSort.dir==="asc"?"ascending":"descending"):"none");
+});
+}
+function ordenarPortfolioPor(key){
+if(portfolioSort.key===key) portfolioSort.dir=portfolioSort.dir==="asc"?"desc":"asc";
+else portfolioSort={key,dir:key==="slug"?"asc":"desc"};
+renderPortfolioAnalysis();
+}
+document.addEventListener("click",e=>{const th=e.target.closest(".portfolio-excel th[data-sort], .portfolio-mobile th[data-sort]");if(th) ordenarPortfolioPor(th.dataset.sort);});
+document.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const th=e.target.closest?.(".portfolio-excel th[data-sort], .portfolio-mobile th[data-sort]");if(th){e.preventDefault();ordenarPortfolioPor(th.dataset.sort);}});
 function moedaPortfolio(valor){
 return moeda(valor).replace(/,00$/, "");
 }
@@ -2025,7 +2074,7 @@ cardKpi("Receita acumulada",Number(receita||0).toLocaleString("pt-BR",{style:"cu
 cardKpi("Capital recuperado",retorno.toLocaleString("pt-BR",{maximumFractionDigits:1})+"%",`${recuperadas} bolsa(s) atingiram o valor pago`,"bolsas"),
 cardKpi("Bolsas sem aluguel",semAluguel,"Oportunidade de ação comercial","bolsas")
 ].join("");
-document.getElementById("portfolioTableBody").innerHTML=dados.sort((a,b)=>b.faturamento-a.faturamento).map(x=>`<tr class="${x.valorPago>0&&x.faturamento>=x.valorPago?'recovered':''}">
+document.getElementById("portfolioTableBody").innerHTML=ordenarPortfolio(dados).map(x=>`<tr class="${x.valorPago>0&&x.faturamento>=x.valorPago?'recovered':''}">
 <td data-label="Slug"><strong>${safeText(x.b.slug||"—")}</strong></td>
 <td data-label="Vlr. loja">${x.valorLoja?moedaPortfolio(x.valorLoja):"—"}</td><td data-label="Vlr. pago">${x.valorPago?moedaPortfolio(x.valorPago):"—"}</td><td data-label="Dif. Vlr.">${x.b.valor_loja!=null&&x.b.valor_pago!=null?moedaPortfolio(x.valorLoja-x.valorPago):"—"}</td><td data-label="Caução">${moedaPortfolio(x.b.valor_caucao)}</td>
 <td data-label="Dias">${x.plano?.dias||"—"}</td><td data-label="Aluguel">${x.aluguel?moedaPortfolio(x.aluguel):"—"}</td><td data-label="Vlr. sugerido" class="money-suggested">${x.valorLoja?moedaPortfolio(x.valorLoja*TAXA_SUGERIDA):"—"}</td>
@@ -2034,6 +2083,7 @@ document.getElementById("portfolioTableBody").innerHTML=dados.sort((a,b)=>b.fatu
 <td data-label="Meta">${x.meta??"—"}</td><td data-label="Fat." class="money-emphasis">${moedaPortfolio(x.faturamento)}</td></tr>`).join("") || '<tr><td colspan="12" class="dashboard-empty">Nenhuma bolsa cadastrada.</td></tr>';
 document.getElementById("portfolioTableTotals").innerHTML=`<tr class="portfolio-totals"><td data-label="Slug"><strong>Total</strong></td><td data-label="Vlr. loja">${moedaPortfolio(valorLojaTotal)}</td><td data-label="Vlr. pago">${moedaPortfolio(capital)}</td><td data-label="Dif. Vlr.">${moedaPortfolio(diferencaTotal)}</td><td data-label="Caução">${moedaPortfolio(caucaoTotal)}</td><td data-label="Dias">—</td><td data-label="Aluguel">${moedaPortfolio(aluguelTotal)}</td><td data-label="Vlr. sugerido" class="money-suggested">${moedaPortfolio(valorLojaTotal*TAXA_SUGERIDA)}</td><td data-label="% pago">—</td><td data-label="% loja">—</td><td data-label="Meta">—</td><td data-label="Fat." class="money-emphasis">${moedaPortfolio(receita)}</td></tr>`;
 renderPortfolioMobile();
+marcarOrdenacaoPortfolio();
 }
 
 function renderPortfolioMobile(){

@@ -1930,15 +1930,18 @@ function aplicarFiltros(){
     const cor = card.dataset.cor || "";
     const preco = extrairPreco(card);
 
+    // Compara sem acento, maiúsculas ou "&" (ex.: "Hermes" = "Hermès", "Dolce & Gabbana" = "Dolce Gabbana")
+    const normMarca = v => String(v).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '').replace('herreira', 'herrera');
     const matchMarca =
       marcasSelecionadas.length === 0 ||
-      marcasSelecionadas.includes(marca);
+      marcasSelecionadas.map(normMarca).includes(normMarca(marca));
 
     // "Preta" no banco = "Preto" no filtro; ignora acentos e maiúsculas
     const normCor = v => String(v).normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toLowerCase().replace(/a$/, 'o');
     const matchCor =
       coresSelecionadas.length === 0 ||
-      coresSelecionadas.map(normCor).includes(normCor(cor));
+      // Cores compostas ("Preta & Fume", "Branco / Nude") aparecem em cada cor que contêm
+      String(cor).split(/\s*(?:&|\/|,|\be\b)\s*/).map(normCor).some(parte => coresSelecionadas.map(normCor).includes(parte));
 
     const matchPreco = preco <= precoMax;
 
@@ -2205,6 +2208,6 @@ window.addEventListener('load', prepararCatalogo);
 </script>
 
   <script src="/luxury-refresh.js?v=20261105-5"></script>
-  <script src="/bag-fields.js?v=20261105-2"></script>
+  <script src="/bag-fields.js?v=20261105-3"></script>
 </body>
 </html>

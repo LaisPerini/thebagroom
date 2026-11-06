@@ -13,6 +13,9 @@
     const element = scope.querySelector(selector);
     if (element && value != null) element.textContent = value;
   }
+  // Corrige a grafia de marcas cadastradas sem acento/com erro (o filtro e a vitrine usam o nome oficial)
+  const BRAND_FIX = { 'hermes':'Hermès', 'carolina herreira':'Carolina Herrera' };
+  function brand(bag) { const raw = String(bag.marca || '').trim(); return BRAND_FIX[raw.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()] || raw; }
   function model(bag) {
     const name = String(bag.nome || ''), brand = String(bag.marca || '');
     return (brand && name.toLowerCase().startsWith(brand.toLowerCase()) ? name.slice(brand.length).trim() : name) || name;
@@ -99,16 +102,16 @@
         try { updateGallery(await read('bolsa_imagens',{select:'url,alt,ordem',bolsa_id:'eq.'+bag.id,order:'ordem.asc'}),bag); }
         catch(error){console.warn('Não foi possível atualizar a galeria; fotos atuais mantidas.',error);}
       }
-      text('.tbr-product-brand', bag.marca);
+      text('.tbr-product-brand', brand(bag));
       text('.info > .nome', model(bag));
       document.title = bag.nome + ' | The Bag Room';
       const ld=document.getElementById('tbr-product-ld');
-      if(ld){try{const data=JSON.parse(ld.textContent);data.name=bag.nome||data.name;if(bag.marca)data.brand={'@type':'Brand',name:bag.marca};if(bag.descricao)data.description=bag.descricao;
+      if(ld){try{const data=JSON.parse(ld.textContent);data.name=bag.nome||data.name;if(bag.marca)data.brand={'@type':'Brand',name:brand(bag)};if(bag.descricao)data.description=bag.descricao;
         if(plans.length){data.offers.price=Math.min(...plans.map(p=>Number(p.valor))).toFixed(2);}
         data.offers.availability='https://schema.org/'+(bag.ativa===false?'OutOfStock':'InStock');ld.textContent=JSON.stringify(data);}catch(e){}}
       const paragraph = document.querySelector('.info .desc > p');
       if (paragraph && bag.descricao != null) paragraph.textContent = bag.descricao;
-      [['estado da bolsa',bag.estado],['categoria',bag.categoria],['material',bag.material],['marca',bag.marca],['cor',bag.cor],['dimensões',bag.dimensoes]].forEach(([label,value]) => detail(label,value));
+      [['estado da bolsa',bag.estado],['categoria',bag.categoria],['material',bag.material],['marca',brand(bag)],['cor',bag.cor],['dimensões',bag.dimensoes]].forEach(([label,value]) => detail(label,value));
       if (bag.valor_caucao != null) { text('.tbr-caution > span','Caução de segurança: ' + currency(bag.valor_caucao)); detail('valor do caução',currency(bag.valor_caucao)); }
       if (bag.valor_loja != null) detail('valor em loja',currency(bag.valor_loja));
       const previous = options?.querySelector('input:checked')?.value;
@@ -155,13 +158,13 @@
         const slug = card.dataset.bolsaSlug || card.getAttribute('href')?.split('/').pop().replace('.html','');
         const bag = bags.find(row => row.slug === slug); if (!bag) return;
         const plans = validPlans(rows.filter(row => row.bolsa_id === bag.id));
-        text('.marca',bag.marca,card); text('.modelo',model(bag),card);
+        text('.marca',brand(bag),card); text('.modelo',model(bag),card);
         const cover=safeImage(photoConfigs.find(config=>config.id===bag.id)?.imagem_capa_url);
         if(cover){const img=card.querySelector('.img-box img');if(img){
           // Mantém a versão reduzida do Imgur quando é a mesma foto
           const id=u=>{const m=String(u).match(/i\.imgur\.com\/([A-Za-z0-9]{7})[a-z]?\./);return m?m[1]:u;};
           if(id(img.src)!==id(cover))img.src=cover;img.alt=bag.nome;}}
-        card.dataset.marca = bag.marca || ''; card.dataset.cor = bag.cor || '';
+        card.dataset.marca = brand(bag); card.dataset.cor = bag.cor || '';
         card.dataset.price = plans.length ? Math.min(...plans.map(p => Number(p.valor))) : '';
         text('.preco',priceLabel(plans),card);
       });
