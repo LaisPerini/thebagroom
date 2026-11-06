@@ -3,12 +3,14 @@
 <head>
   <!-- Google Analytics -->
 <meta charset="UTF-8">
+<link rel="canonical" href="https://www.thebagroom.com.br/como-alugar.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Saiba como funciona o aluguel de bolsas de luxo na The Bag Room. Cadastre-se, escolha sua bolsa e receba com segurança.">
 <title>Como Alugar | The Bag Room</title>
+<meta property="og:locale" content="pt_BR">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Bag Room">
@@ -35,7 +37,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
 
 <!-- Google Fonts -->
-<style>
+<style>:where(h1.tbr-title){font-size:1.5em;margin-block:.83em;font-weight:bold;}
+
 
 /* BASE */
 *{box-sizing:border-box;}
@@ -142,7 +145,7 @@ height:100%;
 background:rgba(0,0,0,0.45);
 }
 
-.internal-title h2{
+.internal-title h2, .internal-title h1.tbr-title {
   position:relative;
   z-index:3;
   font-size:30px;
@@ -352,7 +355,7 @@ margin-right:8px;
   justify-content:center;
 }
 
-.hero-overlay h2{
+.hero-overlay h2, .hero-overlay h1.tbr-title {
   color:#fff;
   font-size:32px;
   letter-spacing:4px;
@@ -448,7 +451,7 @@ margin-right:8px;
 
 .menu-mobile-inner a:hover { opacity: 0.6; }
 </style>
-  <link rel="stylesheet" href="/luxury-refresh.css?v=20261105-7">
+  <link rel="stylesheet" href="/luxury-refresh.css?v=20261105-8">
 <script src="/cookie-preferences.js?v=20261105-2" defer></script>
 </head>
 
@@ -459,7 +462,7 @@ margin-right:8px;
 <!-- ========================= -->
 <header class="site-header">
   <div class="menu-mobile-btn" onclick="toggleMenuMobile()" aria-label="Abrir menu">&#9776;</div>
-  <h1 class="brand">THE BAG ROOM</h1>
+  <div class="brand">THE BAG ROOM</div>
 
   <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
     <div class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">&times;</div>
@@ -487,7 +490,7 @@ margin-right:8px;
   </video>
 
   <div class="hero-overlay">
-    <h2>COMO ALUGAR</h2>
+    <h1 class="tbr-title">COMO ALUGAR</h1>
   </div>
 
 </section>
@@ -565,6 +568,23 @@ function toggleMenuMobile() {
 <!-- ========================= -->
 <!-- RODAPÉ -->
 <!-- ========================= -->
+
+<section class="tbr-faq" id="duvidas" aria-labelledby="faqTitulo">
+  <p class="tbr-faq-eyebrow">Dúvidas frequentes</p>
+  <h2 id="faqTitulo">Tudo o que você precisa saber antes de alugar</h2>
+  <details><summary>Preciso fazer cadastro para alugar?</summary><p>Sim. O aluguel é para maiores de 18 anos com cadastro validado pela nossa equipe. Você faz o cadastro uma vez, envia os documentos e, depois da aprovação, já pode alugar pelo site.</p></details>
+  <details><summary>Como funciona a caução?</summary><p>O valor da caução aparece na página de cada bolsa. Ele é apenas pré-autorizado no cartão, não é cobrado, e é liberado depois que a peça volta nas condições combinadas.</p></details>
+  <details><summary>Como recebo e devolvo a bolsa?</summary><p>Você escolhe entre envio por Sedex ou retirada no nosso showroom em Santos (Av. Ana Costa, 471, Gonzaga). As opções e os valores de frete aparecem no site conforme o seu CEP. A devolução segue o mesmo caminho: Sedex ou entrega no showroom.</p></details>
+  <details><summary>Posso ficar com a bolsa por mais dias?</summary><p>Sim, desde que você peça a prorrogação antes do fim do período. A extensão depende da disponibilidade da peça e pode ter cobrança adicional. Devoluções fora do prazo sem prorrogação combinada estão sujeitas a multa prevista no contrato.</p></details>
+  <details><summary>E se a bolsa sofrer algum dano?</summary><p>Ao receber, confira a peça e avise a curadoria se notar qualquer divergência. Durante o aluguel, a cliente é responsável por danos, perda ou manchas por mau uso. Nunca faça reparos ou limpeza por conta própria: fale com a gente antes.</p></details>
+  <details><summary>Posso cancelar o meu aluguel?</summary><p>Pedidos ainda não pagos podem ser cancelados na sua área, em Minha Conta. Depois do pagamento: com 7 dias ou mais de antecedência, o estorno é de 100%; com menos de 7 dias, 90%; com menos de 2 dias, 80%; após o envio da bolsa, não há estorno. O direito de arrependimento previsto no Código de Defesa do Consumidor é respeitado quando aplicável.</p></details>
+  <details><summary>As bolsas são autênticas?</summary><p>Sim. Todas passam pela nossa curadoria, e as peças são autenticadas por plataformas internacionais especializadas. Quando a bolsa tem certificado digital, o selo aparece na página dela e leva direto ao documento.</p></details>
+  <p class="tbr-faq-more">Ainda com dúvida? <a href="https://wa.me/5513996904227" target="_blank" rel="noopener">Fale com a curadoria</a> · <a href="/entrega-e-devolucao.html">Entrega, devolução e cancelamento</a> · <a href="/contrato-aluguel.html">Contrato de locação</a></p>
+</section>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Preciso fazer cadastro para alugar?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. O aluguel é para maiores de 18 anos com cadastro validado pela nossa equipe. Você faz o cadastro uma vez, envia os documentos e, depois da aprovação, já pode alugar pelo site."}}, {"@type": "Question", "name": "Como funciona a caução?", "acceptedAnswer": {"@type": "Answer", "text": "O valor da caução aparece na página de cada bolsa. Ele é apenas pré-autorizado no cartão, não é cobrado, e é liberado depois que a peça volta nas condições combinadas."}}, {"@type": "Question", "name": "Como recebo e devolvo a bolsa?", "acceptedAnswer": {"@type": "Answer", "text": "Você escolhe entre envio por Sedex ou retirada no nosso showroom em Santos (Av. Ana Costa, 471, Gonzaga). As opções e os valores de frete aparecem no site conforme o seu CEP. A devolução segue o mesmo caminho: Sedex ou entrega no showroom."}}, {"@type": "Question", "name": "Posso ficar com a bolsa por mais dias?", "acceptedAnswer": {"@type": "Answer", "text": "Sim, desde que você peça a prorrogação antes do fim do período. A extensão depende da disponibilidade da peça e pode ter cobrança adicional. Devoluções fora do prazo sem prorrogação combinada estão sujeitas a multa prevista no contrato."}}, {"@type": "Question", "name": "E se a bolsa sofrer algum dano?", "acceptedAnswer": {"@type": "Answer", "text": "Ao receber, confira a peça e avise a curadoria se notar qualquer divergência. Durante o aluguel, a cliente é responsável por danos, perda ou manchas por mau uso. Nunca faça reparos ou limpeza por conta própria: fale com a gente antes."}}, {"@type": "Question", "name": "Posso cancelar o meu aluguel?", "acceptedAnswer": {"@type": "Answer", "text": "Pedidos ainda não pagos podem ser cancelados na sua área, em Minha Conta. Depois do pagamento: com 7 dias ou mais de antecedência, o estorno é de 100%; com menos de 7 dias, 90%; com menos de 2 dias, 80%; após o envio da bolsa, não há estorno. O direito de arrependimento previsto no Código de Defesa do Consumidor é respeitado quando aplicável."}}, {"@type": "Question", "name": "As bolsas são autênticas?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. Todas passam pela nossa curadoria, e as peças são autenticadas por plataformas internacionais especializadas. Quando a bolsa tem certificado digital, o selo aparece na página dela e leva direto ao documento."}}]}
+</script>
+
 <div class="footer-luxo">
 
   <div class="footer-item" onclick="toggleFooter(this)">
@@ -609,7 +629,7 @@ function toggleFooter(el){
 
 
 
-  <script src="/luxury-refresh.js?v=20261105-4"></script>
+  <script src="/luxury-refresh.js?v=20261105-5"></script>
 </body>
 </html>
 

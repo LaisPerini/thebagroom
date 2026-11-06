@@ -60,6 +60,25 @@
       days.add(day); return true;
     }).sort((a, b) => Number(a.dias) - Number(b.dias));
   }
+  // "A partir de R$ 390 · 4 dias": deixa claro por quanto tempo é o menor preço
+  function priceLabel(plans) {
+    if (!plans.length) return 'Preço sob consulta';
+    const best = plans.reduce((a, b) => Number(b.valor) < Number(a.valor) ? b : a);
+    return 'A partir de ' + currency(best.valor) + ' · ' + Number(best.dias) + ' dias';
+  }
+  async function homeCards() {
+    const cards = document.querySelectorAll('.week-card');
+    if (!cards.length) return;
+    try {
+      const [bags, rows] = await Promise.all([read('bolsas', { select: 'id,slug' }), read('bolsa_precos', { select: 'bolsa_id,dias,valor,ativo', ativo: 'eq.true' })]);
+      cards.forEach(card => {
+        const slug = (card.getAttribute('href') || '').split('/').pop().replace('.html', '');
+        const bag = bags.find(row => row.slug === slug); if (!bag) return;
+        const plans = validPlans(rows.filter(row => row.bolsa_id === bag.id));
+        if (plans.length) text('.week-price', priceLabel(plans), card);
+      });
+    } catch (error) { console.error('Preços da página inicial:', error); }
+  }
   async function product() {
     if (!document.querySelector('.produto') || typeof BOLSA_SLUG === 'undefined') return;
     let ready = false;
@@ -83,6 +102,10 @@
       text('.tbr-product-brand', bag.marca);
       text('.info > .nome', model(bag));
       document.title = bag.nome + ' | The Bag Room';
+      const ld=document.getElementById('tbr-product-ld');
+      if(ld){try{const data=JSON.parse(ld.textContent);data.name=bag.nome||data.name;if(bag.marca)data.brand={'@type':'Brand',name:bag.marca};if(bag.descricao)data.description=bag.descricao;
+        if(plans.length){data.offers.price=Math.min(...plans.map(p=>Number(p.valor))).toFixed(2);}
+        data.offers.availability='https://schema.org/'+(bag.ativa===false?'OutOfStock':'InStock');ld.textContent=JSON.stringify(data);}catch(e){}}
       const paragraph = document.querySelector('.info .desc > p');
       if (paragraph && bag.descricao != null) paragraph.textContent = bag.descricao;
       [['estado da bolsa',bag.estado],['categoria',bag.categoria],['material',bag.material],['marca',bag.marca],['cor',bag.cor],['dimensões',bag.dimensoes]].forEach(([label,value]) => detail(label,value));
@@ -134,14 +157,17 @@
         const plans = validPlans(rows.filter(row => row.bolsa_id === bag.id));
         text('.marca',bag.marca,card); text('.modelo',model(bag),card);
         const cover=safeImage(photoConfigs.find(config=>config.id===bag.id)?.imagem_capa_url);
-        if(cover){const img=card.querySelector('.img-box img');if(img){img.src=cover;img.alt=bag.nome;}}
+        if(cover){const img=card.querySelector('.img-box img');if(img){
+          // Mantém a versão reduzida do Imgur quando é a mesma foto
+          const id=u=>{const m=String(u).match(/i\.imgur\.com\/([A-Za-z0-9]{7})[a-z]?\./);return m?m[1]:u;};
+          if(id(img.src)!==id(cover))img.src=cover;img.alt=bag.nome;}}
         card.dataset.marca = bag.marca || ''; card.dataset.cor = bag.cor || '';
         card.dataset.price = plans.length ? Math.min(...plans.map(p => Number(p.valor))) : '';
-        text('.preco',plans.length ? 'A partir de ' + currency(card.dataset.price) : 'Preço sob consulta',card);
+        text('.preco',priceLabel(plans),card);
       });
       if (typeof aplicarFiltros === 'function') aplicarFiltros();
     } catch (error) { console.error('Atualização dos campos do catálogo:',error); }
   }
-  function start() { product(); catalog(); }
+  function start() { product(); catalog(); homeCards(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',start); else start();
 })();

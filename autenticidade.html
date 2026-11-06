@@ -3,12 +3,14 @@
 <head>
   <!-- Google Analytics -->
 <meta charset="UTF-8">
+<link rel="canonical" href="https://www.thebagroom.com.br/autenticidade.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Conheça o processo de autenticação da The Bag Room e saiba como garantimos a originalidade de todas as peças.">
 <title>Autenticidade · The Bag Room</title>
+<meta property="og:locale" content="pt_BR">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Bag Room">
@@ -35,7 +37,8 @@
 <link rel="icon" sizes="192x192" href="/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
 
-<style>
+<style>:where(h1.tbr-title){font-size:1.5em;margin-block:.83em;font-weight:bold;}
+
 
 /* BASE */
 *{box-sizing:border-box;}
@@ -142,7 +145,7 @@ height:100%;
 background:rgba(0,0,0,0.45);
 }
 
-.internal-title h2{
+.internal-title h2, .internal-title h1.tbr-title {
   position:relative;
   z-index:3;
   font-size:30px;
@@ -414,7 +417,7 @@ width:80%;
 
 .site-header .menu-mobile-inner a:hover { opacity: 0.6; }
 </style>
-  <link rel="stylesheet" href="/luxury-refresh.css?v=20261105-7">
+  <link rel="stylesheet" href="/luxury-refresh.css?v=20261105-8">
 <script src="/cookie-preferences.js?v=20261105-2" defer></script>
 </head>
 
@@ -422,7 +425,7 @@ width:80%;
 
 <header class="site-header">
   <div class="menu-mobile-btn" onclick="toggleMenuMobile()" aria-label="Abrir menu">&#9776;</div>
-  <h1 class="brand">THE BAG ROOM</h1>
+  <div class="brand">THE BAG ROOM</div>
 
   <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
     <div class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">&times;</div>
@@ -442,37 +445,45 @@ width:80%;
 <div class="top-space"></div>
 
 <section class="internal-title">
-<h2>AUTENTICIDADE</h2>
+<h1 class="tbr-title">AUTENTICIDADE</h1>
 </section>
 
-<div class="content-box">
+<div class="content-box tbr-auth">
 
-<p>
-Na The Bag Room, autenticidade não é apenas um compromisso — é a base de tudo. Cada peça do nosso acervo passa por um processo rigoroso de curadoria e verificação, garantindo que você tenha acesso apenas a itens originais, selecionados com critério e atenção aos mínimos detalhes.
+<p class="tbr-auth-lead">
+Na The Bag Room, autenticidade não é apenas um compromisso: é a base de tudo. Cada peça do acervo passa por curadoria e verificação antes de chegar até você.
 </p>
 
-<p>
-Analisamos cuidadosamente acabamento, costuras, ferragens, materiais e todos os elementos que definem a identidade de cada marca. Além disso, sempre que possível, avaliamos a procedência da peça e seus itens complementares, como dust bag e cartões.
-</p>
+<h2 class="tbr-auth-h">Como verificamos cada bolsa</h2>
+<ol class="tbr-auth-steps">
+  <li><strong>Curadoria especializada</strong><span>Analisamos acabamento, costuras, ferragens, materiais, numerações e todos os elementos que definem a identidade de cada maison.</span></li>
+  <li><strong>Procedência</strong><span>Sempre que possível, avaliamos a origem da peça e os itens que a acompanham, como dust bag, cartões e nota de compra.</span></li>
+  <li><strong>Autenticação por plataforma internacional</strong><span>As peças são enviadas para análise de plataformas especializadas em luxo, que emitem um certificado digital verificável.</span></li>
+</ol>
 
-<p>
-Para elevar ainda mais o nível de segurança, trabalhamos com plataformas reconhecidas internacionalmente, como <strong>Entrupy</strong> e <strong>Real Authentication</strong>, referências globais em verificação de autenticidade no mercado de luxo.
-</p>
+<h2 class="tbr-auth-h">Plataformas que já autenticaram nosso acervo</h2>
+<ul class="tbr-auth-platforms">
+  <li>POIZON</li><li>eBay Authenticity</li><li>LegitApp</li><li>LegitGrails</li><li>AWETHENTIGREAT</li>
+</ul>
 
-<p>
-Todas as peças acompanham <strong>certificado de autenticidade</strong>, garantindo total transparência e confiança.
-</p>
+<figure class="tbr-auth-example">
+  <a href="/certificados/lady-dior-auth.html"><img src="/certificados/lady-dior-certificado.jpg" alt="Certificado LegitGrails da Lady Dior com resultado Authentic" loading="lazy" decoding="async"></a>
+  <figcaption>
+    <span>Exemplo real</span>
+    <strong>Certificado da nossa Lady Dior</strong>
+    <p>Emitido pela LegitGrails, com código verificável no site da plataforma.</p>
+    <a href="/certificados/lady-dior-auth.html">Ver certificado completo →</a>
+  </figcaption>
+</figure>
 
-<div class="destaque">
-✔ 100% original garantido<br>
-✔ Curadoria especializada<br>
-✔ Processo profissional de autenticação
-</div>
+<p class="tbr-auth-note">
+Nas bolsas com certificado digital, o selo de autenticidade aparece na página da peça e leva direto ao documento. Tem alguma dúvida sobre uma bolsa específica? Fale com a nossa curadoria.
+</p>
 
 </div>
 
 <a href="https://wa.me/5513996904227" class="whats-btn">
-FALE CONOSCO
+FALE COM A CURADORIA
 </a>
 
 
@@ -523,6 +534,6 @@ el.classList.toggle('active');
 }
 </script>
 
-  <script src="/luxury-refresh.js?v=20261105-4"></script>
+  <script src="/luxury-refresh.js?v=20261105-5"></script>
 </body>
 </html>

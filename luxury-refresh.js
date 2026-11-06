@@ -270,7 +270,7 @@
       if (cautionRow && !info.querySelector('.tbr-caution')) {
         const caution = document.createElement('div');
         caution.className = 'tbr-caution';
-        caution.innerHTML = `<span>${cautionRow.textContent.replace(/valor do cau[cç][aã]o:/i, 'Caução de segurança:').trim()}</span><button type="button" aria-label="Como funciona a caução">?</button><small>O valor é apenas pré-autorizado no cartão e liberado após a devolução da peça nas condições acordadas.</small>`;
+        caution.innerHTML = `<span>${cautionRow.textContent.replace(/valor do cau[cç][aã]o:\s*/i, 'Caução de segurança: ').trim()}</span><button type="button" aria-label="Como funciona a caução">?</button><small>O valor é apenas pré-autorizado no cartão e liberado após a devolução da peça nas condições acordadas.</small>`;
         (info.querySelector(':scope > .preco') || name).insertAdjacentElement('afterend', caution);
       }
 
@@ -428,13 +428,23 @@
     }
   }
 
+  // Vídeo da bolsa: a bolinha deixa de flutuar sobre a página e fica no canto da galeria
+  const videoBubble = document.querySelector('.video-bubble');
+  const productGallery = document.querySelector('.galeria');
+  if (videoBubble && productGallery && body.classList.contains('tbr-product')) {
+    productGallery.appendChild(videoBubble);
+    videoBubble.classList.add('tbr-video-chip');
+    videoBubble.setAttribute('role', 'button');
+    videoBubble.setAttribute('aria-label', 'Assistir ao vídeo da bolsa');
+  }
+
   const internalHero = document.querySelector('.hero-video, .internal-title');
   if (internalHero && !body.classList.contains('tbr-home')) {
     internalHero.classList.add('tbr-internal-hero');
   }
 
   const mountCanonicalFooter = () => {
-    const footerMarkup = '<div class="footer-item"><span class="tbr-footer-label">PRECISA DE AJUDA?</span><div class="footer-content"><a href="https://wa.me/5513996904227" target="_blank" rel="noopener">WhatsApp (13) 99690-4227</a><br><a href="/como-alugar.html">Como alugar</a><br><a href="/autenticidade.html">Autenticidade</a></div></div><div class="footer-item"><span class="tbr-footer-label">EMPRESA</span><div class="footer-content"><a href="/quem-somos.html">Sobre a The Bag Room</a><br><a href="/como-desapegar.html">Como desapegar</a><br><a href="/universo/universo-do-luxo.html">Journal</a></div></div><div class="footer-item"><span class="tbr-footer-label">ENDEREÇO</span><div class="footer-content">Av. Ana Costa, 471 – Gonzaga<br>Santos – SP<br><a href="/termos-de-uso.html">Termos de uso</a><br><a href="/politica-de-privacidade.html">Privacidade e LGPD</a><br><a href="/politica-de-cookies.html">Política de cookies</a><br><button type="button" onclick="window.TBRCookies && window.TBRCookies.open()" style="border:0;padding:0;background:none;color:inherit;font:inherit;text-decoration:underline;cursor:pointer">Preferências de cookies</button><br><a href="/entrega-e-devolucao.html">Entrega, devolução e cancelamento</a><br><a href="/contrato-aluguel.html">Contrato de locação</a></div></div><div class="footer-bottom">© 2026 The Bag Room · Curadoria, aluguel e consignação de luxo<br>67.639.754 LAIS DE PAULA PERINI · CNPJ 67.639.754/0001-67<br>Av. Ana Costa, 471 — Gonzaga, Santos/SP — CEP 11060-003<br><a href="mailto:contato@thebagroom.com.br">contato@thebagroom.com.br</a></div>';
+    const footerMarkup = '<div class="footer-item"><span class="tbr-footer-label">PRECISA DE AJUDA?</span><div class="footer-content"><a href="https://wa.me/5513996904227" target="_blank" rel="noopener">WhatsApp (13) 99690-4227</a><br><a href="/como-alugar.html">Como alugar</a><br><a href="/como-alugar.html#duvidas">Dúvidas frequentes</a><br><a href="/autenticidade.html">Autenticidade</a></div></div><div class="footer-item"><span class="tbr-footer-label">EMPRESA</span><div class="footer-content"><a href="/quem-somos.html">Sobre a The Bag Room</a><br><a href="/como-desapegar.html">Como desapegar</a><br><a href="/universo/universo-do-luxo.html">Journal</a><span class="tbr-footer-social"><a href="https://instagram.com/thebagroom.br" target="_blank" rel="noopener">Instagram</a><a href="https://tiktok.com/@thebagroom.br" target="_blank" rel="noopener">TikTok</a><a href="https://chat.whatsapp.com/J9gxW9Whk778OKfLGnjoWN?mode=gi_t" target="_blank" rel="noopener">Grupo VIP</a></span></div></div><div class="footer-item"><span class="tbr-footer-label">ENDEREÇO</span><div class="footer-content">Av. Ana Costa, 471 – Gonzaga<br>Santos – SP<br><a href="/termos-de-uso.html">Termos de uso</a><br><a href="/politica-de-privacidade.html">Privacidade e LGPD</a><br><a href="/politica-de-cookies.html">Política de cookies</a><br><button type="button" onclick="window.TBRCookies && window.TBRCookies.open()" style="border:0;padding:0;background:none;color:inherit;font:inherit;text-decoration:underline;cursor:pointer">Preferências de cookies</button><br><a href="/entrega-e-devolucao.html">Entrega, devolução e cancelamento</a><br><a href="/contrato-aluguel.html">Contrato de locação</a></div></div><div class="footer-bottom">© 2026 The Bag Room · Curadoria, aluguel e consignação de luxo<br>67.639.754 LAIS DE PAULA PERINI · CNPJ 67.639.754/0001-67<br>Av. Ana Costa, 471 — Gonzaga, Santos/SP — CEP 11060-003<br><a href="mailto:contato@thebagroom.com.br">contato@thebagroom.com.br</a></div>';
     document.querySelectorAll('.footer-luxo').forEach((footer) => footer.remove());
     const canonicalFooter = document.createElement('footer');
     canonicalFooter.className = 'footer-luxo';
