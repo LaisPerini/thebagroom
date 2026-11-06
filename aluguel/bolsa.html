@@ -3,12 +3,14 @@
 <head>
   <!-- Google Analytics: carregado por /cookie-preferences.js somente após o consentimento -->
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Alugue a icônica Bvlgari Serpenti na The Bag Room. Bolsa de luxo autêntica com design sofisticado e acabamento impecável para eventos, viagens e momentos especiais.">
 <title>Bvlgari Serpenti | Aluguel a partir de R$ 390 | The Bag Room</title>
+<meta property="og:locale" content="pt_BR">
 
 <!-- Compartilhamento no Instagram, WhatsApp e Facebook -->
 <meta property="og:type" content="product">
@@ -39,7 +41,8 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<style>
+<style>:where(h1.tbr-title){font-size:1.5em;margin-block:.83em;font-weight:bold;}
+
 body{
 margin:0;
 background:#faf9f7;
@@ -849,8 +852,9 @@ body {
   height: 0 !important;
 }
 </style>
-  <link rel="stylesheet" href="/luxury-refresh.css?v=20261105-7">
-  <style id="tbr-product-title-hierarchy">
+  <link rel="stylesheet" href="/luxury-refresh.css?v=20261105-8">
+  <style id="tbr-product-title-hierarchy">:where(h1.tbr-title){font-size:1.5em;margin-block:.83em;font-weight:bold;}
+
     body.tbr-product .info .tbr-product-brand {
       margin-bottom: 8px !important;
       color: #171613 !important;
@@ -883,7 +887,7 @@ body {
 
 <header class="site-header">
   <div class="menu-mobile-btn" onclick="toggleMenuMobile()" aria-label="Abrir menu">&#9776;</div>
-  <h1 class="brand">THE BAG ROOM</h1>
+  <div class="brand">THE BAG ROOM</div>
 
   <nav class="menu-mobile" id="menuMobile" aria-label="Menu principal">
     <div class="close-menu" onclick="toggleMenuMobile()" aria-label="Fechar menu">&times;</div>
@@ -910,15 +914,15 @@ body {
   <div class="galeria">
     
       <a href="/certificados/bvlgari-micro-amarela-auth.html" class="auth-selo-link">
-  <img src="/selo-auth.jpg" class="auth-selo">
+  <img src="/selo-auth.jpg" class="auth-selo" alt="Selo de autenticidade The Bag Room">
 </a>
 
     <div class="slider" id="slider">
-<img src="https://i.imgur.com/uKmvItm.jpg">
-<img src="https://i.imgur.com/7J3P9Fr.jpg">
-<img src="https://i.imgur.com/VBhQdfh.jpg">
-<img src="https://i.imgur.com/k5shGjv.jpg">
-<img src="https://i.imgur.com/gRt4hw5.jpg">
+<img src="https://i.imgur.com/uKmvItm.jpg" alt="Bvlgari Serpenti Micro – foto 1">
+<img src="https://i.imgur.com/7J3P9Fr.jpg" alt="Bvlgari Serpenti Micro – foto 2">
+<img src="https://i.imgur.com/VBhQdfh.jpg" alt="Bvlgari Serpenti Micro – foto 3">
+<img src="https://i.imgur.com/k5shGjv.jpg" alt="Bvlgari Serpenti Micro – foto 4">
+<img src="https://i.imgur.com/gRt4hw5.jpg" alt="Bvlgari Serpenti Micro – foto 5">
                                         
     </div>
     
@@ -933,7 +937,7 @@ body {
   <!-- DIREITA (INFO + BOTï¿½O) -->
   <div class="info">
 
-    <div class="nome">Bvlgari Serpenti Micro</div>
+    <h1 class="nome tbr-title">Bvlgari Serpenti Micro</h1>
     <div class="preco">A partir de R$ 390</div>
 
 <div class="desc">
@@ -1840,7 +1844,7 @@ let zoomOverlay = document.createElement("div");
 zoomOverlay.className = "zoom-overlay";
 zoomOverlay.innerHTML = `
   <div class="zoom-seta esquerda">❮</div>
-  <img>
+  <img alt="">
   <div class="zoom-seta direita">❯</div>
 `;
 document.body.appendChild(zoomOverlay);
@@ -1948,7 +1952,7 @@ function atualizarTotal(){
 
 <div class="social-bar">
   <a href="https://wa.me/5513996904227" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
   </a>
 </div>
 
@@ -2000,7 +2004,7 @@ function toggleFooter(el){
 }
 </script>
 
-  <script src="/luxury-refresh.js?v=20261105-4"></script>
+  <script src="/luxury-refresh.js?v=20261105-5"></script>
   <script src="/bag-data.js?v=20261002-18"></script>
 <script src="/freight-fast.js?v=20261005-freight"></script>
 </body>
