@@ -70,7 +70,7 @@
     return 'A partir de ' + currency(best.valor) + ' · ' + Number(best.dias) + ' dias';
   }
   async function homeCards() {
-    const cards = document.querySelectorAll('.week-card');
+    const cards = document.querySelectorAll('.week-card, .tbr-h-card');
     if (!cards.length) return;
     try {
       const [bags, rows] = await Promise.all([read('bolsas', { select: 'id,slug' }), read('bolsa_precos', { select: 'bolsa_id,dias,valor,ativo', ativo: 'eq.true' })]);

@@ -1,0 +1,177 @@
+/* ===== Página inicial — estilo maison (Hermès + Bvlgari) ===== */
+
+/* --- Cabeçalho por cima do vídeo: transparente e branco no topo, sólido ao rolar --- */
+body.tbr-home .site-header {
+  position: fixed !important;
+  left: 0; right: 0;
+  background: transparent !important;
+  border-bottom-color: transparent !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: background .35s ease, border-color .35s ease, grid-template-rows .35s ease, box-shadow .35s ease;
+}
+body.tbr-home:not(.tbr-scrolled) .site-header { box-shadow: none !important; }
+body.tbr-home:not(.tbr-scrolled) .site-header .brand a,
+body.tbr-home:not(.tbr-scrolled) .tbr-head-left a,
+body.tbr-home:not(.tbr-scrolled) .tbr-head-right a,
+body.tbr-home:not(.tbr-scrolled) .tbr-nav a,
+body.tbr-home:not(.tbr-scrolled) .site-header .menu-mobile-btn { color: #fff !important; }
+body.tbr-home:not(.tbr-scrolled) .tbr-nav { border-top-color: rgba(255, 255, 255, .16); }
+body.tbr-home:not(.tbr-scrolled) .tbr-nav a { font-weight: 600 !important; }
+body.tbr-home.tbr-scrolled .site-header {
+  background: rgba(255, 254, 250, .97) !important;
+  border-bottom-color: var(--tbr-line) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Busca no lugar de "Falar com a curadoria" */
+.tbr-search { display: flex; align-items: center; gap: 10px; width: 230px; padding-bottom: 6px; border-bottom: 1px solid currentColor; color: var(--tbr-ink); }
+body.tbr-home:not(.tbr-scrolled) .tbr-search { color: #fff; border-bottom-color: rgba(255, 255, 255, .75); }
+.tbr-search svg { width: 18px; height: 18px; flex-shrink: 0; }
+.tbr-search input { flex: 1; min-width: 0; padding: 0 !important; border: 0 !important; background: transparent !important; box-shadow: none !important; color: inherit !important; font: 400 14px var(--tbr-sans) !important; letter-spacing: 0; }
+.tbr-search input::placeholder { color: inherit; opacity: .85; }
+.tbr-search label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.tbr-head-right .tbr-wa { margin-left: 22px; }
+.tbr-head-right .tbr-wa::after { display: none; }
+
+/* --- Abertura --- */
+body.tbr-home .hero { min-height: 100vh !important; min-height: 100svh !important; }
+body.tbr-home .hero::after { background: linear-gradient(180deg, rgba(10, 10, 9, .55) 0%, rgba(10, 10, 9, .04) 26%, rgba(10, 10, 9, .04) 50%, rgba(10, 10, 9, .66) 100%) !important; }
+body.tbr-home .hero-text.tbr-m-hero-text {
+  left: 50% !important;
+  top: auto !important;
+  bottom: clamp(48px, 8vh, 80px) !important;
+  transform: translateX(-50%) !important;
+  width: min(880px, calc(100vw - 48px)) !important;
+  text-align: center;
+}
+body.tbr-home .tbr-m-hero-text h1.tbr-title {
+  max-width: none !important;
+  margin: 0 !important;
+  font-size: clamp(46px, 5vw, 76px) !important;
+  line-height: 1.04 !important;
+  letter-spacing: 0 !important;
+}
+body.tbr-home .tbr-m-hero-text p {
+  max-width: 620px !important;
+  margin: 18px auto 0 !important;
+  font-family: var(--tbr-sans) !important;
+  font-weight: 500 !important;
+  font-size: 17px !important;
+  line-height: 1.55 !important;
+}
+.tbr-m-hero-link { display: inline-block; margin-top: 28px; padding-bottom: 5px; border-bottom: 1px solid #fff; color: #fff !important; font: 600 12px/1 var(--tbr-sans); letter-spacing: .22em; text-transform: uppercase; text-decoration: none !important; }
+.tbr-m-hero-link:hover { opacity: .8; }
+
+/* --- Base das seções --- */
+body.tbr-home .tbr-m-section { width: var(--tbr-page); margin: 0 auto; padding: 120px 0 0; background: transparent; }
+body.tbr-home .tbr-m-title { margin: 0 0 40px !important; text-align: center !important; font: 400 34px/1.15 var(--tbr-serif) !important; letter-spacing: 0 !important; text-transform: none !important; color: var(--tbr-ink) !important; }
+.tbr-m-eyebrow { display: block; font: 600 11px/1 var(--tbr-sans); letter-spacing: .22em; text-transform: uppercase; color: var(--tbr-muted); }
+.tbr-m-img { display: flex; align-items: center; justify-content: center; aspect-ratio: 1 / 1; overflow: hidden; background: #f6f4f0; }
+.tbr-m-img img { width: 80%; height: auto; mix-blend-mode: multiply; transition: transform .7s cubic-bezier(.2, .7, .2, 1); }
+a:hover > .tbr-m-img img { transform: scale(1.04); }
+.tbr-m-link { display: inline-block; padding-bottom: 5px; border-bottom: 1px solid var(--tbr-ink); color: var(--tbr-ink) !important; font: 600 12px/1 var(--tbr-sans); letter-spacing: .2em; text-transform: uppercase; text-decoration: none !important; }
+.tbr-m-more { margin-top: 44px; text-align: center; }
+
+/* Maisons */
+.tbr-m-track { display: grid; grid-auto-flow: column; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; overscroll-behavior-x: contain; }
+.tbr-m-track::-webkit-scrollbar { display: none; }
+.tbr-m-track > * { scroll-snap-align: start; }
+.tbr-m-maison-track { grid-auto-columns: calc((100% - 5 * 16px) / 6); gap: 16px; }
+.tbr-m-tile { display: block; text-align: center; text-decoration: none !important; color: var(--tbr-ink) !important; }
+.tbr-m-tile-name { display: block; margin-top: 14px; font-size: 13px; }
+.tbr-m-pager { display: flex; justify-content: center; align-items: center; gap: 14px; margin-top: 22px; font-size: 12px; color: var(--tbr-muted); }
+.tbr-m-count b { font-weight: 400; color: var(--tbr-ink); }
+.tbr-m-count i { font-style: normal; }
+.tbr-m-arrow { width: 36px; height: 36px; padding: 0; border: 0; background: transparent; color: var(--tbr-ink); font-size: 18px; cursor: pointer; }
+.tbr-m-arrow:disabled { color: #b9b3aa; cursor: default; }
+
+/* Produtos */
+.tbr-m-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 48px 16px; }
+body.tbr-home .tbr-m-card { display: block; padding: 0; background: transparent; box-shadow: none; text-decoration: none !important; color: var(--tbr-ink) !important; }
+.tbr-m-card strong { display: block; margin-top: 16px; font: 500 13px/1.4 var(--tbr-sans); }
+.tbr-m-color { display: block; margin-top: 4px; font-size: 12px; color: var(--tbr-muted); }
+body.tbr-home .tbr-m-card .week-price { display: block; margin-top: 8px; font: 400 13px/1.4 var(--tbr-sans); color: var(--tbr-ink); }
+
+/* Showroom */
+body.tbr-home .tbr-m-showroom { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 120px; background: #f3eee7; }
+.tbr-m-showroom-img { display: flex; align-items: center; justify-content: center; min-height: 640px; overflow: hidden; background: #e9e1d5; }
+.tbr-m-showroom-img img { width: 76%; mix-blend-mode: multiply; }
+.tbr-m-showroom-copy { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 64px clamp(40px, 6vw, 96px); }
+body.tbr-home .tbr-m-showroom h2 { margin: 14px 0 18px !important; font: 400 clamp(34px, 3.1vw, 46px)/1.08 var(--tbr-serif) !important; letter-spacing: 0 !important; text-transform: none !important; color: var(--tbr-ink) !important; text-align: left !important; }
+.tbr-m-showroom-copy p { max-width: 440px; margin: 0; font-size: 15px; line-height: 1.7; color: var(--tbr-muted); }
+.tbr-m-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; margin-top: 30px; padding: 0 32px; border: 1px solid var(--tbr-ink); background: var(--tbr-ink); color: #fff !important; font: 600 11px/1 var(--tbr-sans); letter-spacing: .18em; text-transform: uppercase; text-decoration: none !important; transition: background .2s, color .2s; }
+.tbr-m-btn:hover { background: transparent; color: var(--tbr-ink) !important; }
+
+/* Serviços */
+body.tbr-home .tbr-m-services { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; width: var(--tbr-page); margin: 120px auto 0; padding: 56px 0; border-top: 1px solid var(--tbr-line); border-bottom: 1px solid var(--tbr-line); background: transparent; }
+.tbr-m-services div { display: grid; justify-items: center; text-align: center; }
+.tbr-m-services svg { width: 28px; height: 28px; color: var(--tbr-ink); }
+.tbr-m-services strong { margin-top: 14px; font: 500 13px var(--tbr-sans); }
+.tbr-m-services span { max-width: 230px; margin-top: 6px; font-size: 13px; line-height: 1.55; color: var(--tbr-muted); }
+
+/* Universo do Luxo (cards do Journal no estilo novo) */
+body.tbr-home .journal-carousel { width: var(--tbr-page) !important; margin: 0 auto !important; padding: 120px 0 0 !important; background: transparent !important; }
+body.tbr-home .journal-carousel-header { align-items: flex-end !important; margin-bottom: 40px !important; }
+body.tbr-home .journal-carousel-header span { font: 600 11px/1 var(--tbr-sans) !important; letter-spacing: .22em !important; text-transform: uppercase !important; color: var(--tbr-muted) !important; }
+body.tbr-home .journal-carousel-header h2 { margin: 12px 0 0 !important; font: 400 34px/1.15 var(--tbr-serif) !important; letter-spacing: 0 !important; text-transform: none !important; text-align: left !important; }
+body.tbr-home .journal-intro { display: none !important; }
+body.tbr-home .journal-track { gap: 24px !important; }
+body.tbr-home .journal-card { background: transparent !important; box-shadow: none !important; border: 0 !important; }
+body.tbr-home .journal-card img { aspect-ratio: 4 / 3; height: auto !important; object-fit: cover; }
+body.tbr-home .journal-card-content { padding: 18px 0 0 !important; background: transparent !important; }
+body.tbr-home .journal-card-content small { font-size: 11px !important; letter-spacing: .16em !important; text-transform: uppercase !important; color: var(--tbr-muted) !important; }
+body.tbr-home .journal-card-content h3 { margin: 8px 0 0 !important; font: 400 24px/1.2 var(--tbr-serif) !important; text-transform: none !important; letter-spacing: 0 !important; color: var(--tbr-ink) !important; }
+body.tbr-home .journal-card-content p { display: none !important; }
+body.tbr-home .journal-more a { padding-bottom: 5px !important; border: 0 !important; border-bottom: 1px solid var(--tbr-ink) !important; background: transparent !important; color: var(--tbr-ink) !important; font: 600 12px/1 var(--tbr-sans) !important; letter-spacing: .2em !important; text-transform: uppercase !important; }
+
+/* Novidades */
+body.tbr-home .newsletter-section { margin-top: 40px; border-top: 0 !important; background: #fff !important; }
+
+/* --- Tablet --- */
+@media (max-width: 1050px) {
+  .tbr-search { display: none; }
+  .tbr-m-maison-track { grid-auto-columns: calc((100% - 3 * 14px) / 4); gap: 14px; }
+  .tbr-m-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* --- Celular --- */
+@media (max-width: 760px) {
+  body.tbr-home .hero-text.tbr-m-hero-text { bottom: 44px !important; width: calc(100vw - 40px) !important; top: auto !important; left: 50% !important; transform: translateX(-50%) !important; }
+  body.tbr-home .tbr-m-hero-text h1.tbr-title { font-size: 42px !important; }
+  body.tbr-home .tbr-m-hero-text p { font-size: 15px !important; margin-top: 14px !important; }
+  .tbr-m-hero-link { margin-top: 22px; }
+  body.tbr-home .tbr-m-section { padding-top: 80px; }
+  body.tbr-home .tbr-m-title { margin-bottom: 26px !important; font-size: 28px !important; }
+  .tbr-m-maison-track { grid-auto-columns: 34%; gap: 10px; }
+  .tbr-m-tile-name { margin-top: 10px; font-size: 12px; }
+  .tbr-m-grid { gap: 32px 10px; }
+  .tbr-m-card strong { margin-top: 12px; font-size: 12px; }
+  .tbr-m-color { font-size: 11px; }
+  body.tbr-home .tbr-m-card .week-price { font-size: 12px; }
+  .tbr-m-more { margin-top: 32px; }
+  body.tbr-home .tbr-m-showroom { grid-template-columns: 1fr; margin-top: 80px; }
+  .tbr-m-showroom-img { min-height: 360px; }
+  .tbr-m-showroom-copy { align-items: center; padding: 36px 20px 44px; text-align: center; }
+  body.tbr-home .tbr-m-showroom h2 { font-size: 30px !important; text-align: center !important; }
+  .tbr-m-btn { width: 100%; }
+  body.tbr-home .tbr-m-services { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin-top: 80px; padding: 0; border-bottom: 0; }
+  .tbr-m-services div { padding: 28px 8px; border-bottom: 1px solid var(--tbr-line); }
+  .tbr-m-services div:nth-child(odd) { border-right: 1px solid var(--tbr-line); }
+  .tbr-m-services strong { font-size: 12px; margin-top: 10px; }
+  .tbr-m-services span { font-size: 11px; }
+  body.tbr-home .journal-carousel { padding-top: 80px !important; }
+  body.tbr-home .journal-carousel-header h2 { font-size: 28px !important; }
+  body.tbr-home .journal-card-content h3 { font-size: 21px !important; }
+}
+
+/* Ajustes finos */
+body.tbr-home .tbr-trust-strip { display: none !important; }
+body.tbr-home .journal-carousel { color: var(--tbr-ink) !important; }
+body.tbr-home .journal-carousel-header h2 { color: var(--tbr-ink) !important; }
+body.tbr-home .journal-control { width: 40px !important; height: 40px !important; border: 0 !important; background: transparent !important; color: var(--tbr-ink) !important; font-size: 18px !important; }
+body.tbr-home .journal-control:hover { background: transparent !important; opacity: .6; }
+body .site-header .tbr-search input[type='search'] { height: auto !important; min-height: 0 !important; padding: 0 !important; border: 0 !important; border-radius: 0 !important; outline: none !important; box-shadow: none !important; background: transparent !important; color: inherit !important; -webkit-appearance: none; appearance: none; }
+body .site-header .tbr-search input[type='search']::-webkit-search-cancel-button { display: none; }
+body.tbr-home .tbr-m-card .week-price { padding: 0 !important; letter-spacing: 0 !important; }

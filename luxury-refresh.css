@@ -241,7 +241,7 @@ body .tbr-drawer.open .tbr-drawer-primary a {
   transform: none;
   transition-delay: calc(.06s * var(--i, 0) + .1s);
 }
-body .tbr-drawer .tbr-drawer-primary a[aria-current='page'] { font-style: italic !important; }
+body .tbr-drawer .tbr-drawer-primary a[aria-current='page'] { font-style: normal !important; opacity: .55; }
 body .tbr-drawer .tbr-drawer-primary:hover a { color: var(--tbr-muted) !important; }
 body .tbr-drawer .tbr-drawer-primary a:hover { color: var(--tbr-ink) !important; }
 body .tbr-drawer .tbr-drawer-secondary {

@@ -1259,7 +1259,7 @@ body {
   }
 }
 </style>
-  <link rel="stylesheet" href="/luxury-refresh.css?v=20261105-9">
+  <link rel="stylesheet" href="/luxury-refresh.css?v=20261108-1">
   <style>:where(h1.tbr-title){font-size:1.5em;margin-block:.83em;font-weight:bold;}
 
     /* Hierarquia dos cards: a marca é o título principal. */
@@ -1908,6 +1908,44 @@ document.querySelectorAll('input[type=checkbox]').forEach(input=>{
   input.addEventListener('change', aplicarFiltros);
 });
 
+// Abre o catálogo já filtrado por marca: /aluguel.html?marca=Chanel (links "Alugue por marca" da página inicial)
+(function(){
+  const pedida = new URLSearchParams(location.search).get('marca');
+  if (!pedida) return;
+  const norm = v => String(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
+  const caixa = [...document.querySelectorAll('.filtro-marca')].find(i => norm(i.value) === norm(pedida));
+  if (!caixa) return;
+  caixa.checked = true;
+  aplicarFiltros();
+})();
+
+// Busca vinda da página inicial: /aluguel.html?busca=chanel
+(function(){
+  const termo = (new URLSearchParams(location.search).get('busca') || '').trim();
+  if (!termo) return;
+  const norm = v => String(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  const partes = norm(termo).split(/\s+/).filter(Boolean);
+  const style = document.createElement('style');
+  style.textContent = '.card.fora-da-busca{display:none!important}.tbr-busca-aviso{width:var(--tbr-page,90vw);margin:24px auto 0;font-size:14px;color:#57534d}.tbr-busca-aviso a{color:#171613;margin-left:10px}';
+  document.head.appendChild(style);
+  const filtrar = () => {
+    let achou = 0;
+    document.querySelectorAll('.card').forEach(card => {
+      const texto = norm([card.dataset.marca, card.dataset.cor, card.textContent].join(' '));
+      const ok = partes.every(p => texto.includes(p));
+      card.classList.toggle('fora-da-busca', !ok);
+      if (ok) achou++;
+    });
+    let aviso = document.querySelector('.tbr-busca-aviso');
+    if (!aviso) { aviso = document.createElement('p'); aviso.className = 'tbr-busca-aviso'; const grid = document.querySelector('.grid'); if (grid) grid.parentNode.insertBefore(aviso, grid); }
+    aviso.textContent = achou ? `${achou} ${achou === 1 ? 'bolsa encontrada' : 'bolsas encontradas'} para “${termo}”` : `Nenhuma bolsa encontrada para “${termo}”.`;
+    const limpar = document.createElement('a'); limpar.href = '/aluguel.html'; limpar.textContent = 'Ver todas'; aviso.appendChild(limpar);
+  };
+  filtrar();
+  // Os dados do banco chegam depois: refaz a busca quando terminarem
+  setTimeout(filtrar, 1500);
+})();
+
 function aplicarFiltros(){
 
   const marcasSelecionadas = Array.from(
@@ -2208,6 +2246,6 @@ window.addEventListener('load', prepararCatalogo);
 </script>
 
   <script src="/luxury-refresh.js?v=20261105-5"></script>
-  <script src="/bag-fields.js?v=20261105-3"></script>
+  <script src="/bag-fields.js?v=20261107-1"></script>
 </body>
 </html>
