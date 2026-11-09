@@ -1239,3 +1239,50 @@ body.tbr-product .detalhes p strong {
   body.tbr-catalog .card .card-status { text-align: center !important; }
   body.tbr-catalog .card .card-action { margin-left: auto !important; margin-right: auto !important; }
 }
+
+
+/* ===== Páginas internas com vídeo no topo (Universo do Luxo, Como alugar, Como desapegar) =====
+   Mesmo visual da página inicial: menu transparente por cima do vídeo, título na letra da marca. */
+body.tbr-overlay .site-header {
+  position: fixed !important; left: 0; right: 0;
+  background: transparent !important; border-bottom-color: transparent !important;
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+  transition: background .35s ease, border-color .35s ease, grid-template-rows .35s ease, box-shadow .35s ease;
+}
+body.tbr-overlay:not(.tbr-scrolled) .site-header { box-shadow: none !important; }
+body.tbr-overlay:not(.tbr-scrolled) .site-header .brand a,
+body.tbr-overlay:not(.tbr-scrolled) .tbr-head-left a,
+body.tbr-overlay:not(.tbr-scrolled) .tbr-head-right a,
+body.tbr-overlay:not(.tbr-scrolled) .tbr-nav a,
+body.tbr-overlay:not(.tbr-scrolled) .site-header .menu-mobile-btn { color: #fff !important; }
+body.tbr-overlay:not(.tbr-scrolled) .tbr-nav { border-top-color: rgba(255, 255, 255, .16); }
+body.tbr-overlay:not(.tbr-scrolled) .tbr-nav a { font-weight: 600 !important; }
+body.tbr-overlay:not(.tbr-scrolled) .tbr-nav a[aria-current="page"]::after { background: #fff !important; }
+body.tbr-overlay.tbr-scrolled .site-header {
+  background: rgba(255, 254, 250, .97) !important; border-bottom-color: var(--tbr-line) !important;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+body.tbr-overlay .tbr-internal-hero.hero-video,
+body.tbr-editorial.tbr-overlay .tbr-internal-hero.hero-video {
+  width: 100% !important; max-width: none !important; margin: 0 !important;
+  height: 100vh !important; height: 100svh !important; min-height: 560px !important;
+}
+body.tbr-overlay .tbr-internal-hero.hero-video::after { background: linear-gradient(180deg, rgba(10, 10, 9, .55) 0%, rgba(10, 10, 9, .04) 26%, rgba(10, 10, 9, .04) 50%, rgba(10, 10, 9, .66) 100%) !important; }
+body.tbr-overlay .tbr-internal-hero .hero-overlay {
+  display: flex !important; flex-direction: column; justify-content: flex-end !important; align-items: center !important;
+  padding: 0 24px clamp(48px, 8vh, 80px) !important; text-align: center;
+}
+body.tbr-overlay .tbr-internal-hero h1.tbr-title {
+  max-width: 880px; transform: none !important;
+  font: 400 clamp(46px, 5vw, 76px)/1.04 var(--tbr-serif) !important;
+  letter-spacing: 0 !important; text-transform: none !important;
+}
+body.tbr-overlay .tbr-hero-sub { position: relative; z-index: 2; max-width: 620px; margin: 18px auto 0; color: #fff; font: 500 17px/1.55 var(--tbr-sans); }
+.tbr-hero-link { position: relative; z-index: 2; display: inline-block; margin-top: 28px; padding-bottom: 5px; border-bottom: 1px solid #fff; color: #fff !important; font: 600 12px/1 var(--tbr-sans); letter-spacing: .22em; text-transform: uppercase; text-decoration: none !important; }
+.tbr-hero-link:hover { opacity: .8; }
+@media (max-width: 760px) {
+  body.tbr-overlay .tbr-internal-hero .hero-overlay { padding-bottom: 44px !important; }
+  body.tbr-overlay .tbr-internal-hero h1.tbr-title { font-size: 42px !important; }
+  body.tbr-overlay .tbr-hero-sub { font-size: 15px; margin-top: 14px; }
+  .tbr-hero-link { margin-top: 22px; }
+}

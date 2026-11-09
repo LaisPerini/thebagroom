@@ -441,6 +441,8 @@
   const internalHero = document.querySelector('.hero-video, .internal-title');
   if (internalHero && !body.classList.contains('tbr-home')) {
     internalHero.classList.add('tbr-internal-hero');
+    // Páginas com vídeo no topo: o menu fica transparente por cima do vídeo, como na página inicial
+    if (internalHero.classList.contains('hero-video') && internalHero.querySelector('video')) body.classList.add('tbr-overlay');
   }
 
   const mountCanonicalFooter = () => {
