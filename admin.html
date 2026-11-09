@@ -659,6 +659,50 @@ background:#9b2c2c;
 .portfolio-excel tr.recovered td:first-child{border-left:4px solid #32633e;}
 .portfolio-excel tr.recovered .money-emphasis{color:#32633e;}
 .money-suggested{color:#8a6a3b;font-weight:600;}
+/* Despesas */
+.desp-stats{grid-template-columns:repeat(3,minmax(0,1fr));}
+.desp-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px;margin-bottom:16px;align-items:start;}
+.desp-form h2,.desp-resumo h2{margin:0 0 16px;}
+.desp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
+.desp-grid label,.desp-filtro{display:grid;gap:6px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6f6a62;}
+.desp-grid .wide{grid-column:1/-1;}
+.desp-grid input,.desp-grid select,.desp-grid textarea,.desp-filtro input,.desp-filtro select{width:100%;box-sizing:border-box;min-height:42px;padding:10px 12px;border:1px solid #ddd6cb;background:#fff;font:400 14px/1.4 Inter,Arial,sans-serif;letter-spacing:0;text-transform:none;color:#171613;}
+.desp-grid textarea{resize:vertical;min-height:64px;}
+.desp-erro{min-height:18px;margin:10px 0 0;font-size:13px;color:#8e3a32;}
+.desp-form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
+.desp-cat{padding:10px 0;border-bottom:1px solid #eee8de;}
+.desp-cat:last-child{border-bottom:0;}
+.desp-cat-top{display:flex;justify-content:space-between;gap:12px;font-size:14px;}
+.desp-bar{height:6px;margin:8px 0 4px;background:#f1ece4;}
+.desp-bar i{display:block;height:100%;background:#8a6a3b;}
+.desp-cat small{font-size:11px;color:#8a847a;}
+.desp-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;}
+.desp-toolbar .search{flex:1 1 220px;min-height:42px;}
+.desp-table-wrap{padding:0!important;overflow-x:auto;}
+.desp-table{width:100%;border-collapse:collapse;font-size:14px;}
+.desp-table th{padding:12px 14px;text-align:left;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6f6a62;border-bottom:1px solid #e6e0d6;white-space:nowrap;}
+.desp-table td{padding:12px 14px;border-bottom:1px solid #f0ebe3;vertical-align:top;}
+.desp-table td small{display:block;margin-top:3px;font-size:12px;color:#8a847a;}
+.desp-valor{font-weight:600;white-space:nowrap;}
+.desp-acoes{white-space:nowrap;text-align:right;}
+.desp-acoes .btn{margin-left:6px;}
+.desp-excluir{color:#8e3a32!important;}
+@media(max-width:900px){
+.desp-layout{grid-template-columns:1fr;}
+.desp-stats{grid-template-columns:1fr 1fr;}
+.desp-stats .stat-card:first-child{grid-column:1/-1;}
+}
+@media(max-width:620px){
+.desp-grid{grid-template-columns:1fr;}
+.desp-table thead{display:none;}
+.desp-table,.desp-table tbody,.desp-table tr,.desp-table td{display:block;width:100%;box-sizing:border-box;}
+.desp-table tr{padding:14px;border-bottom:1px solid #e6e0d6;}
+.desp-table td{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border:0;text-align:right;}
+.desp-table td::before{content:attr(data-label);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8a847a;text-align:left;}
+.desp-table td small{text-align:right;}
+.desp-acoes{justify-content:flex-end!important;padding-top:10px!important;}
+.desp-acoes::before{content:none!important;}
+}
 .price-autofill-hint{margin:12px 0 0;font-size:12px;line-height:1.55;color:#6f6a62;}
 .price-autofill-hint button{margin-left:4px;padding:0;border:0;background:none;color:#171613;font:inherit;font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
 .price-grid input[data-auto="1"]{color:#8a6a3b;}
@@ -766,6 +810,7 @@ background:#9b2c2c;
 <button type="button" data-panel="bloqueios" onclick="abrirPainel('bloqueios', this)">Bloquear Datas</button>
 <button type="button" data-panel="bolsas" onclick="abrirPainel('bolsas', this)">Cadastrar Bolsa</button>
 <button type="button" data-panel="clientes" onclick="abrirPainel('clientes', this)">Validação de Clientes</button>
+<button type="button" data-panel="despesas" onclick="abrirPainel('despesas', this)">Despesas</button>
 <button type="button" data-panel="ajuda" onclick="abrirPainel('ajuda', this)">Ajuda</button>
 </nav>
 <p class="sidebar-note">
@@ -1062,6 +1107,53 @@ Acompanhe os cadastros enviados pelas clientes, confira documentos e aprove ou r
 <p id="clientesStatus" class="message">Carregando clientes...</p>
 <div id="listaClientesValidacao" class="client-validation-grid"></div>
 </section>
+<section id="despesas" class="panel">
+<div class="stats desp-stats">
+<div class="stat-card"><div class="stat-label" id="despTotalLabel">Total do mês</div><div class="stat-value" id="despTotal">R$ 0,00</div></div>
+<div class="stat-card"><div class="stat-label">Lançamentos</div><div class="stat-value" id="despQtd">0</div></div>
+<div class="stat-card"><div class="stat-label" id="despAnoLabel">Total no ano</div><div class="stat-value" id="despTotalAno">R$ 0,00</div></div>
+</div>
+
+<div class="desp-layout">
+<form class="card desp-form" id="despForm" novalidate>
+<h2 id="despFormTitulo">Nova despesa</h2>
+<div class="desp-grid">
+<label>Data<input type="date" id="despData" required></label>
+<label>Valor (R$)<input type="text" id="despValor" inputmode="decimal" placeholder="0,00" required></label>
+<label class="wide">Descrição<input type="text" id="despDescricao" maxlength="200" placeholder="Ex.: Sedex devolução Lady Dior" required></label>
+<label>Categoria<select id="despCategoria"></select></label>
+<label>Forma de pagamento<select id="despForma"><option value="">—</option></select></label>
+<label class="wide">Bolsa relacionada (opcional)<select id="despBolsa"></select></label>
+<label class="wide">Observação (opcional)<textarea id="despObs" rows="2" maxlength="500"></textarea></label>
+</div>
+<p class="desp-erro" id="despErro" role="alert"></p>
+<div class="desp-form-actions">
+<button type="submit" class="btn" id="despSalvar">Lançar despesa</button>
+<button type="button" class="btn secondary" id="despCancelar" hidden>Cancelar edição</button>
+</div>
+</form>
+
+<div class="card desp-resumo">
+<h2>Por categoria</h2>
+<div id="despPorCategoria"><p class="message">Nenhuma despesa neste filtro.</p></div>
+</div>
+</div>
+
+<div class="toolbar desp-toolbar">
+<label class="desp-filtro">Mês<input type="month" id="despFiltroMes"></label>
+<button type="button" class="btn secondary small" id="despTodosMeses">Todos os meses</button>
+<label class="desp-filtro">Categoria<select id="despFiltroCategoria"><option value="">Todas</option></select></label>
+<input id="despBusca" class="search" placeholder="Buscar descrição, bolsa ou observação">
+<button type="button" class="btn secondary small" id="despExportar">Baixar planilha (CSV)</button>
+</div>
+<p id="despStatus" class="message"></p>
+<div class="card desp-table-wrap">
+<table class="desp-table">
+<thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th>Bolsa</th><th>Pagamento</th><th>Valor</th><th></th></tr></thead>
+<tbody id="despLista"></tbody>
+</table>
+</div>
+</section>
 <section id="ajuda" class="panel">
 <div class="card">
 <h2>Como usar</h2>
@@ -1132,7 +1224,7 @@ if(navButton) navButton.classList.add("active");
 
 painel.classList.add("active");
 document.getElementById("legacyStats").style.display = panelId === "pedidos" ? "grid" : "none";
-const titulos = {dashboard:"Dashboard",pedidos:"Painel de Aluguéis",bloqueios:"Bloquear Datas",bolsas:"Bolsas",clientes:"Validação de clientes",ajuda:"Ajuda"};
+const titulos = {dashboard:"Dashboard",pedidos:"Painel de Aluguéis",bloqueios:"Bloquear Datas",bolsas:"Bolsas",clientes:"Validação de clientes",despesas:"Despesas da loja",ajuda:"Ajuda"};
 document.getElementById("pageTitle").textContent = titulos[panelId] || "Painel Admin";
 if(panelId === "clientes" && !clientesValidacao.length){ carregarValidacoes(); }
 painel.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2271,6 +2363,7 @@ verificarAcesso();
 <script src="/bag-manual-photos.js?v=20261002-21"></script>
 <script src="/admin-bag-editor.js?v=20261105-2"></script>
 <script src="/admin-price-autofill.js?v=20261105-1"></script>
+<script src="/admin-despesas.js?v=20261109-1"></script>
 <script src="/admin-ga-pages.js?v=20261002-22"></script>
 <script src="/admin-coupons.js?v=20261003-frete"></script>
 <script src="/admin-delete.js?v=20261002-24"></script>
