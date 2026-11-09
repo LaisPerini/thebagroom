@@ -131,6 +131,18 @@ window.TBR_MANUAL_PHOTOS = {
       "/img/fotos/gKdalBP.jpg"
     ]
   },
+  "gucci-blondie-rosa": {
+    "cover": "/img/fotos/GblRsa1.jpg",
+    "gallery": [
+      "/img/fotos/GblRsa1.jpg",
+      "/img/fotos/GblRsa2.jpg",
+      "/img/fotos/GblRsa3.jpg",
+      "/img/fotos/GblRsa4.jpg",
+      "/img/fotos/GblRsa5.jpg",
+      "/img/fotos/GblRsa6.jpg",
+      "/img/fotos/GblRsa7.jpg"
+    ]
+  },
   "gucci-sylvie-star": {
     "cover": "/img/fotos/WLn7IbA.jpg",
     "gallery": [
