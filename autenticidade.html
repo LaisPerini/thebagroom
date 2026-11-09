@@ -416,6 +416,16 @@ width:80%;
 }
 
 .site-header .menu-mobile-inner a:hover { opacity: 0.6; }
+
+/* Capa com foto (Autenticidade) */
+#authHero.internal-title{height:clamp(340px,56vh,560px)!important;min-height:0!important;padding:0 24px!important;background:#e9e6e1 url('/img/autenticidade-capa.jpg?v=5') 22% center/cover no-repeat!important;border-bottom:0!important;align-items:flex-end!important;justify-content:flex-end!important}
+#authHero.internal-title::after{display:block!important;inset:0;background:linear-gradient(90deg,rgba(23,22,19,0) 40%,rgba(23,22,19,.55) 100%)!important}
+#authHero.internal-title h1.tbr-title{position:relative;z-index:3;margin:0 clamp(24px,6vw,96px) clamp(40px,8vh,72px) 0!important;max-width:560px!important;padding:0!important;color:#fff!important;text-align:right!important;font-size:clamp(46px,5.4vw,84px)!important;text-shadow:0 2px 24px rgba(0,0,0,.18)}
+@media (max-width:760px){
+#authHero.internal-title{height:420px!important;background-position:22% center!important;justify-content:center!important}
+#authHero.internal-title::after{background:linear-gradient(180deg,rgba(23,22,19,0) 40%,rgba(23,22,19,.55) 100%)!important}
+#authHero.internal-title h1.tbr-title{margin:0 auto 36px!important;padding:0!important;text-align:center!important;font-size:46px!important}
+}
 </style>
   <link rel="stylesheet" href="/luxury-refresh.css?v=20261108-1">
 <script src="/cookie-preferences.js?v=20261105-2" defer></script>
@@ -444,8 +454,8 @@ width:80%;
 
 <div class="top-space"></div>
 
-<section class="internal-title">
-<h1 class="tbr-title">AUTENTICIDADE</h1>
+<section class="internal-title tbr-photo-hero" id="authHero">
+<h1 class="tbr-title">Autenticidade</h1>
 </section>
 
 <div class="content-box tbr-auth">

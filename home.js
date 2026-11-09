@@ -45,7 +45,26 @@
     atualizar();
   }
 
+  // Vídeo de abertura: garante que toque sozinho. Alguns celulares (ex.: iPhone em modo
+  // economia de bateria) bloqueiam o início automático; aí tentamos de novo assim que a
+  // cliente toca, rola ou volta para a aba.
+  function videoAbertura() {
+    const v = document.querySelector('.hero-video');
+    if (!v) return;
+    v.muted = true; v.defaultMuted = true; v.playsInline = true;
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+    const tocar = () => { if (v.paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } };
+    tocar();
+    ['loadedmetadata', 'canplay'].forEach(ev => v.addEventListener(ev, tocar));
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) tocar(); });
+    const gesto = () => { tocar(); if (!v.paused) ['touchstart', 'touchend', 'pointerup', 'click', 'scroll', 'keydown'].forEach(ev => removeEventListener(ev, gesto)); };
+    ['touchstart', 'touchend', 'pointerup', 'click', 'scroll', 'keydown'].forEach(ev => addEventListener(ev, gesto, { passive: true }));
+    // Se sair da tela e voltar, continua tocando
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) tocar(); })).observe(v);
+  }
+
   function iniciar() {
+    videoAbertura();
     cabecalho();
     document.querySelectorAll('[data-carousel-nav]').forEach(carrossel);
   }
