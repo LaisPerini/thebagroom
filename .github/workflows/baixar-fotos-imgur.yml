@@ -1,9 +1,9 @@
 name: Baixar fotos do Imgur
-# Refaz as fotos listadas em tools/imgur-refazer.txt: fundo transparente vira branco.
+# Fotos recortadas do carrossel: mantém a transparência e salva como PNG otimizado.
 on:
   push:
     branches: [claude/fotos-imgur]
-    paths: [tools/imgur-refazer.txt, .github/workflows/baixar-fotos-imgur.yml]
+    paths: [tools/imgur-png.txt, .github/workflows/baixar-fotos-imgur.yml]
 permissions:
   contents: write
 jobs:
@@ -13,11 +13,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Baixar e otimizar
         run: |
-          sudo apt-get -qq update && sudo apt-get -qq install -y imagemagick >/dev/null
-          mkdir -p img/fotos
+          sudo apt-get -qq update && sudo apt-get -qq install -y imagemagick pngquant >/dev/null
           while read -r url; do
             [ -z "$url" ] && continue
-            nome=$(basename "$url"); destino="img/fotos/$nome"; ok=0
+            nome=$(basename "$url" .jpg); destino="img/fotos/$nome.png"; ok=0
             for t in 1 2 3 4; do
               if curl -fsSL --max-time 60 -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15" -H "Referer: https://imgur.com/" -o /tmp/orig "$url"; then
                 case "$(file -b --mime-type /tmp/orig)" in image/*) ok=1; break;; esac
@@ -26,13 +25,15 @@ jobs:
             done
             if [ $ok = 1 ]; then
               echo "$nome: $(identify -format '%m %wx%h %[channels]' /tmp/orig[0])"
-              convert "/tmp/orig[0]" -auto-orient -background white -alpha remove -alpha off -resize '1800x1800>' -strip -quality 85 -interlace Plane "jpg:$destino"
+              convert "/tmp/orig[0]" -auto-orient -resize '1200x1200>' -strip "png32:/tmp/r.png"
+              pngquant --quality=70-90 --speed 1 --force --output "$destino" /tmp/r.png || cp /tmp/r.png "$destino"
+              ls -la "$destino"
             else echo "FALHOU $url"; fi
-          done < tools/imgur-refazer.txt
+          done < tools/imgur-png.txt
       - name: Commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add img/fotos
-          git commit -m "Fotos com fundo transparente refeitas com fundo branco" || echo "nada novo"
+          git commit -m "Fotos recortadas do carrossel em PNG transparente" || echo "nada novo"
           git push
