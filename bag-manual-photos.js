@@ -153,6 +153,15 @@ window.TBR_MANUAL_PHOTOS = {
       "/img/fotos/gTLLQKY.jpg"
     ]
   },
+  "hermes-toto-pm": {
+    "cover": "/img/fotos/HrmTot1.jpg",
+    "gallery": [
+      "/img/fotos/HrmTot1.jpg",
+      "/img/fotos/HrmTot2.jpg",
+      "/img/fotos/HrmTot3.jpg",
+      "/img/fotos/HrmTot4.jpg"
+    ]
+  },
   "hermes-vinyl-kelly": {
     "cover": "/img/fotos/Q99KQYI.jpg",
     "gallery": [
