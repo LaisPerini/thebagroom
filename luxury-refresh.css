@@ -523,7 +523,7 @@ body.tbr-catalog .grid {
 }
 body.tbr-catalog .card { position: relative; padding: 0 0 18px !important; border: 0 !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important; text-decoration: none; }
 body.tbr-catalog .card::after { display: none !important; }
-body.tbr-catalog .card .img-box { width: 100% !important; aspect-ratio: 4/5 !important; height: auto !important; background: #fff !important; overflow: hidden; }
+body.tbr-catalog .card .img-box { width: 100% !important; aspect-ratio: 4/5 !important; height: auto !important; background: var(--tbr-paper) !important; overflow: hidden; }
 body.tbr-catalog .card .img-box img { width: 100% !important; height: 100% !important; object-fit: cover !important; transition: transform .6s ease; }
 body.tbr-catalog .card:hover .img-box img { transform: scale(1.025); }
 body.tbr-catalog .card .tag { top: 12px !important; left: 12px !important; padding: 6px 9px !important; border-radius: 0 !important; background: rgba(255,254,250,.92) !important; color: var(--tbr-ink) !important; font-size: 9px !important; letter-spacing: .1em; text-transform: uppercase; }
