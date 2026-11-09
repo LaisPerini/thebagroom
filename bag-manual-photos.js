@@ -1,241 +1,241 @@
 window.TBR_MANUAL_PHOTOS = {
   "bvlgari-micro-amarela": {
-    "cover": "https://i.imgur.com/uKmvItm.jpg",
+    "cover": "/img/fotos/uKmvItm.jpg",
     "gallery": [
-      "https://i.imgur.com/uKmvItm.jpg",
-      "https://i.imgur.com/7J3P9Fr.jpg",
-      "https://i.imgur.com/VBhQdfh.jpg",
-      "https://i.imgur.com/k5shGjv.jpg",
-      "https://i.imgur.com/gRt4hw5.jpg"
+      "/img/fotos/uKmvItm.jpg",
+      "/img/fotos/7J3P9Fr.jpg",
+      "/img/fotos/VBhQdfh.jpg",
+      "/img/fotos/k5shGjv.jpg",
+      "/img/fotos/gRt4hw5.jpg"
     ]
   },
   "bvlgari-micro-roxa": {
-    "cover": "https://i.imgur.com/egP1XxV.jpg",
+    "cover": "/img/fotos/egP1XxV.jpg",
     "gallery": [
-      "https://i.imgur.com/egP1XxV.jpg",
-      "https://i.imgur.com/ySFlzrk.jpg",
-      "https://i.imgur.com/1wTAtu5.jpg"
+      "/img/fotos/egP1XxV.jpg",
+      "/img/fotos/ySFlzrk.jpg",
+      "/img/fotos/1wTAtu5.jpg"
     ]
   },
   "bvlgari-serpenti-branca": {
-    "cover": "https://i.imgur.com/SmLGoiG.jpg",
+    "cover": "/img/fotos/SmLGoiG.jpg",
     "gallery": [
-      "https://i.imgur.com/A2FaCOI.jpg",
-      "https://i.imgur.com/AOwuabT.jpg",
-      "https://i.imgur.com/S0EM5aK.jpg",
-      "https://i.imgur.com/EdPXLh4.jpg",
-      "https://i.imgur.com/OtrUNo5.jpg"
+      "/img/fotos/A2FaCOI.jpg",
+      "/img/fotos/AOwuabT.jpg",
+      "/img/fotos/S0EM5aK.jpg",
+      "/img/fotos/EdPXLh4.jpg",
+      "/img/fotos/OtrUNo5.jpg"
     ]
   },
   "bvlgari-serpenti-verde": {
-    "cover": "https://i.imgur.com/Oj314YO.jpg",
+    "cover": "/img/fotos/Oj314YO.jpg",
     "gallery": [
-      "https://i.imgur.com/wYj0FjT.jpg",
-      "https://i.imgur.com/xaKxqYB.jpg",
-      "https://i.imgur.com/X4HaYR1.jpg",
-      "https://i.imgur.com/4pt1Oxn.jpg",
-      "https://i.imgur.com/bFbd1II.jpg"
+      "/img/fotos/wYj0FjT.jpg",
+      "/img/fotos/xaKxqYB.jpg",
+      "/img/fotos/X4HaYR1.jpg",
+      "/img/fotos/4pt1Oxn.jpg",
+      "/img/fotos/bFbd1II.jpg"
     ]
   },
   "bvlgari-serpenti-vermelha": {
-    "cover": "https://i.imgur.com/8GdXEuT.jpg",
+    "cover": "/img/fotos/8GdXEuT.jpg",
     "gallery": [
-      "https://i.imgur.com/8GdXEuT.jpg",
-      "https://i.imgur.com/oQ2Nkfg.jpg",
-      "https://i.imgur.com/DWIZQZ1.jpg",
-      "https://i.imgur.com/Sl72765.jpg",
-      "https://i.imgur.com/M1H9wvr.jpg"
+      "/img/fotos/8GdXEuT.jpg",
+      "/img/fotos/oQ2Nkfg.jpg",
+      "/img/fotos/DWIZQZ1.jpg",
+      "/img/fotos/Sl72765.jpg",
+      "/img/fotos/M1H9wvr.jpg"
     ]
   },
   "carolinaherreira-insignia": {
-    "cover": "https://i.imgur.com/yDKUbXX.jpg",
+    "cover": "/img/fotos/yDKUbXX.jpg",
     "gallery": [
-      "https://i.imgur.com/yDKUbXX.jpg"
+      "/img/fotos/yDKUbXX.jpg"
     ]
   },
   "coach-28-brooklyn": {
-    "cover": "https://i.imgur.com/Mg8j9dZ.jpg",
+    "cover": "/img/fotos/Mg8j9dZ.jpg",
     "gallery": [
-      "https://i.imgur.com/Mg8j9dZ.jpg",
-      "https://i.imgur.com/ljobdg5.jpg",
-      "https://i.imgur.com/h4lwQBF.jpg",
-      "https://i.imgur.com/lA2s1wq.jpg",
-      "https://i.imgur.com/oRWT20B.jpg"
+      "/img/fotos/Mg8j9dZ.jpg",
+      "/img/fotos/ljobdg5.jpg",
+      "/img/fotos/h4lwQBF.jpg",
+      "/img/fotos/lA2s1wq.jpg",
+      "/img/fotos/oRWT20B.jpg"
     ]
   },
   "coach-tabby-chain-19": {
-    "cover": "https://i.imgur.com/Vw8sxhs.jpg",
+    "cover": "/img/fotos/Vw8sxhs.jpg",
     "gallery": [
-      "https://i.imgur.com/Vw8sxhs.jpg",
-      "https://i.imgur.com/UIui1Ql.jpg",
-      "https://i.imgur.com/AX5RV5D.jpg",
-      "https://i.imgur.com/OTKwj3J.jpg",
-      "https://i.imgur.com/W3t3Pfc.jpg",
-      "https://i.imgur.com/r1bTKHy.jpg",
-      "https://i.imgur.com/YaS0jtG.jpg"
+      "/img/fotos/Vw8sxhs.jpg",
+      "/img/fotos/UIui1Ql.jpg",
+      "/img/fotos/AX5RV5D.jpg",
+      "/img/fotos/OTKwj3J.jpg",
+      "/img/fotos/W3t3Pfc.jpg",
+      "/img/fotos/r1bTKHy.jpg",
+      "/img/fotos/YaS0jtG.jpg"
     ]
   },
   "dolce-gabbana-devotion-box": {
-    "cover": "https://i.imgur.com/RAJHFek.jpg",
+    "cover": "/img/fotos/RAJHFek.jpg",
     "gallery": [
-      "https://i.imgur.com/RAJHFek.jpg",
-      "https://i.imgur.com/TxofWfI.jpg",
-      "https://i.imgur.com/8YsxmLs.jpg",
-      "https://i.imgur.com/8znoA5O.jpg",
-      "https://i.imgur.com/fskfLJX.jpg"
+      "/img/fotos/RAJHFek.jpg",
+      "/img/fotos/TxofWfI.jpg",
+      "/img/fotos/8YsxmLs.jpg",
+      "/img/fotos/8znoA5O.jpg",
+      "/img/fotos/fskfLJX.jpg"
     ]
   },
   "dolcegabbana-iguana": {
-    "cover": "https://i.imgur.com/WmAbh2U.jpg",
+    "cover": "/img/fotos/WmAbh2U.jpg",
     "gallery": [
-      "https://i.imgur.com/WmAbh2U.jpg",
-      "https://i.imgur.com/F1HCbgn.jpg",
-      "https://i.imgur.com/kZqgQmI.jpg",
-      "https://i.imgur.com/fHw2ULR.jpg",
-      "https://i.imgur.com/Bv5Qk71.jpg"
+      "/img/fotos/WmAbh2U.jpg",
+      "/img/fotos/F1HCbgn.jpg",
+      "/img/fotos/kZqgQmI.jpg",
+      "/img/fotos/fHw2ULR.jpg",
+      "/img/fotos/Bv5Qk71.jpg"
     ]
   },
   "fendi-2jours": {
-    "cover": "https://i.imgur.com/irpQ4t3.jpg",
+    "cover": "/img/fotos/irpQ4t3.jpg",
     "gallery": [
-      "https://i.imgur.com/bUaENpx.jpg"
+      "/img/fotos/bUaENpx.jpg"
     ]
   },
   "fendi-zucchino": {
-    "cover": "https://i.imgur.com/fFn9bOz.jpg",
+    "cover": "/img/fotos/fFn9bOz.jpg",
     "gallery": [
-      "https://i.imgur.com/gq26Mwg.jpg",
-      "https://i.imgur.com/bxUUoN4.jpg"
+      "/img/fotos/gq26Mwg.jpg",
+      "/img/fotos/bxUUoN4.jpg"
     ]
   },
   "gucci-dionysus-super-mini-python": {
-    "cover": "https://i.imgur.com/CQgYNzK.jpg",
+    "cover": "/img/fotos/CQgYNzK.jpg",
     "gallery": [
-      "https://i.imgur.com/CQgYNzK.jpg",
-      "https://i.imgur.com/Shc8ogQ.jpg",
-      "https://i.imgur.com/KMn56JF.jpg",
-      "https://i.imgur.com/k4lHobK.jpg",
-      "https://i.imgur.com/O26Qgyg.jpg",
-      "https://i.imgur.com/MpITufE.jpg"
+      "/img/fotos/CQgYNzK.jpg",
+      "/img/fotos/Shc8ogQ.jpg",
+      "/img/fotos/KMn56JF.jpg",
+      "/img/fotos/k4lHobK.jpg",
+      "/img/fotos/O26Qgyg.jpg",
+      "/img/fotos/MpITufE.jpg"
     ]
   },
   "gucci-dionysus-veludo-azul": {
-    "cover": "https://i.imgur.com/cWeUrHz.jpg",
+    "cover": "/img/fotos/cWeUrHz.jpg",
     "gallery": [
-      "https://i.imgur.com/cWeUrHz.jpg",
-      "https://i.imgur.com/ZgC7RfI.jpg",
-      "https://i.imgur.com/gQHiRGn.jpg",
-      "https://i.imgur.com/n4CjEmT.jpg"
+      "/img/fotos/cWeUrHz.jpg",
+      "/img/fotos/ZgC7RfI.jpg",
+      "/img/fotos/gQHiRGn.jpg",
+      "/img/fotos/n4CjEmT.jpg"
     ]
   },
   "gucci-rajah": {
-    "cover": "https://i.imgur.com/iUrTpzD.jpg",
+    "cover": "/img/fotos/iUrTpzD.jpg",
     "gallery": [
-      "https://i.imgur.com/iUrTpzD.jpg",
-      "https://i.imgur.com/f5mnqqV.jpg",
-      "https://i.imgur.com/pFZDPk3.jpg",
-      "https://i.imgur.com/QuujuVb.jpg",
-      "https://i.imgur.com/DwBP3Nt.jpg",
-      "https://i.imgur.com/gKdalBP.jpg"
+      "/img/fotos/iUrTpzD.jpg",
+      "/img/fotos/f5mnqqV.jpg",
+      "/img/fotos/pFZDPk3.jpg",
+      "/img/fotos/QuujuVb.jpg",
+      "/img/fotos/DwBP3Nt.jpg",
+      "/img/fotos/gKdalBP.jpg"
     ]
   },
   "gucci-sylvie-star": {
-    "cover": "https://i.imgur.com/WLn7IbA.jpg",
+    "cover": "/img/fotos/WLn7IbA.jpg",
     "gallery": [
-      "https://i.imgur.com/v81HiZn.jpg",
-      "https://i.imgur.com/HJ5jPYQ.jpg",
-      "https://i.imgur.com/0CUXB65.jpg",
-      "https://i.imgur.com/wxwsr66.jpg",
-      "https://i.imgur.com/gTLLQKY.jpg"
+      "/img/fotos/v81HiZn.jpg",
+      "/img/fotos/HJ5jPYQ.jpg",
+      "/img/fotos/0CUXB65.jpg",
+      "/img/fotos/wxwsr66.jpg",
+      "/img/fotos/gTLLQKY.jpg"
     ]
   },
   "hermes-vinyl-kelly": {
-    "cover": "https://i.imgur.com/Q99KQYI.jpg",
+    "cover": "/img/fotos/Q99KQYI.jpg",
     "gallery": [
-      "https://i.imgur.com/Q99KQYI.jpg",
-      "https://i.imgur.com/VShcLVB.jpg",
-      "https://i.imgur.com/VqgoPIz.jpg"
+      "/img/fotos/Q99KQYI.jpg",
+      "/img/fotos/VShcLVB.jpg",
+      "/img/fotos/VqgoPIz.jpg"
     ]
   },
   "katespade-carey-tisel-tweed-medium": {
-    "cover": "https://i.imgur.com/GTusdro.jpg",
+    "cover": "/img/fotos/GTusdro.jpg",
     "gallery": [
-      "https://i.imgur.com/GTusdro.jpg",
-      "https://i.imgur.com/HKNMXNv.jpg",
-      "https://i.imgur.com/jRWqKnr.jpg",
-      "https://i.imgur.com/2zQXc5b.jpg",
-      "https://i.imgur.com/DAVw4h6.jpg",
-      "https://i.imgur.com/8GPoyNq.jpg",
-      "https://i.imgur.com/xMjsUs6.jpg"
+      "/img/fotos/GTusdro.jpg",
+      "/img/fotos/HKNMXNv.jpg",
+      "/img/fotos/jRWqKnr.jpg",
+      "/img/fotos/2zQXc5b.jpg",
+      "/img/fotos/DAVw4h6.jpg",
+      "/img/fotos/8GPoyNq.jpg",
+      "/img/fotos/xMjsUs6.jpg"
     ]
   },
   "katespade-carey-tissel-tweed-micro": {
-    "cover": "https://i.imgur.com/b1odo1O.jpg",
+    "cover": "/img/fotos/b1odo1O.jpg",
     "gallery": [
-      "https://i.imgur.com/b1odo1O.jpg",
-      "https://i.imgur.com/Nsr2DGt.jpg",
-      "https://i.imgur.com/pxuGZAd.jpg",
-      "https://i.imgur.com/THpaAMp.jpg"
+      "/img/fotos/b1odo1O.jpg",
+      "/img/fotos/Nsr2DGt.jpg",
+      "/img/fotos/pxuGZAd.jpg",
+      "/img/fotos/THpaAMp.jpg"
     ]
   },
   "katespade-carey": {
-    "cover": "https://i.imgur.com/b9aeszv.jpg",
+    "cover": "/img/fotos/b9aeszv.jpg",
     "gallery": [
-      "https://i.imgur.com/b9aeszv.jpg",
-      "https://i.imgur.com/uCnpc8l.jpg",
-      "https://i.imgur.com/52gJnv5.jpg",
-      "https://i.imgur.com/JtiExQL.jpg",
-      "https://i.imgur.com/haVs8pb.jpg",
-      "https://i.imgur.com/NSRKRwR.jpg"
+      "/img/fotos/b9aeszv.jpg",
+      "/img/fotos/uCnpc8l.jpg",
+      "/img/fotos/52gJnv5.jpg",
+      "/img/fotos/JtiExQL.jpg",
+      "/img/fotos/haVs8pb.jpg",
+      "/img/fotos/NSRKRwR.jpg"
     ]
   },
   "katespade-casey-bear-tweed": {
-    "cover": "https://i.imgur.com/zelSOS6.jpg",
+    "cover": "/img/fotos/zelSOS6.jpg",
     "gallery": [
-      "https://i.imgur.com/zelSOS6.jpg",
-      "https://i.imgur.com/HeoYF9S.jpg",
-      "https://i.imgur.com/ltbR541.jpg",
-      "https://i.imgur.com/RgQYxYK.jpg",
-      "https://i.imgur.com/ZRcxpQM.jpg",
-      "https://i.imgur.com/YL9GmFm.jpg",
-      "https://i.imgur.com/eLIV87x.jpg",
-      "https://i.imgur.com/dNh6riZ.jpg",
-      "https://i.imgur.com/YLOjvaD.jpg"
+      "/img/fotos/zelSOS6.jpg",
+      "/img/fotos/HeoYF9S.jpg",
+      "/img/fotos/ltbR541.jpg",
+      "/img/fotos/RgQYxYK.jpg",
+      "/img/fotos/ZRcxpQM.jpg",
+      "/img/fotos/YL9GmFm.jpg",
+      "/img/fotos/eLIV87x.jpg",
+      "/img/fotos/dNh6riZ.jpg",
+      "/img/fotos/YLOjvaD.jpg"
     ]
   },
   "katespade-duet-floral-crossbody": {
-    "cover": "https://i.imgur.com/I01DeS3.jpg",
+    "cover": "/img/fotos/I01DeS3.jpg",
     "gallery": [
-      "https://i.imgur.com/xYyX7Da.jpg",
-      "https://i.imgur.com/utSMgKu.jpg",
-      "https://i.imgur.com/ykevrjd.jpg",
-      "https://i.imgur.com/u8JGK0W.jpg"
+      "/img/fotos/xYyX7Da.jpg",
+      "/img/fotos/utSMgKu.jpg",
+      "/img/fotos/ykevrjd.jpg",
+      "/img/fotos/u8JGK0W.jpg"
     ]
   },
   "katespade-turnlock": {
-    "cover": "https://i.imgur.com/WQrPzBg.jpg",
+    "cover": "/img/fotos/WQrPzBg.jpg",
     "gallery": [
-      "https://i.imgur.com/WQrPzBg.jpg",
-      "https://i.imgur.com/7ZjRz7C.jpg",
-      "https://i.imgur.com/ytfF6wM.jpg",
-      "https://i.imgur.com/wAlmswd.jpg"
+      "/img/fotos/WQrPzBg.jpg",
+      "/img/fotos/7ZjRz7C.jpg",
+      "/img/fotos/ytfF6wM.jpg",
+      "/img/fotos/wAlmswd.jpg"
     ]
   },
   "marcjacobs": {
-    "cover": "https://i.imgur.com/t38otvi.jpg",
+    "cover": "/img/fotos/t38otvi.jpg",
     "gallery": [
-      "https://i.imgur.com/t38otvi.jpg",
-      "https://i.imgur.com/ZpFC4hw.jpg",
-      "https://i.imgur.com/WczlkQ4.jpg"
+      "/img/fotos/t38otvi.jpg",
+      "/img/fotos/ZpFC4hw.jpg",
+      "/img/fotos/WczlkQ4.jpg"
     ]
   },
   "mk-jetset": {
-    "cover": "https://i.imgur.com/W4WLNou.jpg",
+    "cover": "/img/fotos/W4WLNou.jpg",
     "gallery": [
-      "https://i.imgur.com/gDcOX88.jpg",
-      "https://i.imgur.com/rDa1N4c.jpg",
-      "https://i.imgur.com/Fs1Ru2C.jpg",
-      "https://i.imgur.com/aOgE7VX.jpg"
+      "/img/fotos/gDcOX88.jpg",
+      "/img/fotos/rDa1N4c.jpg",
+      "/img/fotos/Fs1Ru2C.jpg",
+      "/img/fotos/aOgE7VX.jpg"
     ]
   }
 };

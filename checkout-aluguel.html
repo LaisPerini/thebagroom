@@ -18,8 +18,8 @@
 
 <meta property="og:url" content="https://www.thebagroom.com.br/checkout-aluguel.html">
 
-<meta property="og:image" content="https://i.imgur.com/aCDhajb.jpg">
-<meta property="og:image:secure_url" content="https://i.imgur.com/aCDhajb.jpg">
+<meta property="og:image" content="https://www.thebagroom.com.br/img/fotos/aCDhajb.jpg">
+<meta property="og:image:secure_url" content="https://www.thebagroom.com.br/img/fotos/aCDhajb.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -28,7 +28,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Checkout de Aluguel | The Bag Room">
 <meta name="twitter:description" content="Finalize o aluguel da sua bolsa de luxo com segurança na The Bag Room.">
-<meta name="twitter:image" content="https://i.imgur.com/aCDhajb.jpg">
+<meta name="twitter:image" content="https://www.thebagroom.com.br/img/fotos/aCDhajb.jpg">
   
   
 <link rel="icon" sizes="32x32" href="/favicon.png">
@@ -776,7 +776,7 @@ return null;
 function preencherResumo(){
 const slug = String(checkout.bolsaSlug || '');
 document.getElementById('voltarParaBolsa').href = /^[a-z0-9_-]+$/.test(slug) ? `/aluguel/${slug}.html` : '/aluguel.html';
-document.getElementById("bagImage").src = checkout.imagem || "https://i.imgur.com/uKmvItm.jpg";
+document.getElementById("bagImage").src = checkout.imagem || "/img/fotos/uKmvItm.jpg";
 document.getElementById("bagImage").alt = checkout.bolsaNome || "Bolsa The Bag Room";
 document.getElementById("bagName").innerText = checkout.bolsaNome || "Bolsa de luxo";
 document.getElementById("bagDates").innerText = `${checkout.dataInicio} a ${checkout.dataFim} · ${checkout.dias} dias`;

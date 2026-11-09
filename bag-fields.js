@@ -161,8 +161,8 @@
         text('.marca',brand(bag),card); text('.modelo',model(bag),card);
         const cover=safeImage(photoConfigs.find(config=>config.id===bag.id)?.imagem_capa_url);
         if(cover){const img=card.querySelector('.img-box img');if(img){
-          // Mantém a versão reduzida do Imgur quando é a mesma foto
-          const id=u=>{const m=String(u).match(/i\.imgur\.com\/([A-Za-z0-9]{7})[a-z]?\./);return m?m[1]:u;};
+          // Mantém a versão reduzida quando é a mesma foto
+          const id=u=>{const m=String(u).match(/(?:i\.imgur\.com|\/img\/fotos)\/([A-Za-z0-9]{7})[a-z]?\./);return m?m[1]:u;};
           if(id(img.src)!==id(cover))img.src=cover;img.alt=bag.nome;}}
         card.dataset.marca = brand(bag); card.dataset.cor = bag.cor || '';
         card.dataset.price = plans.length ? Math.min(...plans.map(p => Number(p.valor))) : '';
