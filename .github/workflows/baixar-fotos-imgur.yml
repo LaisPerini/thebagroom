@@ -1,0 +1,53 @@
+name: Baixar fotos do Imgur
+# Roda uma vez neste branch: baixa as fotos listadas em tools/imgur-list.txt para img/fotos/,
+# otimiza (máx. 1800 px, JPEG 82) e faz commit no próprio branch.
+on:
+  push:
+    branches: [claude/fotos-imgur]
+    paths: [tools/imgur-list.txt, .github/workflows/baixar-fotos-imgur.yml]
+permissions:
+  contents: write
+jobs:
+  baixar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Baixar e otimizar
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y imagemagick jpegoptim >/dev/null
+          mkdir -p img/fotos
+          falhas=0
+          while read -r url; do
+            [ -z "$url" ] && continue
+            nome=$(basename "$url")
+            destino="img/fotos/$nome"
+            [ -s "$destino" ] && continue
+            ok=0
+            for t in 1 2 3 4; do
+              if curl -fsSL --max-time 60 -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15" -H "Referer: https://imgur.com/" -o "$destino.tmp" "$url"; then
+                tipo=$(file -b --mime-type "$destino.tmp")
+                case "$tipo" in image/*) ok=1; break;; esac
+              fi
+              sleep $((t*3))
+            done
+            if [ $ok = 1 ]; then
+              mv "$destino.tmp" "$destino"
+              case "$nome" in
+                *.jpg|*.jpeg) mogrify -auto-orient -resize '1800x1800>' -strip -quality 82 -interlace Plane "$destino" ;;
+                *.png) mogrify -resize '1800x1800>' -strip "$destino" ;;
+              esac
+            else
+              rm -f "$destino.tmp"; echo "FALHOU $url"; falhas=$((falhas+1))
+            fi
+            sleep 0.5
+          done < tools/imgur-list.txt
+          ls img/fotos | wc -l
+          du -sh img/fotos
+          echo "falhas=$falhas"
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add img/fotos
+          git commit -m "Fotos do Imgur copiadas para img/fotos" || echo "nada novo"
+          git push
