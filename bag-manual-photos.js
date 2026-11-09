@@ -9,14 +9,6 @@ window.TBR_MANUAL_PHOTOS = {
       "/img/fotos/gRt4hw5.jpg"
     ]
   },
-  "bvlgari-micro-roxa": {
-    "cover": "/img/fotos/egP1XxV.jpg",
-    "gallery": [
-      "/img/fotos/egP1XxV.jpg",
-      "/img/fotos/ySFlzrk.jpg",
-      "/img/fotos/1wTAtu5.jpg"
-    ]
-  },
   "bvlgari-serpenti-branca": {
     "cover": "/img/fotos/SmLGoiG.jpg",
     "gallery": [

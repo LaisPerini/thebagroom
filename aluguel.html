@@ -1404,7 +1404,6 @@ body {
     <label><input type="checkbox" value="Laranja" class="filtro-cor"> Laranja</label>
     <label><input type="checkbox" value="Amarelo" class="filtro-cor"> Amarelo</label>
     <label><input type="checkbox" value="Vermelho" class="filtro-cor">Vermelho</label>
-    <label><input type="checkbox" value="Lilas" class="filtro-cor">Lilás</label>
   <label><input type="checkbox" value="Azul" class="filtro-cor">Azul</label>
     <label><input type="checkbox" value="Cinza" class="filtro-cor"> Cinza</label>
     <label><input type="checkbox" value="Bege" class="filtro-cor"> Bege</label>
@@ -1561,19 +1560,6 @@ data-cor="Verde">
     <span class="modelo">Serpenti Forever</span>
   </div>
   <div class="preco">A partir de R$ 590</div>
-</a>
-
-<a href="https://www.thebagroom.com.br/aluguel/bvlgari-micro-roxa.html" class="card" data-bolsa-slug="bvlgari-micro-roxa" data-marca="Bvlgari" data-cor="Lilas">
-  <div class="img-box">
-    <span class="tag">Disponível</span>
-    <img loading="lazy" decoding="async" src="/img/vitrine/egP1XxVl.jpg" alt="Bolsa Bvlgari Serpenti Forever Micro Lilás">
-    <img class="img-hover" src="/img/vitrine/ySFlzrk-2.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
-  </div>
-  <div class="nome">
-    <span class="marca">Bvlgari</span>
-    <span class="modelo">Serpenti Forever Micro Lilás</span>
-  </div>
-  <div class="preco">A partir de R$ 390</div>
 </a>
 
 <a href="https://www.thebagroom.com.br/aluguel/gucci-sylvie-star.html" class="card" data-bolsa-slug="gucci-sylvie-star" data-marca="Gucci" data-cor="Preto">
@@ -2010,7 +1996,7 @@ function aplicarFiltros(){
     card.classList.toggle('oculto', !deveAparecer);
   });
 
-  atualizarContador();
+  if (typeof atualizarContador === 'function') atualizarContador();
 }
 
 function ordenarProdutos(tipo){
@@ -2032,7 +2018,7 @@ function ordenarProdutos(tipo){
   });
 
   cards.forEach(card => grid.appendChild(card));
-  atualizarContador();
+  if (typeof atualizarContador === 'function') atualizarContador();
 }
 
 function extrairPreco(card){
