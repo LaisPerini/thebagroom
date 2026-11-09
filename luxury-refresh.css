@@ -1286,3 +1286,13 @@ body.tbr-overlay .tbr-hero-sub { position: relative; z-index: 2; max-width: 620p
   body.tbr-overlay .tbr-hero-sub { font-size: 15px; margin-top: 14px; }
   .tbr-hero-link { margin-top: 22px; }
 }
+
+/* Vitrine: segunda foto ao passar o mouse (só em computador) */
+body.tbr-catalog .card .img-box { position: relative; }
+body.tbr-catalog .card .img-box .img-hover { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  body.tbr-catalog .card .img-box .img-hover { display: block; position: absolute; inset: 0; opacity: 0; transition: opacity .5s ease, transform .6s ease; }
+  body.tbr-catalog .card:hover .img-box .img-hover,
+  body.tbr-catalog .card:focus-visible .img-box .img-hover { opacity: 1; }
+}
+body.tbr-catalog .card .tag { z-index: 2; }
