@@ -151,6 +151,7 @@
     $('despFiltroMes').value = String(data.data).slice(0, 7);
     limparForm();
     render();
+    document.dispatchEvent(new CustomEvent('tbr:despesas-alteradas'));
   }
 
   async function excluir(id) {
@@ -162,6 +163,7 @@
     despesas = despesas.filter(x => x.id !== id);
     if (editandoId === id) limparForm();
     render();
+    document.dispatchEvent(new CustomEvent('tbr:despesas-alteradas'));
   }
 
   function exportarCSV() {

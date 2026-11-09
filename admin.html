@@ -687,6 +687,23 @@ background:#9b2c2c;
 .desp-acoes{white-space:nowrap;text-align:right;}
 .desp-acoes .btn{margin-left:6px;}
 .desp-excluir{color:#8e3a32!important;}
+.lucro-head-actions{display:flex;gap:8px;align-items:center}
+.lucro-head-actions select{min-height:36px;padding:0 10px;border:1px solid #ddd5ca;background:#fff;font:inherit;font-size:13px}
+.lucro-kpis{grid-template-columns:repeat(5,minmax(0,1fr));margin-bottom:18px}
+.lucro-kpis .stat-card{cursor:default}
+.lucro-neg,.lucro-neg .stat-value{color:#9b2c2c!important}
+.lucro-chart{margin:0 0 18px;padding:16px 4px 6px;border-top:1px solid #eee6dc;border-bottom:1px solid #eee6dc}
+.lucro-legenda{display:flex;gap:18px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#777;margin:0 0 10px 6px}
+.lucro-legenda i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+.lucro-barras{display:flex;align-items:flex-end;gap:6px;height:150px}
+.lucro-col{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;min-width:0}
+.lucro-bars{flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center;gap:3px}
+.lucro-bars i,.lucro-legenda i{background:#a8824b}
+.lucro-bars i{width:min(18px,40%);min-height:2px}
+.lucro-bars i.d,.lucro-legenda i.d{background:#cfc6ba}
+.lucro-col span{margin-top:6px;font-size:10px;color:#888;letter-spacing:.06em;text-transform:uppercase}
+.lucro-table .lucro-valor{font-weight:700}
+.lucro-nota{margin:12px 0 0;font-size:11px;color:#888}
 @media(max-width:900px){
 .desp-layout{grid-template-columns:1fr;}
 .desp-stats{grid-template-columns:1fr 1fr;}
@@ -722,7 +739,7 @@ background:#9b2c2c;
 .details{grid-template-columns:repeat(2,minmax(0,1fr));}
 .controls{grid-template-columns:1fr 1fr;}
 .price-grid{grid-template-columns:repeat(3,minmax(0,1fr));}
-.dashboard-kpis{grid-template-columns:repeat(2,minmax(0,1fr));}.dashboard-grid{grid-template-columns:1fr;}
+.dashboard-kpis{grid-template-columns:repeat(2,minmax(0,1fr));}.dashboard-grid{grid-template-columns:1fr;}.lucro-kpis .stat-card:first-child{grid-column:1/-1;}.lucro-barras{gap:3px;height:120px}
 .portfolio-excel{display:block;font-size:13px;}.portfolio-excel thead{display:none;}.portfolio-excel tbody{display:grid;gap:12px;}.portfolio-excel tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #eee8df;border-radius:14px;padding:10px;}.portfolio-excel th,.portfolio-excel td{display:flex;flex-direction:column;gap:5px;border:0;border-bottom:1px solid #f3eee8;padding:10px;text-align:left!important;}.portfolio-excel td:before{display:block;content:attr(data-label);font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.1em;font-weight:700;}.portfolio-excel tr.recovered td:first-child{border-left:4px solid #32633e;}
 }
 
@@ -908,11 +925,19 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 <div class="dashboard-kpis" id="portfolioMetrics" style="margin-bottom:0;"></div>
 </article>
 
+<article class="card dashboard-card" id="lucroCard" style="margin-bottom:16px;">
+<div class="dashboard-card-head"><div><p class="eyebrow">Resultado</p><h2>Lucro por mês</h2></div><div class="lucro-head-actions"><select id="lucroAno" aria-label="Ano"></select><button class="btn secondary small" type="button" onclick="abrirPainel('despesas')">Lançar despesa</button></div></div>
+<div class="dashboard-kpis lucro-kpis" id="lucroKpis"></div>
+<div class="lucro-chart"><div class="lucro-legenda"><span><i class="r"></i>Receita</span><span><i class="d"></i>Despesas</span></div><div class="lucro-barras" id="lucroBarras"></div></div>
+<div class="table-scroll"><table class="data-table lucro-table"><thead><tr><th>Mês</th><th>Receita</th><th>Despesas</th><th>Lucro</th><th>Margem</th></tr></thead><tbody id="lucroTabela"></tbody><tfoot id="lucroTotais"></tfoot></table></div>
+<p class="lucro-nota">Receita = aluguéis com pagamento aprovado, no mês do pagamento. Despesas = tudo o que foi lançado na aba Despesas.</p>
+</article>
+
 <article class="card dashboard-card">
 <div class="dashboard-card-head"><div><p class="eyebrow">Estoque completo</p><h2>Retorno por bolsa</h2></div></div>
 <div class="investment-table-wrap portfolio-table-wrap">
 <table class="data-table portfolio-excel">
-<thead><tr><th data-sort="slug" tabindex="0" role="columnheader" aria-sort="none">Slug</th><th data-sort="loja" tabindex="0" role="columnheader" aria-sort="none">Vlr. loja</th><th data-sort="pago" tabindex="0" role="columnheader" aria-sort="none">Vlr. pago</th><th data-sort="dif" tabindex="0" role="columnheader" aria-sort="none">Dif. Vlr.</th><th data-sort="caucao" tabindex="0" role="columnheader" aria-sort="none">Caução</th><th data-sort="dias" tabindex="0" role="columnheader" aria-sort="none">Dias</th><th data-sort="aluguel" tabindex="0" role="columnheader" aria-sort="none">Aluguel</th><th data-sort="sugerido" title="3% do valor de loja" tabindex="0" role="columnheader" aria-sort="none">Vlr. sugerido</th><th data-sort="pctPago" tabindex="0" role="columnheader" aria-sort="none">% pago</th><th data-sort="pctLoja" tabindex="0" role="columnheader" aria-sort="none">% loja</th><th data-sort="meta" tabindex="0" role="columnheader" aria-sort="none">Meta</th><th data-sort="fat" tabindex="0" role="columnheader" aria-sort="none">Fat.</th></tr></thead>
+<thead><tr><th data-sort="slug" tabindex="0" role="columnheader" aria-sort="none">Slug</th><th data-sort="loja" tabindex="0" role="columnheader" aria-sort="none">Vlr. loja</th><th data-sort="pago" tabindex="0" role="columnheader" aria-sort="none">Vlr. pago</th><th data-sort="dif" tabindex="0" role="columnheader" aria-sort="none">Dif. Vlr.</th><th data-sort="caucao" tabindex="0" role="columnheader" aria-sort="none">Caução</th><th data-sort="dias" tabindex="0" role="columnheader" aria-sort="none">Dias</th><th data-sort="aluguel" tabindex="0" role="columnheader" aria-sort="none">Aluguel</th><th data-sort="sugerido" title="3% do valor de loja" tabindex="0" role="columnheader" aria-sort="none">Vlr. sugerido</th><th data-sort="pctPago" tabindex="0" role="columnheader" aria-sort="none">% pago</th><th data-sort="pctLoja" tabindex="0" role="columnheader" aria-sort="none">% loja</th><th data-sort="meta" tabindex="0" role="columnheader" aria-sort="none">Meta</th><th data-sort="fat" tabindex="0" role="columnheader" aria-sort="none">Fat.</th><th data-sort="desp" title="Despesas lançadas para a bolsa" tabindex="0" role="columnheader" aria-sort="none">Desp.</th><th data-sort="lucro" title="Faturamento menos despesas da bolsa" tabindex="0" role="columnheader" aria-sort="none">Lucro</th></tr></thead>
 <tbody id="portfolioTableBody"></tbody>
 <tfoot id="portfolioTableTotals"></tfoot>
 </table>
@@ -1250,6 +1275,8 @@ case "sugerido": return x.valorLoja?x.valorLoja*TAXA_SUGERIDA:null;
 case "pctPago": return x.pctPago;
 case "pctLoja": return x.pctLoja;
 case "meta": return x.meta;
+case "desp": return x.despesas||null;
+case "lucro": return x.faturamento-x.despesas;
 default: return x.faturamento;
 }
 }
@@ -2149,14 +2176,16 @@ const planos = precosBolsas.filter(p=>p.bolsa_id===b.id && p.ativo!==false && Nu
 const plano = planos[0] || null;
 const alugueis = pedidos.filter(p=>itemPedido(p)?.bolsas?.id===b.id && p.status!=="cancelado");
 const faturamento = aluguéisReceita(alugueis);
+const despesas = Number((window.TBRDespesasPorBolsa||{})[b.id]||0);
 const valorPago = Number(b.valor_pago||0), valorLoja=Number(b.valor_loja||0), aluguel=Number(plano?.valor||0);
-return {b,plano,alugueis,faturamento,valorPago,valorLoja,aluguel,pctPago:valorPago&&aluguel?aluguel/valorPago*100:null,pctLoja:valorLoja&&aluguel?aluguel/valorLoja*100:null,meta:valorPago&&aluguel?Math.round(valorPago/aluguel):null};
+return {b,plano,alugueis,faturamento,despesas,valorPago,valorLoja,aluguel,pctPago:valorPago&&aluguel?aluguel/valorPago*100:null,pctLoja:valorLoja&&aluguel?aluguel/valorLoja*100:null,meta:valorPago&&aluguel?Math.round(valorPago/aluguel):null};
 });
 const capital=dados.reduce((s,x)=>s+x.valorPago,0), receita=dados.reduce((s,x)=>s+x.faturamento,0);
 const valorLojaTotal=dados.reduce((s,x)=>s+x.valorLoja,0);
 const diferencaTotal=dados.reduce((s,x)=>s+(x.b.valor_loja!=null&&x.b.valor_pago!=null?x.valorLoja-x.valorPago:0),0);
 const caucaoTotal=dados.reduce((s,x)=>s+Number(x.b.valor_caucao||0),0);
 const aluguelTotal=dados.reduce((s,x)=>s+x.aluguel,0);
+const despesasTotal=dados.reduce((s,x)=>s+x.despesas,0);
 const semAluguel=dados.filter(x=>!x.alugueis.length).length, recuperadas=dados.filter(x=>x.valorPago>0&&x.faturamento>=x.valorPago).length;
 const retorno=capital?receita/capital*100:0;
 document.getElementById("portfolioMetrics").innerHTML=[
@@ -2172,8 +2201,8 @@ document.getElementById("portfolioTableBody").innerHTML=ordenarPortfolio(dados).
 <td data-label="Dias">${x.plano?.dias||"—"}</td><td data-label="Aluguel">${x.aluguel?moedaPortfolio(x.aluguel):"—"}</td><td data-label="Vlr. sugerido" class="money-suggested">${x.valorLoja?moedaPortfolio(x.valorLoja*TAXA_SUGERIDA):"—"}</td>
 <td data-label="% pago">${x.pctPago!==null?x.pctPago.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
 <td data-label="% loja">${x.pctLoja!==null?x.pctLoja.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%":"—"}</td>
-<td data-label="Meta">${x.meta??"—"}</td><td data-label="Fat." class="money-emphasis">${moedaPortfolio(x.faturamento)}</td></tr>`).join("") || '<tr><td colspan="12" class="dashboard-empty">Nenhuma bolsa cadastrada.</td></tr>';
-document.getElementById("portfolioTableTotals").innerHTML=`<tr class="portfolio-totals"><td data-label="Slug"><strong>Total</strong></td><td data-label="Vlr. loja">${moedaPortfolio(valorLojaTotal)}</td><td data-label="Vlr. pago">${moedaPortfolio(capital)}</td><td data-label="Dif. Vlr.">${moedaPortfolio(diferencaTotal)}</td><td data-label="Caução">${moedaPortfolio(caucaoTotal)}</td><td data-label="Dias">—</td><td data-label="Aluguel">${moedaPortfolio(aluguelTotal)}</td><td data-label="Vlr. sugerido" class="money-suggested">${moedaPortfolio(valorLojaTotal*TAXA_SUGERIDA)}</td><td data-label="% pago">—</td><td data-label="% loja">—</td><td data-label="Meta">—</td><td data-label="Fat." class="money-emphasis">${moedaPortfolio(receita)}</td></tr>`;
+<td data-label="Meta">${x.meta??"—"}</td><td data-label="Fat." class="money-emphasis">${moedaPortfolio(x.faturamento)}</td><td data-label="Desp.">${x.despesas?moedaPortfolio(x.despesas):"—"}</td><td data-label="Lucro" class="${x.faturamento-x.despesas<0?'lucro-neg':''}">${moedaPortfolio(x.faturamento-x.despesas)}</td></tr>`).join("") || '<tr><td colspan="14" class="dashboard-empty">Nenhuma bolsa cadastrada.</td></tr>';
+document.getElementById("portfolioTableTotals").innerHTML=`<tr class="portfolio-totals"><td data-label="Slug"><strong>Total</strong></td><td data-label="Vlr. loja">${moedaPortfolio(valorLojaTotal)}</td><td data-label="Vlr. pago">${moedaPortfolio(capital)}</td><td data-label="Dif. Vlr.">${moedaPortfolio(diferencaTotal)}</td><td data-label="Caução">${moedaPortfolio(caucaoTotal)}</td><td data-label="Dias">—</td><td data-label="Aluguel">${moedaPortfolio(aluguelTotal)}</td><td data-label="Vlr. sugerido" class="money-suggested">${moedaPortfolio(valorLojaTotal*TAXA_SUGERIDA)}</td><td data-label="% pago">—</td><td data-label="% loja">—</td><td data-label="Meta">—</td><td data-label="Fat." class="money-emphasis">${moedaPortfolio(receita)}</td><td data-label="Desp.">${moedaPortfolio(despesasTotal)}</td><td data-label="Lucro" class="${receita-despesasTotal<0?'lucro-neg':''}">${moedaPortfolio(receita-despesasTotal)}</td></tr>`;
 renderPortfolioMobile();
 marcarOrdenacaoPortfolio();
 }
@@ -2183,14 +2212,14 @@ const source=document.getElementById("portfolioTableBody");
 const target=document.getElementById("portfolioMobileTables");
 const headers=source.closest("table").querySelectorAll("thead th");
 target.replaceChildren();
-if(!source.rows.length || source.rows[0].cells.length!==12){
+if(!source.rows.length || source.rows[0].cells.length!==14){
 target.innerHTML='<p class="dashboard-empty">Nenhuma bolsa cadastrada.</p>';
 return;
 }
 const groups=[
 {title:"Valores da bolsa",columns:[0,1,2,4]},
 {title:"Aluguel e percentuais",columns:[0,5,6,7,8,9]},
-{title:"Meta e faturamento",columns:[0,10,11]},
+{title:"Meta, faturamento e lucro",columns:[0,10,11,12,13]},
 {title:"Economia na compra",columns:[0,1,2,3]}
 ];
 groups.forEach(group=>{
@@ -2363,7 +2392,8 @@ verificarAcesso();
 <script src="/bag-manual-photos.js?v=20261002-21"></script>
 <script src="/admin-bag-editor.js?v=20261105-2"></script>
 <script src="/admin-price-autofill.js?v=20261105-1"></script>
-<script src="/admin-despesas.js?v=20261109-1"></script>
+<script src="/admin-despesas.js?v=20261109-2"></script>
+<script src="/admin-lucro.js?v=20261109-1"></script>
 <script src="/admin-ga-pages.js?v=20261002-22"></script>
 <script src="/admin-coupons.js?v=20261003-frete"></script>
 <script src="/admin-delete.js?v=20261002-24"></script>
