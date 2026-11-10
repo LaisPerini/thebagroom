@@ -776,7 +776,7 @@ return null;
 function preencherResumo(){
 const slug = String(checkout.bolsaSlug || '');
 document.getElementById('voltarParaBolsa').href = /^[a-z0-9_-]+$/.test(slug) ? `/aluguel/${slug}.html` : '/aluguel.html';
-document.getElementById("bagImage").src = checkout.imagem || "/img/fotos/uKmvItm.jpg";
+document.getElementById("bagImage").src = checkout.imagem || "/img/fotos/uKmvItm.webp";
 document.getElementById("bagImage").alt = checkout.bolsaNome || "Bolsa The Bag Room";
 document.getElementById("bagName").innerText = checkout.bolsaNome || "Bolsa de luxo";
 document.getElementById("bagDates").innerText = `${checkout.dataInicio} a ${checkout.dataFim} · ${checkout.dias} dias`;

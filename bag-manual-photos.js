@@ -1,254 +1,254 @@
 window.TBR_MANUAL_PHOTOS = {
   "bvlgari-micro-amarela": {
-    "cover": "/img/fotos/uKmvItm.jpg",
+    "cover": "/img/fotos/uKmvItm.webp",
     "gallery": [
-      "/img/fotos/uKmvItm.jpg",
-      "/img/fotos/7J3P9Fr.jpg",
-      "/img/fotos/VBhQdfh.jpg",
-      "/img/fotos/k5shGjv.jpg",
-      "/img/fotos/gRt4hw5.jpg"
+      "/img/fotos/uKmvItm.webp",
+      "/img/fotos/7J3P9Fr.webp",
+      "/img/fotos/VBhQdfh.webp",
+      "/img/fotos/k5shGjv.webp",
+      "/img/fotos/gRt4hw5.webp"
     ]
   },
   "bvlgari-serpenti-branca": {
-    "cover": "/img/fotos/SmLGoiG.jpg",
+    "cover": "/img/fotos/SmLGoiG.webp",
     "gallery": [
-      "/img/fotos/A2FaCOI.jpg",
-      "/img/fotos/AOwuabT.jpg",
-      "/img/fotos/S0EM5aK.jpg",
-      "/img/fotos/EdPXLh4.jpg",
-      "/img/fotos/OtrUNo5.jpg"
+      "/img/fotos/A2FaCOI.webp",
+      "/img/fotos/AOwuabT.webp",
+      "/img/fotos/S0EM5aK.webp",
+      "/img/fotos/EdPXLh4.webp",
+      "/img/fotos/OtrUNo5.webp"
     ]
   },
   "bvlgari-serpenti-verde": {
-    "cover": "/img/fotos/Oj314YO.jpg",
+    "cover": "/img/fotos/Oj314YO.webp",
     "gallery": [
-      "/img/fotos/wYj0FjT.jpg",
-      "/img/fotos/xaKxqYB.jpg",
-      "/img/fotos/X4HaYR1.jpg",
-      "/img/fotos/4pt1Oxn.jpg",
-      "/img/fotos/bFbd1II.jpg"
+      "/img/fotos/wYj0FjT.webp",
+      "/img/fotos/xaKxqYB.webp",
+      "/img/fotos/X4HaYR1.webp",
+      "/img/fotos/4pt1Oxn.webp",
+      "/img/fotos/bFbd1II.webp"
     ]
   },
   "bvlgari-serpenti-vermelha": {
-    "cover": "/img/fotos/8GdXEuT.jpg",
+    "cover": "/img/fotos/8GdXEuT.webp",
     "gallery": [
-      "/img/fotos/8GdXEuT.jpg",
-      "/img/fotos/oQ2Nkfg.jpg",
-      "/img/fotos/DWIZQZ1.jpg",
-      "/img/fotos/Sl72765.jpg",
-      "/img/fotos/M1H9wvr.jpg"
+      "/img/fotos/8GdXEuT.webp",
+      "/img/fotos/oQ2Nkfg.webp",
+      "/img/fotos/DWIZQZ1.webp",
+      "/img/fotos/Sl72765.webp",
+      "/img/fotos/M1H9wvr.webp"
     ]
   },
   "carolinaherreira-insignia": {
-    "cover": "/img/fotos/yDKUbXX.jpg",
+    "cover": "/img/fotos/yDKUbXX.webp",
     "gallery": [
-      "/img/fotos/yDKUbXX.jpg"
+      "/img/fotos/yDKUbXX.webp"
     ]
   },
   "coach-28-brooklyn": {
-    "cover": "/img/fotos/Mg8j9dZ.jpg",
+    "cover": "/img/fotos/Mg8j9dZ.webp",
     "gallery": [
-      "/img/fotos/Mg8j9dZ.jpg",
-      "/img/fotos/ljobdg5.jpg",
-      "/img/fotos/h4lwQBF.jpg",
-      "/img/fotos/lA2s1wq.jpg",
-      "/img/fotos/oRWT20B.jpg"
+      "/img/fotos/Mg8j9dZ.webp",
+      "/img/fotos/ljobdg5.webp",
+      "/img/fotos/h4lwQBF.webp",
+      "/img/fotos/lA2s1wq.webp",
+      "/img/fotos/oRWT20B.webp"
     ]
   },
   "coach-tabby-chain-19": {
-    "cover": "/img/fotos/Vw8sxhs.jpg",
+    "cover": "/img/fotos/Vw8sxhs.webp",
     "gallery": [
-      "/img/fotos/Vw8sxhs.jpg",
-      "/img/fotos/UIui1Ql.jpg",
-      "/img/fotos/AX5RV5D.jpg",
-      "/img/fotos/OTKwj3J.jpg",
-      "/img/fotos/W3t3Pfc.jpg",
-      "/img/fotos/r1bTKHy.jpg",
-      "/img/fotos/YaS0jtG.jpg"
+      "/img/fotos/Vw8sxhs.webp",
+      "/img/fotos/UIui1Ql.webp",
+      "/img/fotos/AX5RV5D.webp",
+      "/img/fotos/OTKwj3J.webp",
+      "/img/fotos/W3t3Pfc.webp",
+      "/img/fotos/r1bTKHy.webp",
+      "/img/fotos/YaS0jtG.webp"
     ]
   },
   "dolce-gabbana-devotion-box": {
-    "cover": "/img/fotos/RAJHFek.jpg",
+    "cover": "/img/fotos/RAJHFek.webp",
     "gallery": [
-      "/img/fotos/RAJHFek.jpg",
-      "/img/fotos/TxofWfI.jpg",
-      "/img/fotos/8YsxmLs.jpg",
-      "/img/fotos/8znoA5O.jpg",
-      "/img/fotos/fskfLJX.jpg"
+      "/img/fotos/RAJHFek.webp",
+      "/img/fotos/TxofWfI.webp",
+      "/img/fotos/8YsxmLs.webp",
+      "/img/fotos/8znoA5O.webp",
+      "/img/fotos/fskfLJX.webp"
     ]
   },
   "dolcegabbana-iguana": {
-    "cover": "/img/fotos/WmAbh2U.jpg",
+    "cover": "/img/fotos/WmAbh2U.webp",
     "gallery": [
-      "/img/fotos/WmAbh2U.jpg",
-      "/img/fotos/F1HCbgn.jpg",
-      "/img/fotos/kZqgQmI.jpg",
-      "/img/fotos/fHw2ULR.jpg",
-      "/img/fotos/Bv5Qk71.jpg"
+      "/img/fotos/WmAbh2U.webp",
+      "/img/fotos/F1HCbgn.webp",
+      "/img/fotos/kZqgQmI.webp",
+      "/img/fotos/fHw2ULR.webp",
+      "/img/fotos/Bv5Qk71.webp"
     ]
   },
   "fendi-2jours": {
-    "cover": "/img/fotos/irpQ4t3.jpg",
+    "cover": "/img/fotos/irpQ4t3.webp",
     "gallery": [
-      "/img/fotos/bUaENpx.jpg"
+      "/img/fotos/bUaENpx.webp"
     ]
   },
   "fendi-zucchino": {
-    "cover": "/img/fotos/fFn9bOz.jpg",
+    "cover": "/img/fotos/fFn9bOz.webp",
     "gallery": [
-      "/img/fotos/gq26Mwg.jpg",
-      "/img/fotos/bxUUoN4.jpg"
+      "/img/fotos/gq26Mwg.webp",
+      "/img/fotos/bxUUoN4.webp"
     ]
   },
   "gucci-dionysus-super-mini-python": {
-    "cover": "/img/fotos/CQgYNzK.jpg",
+    "cover": "/img/fotos/CQgYNzK.webp",
     "gallery": [
-      "/img/fotos/CQgYNzK.jpg",
-      "/img/fotos/Shc8ogQ.jpg",
-      "/img/fotos/KMn56JF.jpg",
-      "/img/fotos/k4lHobK.jpg",
-      "/img/fotos/O26Qgyg.jpg",
-      "/img/fotos/MpITufE.jpg"
+      "/img/fotos/CQgYNzK.webp",
+      "/img/fotos/Shc8ogQ.webp",
+      "/img/fotos/KMn56JF.webp",
+      "/img/fotos/k4lHobK.webp",
+      "/img/fotos/O26Qgyg.webp",
+      "/img/fotos/MpITufE.webp"
     ]
   },
   "gucci-dionysus-veludo-azul": {
-    "cover": "/img/fotos/cWeUrHz.jpg",
+    "cover": "/img/fotos/cWeUrHz.webp",
     "gallery": [
-      "/img/fotos/cWeUrHz.jpg",
-      "/img/fotos/ZgC7RfI.jpg",
-      "/img/fotos/gQHiRGn.jpg",
-      "/img/fotos/n4CjEmT.jpg"
+      "/img/fotos/cWeUrHz.webp",
+      "/img/fotos/ZgC7RfI.webp",
+      "/img/fotos/gQHiRGn.webp",
+      "/img/fotos/n4CjEmT.webp"
     ]
   },
   "gucci-rajah": {
-    "cover": "/img/fotos/iUrTpzD.jpg",
+    "cover": "/img/fotos/iUrTpzD.webp",
     "gallery": [
-      "/img/fotos/iUrTpzD.jpg",
-      "/img/fotos/f5mnqqV.jpg",
-      "/img/fotos/pFZDPk3.jpg",
-      "/img/fotos/QuujuVb.jpg",
-      "/img/fotos/DwBP3Nt.jpg",
-      "/img/fotos/gKdalBP.jpg"
+      "/img/fotos/iUrTpzD.webp",
+      "/img/fotos/f5mnqqV.webp",
+      "/img/fotos/pFZDPk3.webp",
+      "/img/fotos/QuujuVb.webp",
+      "/img/fotos/DwBP3Nt.webp",
+      "/img/fotos/gKdalBP.webp"
     ]
   },
   "gucci-blondie-rosa": {
-    "cover": "/img/fotos/GblRsa1.jpg",
+    "cover": "/img/fotos/GblRsa1.webp",
     "gallery": [
-      "/img/fotos/GblRsa1.jpg",
-      "/img/fotos/GblRsa2.jpg",
-      "/img/fotos/GblRsa3.jpg",
-      "/img/fotos/GblRsa4.jpg",
-      "/img/fotos/GblRsa5.jpg",
-      "/img/fotos/GblRsa6.jpg",
-      "/img/fotos/GblRsa7.jpg"
+      "/img/fotos/GblRsa1.webp",
+      "/img/fotos/GblRsa2.webp",
+      "/img/fotos/GblRsa3.webp",
+      "/img/fotos/GblRsa4.webp",
+      "/img/fotos/GblRsa5.webp",
+      "/img/fotos/GblRsa6.webp",
+      "/img/fotos/GblRsa7.webp"
     ]
   },
   "gucci-sylvie-star": {
-    "cover": "/img/fotos/WLn7IbA.jpg",
+    "cover": "/img/fotos/WLn7IbA.webp",
     "gallery": [
-      "/img/fotos/v81HiZn.jpg",
-      "/img/fotos/HJ5jPYQ.jpg",
-      "/img/fotos/0CUXB65.jpg",
-      "/img/fotos/wxwsr66.jpg",
-      "/img/fotos/gTLLQKY.jpg"
+      "/img/fotos/v81HiZn.webp",
+      "/img/fotos/HJ5jPYQ.webp",
+      "/img/fotos/0CUXB65.webp",
+      "/img/fotos/wxwsr66.webp",
+      "/img/fotos/gTLLQKY.webp"
     ]
   },
   "hermes-toto-pm": {
-    "cover": "/img/fotos/HrmTot1.jpg",
+    "cover": "/img/fotos/HrmTot1.webp",
     "gallery": [
-      "/img/fotos/HrmTot1.jpg",
-      "/img/fotos/HrmTot2.jpg",
-      "/img/fotos/HrmTot3.jpg",
-      "/img/fotos/HrmTot4.jpg"
+      "/img/fotos/HrmTot1.webp",
+      "/img/fotos/HrmTot2.webp",
+      "/img/fotos/HrmTot3.webp",
+      "/img/fotos/HrmTot4.webp"
     ]
   },
   "hermes-vinyl-kelly": {
-    "cover": "/img/fotos/Q99KQYI.jpg",
+    "cover": "/img/fotos/Q99KQYI.webp",
     "gallery": [
-      "/img/fotos/Q99KQYI.jpg",
-      "/img/fotos/VShcLVB.jpg",
-      "/img/fotos/VqgoPIz.jpg"
+      "/img/fotos/Q99KQYI.webp",
+      "/img/fotos/VShcLVB.webp",
+      "/img/fotos/VqgoPIz.webp"
     ]
   },
   "katespade-carey-tisel-tweed-medium": {
-    "cover": "/img/fotos/GTusdro.jpg",
+    "cover": "/img/fotos/GTusdro.webp",
     "gallery": [
-      "/img/fotos/GTusdro.jpg",
-      "/img/fotos/HKNMXNv.jpg",
-      "/img/fotos/jRWqKnr.jpg",
-      "/img/fotos/2zQXc5b.jpg",
-      "/img/fotos/DAVw4h6.jpg",
-      "/img/fotos/8GPoyNq.jpg",
-      "/img/fotos/xMjsUs6.jpg"
+      "/img/fotos/GTusdro.webp",
+      "/img/fotos/HKNMXNv.webp",
+      "/img/fotos/jRWqKnr.webp",
+      "/img/fotos/2zQXc5b.webp",
+      "/img/fotos/DAVw4h6.webp",
+      "/img/fotos/8GPoyNq.webp",
+      "/img/fotos/xMjsUs6.webp"
     ]
   },
   "katespade-carey-tissel-tweed-micro": {
-    "cover": "/img/fotos/b1odo1O.jpg",
+    "cover": "/img/fotos/b1odo1O.webp",
     "gallery": [
-      "/img/fotos/b1odo1O.jpg",
-      "/img/fotos/Nsr2DGt.jpg",
-      "/img/fotos/pxuGZAd.jpg",
-      "/img/fotos/THpaAMp.jpg"
+      "/img/fotos/b1odo1O.webp",
+      "/img/fotos/Nsr2DGt.webp",
+      "/img/fotos/pxuGZAd.webp",
+      "/img/fotos/THpaAMp.webp"
     ]
   },
   "katespade-carey": {
-    "cover": "/img/fotos/b9aeszv.jpg",
+    "cover": "/img/fotos/b9aeszv.webp",
     "gallery": [
-      "/img/fotos/b9aeszv.jpg",
+      "/img/fotos/b9aeszv.webp",
       "/img/fotos/uCnpc8l.jpg",
-      "/img/fotos/52gJnv5.jpg",
-      "/img/fotos/JtiExQL.jpg",
-      "/img/fotos/haVs8pb.jpg",
-      "/img/fotos/NSRKRwR.jpg"
+      "/img/fotos/52gJnv5.webp",
+      "/img/fotos/JtiExQL.webp",
+      "/img/fotos/haVs8pb.webp",
+      "/img/fotos/NSRKRwR.webp"
     ]
   },
   "katespade-casey-bear-tweed": {
-    "cover": "/img/fotos/zelSOS6.jpg",
+    "cover": "/img/fotos/zelSOS6.webp",
     "gallery": [
-      "/img/fotos/zelSOS6.jpg",
-      "/img/fotos/HeoYF9S.jpg",
-      "/img/fotos/ltbR541.jpg",
-      "/img/fotos/RgQYxYK.jpg",
-      "/img/fotos/ZRcxpQM.jpg",
-      "/img/fotos/YL9GmFm.jpg",
-      "/img/fotos/eLIV87x.jpg",
-      "/img/fotos/dNh6riZ.jpg",
-      "/img/fotos/YLOjvaD.jpg"
+      "/img/fotos/zelSOS6.webp",
+      "/img/fotos/HeoYF9S.webp",
+      "/img/fotos/ltbR541.webp",
+      "/img/fotos/RgQYxYK.webp",
+      "/img/fotos/ZRcxpQM.webp",
+      "/img/fotos/YL9GmFm.webp",
+      "/img/fotos/eLIV87x.webp",
+      "/img/fotos/dNh6riZ.webp",
+      "/img/fotos/YLOjvaD.webp"
     ]
   },
   "katespade-duet-floral-crossbody": {
-    "cover": "/img/fotos/I01DeS3.jpg",
+    "cover": "/img/fotos/I01DeS3.webp",
     "gallery": [
-      "/img/fotos/xYyX7Da.jpg",
-      "/img/fotos/utSMgKu.jpg",
-      "/img/fotos/ykevrjd.jpg",
-      "/img/fotos/u8JGK0W.jpg"
+      "/img/fotos/xYyX7Da.webp",
+      "/img/fotos/utSMgKu.webp",
+      "/img/fotos/ykevrjd.webp",
+      "/img/fotos/u8JGK0W.webp"
     ]
   },
   "katespade-turnlock": {
-    "cover": "/img/fotos/WQrPzBg.jpg",
+    "cover": "/img/fotos/WQrPzBg.webp",
     "gallery": [
-      "/img/fotos/WQrPzBg.jpg",
-      "/img/fotos/7ZjRz7C.jpg",
-      "/img/fotos/ytfF6wM.jpg",
-      "/img/fotos/wAlmswd.jpg"
+      "/img/fotos/WQrPzBg.webp",
+      "/img/fotos/7ZjRz7C.webp",
+      "/img/fotos/ytfF6wM.webp",
+      "/img/fotos/wAlmswd.webp"
     ]
   },
   "marcjacobs": {
-    "cover": "/img/fotos/t38otvi.jpg",
+    "cover": "/img/fotos/t38otvi.webp",
     "gallery": [
-      "/img/fotos/t38otvi.jpg",
-      "/img/fotos/ZpFC4hw.jpg",
-      "/img/fotos/WczlkQ4.jpg"
+      "/img/fotos/t38otvi.webp",
+      "/img/fotos/ZpFC4hw.webp",
+      "/img/fotos/WczlkQ4.webp"
     ]
   },
   "mk-jetset": {
-    "cover": "/img/fotos/W4WLNou.jpg",
+    "cover": "/img/fotos/W4WLNou.webp",
     "gallery": [
-      "/img/fotos/gDcOX88.jpg",
-      "/img/fotos/rDa1N4c.jpg",
-      "/img/fotos/Fs1Ru2C.jpg",
-      "/img/fotos/aOgE7VX.jpg"
+      "/img/fotos/gDcOX88.webp",
+      "/img/fotos/rDa1N4c.webp",
+      "/img/fotos/Fs1Ru2C.webp",
+      "/img/fotos/aOgE7VX.webp"
     ]
   }
 };
