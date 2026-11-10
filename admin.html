@@ -659,6 +659,23 @@ background:#9b2c2c;
 .portfolio-excel tr.recovered td:first-child{border-left:4px solid #32633e;}
 .portfolio-excel tr.recovered .money-emphasis{color:#32633e;}
 .money-suggested{color:#8a6a3b;font-weight:600;}
+/* Avaliações e favoritas */
+.av-stats{grid-template-columns:repeat(3,minmax(0,1fr));}
+.av-lista{display:grid;gap:12px;}
+.av-item{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start;}
+.av-item h3{margin:0 0 4px;font-size:15px;}
+.av-item .av-meta{font-size:12px;color:#8a847a;margin:0 0 10px;}
+.av-item .av-txt{margin:0;font-size:14px;line-height:1.6;color:#2b2824;white-space:pre-wrap;}
+.av-notas{font-size:16px;letter-spacing:2px;color:#1a1714;}
+.av-tag{display:inline-block;margin-left:8px;padding:2px 8px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid #ddd6cb;color:#6f6a62;}
+.av-toggle{display:flex;gap:8px;align-items:center;font-size:12px;white-space:nowrap;cursor:pointer;}
+.av-toggle input{width:18px;height:18px;accent-color:#1a1714;}
+.fav-row{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #eee8de;font-size:14px;}
+.fav-row:last-child{border-bottom:0;}
+.fav-row b{color:#8a847a;font-weight:500;}
+.fav-bar{grid-column:2/4;height:4px;background:#f1ece4;margin-top:-4px;}
+.fav-bar i{display:block;height:100%;background:#8a6a3b;}
+@media(max-width:760px){.av-item{grid-template-columns:1fr;}.av-stats{grid-template-columns:repeat(3,minmax(0,1fr));}}
 /* Despesas */
 .desp-stats{grid-template-columns:repeat(3,minmax(0,1fr));}
 .desp-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px;margin-bottom:16px;align-items:start;}
@@ -834,6 +851,7 @@ background:#9b2c2c;
 <button type="button" data-panel="bolsas" onclick="abrirPainel('bolsas', this)">Cadastrar Bolsa</button>
 <button type="button" data-panel="clientes" onclick="abrirPainel('clientes', this)">Validação de Clientes</button>
 <button type="button" data-panel="despesas" onclick="abrirPainel('despesas', this)">Despesas</button>
+<button type="button" data-panel="avaliacoes" onclick="abrirPainel('avaliacoes', this)">Avaliações</button>
 <button type="button" data-panel="ajuda" onclick="abrirPainel('ajuda', this)">Ajuda</button>
 </nav>
 <p class="sidebar-note">
@@ -929,6 +947,12 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 <article class="card dashboard-card" style="margin-bottom:16px;">
 <div class="dashboard-card-head"><div><p class="eyebrow">Investimento</p><h2>Análises do portfólio</h2></div></div>
 <div class="dashboard-kpis" id="portfolioMetrics" style="margin-bottom:0;"></div>
+</article>
+
+<article class="card dashboard-card" id="favCard" style="margin-bottom:16px;">
+<div class="dashboard-card-head"><div><p class="eyebrow">Desejo</p><h2>Bolsas mais favoritadas</h2></div></div>
+<div id="favRanking"><p class="message">Carregando…</p></div>
+<p class="lucro-nota">Conta os corações salvos pelas clientes que estão logadas na conta.</p>
 </article>
 
 <article class="card dashboard-card" id="lucroCard" style="margin-bottom:16px;">
@@ -1185,6 +1209,16 @@ Acompanhe os cadastros enviados pelas clientes, confira documentos e aprove ou r
 </table>
 </div>
 </section>
+<section id="avaliacoes" class="panel">
+<div class="stats av-stats">
+<div class="stat-card"><div class="stat-label">Nota média</div><div class="stat-value" id="avMedia">—</div></div>
+<div class="stat-card"><div class="stat-label">Avaliações</div><div class="stat-value" id="avQtd">0</div></div>
+<div class="stat-card"><div class="stat-label">No site</div><div class="stat-value" id="avPublicadas">0</div></div>
+</div>
+<p class="message">As avaliações chegam pelo e-mail enviado 1 dia depois da devolução. Ligue "Mostrar no site" nas que você quiser usar como depoimento (só aparece para as que a cliente autorizou).</p>
+<p id="avStatus" class="message"></p>
+<div id="avLista" class="av-lista"></div>
+</section>
 <section id="ajuda" class="panel">
 <div class="card">
 <h2>Como usar</h2>
@@ -1255,7 +1289,7 @@ if(navButton) navButton.classList.add("active");
 
 painel.classList.add("active");
 document.getElementById("legacyStats").style.display = panelId === "pedidos" ? "grid" : "none";
-const titulos = {dashboard:"Dashboard",pedidos:"Painel de Aluguéis",bloqueios:"Bloquear Datas",bolsas:"Bolsas",clientes:"Validação de clientes",despesas:"Despesas da loja",ajuda:"Ajuda"};
+const titulos = {dashboard:"Dashboard",pedidos:"Painel de Aluguéis",bloqueios:"Bloquear Datas",bolsas:"Bolsas",clientes:"Validação de clientes",despesas:"Despesas da loja",avaliacoes:"Avaliações das clientes",ajuda:"Ajuda"};
 document.getElementById("pageTitle").textContent = titulos[panelId] || "Painel Admin";
 if(panelId === "clientes" && !clientesValidacao.length){ carregarValidacoes(); }
 painel.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2400,6 +2434,7 @@ verificarAcesso();
 <script src="/admin-price-autofill.js?v=20261105-1"></script>
 <script src="/admin-despesas.js?v=20261109-2"></script>
 <script src="/admin-lucro.js?v=20261109-1"></script>
+<script src="/admin-avaliacoes.js?v=20261110-1"></script>
 <script src="/admin-ga-pages.js?v=20261002-22"></script>
 <script src="/admin-coupons.js?v=20261003-frete"></script>
 <script src="/admin-delete.js?v=20261002-24"></script>

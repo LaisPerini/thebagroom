@@ -139,8 +139,9 @@ body.tbr-catalog .grid .card .tag{right:auto!important}
     b.addEventListener('click', e => {
       e.preventDefault(); e.stopPropagation();
       const s = slugDe(card);
-      favs.has(s) ? favs.delete(s) : favs.add(s);
-      gravar(LS_FAV, [...favs]); marcar(card); atualizarBotaoFavs();
+      const on = !favs.has(s);
+      on ? favs.add(s) : favs.delete(s);
+      gravar(LS_FAV, [...favs]); marcar(card); atualizarBotaoFavs(); salvarNaConta(s, on);
     });
     box.appendChild(b); marcar(card);
   });
@@ -179,4 +180,37 @@ body.tbr-catalog .grid .card .tag{right:auto!important}
   };
   acoes.querySelectorAll('.tbr-grade button').forEach(b => b.addEventListener('click', () => { const g = Number(b.dataset.g); gravar(LS_GRADE, g); aplicarGrade(g); }));
   aplicarGrade(ler(LS_GRADE, 2) === 1 ? 1 : 2);
+
+  // ---------- favoritas na conta (quando a cliente está logada) ----------
+  // A primeira vez numa conta junta as favoritas do aparelho com as da conta; depois disso a conta manda
+  // (assim, tirar uma favorita no celular também tira no computador).
+  const LS_FAV_CONTA = 'tbr-favoritas-conta';
+  let contaId = null;
+  function salvarNaConta(slug, on) {
+    const db = window.tbrSupabase;
+    if (!db || !contaId) return;
+    const q = on ? db.from('favoritas').upsert({ cliente_auth_id: contaId, bolsa_slug: slug }, { onConflict: 'cliente_auth_id,bolsa_slug', ignoreDuplicates: true })
+      : db.from('favoritas').delete().eq('cliente_auth_id', contaId).eq('bolsa_slug', slug);
+    q.then(({ error }) => { if (error) console.warn('Favoritas: não foi possível salvar na conta.', error.message); });
+  }
+  (async () => {
+    const db = window.tbrSupabase;
+    if (!db) return;
+    const { data: { session } } = await db.auth.getSession();
+    if (!session) { gravar(LS_FAV_CONTA, null); return; } // saiu da conta: na próxima entrada junta de novo
+    const id = session.user.id;
+    const { data, error } = await db.from('favoritas').select('bolsa_slug');
+    if (error) return;
+    const daConta = new Set((data || []).map(r => r.bolsa_slug));
+    const jaSincronizado = ler(LS_FAV_CONTA, null) === id;
+    const novas = jaSincronizado ? [] : [...favs].filter(s => !daConta.has(s));
+    if (novas.length) {
+      const { error: e2 } = await db.from('favoritas').upsert(novas.map(s => ({ cliente_auth_id: id, bolsa_slug: s })), { onConflict: 'cliente_auth_id,bolsa_slug', ignoreDuplicates: true });
+      if (!e2) novas.forEach(s => daConta.add(s));
+    }
+    contaId = id;
+    favs = daConta;
+    gravar(LS_FAV, [...favs]); gravar(LS_FAV_CONTA, id);
+    cards.forEach(marcar); atualizarBotaoFavs();
+  })().catch(e => console.warn('Favoritas da conta indisponíveis.', e));
 })();

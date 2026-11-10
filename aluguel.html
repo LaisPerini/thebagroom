@@ -2208,6 +2208,7 @@ if(overlay){
 const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
 const SUPABASE_KEY = "sb_publishable_48rLPZfPRNtRX1kpYm0aWg_aVI1Hi2b";
 const aluguelSupabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+window.tbrSupabase = aluguelSupabase; // usado pelo vitrine.js para salvar as favoritas na conta
 
 function prepararCatalogo(){
   document.querySelectorAll('.card, .hero').forEach(card => {
@@ -2290,8 +2291,8 @@ const visiveis = cards.filter(card => !card.classList.contains('oculto'));
 window.addEventListener('load', prepararCatalogo);
 </script>
 
-  <script src="/luxury-refresh.js?v=20261110-4"></script>
+  <script src="/luxury-refresh.js?v=20261110-5"></script>
   <script src="/bag-fields.js?v=20261110-1"></script>
-  <script src="/vitrine.js?v=20261110-5"></script>
+  <script src="/vitrine.js?v=20261110-6"></script>
 </body>
 </html>

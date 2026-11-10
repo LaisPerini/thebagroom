@@ -8,7 +8,7 @@
   if (/\/(index\.html)?$/.test(path)) body.classList.add('tbr-home');
   else if (/\/aluguel\.html$/.test(path)) body.classList.add('tbr-catalog');
   else if (/\/aluguel\/.+\.html$/.test(path)) body.classList.add('tbr-product');
-  else if (/cadastro|checkout|login|minha-conta|pedido-aluguel|contrato/.test(path)) body.classList.add('tbr-utility');
+  else if (/cadastro|checkout|login|minha-conta|pedido-aluguel|avaliar|contrato/.test(path)) body.classList.add('tbr-utility');
   else body.classList.add('tbr-editorial');
 
   /* ===== Cabeçalho e menu (padrão único em todas as páginas) ===== */
@@ -463,7 +463,7 @@
 // e as fotos surgem do desfoque dentro do próprio quadro (como na Tod's), sem mexer no texto quando entram na tela. Só anima o que ainda está abaixo
 // da dobra; respeita quem prefere menos movimento.
 (function () {
-  if (/\/(admin|checkout|minha-conta|login|cadastro)/.test(location.pathname)) return;
+  if (/\/(admin|checkout|minha-conta|login|cadastro|avaliar)/.test(location.pathname)) return;
   if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const FORA = 'header, nav, footer, form, dialog, .menu-mobile, #tbr-cookie-panel, .slider, .hero-feature, .tbr-cond, [data-no-reveal]';

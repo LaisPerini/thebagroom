@@ -534,7 +534,7 @@ body { background: #f3efe8 !important; }
 .mc .mc-link { border-radius: 0 !important; }
 
 /* Abas */
-.mc-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0 0; }
+.mc-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 18px 0 0; }
 .mc-tabs button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 84px !important; padding: 14px 10px;
   border: 1px solid var(--mc-line); border-radius: var(--mc-radius); background: #fff; color: var(--mc-ink); box-shadow: var(--mc-shadow);
   font: 600 12px/1.2 var(--mc-sans); cursor: pointer; transition: transform .15s ease, background .2s ease; }
@@ -628,6 +628,16 @@ body { background: #f3efe8 !important; }
 .mc-count { min-width: 26px; padding: 4px 8px; border-radius: 999px; background: var(--mc-cream); font: 600 12px var(--mc-sans); text-align: center; }
 .mc-history-row { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid var(--mc-line); font-size: 13px; color: var(--mc-muted); }
 .mc-history-row strong { color: var(--mc-ink); font-weight: 600; }
+.mc-history-row .mc-avaliar { display: inline-block; margin-top: 6px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--mc-ink); text-decoration: underline; text-underline-offset: 4px; }
+.mc-favs { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 16px; }
+.mc-favs .mc-empty { grid-column: 1 / -1; }
+.mc-fav { display: block; color: var(--mc-ink); text-decoration: none; background: #fff; border-radius: 20px; box-shadow: var(--mc-shadow); overflow: hidden; }
+.mc-fav-img { display: block; aspect-ratio: 4 / 5; background: #f6f4f0; }
+.mc-fav-img img { width: 100%; height: 100%; object-fit: cover; }
+.mc-fav-txt { display: block; padding: 12px 14px 16px; }
+.mc-fav-txt small { display: block; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--mc-muted); }
+.mc-fav-txt strong { display: block; margin-top: 4px; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 18px; line-height: 1.15; }
+@media (max-width: 560px) { .mc-favs { grid-template-columns: repeat(2, 1fr); gap: 10px; } .mc-tabs button span { font-size: 10px; letter-spacing: .02em; } }
 
 /* Meus dados e ajuda */
 .mc-card { padding: 24px; background: #fff; border-radius: 20px; box-shadow: var(--mc-shadow); }
@@ -733,6 +743,10 @@ body { background: #f3efe8 !important; }
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8zM9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
       <span>Meus aluguéis</span>
     </button>
+    <button type="button" role="tab" id="tab-favoritas" aria-controls="painel-favoritas" aria-selected="false" onclick="abrirAba('favoritas')">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.3s-7.6-4.6-9.2-9.6C1.7 7.2 4 4 7.3 4c2 0 3.6 1.1 4.7 2.8C13.1 5.1 14.7 4 16.7 4 20 4 22.3 7.2 21.2 10.7c-1.6 5-9.2 9.6-9.2 9.6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      <span>Favoritas</span>
+    </button>
     <button type="button" role="tab" id="tab-dados" aria-controls="painel-dados" aria-selected="false" onclick="abrirAba('dados')">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4 21c1.2-4.2 4.3-6.3 8-6.3s6.8 2.1 8 6.3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
       <span>Meus dados</span>
@@ -758,6 +772,16 @@ body { background: #f3efe8 !important; }
       <summary><span>Histórico</span><span class="mc-count" id="historicoTotal"></span></summary>
       <div id="listaHistorico" class="mc-history-list"></div>
     </details>
+  </section>
+
+  <section class="mc-panel-area" id="painel-favoritas" role="tabpanel" aria-labelledby="tab-favoritas" hidden>
+    <div class="mc-section-head">
+      <h2 class="mc-section-title">Favoritas</h2>
+      <a class="mc-link" href="/aluguel.html">Ver todas as bolsas</a>
+    </div>
+    <div id="listaFavoritas" class="mc-favs">
+      <div class="mc-empty"><p>Carregando suas favoritas…</p></div>
+    </div>
   </section>
 
   <section class="mc-panel-area" id="painel-dados" role="tabpanel" aria-labelledby="tab-dados" hidden>
@@ -802,6 +826,7 @@ body { background: #f3efe8 !important; }
 
 
 <script src="/bag-manual-photos.js?v=20261109-3"></script>
+<script src="/capas-vitrine.js?v=20261110-1"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL = "https://zpyjnqkrsmgpwszqlcrs.supabase.co";
@@ -897,9 +922,12 @@ if(CONCLUIDOS.has(status)) return "muted";
 return "ok";
 }
 
+let capasVitrine = {};
+let avaliacoesFeitas = new Set();
 function fotoBolsa(bolsa){
-const raw = bolsa?.imagem_capa_url || window.TBR_MANUAL_PHOTOS?.[bolsa?.slug]?.cover || "";
-try{ const url = new URL(raw); return url.protocol === "https:" ? url.href : ""; }catch{ return ""; }
+const raw = capasVitrine[bolsa?.slug] || bolsa?.imagem_capa_url || window.TBR_MANUAL_PHOTOS?.[bolsa?.slug]?.cover || "";
+if(!raw) return "";
+try{ const url = new URL(raw, location.origin); return url.protocol === "https:" || url.origin === location.origin ? url.href : ""; }catch{ return ""; }
 }
 
 function enderecoTexto(endereco){
@@ -971,13 +999,17 @@ return `
     <button type="button" class="mc-link mc-link-danger" onclick="pedirCancelamento('${esc(pedido.id)}', '${esc(nome)}')">Cancelar pedido</button>
   </div>
   <p class="mc-inline-error" hidden></p>` : ""}
+  ${["devolvido","caucao_liberada"].includes(pedido.status) && !avaliacoesFeitas.has(pedido.id) ? `
+  <div class="mc-actions"><a class="mc-btn" href="/avaliar.html?pedido=${encodeURIComponent(pedido.id)}">Avaliar este aluguel</a></div>` : ""}
 </article>`;
 }
 
 function linhaHistorico(pedido){
 const item = primeiro(pedido.aluguel_itens);
 const bolsa = item?.bolsas;
-return `<div class="mc-history-row"><span><strong>${esc(bolsa?.nome || "Bolsa de luxo")}</strong> · ${dataCurta(item?.data_inicio)} – ${dataCurta(item?.data_fim)}</span><span>${moeda(pedido.valor_total)}</span></div>`;
+const avaliar = ["devolvido","caucao_liberada"].includes(pedido.status) && !avaliacoesFeitas.has(pedido.id)
+  ? `<br><a class="mc-avaliar" href="/avaliar.html?pedido=${encodeURIComponent(pedido.id)}">Avaliar este aluguel</a>` : "";
+return `<div class="mc-history-row"><span><strong>${esc(bolsa?.nome || "Bolsa de luxo")}</strong> · ${dataCurta(item?.data_inicio)} – ${dataCurta(item?.data_fim)}${avaliar}</span><span>${moeda(pedido.valor_total)}</span></div>`;
 }
 
 function renderAlugueis(){
@@ -1043,7 +1075,8 @@ alvo.textContent = pendentes.length ? `${pendentes.length} em análise` : "Envia
 }
 
 function abrirAba(nome){
-["alugueis","dados","ajuda"].forEach(aba => {
+if(nome === "favoritas") carregarFavoritas();
+["alugueis","favoritas","dados","ajuda"].forEach(aba => {
 const ativa = aba === nome;
 const botao = document.getElementById(`tab-${aba}`);
 botao.classList.toggle("active", ativa);
@@ -1177,6 +1210,9 @@ return;
 }
 
 pedidosCarregados = pedidos || [];
+if(window.tbrCapasVitrine) capasVitrine = await window.tbrCapasVitrine();
+const { data: avaliacoes } = await supabaseClient.from("avaliacoes").select("pedido_id").eq("cliente_auth_id", user.id);
+avaliacoesFeitas = new Set((avaliacoes || []).map(a => a.pedido_id));
 const enderecoIds = [...new Set(pedidosCarregados.filter(p => !OCULTOS.has(p.status)).map(p => p.endereco_entrega_id).filter(Boolean))];
 if(enderecoIds.length){
 const { data: enderecos, error } = await supabaseClient
@@ -1186,6 +1222,32 @@ const { data: enderecos, error } = await supabaseClient
 if(!error && enderecos) enderecosCarregados = Object.fromEntries(enderecos.map(e => [e.id, e]));
 }
 renderAlugueis();
+}
+
+let favoritasCarregadas = false;
+async function carregarFavoritas(){
+if(favoritasCarregadas) return;
+const lista = document.getElementById("listaFavoritas");
+const { data: favs, error } = await supabaseClient.from("favoritas").select("bolsa_slug,created_at").order("created_at", { ascending:false });
+if(error){ lista.innerHTML = `<div class="mc-empty"><p>Não foi possível carregar suas favoritas agora.</p></div>`; return; }
+favoritasCarregadas = true;
+const slugs = (favs || []).map(f => f.bolsa_slug);
+if(!slugs.length){
+lista.innerHTML = `<div class="mc-empty"><p><strong>Você ainda não salvou nenhuma bolsa.</strong></p><p>Toque no coração das bolsas na vitrine para encontrá-las aqui, em qualquer aparelho.</p><a class="mc-btn" href="/aluguel.html">Ver bolsas</a></div>`;
+return;
+}
+const [{ data: bolsas }, capas] = await Promise.all([
+supabaseClient.from("bolsas").select("slug,nome,marca,imagem_capa_url").in("slug", slugs),
+window.tbrCapasVitrine ? window.tbrCapasVitrine() : {}
+]);
+capasVitrine = capas || capasVitrine;
+const porSlug = Object.fromEntries((bolsas || []).map(b => [b.slug, b]));
+lista.innerHTML = slugs.filter(s => porSlug[s]).map(s => {
+const b = porSlug[s];
+const foto = fotoBolsa(b);
+const nome = b.marca && String(b.nome || "").toLowerCase().startsWith(b.marca.toLowerCase()) ? String(b.nome).slice(b.marca.length).trim() : b.nome;
+return `<a class="mc-fav" href="/aluguel/${encodeURIComponent(s)}.html"><span class="mc-fav-img">${foto ? `<img src="${esc(foto)}" alt="" loading="lazy">` : ""}</span><span class="mc-fav-txt"><small>${esc(b.marca || "")}</small><strong>${esc(nome || "")}</strong></span></a>`;
+}).join("") || `<div class="mc-empty"><p>As bolsas que você salvou não estão mais disponíveis.</p></div>`;
 }
 
 async function sair(){
@@ -1202,6 +1264,6 @@ function toggleMenuMobile() {
   if (menu) menu.classList.toggle('open');
 }
 </script>
-  <script src="/luxury-refresh.js?v=20261110-4"></script>
+  <script src="/luxury-refresh.js?v=20261110-5"></script>
 </body>
 </html>

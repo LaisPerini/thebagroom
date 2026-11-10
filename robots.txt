@@ -5,6 +5,7 @@ Allow: /
 Disallow: /admin.html
 Disallow: /login.html
 Disallow: /minha-conta.html
+Disallow: /avaliar.html
 Disallow: /cadastro-locacao.html
 Disallow: /checkout-aluguel.html
 Disallow: /contrato-aluguel.html

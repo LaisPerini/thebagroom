@@ -1,7 +1,9 @@
 // E-mails de aluguel da The Bag Room.
 // 1) { pedido_id }  -> chamado pelo gatilho tbr_avisar_novo_aluguel quando o aluguel é pago/confirmado:
 //    avisa a loja e manda a confirmação para a cliente.
-// 2) { acao: "lembretes" } -> chamado 1x por dia (pg_cron): lembra a cliente que a devolução é amanhã.
+// 2) { acao: "lembretes" } -> chamado 1x por dia (pg_cron): lembra a cliente que a devolução é amanhã
+//    e pede a avaliação de quem já devolveu a bolsa.
+// 3) { acao: "pagamentos_pendentes" } -> de hora em hora (pg_cron): lembra quem fez o pedido e não pagou.
 // Cada e-mail sai uma única vez por pedido (tabela tbr_notificacoes_aluguel, chave pedido_id + tipo).
 // Só aceita chamadas com o segredo do disparador (EMAIL_WORKER_SECRET).
 import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2";
@@ -145,6 +147,31 @@ function emailLembrete(d: Dados, fim: string) {
   return { assunto: `Sua devolução é amanhã · ${d.titulo}`, html: moldura("The Bag Room · Lembrete de devolução", "Sua devolução é amanhã", corpo) };
 }
 
+function emailPagamentoPendente(d: Dados) {
+  const ola = d.primeiroNome ? `Olá, ${esc(d.primeiroNome)}.` : "Olá.";
+  const b = d.bolsas[0];
+  const corpo = `
+    ${paragrafo(`${ola} Notamos que o seu pedido da <strong>${esc(d.titulo)}</strong> ainda está aguardando o pagamento.`)}
+    ${b ? `<table style="width:100%;border-collapse:collapse;margin:8px 0 6px">${linha("Período", `${dataBR(b.ini)} a ${dataBR(b.fim)}`)}${linha("Total", `<strong>${brl(d.pedido.valor_total)}</strong>`)}</table>` : ""}
+    ${paragrafo(`A reserva só é garantida depois do pagamento. Para concluir, é só abrir Minha conta e tocar em pagar. Se teve alguma dificuldade, a nossa curadoria te ajuda pelo <a href="${WHATSAPP}" style="color:#1a1714">WhatsApp</a>.`)}
+    ${botao(`${siteUrl}/minha-conta.html`, "Concluir pagamento")}`;
+  return { assunto: `Sua ${d.titulo} está esperando por você`, html: moldura("The Bag Room · Pagamento pendente", "Falta pouco para a sua reserva", corpo) };
+}
+
+function emailAvaliacao(d: Dados, pedidoId: string) {
+  const ola = d.primeiroNome ? `Olá, ${esc(d.primeiroNome)}.` : "Olá.";
+  const link = `${siteUrl}/avaliar.html?pedido=${pedidoId}`;
+  const estrelas = [1, 2, 3, 4, 5].map((n) =>
+    `<a href="${link}&nota=${n}" style="display:inline-block;margin:0 4px;font-size:30px;line-height:1;color:#1a1714;text-decoration:none">&#9734;</a>`).join("");
+  const corpo = `
+    ${paragrafo(`${ola} Recebemos a sua ${esc(d.titulo)} de volta. Obrigada por escolher a The Bag Room.`)}
+    ${paragrafo(`Como foi a sua experiência? Leva menos de um minuto e ajuda muito a nossa curadoria.`)}
+    <p style="margin:22px 0 4px;text-align:center">${estrelas}</p>
+    <p style="margin:0;text-align:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7a7268">Toque para dar a sua nota</p>
+    ${botao(link, "Avaliar minha experiência")}`;
+  return { assunto: `Como foi a sua experiência com a ${d.titulo}?`, html: moldura("The Bag Room · Sua opinião", "Conte como foi", corpo) };
+}
+
 // ---------- rotas ----------
 async function novoAluguel(db: SupabaseClient, pedidoId: string) {
   const d = await carregarPedido(db, pedidoId);
@@ -173,7 +200,47 @@ async function lembretes(db: SupabaseClient) {
     const e = emailLembrete(d, amanha);
     resultado[id] = await enviarUmaVez(db, id, "lembrete_devolucao", d.email, e.assunto, e.html);
   }
-  return { data: amanha, pedidos: pedidos.length, resultado };
+  return { data: amanha, pedidos: pedidos.length, resultado, avaliacoes: await pedirAvaliacoes(db) };
+}
+
+// Pede a avaliação de quem devolveu a bolsa (status devolvido/caução liberada) há pelo menos 20h e no máximo 14 dias
+async function pedirAvaliacoes(db: SupabaseClient) {
+  const agora = Date.now();
+  const { data, error } = await db.from("aluguel_pedidos").select("id,updated_at")
+    .in("status", ["devolvido", "caucao_liberada"])
+    .lte("updated_at", new Date(agora - 20 * 3600e3).toISOString())
+    .gte("updated_at", new Date(agora - 14 * 24 * 3600e3).toISOString());
+  if (error) throw error;
+  const resultado: Record<string, string> = {};
+  for (const { id } of data ?? []) {
+    const { data: ja } = await db.from("avaliacoes").select("id").eq("pedido_id", id).maybeSingle();
+    if (ja) continue;
+    const d = await carregarPedido(db, id);
+    if (!d) continue;
+    const e = emailAvaliacao(d, id);
+    resultado[id] = await enviarUmaVez(db, id, "pedido_avaliacao", d.email, e.assunto, e.html);
+  }
+  return resultado;
+}
+
+// Lembra quem fez o pedido entre 2h e 72h atrás e ainda não pagou (só se a data de retirada não passou)
+async function pagamentosPendentes(db: SupabaseClient) {
+  const agora = Date.now();
+  const hoje = new Date(agora - 3 * 3600e3).toISOString().slice(0, 10);
+  const { data, error } = await db.from("aluguel_pedidos").select("id")
+    .eq("status", "aguardando_pagamento")
+    .lte("created_at", new Date(agora - 2 * 3600e3).toISOString())
+    .gte("created_at", new Date(agora - 72 * 3600e3).toISOString());
+  if (error) throw error;
+  const resultado: Record<string, string> = {};
+  for (const { id } of data ?? []) {
+    const d = await carregarPedido(db, id);
+    if (!d || d.pedido.status !== "aguardando_pagamento") continue;
+    if (!d.bolsas.length || d.bolsas.some((b) => t(b.ini) < hoje)) continue;
+    const e = emailPagamentoPendente(d);
+    resultado[id] = await enviarUmaVez(db, id, "pagamento_pendente", d.email, e.assunto, e.html);
+  }
+  return resultado;
 }
 
 Deno.serve(async (req) => {
@@ -186,6 +253,7 @@ Deno.serve(async (req) => {
   const db = createClient(url, key);
   try {
     if (body?.acao === "lembretes") return json(await lembretes(db));
+    if (body?.acao === "pagamentos_pendentes") return json(await pagamentosPendentes(db));
     const pedidoId = t(body?.pedido_id);
     if (!UUID.test(pedidoId)) return json({ error: "invalid_pedido" }, 400);
     return json(await novoAluguel(db, pedidoId));

@@ -482,6 +482,9 @@ SUPABASE_URL,
 SUPABASE_KEY
 );
 
+// Link do e-mail de avaliação (/avaliar.html?pedido=...): único destino com parâmetros aceito
+const DESTINO_AVALIAR = /^\/avaliar\.html\?pedido=[0-9a-f-]{36}(&nota=[1-5])?$/i;
+
 function destinoDepoisLogin(){
 const params = new URLSearchParams(window.location.search);
 const nextParam = params.get("next");
@@ -490,6 +493,10 @@ const destino = nextParam || nextLocal || "minha-conta.html";
 
 if(destino.includes("/checkout-aluguel.html")){
 return "/checkout-aluguel.html";
+}
+
+if(DESTINO_AVALIAR.test(destino)){
+return destino;
 }
 
 if(destino.includes("minha-conta.html")){
@@ -631,7 +638,7 @@ if(emRecuperacao || params.get("modo") === "redefinir" || /type=recovery/.test(w
 const { data: { session } } = await supabaseClient.auth.getSession();
 if(!session) return;
 const next = params.get("next") || "";
-window.location.replace(next.includes("/checkout-aluguel.html") ? "/checkout-aluguel.html" : "/minha-conta.html");
+window.location.replace(DESTINO_AVALIAR.test(next) ? next : next.includes("/checkout-aluguel.html") ? "/checkout-aluguel.html" : "/minha-conta.html");
 }).catch(() => {});
 
 function abrirRecuperacao(event){
@@ -754,7 +761,7 @@ function toggleMenuMobile() {
   if (menu) menu.classList.toggle('open');
 }
 </script>
-  <script src="/luxury-refresh.js?v=20261110-4"></script>
+  <script src="/luxury-refresh.js?v=20261110-5"></script>
 </body>
 </html>
 
