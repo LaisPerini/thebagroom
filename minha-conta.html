@@ -629,16 +629,13 @@ body { background: #f3efe8 !important; }
 .mc-history-row { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid var(--mc-line); font-size: 13px; color: var(--mc-muted); }
 .mc-history-row strong { color: var(--mc-ink); font-weight: 600; }
 .mc-history-row .mc-avaliar { display: inline-block; margin-top: 6px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--mc-ink); text-decoration: underline; text-underline-offset: 4px; }
-.mc-indique, .mc-vales { margin-top: 16px; }
+.mc-indique { margin-top: 16px; }
 .mc-indique-rot { margin: 0 0 6px; font-size: 10px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--mc-gold); }
 .mc-indique-txt { margin: 10px 0 0; font-size: 14px; line-height: 1.6; color: var(--mc-muted); }
 .mc-indique-codigo { margin: 18px 0 14px; padding: 16px; text-align: center; border: 1px dashed var(--mc-line); border-radius: 14px; font-size: 20px; font-weight: 600; letter-spacing: .18em; color: var(--mc-ink); }
 .mc-indique-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
 .mc-creditos { margin: 18px 0 0; padding-top: 14px; border-top: 1px solid var(--mc-line); font-size: 13px; color: var(--mc-muted); display: grid; gap: 8px; }
 .mc-creditos strong { color: var(--mc-ink); letter-spacing: .08em; }
-.mc-vale { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--mc-line); font-size: 13px; color: var(--mc-muted); }
-.mc-vale strong { color: var(--mc-ink); }
-.mc-vales .mc-link { margin-top: 14px; }
 .mc-favs { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 16px; }
 .mc-favs .mc-empty { grid-column: 1 / -1; }
 .mc-fav { display: block; color: var(--mc-ink); text-decoration: none; background: #fff; border-radius: 20px; box-shadow: var(--mc-shadow); overflow: hidden; }
@@ -819,11 +816,6 @@ body { background: #f3efe8 !important; }
       <div id="meusCreditos"></div>
     </div>
 
-    <div class="mc-card mc-vales" id="cardVales" hidden>
-      <h2 class="mc-card-title">Vales-presente que você deu</h2>
-      <div id="listaVales"></div>
-      <a class="mc-link" href="/vale-presente.html">Dar outro vale-presente</a>
-    </div>
   </section>
 
   <section class="mc-panel-area" id="painel-ajuda" role="tabpanel" aria-labelledby="tab-ajuda" hidden>
@@ -1104,7 +1096,7 @@ alvo.textContent = pendentes.length ? `${pendentes.length} em análise` : "Envia
 
 function abrirAba(nome){
 if(nome === "favoritas") carregarFavoritas();
-if(nome === "dados"){ carregarIndicacao(); carregarVales(); }
+if(nome === "dados") carregarIndicacao();
 ["alugueis","favoritas","dados","ajuda"].forEach(aba => {
 const ativa = aba === nome;
 const botao = document.getElementById(`tab-${aba}`);
@@ -1278,13 +1270,6 @@ const partes = [];
 if(Number(data.amigas)) partes.push(`<span>${Number(data.amigas) === 1 ? "1 amiga já alugou" : Number(data.amigas) + " amigas já alugaram"} com o seu código.</span>`);
 creditos.forEach(c => partes.push(`<span>Seu cupom de ${Number(c.percentual)}%: <strong>${esc(c.codigo)}</strong> · ${c.usado ? "já usado" : "válido até " + new Date(c.fim).toLocaleDateString("pt-BR")}</span>`));
 document.getElementById("meusCreditos").innerHTML = partes.length ? `<div class="mc-creditos">${partes.join("")}</div>` : "";
-}
-async function carregarVales(){
-const { data } = await supabaseClient.from("vales_presente").select("valor,saldo,status,destinatario_nome,codigo,validade,created_at").order("created_at", { ascending:false });
-const lista = (data || []).filter(v => v.status === "pago");
-if(!lista.length) return;
-document.getElementById("cardVales").hidden = false;
-document.getElementById("listaVales").innerHTML = lista.map(v => `<div class="mc-vale"><span><strong>${moeda(v.valor)}</strong> para ${esc(v.destinatario_nome)}<br>${esc(v.codigo)}</span><span>${Number(v.saldo) > 0 ? "Saldo " + moeda(v.saldo) : "Usado"}</span></div>`).join("");
 }
 let favoritasCarregadas = false;
 async function carregarFavoritas(){

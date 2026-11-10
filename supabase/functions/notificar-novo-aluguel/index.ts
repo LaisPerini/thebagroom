@@ -5,8 +5,7 @@
 //    e pede a avaliação de quem já devolveu a bolsa.
 // 3) { acao: "pagamentos_pendentes" } -> de hora em hora (pg_cron): lembra quem fez o pedido e não pagou
 //    e quem deixou uma bolsa na sacola (cliente logada) sem finalizar; e avisa quem pediu "avise-me" quando a data libera.
-// 4) { acao: "vale", vale_id } -> vale-presente pago: envia o código para quem vai ganhar e confirma para quem comprou.
-// 5) { acao: "indicacao", cupom_id } -> a amiga indicada alugou: envia o cupom de agradecimento para quem indicou.
+// 4) { acao: "indicacao", cupom_id } -> a amiga indicada alugou: envia o cupom de agradecimento para quem indicou.
 // Cada e-mail sai uma única vez por pedido (tabela tbr_notificacoes_aluguel, chave pedido_id + tipo).
 // Só aceita chamadas com o segredo do disparador (EMAIL_WORKER_SECRET).
 import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2";
@@ -255,35 +254,6 @@ async function enviar(para: string, assunto: string, html: string, chave: string
 const caixaCodigo = (codigo: string) =>
   `<p style="margin:22px 0;padding:18px;text-align:center;border:1px solid #e7e1d8;background:#f6f3ee;font-size:22px;letter-spacing:.16em;color:#1a1714;font-weight:bold">${esc(codigo)}</p>`;
 
-// ---------- vale-presente ----------
-async function valePago(db: SupabaseClient, valeId: string) {
-  const { data: marcado } = await db.from("vales_presente").update({ enviado_em: new Date().toISOString() })
-    .eq("id", valeId).eq("status", "pago").is("enviado_em", null).select("*");
-  const v = marcado?.[0];
-  if (!v) return { ignored: true };
-  const de = t(v.comprador_nome).split(/\s+/)[0] || "Alguém especial";
-  const validade = dataBR(v.validade);
-  const corpoPresente = `
-    ${paragrafo(`Olá, ${esc(v.destinatario_nome)}. <strong>${esc(de)}</strong> te deu um vale-presente de <strong>${brl(v.valor)}</strong> para alugar uma bolsa de luxo na The Bag Room.`)}
-    ${v.mensagem ? `<p style="margin:18px 0;padding:0 0 0 16px;border-left:2px solid #1a1714;font-family:'DM Serif Display',Georgia,serif;font-size:18px;line-height:1.5;color:#1a1714">“${esc(v.mensagem)}”</p>` : ""}
-    ${paragrafo("Use este código no campo de cupom do checkout:")}
-    ${caixaCodigo(v.codigo)}
-    ${paragrafo(`Válido até ${validade}. O valor é descontado do aluguel e, se sobrar, o saldo fica guardado para o próximo.`)}
-    ${botao(`${siteUrl}/aluguel.html`, "Escolher minha bolsa")}`;
-  const rPresente = await enviar(v.destinatario_email, `${de} te deu um vale-presente The Bag Room`,
-    moldura("The Bag Room · Vale-presente", "Um presente para você", corpoPresente), `vale-presente-${v.id}`);
-  const { data: u } = await db.auth.admin.getUserById(v.comprador_auth_id);
-  const corpoCompra = `
-    ${paragrafo(`Olá${t(v.comprador_nome) ? ", " + esc(de) : ""}. Recebemos o seu pagamento e o vale-presente de <strong>${brl(v.valor)}</strong> foi enviado para <strong>${esc(v.destinatario_nome)}</strong> (${esc(v.destinatario_email)}).`)}
-    ${paragrafo("Se preferir entregar pessoalmente, este é o código:")}
-    ${caixaCodigo(v.codigo)}
-    ${paragrafo(`Válido até ${validade}.`)}`;
-  const rCompra = await enviar(t(u?.user?.email), `Seu vale-presente para ${t(v.destinatario_nome)} foi enviado`,
-    moldura("The Bag Room · Vale-presente", "Presente enviado", corpoCompra), `vale-compra-${v.id}`);
-  if (rPresente === "falhou") await db.from("vales_presente").update({ enviado_em: null }).eq("id", v.id);
-  return { presente: rPresente, comprador: rCompra };
-}
-
 // ---------- indicação ----------
 async function creditoIndicacao(db: SupabaseClient, cupomId: string) {
   const { data: c } = await db.from("cupons").select("id,codigo,percentual,fim,cliente_auth_id,tipo").eq("id", cupomId).maybeSingle();
@@ -423,7 +393,6 @@ Deno.serve(async (req) => {
   try {
     if (body?.acao === "lembretes") return json(await lembretes(db));
     if (body?.acao === "pagamentos_pendentes") return json({ pedidos: await pagamentosPendentes(db), sacolas: await sacolasParadas(db), avisos: await avisosLivres(db) });
-    if (body?.acao === "vale") { const id = t(body?.vale_id); if (!UUID.test(id)) return json({ error: "invalid_vale" }, 400); return json(await valePago(db, id)); }
     if (body?.acao === "indicacao") { const id = t(body?.cupom_id); if (!UUID.test(id)) return json({ error: "invalid_cupom" }, 400); return json(await creditoIndicacao(db, id)); }
     const pedidoId = t(body?.pedido_id);
     if (!UUID.test(pedidoId)) return json({ error: "invalid_pedido" }, 400);

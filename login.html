@@ -499,10 +499,6 @@ if(DESTINO_AVALIAR.test(destino)){
 return destino;
 }
 
-if(destino === "/vale-presente.html"){
-return destino;
-}
-
 if(destino.includes("minha-conta.html")){
 return "/minha-conta.html";
 }
@@ -642,7 +638,7 @@ if(emRecuperacao || params.get("modo") === "redefinir" || /type=recovery/.test(w
 const { data: { session } } = await supabaseClient.auth.getSession();
 if(!session) return;
 const next = params.get("next") || "";
-window.location.replace(DESTINO_AVALIAR.test(next) || next === "/vale-presente.html" ? next : next.includes("/checkout-aluguel.html") ? "/checkout-aluguel.html" : "/minha-conta.html");
+window.location.replace(DESTINO_AVALIAR.test(next) ? next : next.includes("/checkout-aluguel.html") ? "/checkout-aluguel.html" : "/minha-conta.html");
 }).catch(() => {});
 
 function abrirRecuperacao(event){

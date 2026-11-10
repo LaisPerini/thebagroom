@@ -852,7 +852,6 @@ background:#9b2c2c;
 <button type="button" data-panel="clientes" onclick="abrirPainel('clientes', this)">Validação de Clientes</button>
 <button type="button" data-panel="despesas" onclick="abrirPainel('despesas', this)">Despesas</button>
 <button type="button" data-panel="avaliacoes" onclick="abrirPainel('avaliacoes', this)">Avaliações</button>
-<button type="button" data-panel="vales" onclick="abrirPainel('vales', this)">Vales-presente</button>
 <button type="button" data-panel="ajuda" onclick="abrirPainel('ajuda', this)">Ajuda</button>
 </nav>
 <p class="sidebar-note">
@@ -1220,16 +1219,6 @@ Acompanhe os cadastros enviados pelas clientes, confira documentos e aprove ou r
 <p id="avStatus" class="message"></p>
 <div id="avLista" class="av-lista"></div>
 </section>
-<section id="vales" class="panel">
-<div class="stats av-stats">
-<div class="stat-card"><div class="stat-label">Vales vendidos</div><div class="stat-value" id="valesQtd">0</div></div>
-<div class="stat-card"><div class="stat-label">Total vendido</div><div class="stat-value" id="valesTotal">R$ 0</div></div>
-<div class="stat-card"><div class="stat-label">Saldo a usar</div><div class="stat-value" id="valesSaldo">R$ 0</div></div>
-</div>
-<p class="message">Vales comprados na página <a href="/vale-presente.html" target="_blank" rel="noopener">Vale-presente</a>. O código é enviado por e-mail logo depois do pagamento e é usado no campo de cupom do checkout.</p>
-<p id="valesStatus" class="message"></p>
-<div class="card desp-table-wrap"><table class="desp-table"><thead><tr><th>Data</th><th>Código</th><th>De</th><th>Para</th><th>Valor</th><th>Saldo</th><th>Situação</th></tr></thead><tbody id="valesLista"></tbody></table></div>
-</section>
 <section id="ajuda" class="panel">
 <div class="card">
 <h2>Como usar</h2>
@@ -1300,7 +1289,7 @@ if(navButton) navButton.classList.add("active");
 
 painel.classList.add("active");
 document.getElementById("legacyStats").style.display = panelId === "pedidos" ? "grid" : "none";
-const titulos = {dashboard:"Dashboard",pedidos:"Painel de Aluguéis",bloqueios:"Bloquear Datas",bolsas:"Bolsas",clientes:"Validação de clientes",despesas:"Despesas da loja",avaliacoes:"Avaliações das clientes",vales:"Vales-presente",ajuda:"Ajuda"};
+const titulos = {dashboard:"Dashboard",pedidos:"Painel de Aluguéis",bloqueios:"Bloquear Datas",bolsas:"Bolsas",clientes:"Validação de clientes",despesas:"Despesas da loja",avaliacoes:"Avaliações das clientes",ajuda:"Ajuda"};
 document.getElementById("pageTitle").textContent = titulos[panelId] || "Painel Admin";
 if(panelId === "clientes" && !clientesValidacao.length){ carregarValidacoes(); }
 painel.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2446,7 +2435,6 @@ verificarAcesso();
 <script src="/admin-despesas.js?v=20261109-2"></script>
 <script src="/admin-lucro.js?v=20261109-1"></script>
 <script src="/admin-avaliacoes.js?v=20261110-1"></script>
-<script src="/admin-vales.js?v=20261110-1"></script>
 <script src="/admin-ga-pages.js?v=20261002-22"></script>
 <script src="/admin-coupons.js?v=20261110-1"></script>
 <script src="/admin-delete.js?v=20261002-24"></script>
