@@ -328,7 +328,7 @@ async function avisosLivres(db: SupabaseClient) {
     const { data: marcado } = await db.from("avisos_disponibilidade").update({ avisado_em: new Date().toISOString() })
       .eq("id", a.id).is("avisado_em", null).select("id");
     if (!marcado?.length) continue;
-    const nome = t(b.marca) && !t(b.nome).toLowerCase().startsWith(t(b.marca).toLowerCase()) ? `${t(b.marca)} ${t(b.nome)}` : t(b.nome);
+    const nome = t(b.marca) && !t(b.nome).toLowerCase().includes(t(b.marca).toLowerCase()) ? `${t(b.marca)} ${t(b.nome)}` : t(b.nome);
     const corpo = `
       ${paragrafo(`Boa notícia: a <strong>${esc(nome)}</strong> ficou disponível para a data que você queria, <strong>${dataBR(a.data_desejada)}</strong>.`)}
       ${paragrafo("A data só fica garantida quando o aluguel é finalizado, então vale reservar logo.")}
