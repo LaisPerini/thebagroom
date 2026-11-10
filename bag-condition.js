@@ -91,3 +91,45 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar, { once: true });
   else iniciar();
 })();
+
+// No celular: descrição, estado da peça e ficha técnica ficam dentro de "Detalhes da peça",
+// fechado por padrão (toca para abrir e fechar). No computador tudo continua aberto.
+(function () {
+  const CEL = '(max-width: 760px)';
+  function css() {
+    if (document.getElementById('tbr-det-css')) return;
+    const st = document.createElement('style'); st.id = 'tbr-det-css';
+    st.textContent = `
+.tbr-det-btn{display:none}
+@media ${CEL}{
+  .tbr-det-btn{display:flex;width:100%;align-items:center;justify-content:space-between;gap:12px;margin:22px 0 0;padding:18px 0;background:none;border:0;border-top:1px solid #e7e1d8;border-bottom:1px solid #e7e1d8;font:600 11px/1 Inter,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#1a1714;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .tbr-det-btn::after{content:"";width:12px;height:12px;flex:none;background:linear-gradient(#1a1714,#1a1714) center/12px 1px no-repeat,linear-gradient(#1a1714,#1a1714) center/1px 12px no-repeat;transition:transform .3s ease}
+  .tbr-det-btn[aria-expanded="true"]{border-bottom-color:transparent}
+  .tbr-det-btn[aria-expanded="true"]::after{transform:rotate(45deg)}
+  body.tbr-product .desc.tbr-det-fechado{display:none !important}
+  body.tbr-product .desc.tbr-det-aberto{border-top:0 !important;padding-top:4px !important}
+  body.tbr-product .desc.tbr-det-aberto .detalhes{grid-template-columns:1fr 1fr !important}
+}`;
+    document.head.appendChild(st);
+  }
+  function montar() {
+    const desc = document.querySelector('.info .desc');
+    if (!desc || desc.previousElementSibling?.classList.contains('tbr-det-btn')) return;
+    css();
+    if (!desc.id) desc.id = 'tbr-detalhes';
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'tbr-det-btn';
+    btn.textContent = 'Detalhes da peça';
+    btn.setAttribute('aria-controls', desc.id);
+    const definir = aberto => {
+      btn.setAttribute('aria-expanded', String(aberto));
+      desc.classList.toggle('tbr-det-fechado', !aberto);
+      desc.classList.toggle('tbr-det-aberto', aberto);
+    };
+    btn.addEventListener('click', () => definir(btn.getAttribute('aria-expanded') !== 'true'));
+    desc.before(btn);
+    definir(false);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', montar, { once: true });
+  else montar();
+})();
