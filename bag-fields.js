@@ -81,6 +81,7 @@
         if (plans.length) text('.week-price', priceLabel(plans), card);
       });
     } catch (error) { console.error('Preços da página inicial:', error); }
+    finally { mostrar(); }
   }
   async function product() {
     if (!document.querySelector('.produto') || typeof BOLSA_SLUG === 'undefined') return;
@@ -148,6 +149,7 @@
       if (typeof atualizarDevolucao === 'function') atualizarDevolucao();
       if (typeof atualizarTotal === 'function') atualizarTotal();
     } catch (error) { console.error('Atualização dos campos da bolsa:',error); text('#reservaStatus','Não foi possível confirmar os dados de aluguel. Atualize a página ou fale com a curadoria.'); }
+    finally { mostrar(); }
   }
   async function catalog() {
     if (!location.pathname.endsWith('/aluguel.html')) return;
@@ -170,7 +172,10 @@
       });
       if (typeof aplicarFiltros === 'function') aplicarFiltros();
     } catch (error) { console.error('Atualização dos campos do catálogo:',error); }
+    finally { mostrar(); }
   }
+  // As páginas escondem preços até o banco responder (classe colocada no <head>), para não piscar valor antigo
+  const mostrar = () => document.documentElement.classList.remove('tbr-carregando');
   function start() { product(); catalog(); homeCards(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',start); else start();
 })();
