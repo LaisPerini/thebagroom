@@ -1440,6 +1440,7 @@ body {
     <option value="">Ordenar</option>
     <option value="menor">Menor preço</option>
     <option value="maior">Maior preço</option>
+    <option value="marca">Marca (A–Z)</option>
   </select>
 
 </div>
@@ -2044,6 +2045,10 @@ function ordenarProdutos(tipo){
     const precoA = extrairPreco(a);
     const precoB = extrairPreco(b);
 
+    if(tipo === "marca"){
+      const marca = (a.dataset.marca || '').localeCompare(b.dataset.marca || '', 'pt-BR', { sensitivity: 'base' });
+      return marca || precoA - precoB;
+    }
     if(tipo === "menor"){
       return precoA - precoB;
     } else if(tipo === "maior"){
