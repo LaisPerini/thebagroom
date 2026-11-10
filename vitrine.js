@@ -17,7 +17,6 @@
   const st = document.createElement('style');
   st.textContent = `
 body.tbr-catalog .grid .card .img-box{position:relative!important;background:#f6f4f0!important;border-radius:0!important}
-body.tbr-catalog .grid .card .img-box img{mix-blend-mode:multiply}
 .tbr-trilho{position:absolute;inset:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 .tbr-trilho::-webkit-scrollbar{display:none}
 .tbr-trilho>img{flex:0 0 100%;width:100%!important;height:100%!important;object-fit:cover!important;scroll-snap-align:center;padding:0!important;min-height:0!important}
@@ -78,7 +77,7 @@ body.tbr-catalog .grid .card .tag{right:auto!important}
     trilho.appendChild(principal);
     extras.forEach(src => {
       const im = document.createElement('img');
-      im.src = src; im.alt = ''; im.loading = 'lazy'; im.decoding = 'async';
+      im.src = src + '?v=3'; im.alt = ''; im.loading = 'lazy'; im.decoding = 'async';
       im.setAttribute('aria-hidden', 'true'); im.setAttribute('data-no-reveal', '');
       trilho.appendChild(im);
     });
