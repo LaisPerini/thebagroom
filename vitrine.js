@@ -77,7 +77,8 @@ body.tbr-catalog .grid .card .tag{right:auto!important}
     trilho.appendChild(principal);
     extras.forEach(src => {
       const im = document.createElement('img');
-      im.src = src + '?v=3'; im.alt = ''; im.loading = 'lazy'; im.decoding = 'async';
+      // a foto só é baixada quando o card chega perto da tela (ver carregarFotos)
+      im.dataset.src = src.includes('?') ? src : src + '?v=3'; im.alt = ''; im.decoding = 'async';
       im.setAttribute('aria-hidden', 'true'); im.setAttribute('data-no-reveal', '');
       trilho.appendChild(im);
     });
@@ -123,6 +124,14 @@ body.tbr-catalog .grid .card .tag{right:auto!important}
     addEventListener('resize', () => posicionar(-atual * largura(), false));
     card.addEventListener('click', e => { if (moveu) { e.preventDefault(); e.stopPropagation(); moveu = false; } }, true);
   });
+
+  // Fotos extras do deslizar: baixa só quando o card está perto de aparecer ou quando a cliente toca nele
+  const carregarFotos = card => card.querySelectorAll('.tbr-trilho img[data-src]').forEach(im => { im.src = im.dataset.src; im.removeAttribute('data-src'); });
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { carregarFotos(e.target); obs.unobserve(e.target); } }), { rootMargin: '300px 0px' });
+    cards.forEach(c => { if (c.querySelector('.tbr-trilho img[data-src]')) obs.observe(c); });
+  } else cards.forEach(carregarFotos);
+  cards.forEach(c => c.addEventListener('touchstart', () => carregarFotos(c), { passive: true, once: true }));
 
   // ---------- favoritas ----------
   let favs = new Set(ler(LS_FAV, []));

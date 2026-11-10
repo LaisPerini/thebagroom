@@ -41,7 +41,7 @@
 .tbr-cond-barra i{display:block;height:3px;background:#e7e1d8}
 .tbr-cond-barra i.on{background:#1a1714}
 .tbr-cond-escala{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:8px}
-.tbr-cond-escala span{font:500 10px/1.3 Inter,Arial,sans-serif;letter-spacing:.04em;color:#a39b90;text-align:center}
+.tbr-cond-escala span{font:500 10px/1.3 Inter,Arial,sans-serif;letter-spacing:.04em;color:#766e64;text-align:center}
 .tbr-cond-escala span:first-child{text-align:left}.tbr-cond-escala span:last-child{text-align:right}
 .tbr-cond-escala span.on{color:#1a1714;font-weight:600}
 .tbr-caution + .tbr-cond{margin:-14px 0 30px;padding:0;border-top:0}

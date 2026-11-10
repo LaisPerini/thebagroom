@@ -11,6 +11,25 @@
   else if (/cadastro|checkout|login|minha-conta|pedido-aluguel|avaliar|contrato/.test(path)) body.classList.add('tbr-utility');
   else body.classList.add('tbr-editorial');
 
+  /* ===== Acessibilidade: liga rótulos aos campos e dá nome aos campos sem rótulo ===== */
+  const nomesCampos = { dataInicio: 'Data de início do aluguel', cep: 'CEP', rangePreco: 'Preço máximo', email: 'E-mail', senha: 'Senha', documento: 'Documento com foto', selfie: 'Selfie segurando o documento', comprovante: 'Comprovante de endereço' };
+  const rotularCampos = () => {
+    document.querySelectorAll('label:not([for])').forEach((label) => {
+      if (label.querySelector('input,select,textarea')) return;
+      const campo = label.nextElementSibling;
+      if (!campo || !/^(INPUT|SELECT|TEXTAREA)$/.test(campo.tagName) || (campo.labels && campo.labels.length)) return;
+      if (!campo.id) campo.id = 'tbr-campo-' + Math.random().toString(36).slice(2, 8);
+      label.htmlFor = campo.id;
+    });
+    document.querySelectorAll('input:not([type=hidden]):not([type=radio]):not([type=checkbox]),select,textarea').forEach((campo) => {
+      if ((campo.labels && campo.labels.length) || campo.getAttribute('aria-label') || campo.getAttribute('aria-labelledby')) return;
+      const nome = nomesCampos[campo.id] || (campo.tagName === 'SELECT' && /ordenar/i.test(campo.getAttribute('onchange') || '') ? 'Ordenar bolsas' : '') || campo.placeholder;
+      if (nome) campo.setAttribute('aria-label', nome);
+    });
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', rotularCampos, { once: true });
+  else rotularCampos();
+
   /* ===== Sacola (uma bolsa por vez) ===== */
   if (!/\/admin/.test(path)) {
     const sacola = document.createElement('script');
