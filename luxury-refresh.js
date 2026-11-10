@@ -458,3 +458,85 @@
 
   document.querySelectorAll('img:not([alt])').forEach((img) => img.setAttribute('alt', ''));
 })();
+
+// Revelação ao rolar (inspirado na Dior): títulos sobem palavra por palavra e textos,
+// cards e fotos surgem suavemente quando entram na tela. Só anima o que ainda está abaixo
+// da dobra; respeita quem prefere menos movimento.
+(function () {
+  if (/\/(admin|checkout|minha-conta|login|cadastro)/.test(location.pathname)) return;
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const FORA = 'header, nav, footer, form, dialog, .menu-mobile, #tbr-cookie-panel, .slider, .hero-feature, .tbr-cond, [data-no-reveal]';
+  const TITULOS = 'h1, h2';
+  const BLOCOS = 'p, .card, figure, blockquote, .tbr-h-card, .week-card, .tbr-404-card';
+
+  function css() {
+    const st = document.createElement('style');
+    st.textContent = `
+.tbr-rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:var(--tbr-d,0s)}
+.tbr-rv.tbr-in{opacity:1;transform:none}
+.tbr-w{display:inline-block;overflow:hidden;vertical-align:bottom;padding:0 .02em .1em;margin:0 -.02em -.1em}
+.tbr-w>span{display:inline-block;transform:translateY(110%);transition:transform 1.05s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--tbr-i,0) * 75ms + var(--tbr-d,0s))}
+.tbr-words.tbr-in .tbr-w>span{transform:none}`;
+    document.head.appendChild(st);
+  }
+
+  const abaixoDaDobra = el => el.getBoundingClientRect().top > innerHeight * 0.9;
+  const visivel = el => el.offsetParent !== null || getComputedStyle(el).position === 'fixed';
+
+  // Quebra o título em palavras (só títulos de texto simples)
+  function palavras(h) {
+    if ([...h.childNodes].some(n => n.nodeType === 1 && n.tagName !== 'BR')) return false;
+    let i = 0;
+    const frag = document.createDocumentFragment();
+    h.childNodes.forEach(n => {
+      if (n.nodeType === 1) { frag.appendChild(n.cloneNode()); return; }
+      n.textContent.split(/(\s+)/).forEach(parte => {
+        if (!parte) return;
+        if (/^\s+$/.test(parte)) { frag.appendChild(document.createTextNode(' ')); return; }
+        const w = document.createElement('span'); w.className = 'tbr-w';
+        const s = document.createElement('span'); s.textContent = parte; s.style.setProperty('--tbr-i', i++);
+        w.appendChild(s); frag.appendChild(w);
+      });
+    });
+    if (!i) return false;
+    h.setAttribute('aria-label', h.textContent.replace(/\s+/g, ' ').trim());
+    h.textContent = ''; h.appendChild(frag);
+    h.classList.add('tbr-words');
+    return true;
+  }
+
+  function limpar(el) {
+    // Depois da animação, tira o transform para não interferir em nada da página
+    setTimeout(() => { el.classList.remove('tbr-rv', 'tbr-in'); el.style.removeProperty('--tbr-d'); }, 1600);
+  }
+
+  function iniciar() {
+    css();
+    const io = new IntersectionObserver(entradas => {
+      let n = 0;
+      entradas.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        el.style.setProperty('--tbr-d', Math.min(n++ * 0.08, 0.4) + 's');
+        el.classList.add('tbr-in');
+        io.unobserve(el);
+        if (el.classList.contains('tbr-rv')) limpar(el);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+
+    document.querySelectorAll(TITULOS).forEach(h => {
+      if (h.closest(FORA) || !visivel(h) || !abaixoDaDobra(h)) return;
+      if (palavras(h)) io.observe(h);
+    });
+    document.querySelectorAll(BLOCOS).forEach(el => {
+      if (el.closest(FORA) || el.closest('.tbr-rv, .tbr-words') || !visivel(el) || !abaixoDaDobra(el)) return;
+      if (el.parentElement && el.parentElement.closest('.card, figure, .tbr-h-card, .week-card, .tbr-404-card')) return;
+      el.classList.add('tbr-rv');
+      io.observe(el);
+    });
+  }
+
+  if (document.readyState === 'complete') iniciar();
+  else addEventListener('load', iniciar, { once: true });
+})();
