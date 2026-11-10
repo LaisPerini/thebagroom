@@ -11,6 +11,14 @@
   else if (/cadastro|checkout|login|minha-conta|pedido-aluguel|avaliar|contrato/.test(path)) body.classList.add('tbr-utility');
   else body.classList.add('tbr-editorial');
 
+  /* ===== Sacola (uma bolsa por vez) ===== */
+  if (!/\/admin/.test(path)) {
+    const sacola = document.createElement('script');
+    sacola.src = '/sacola.js?v=20261110-1';
+    sacola.defer = true;
+    document.head.appendChild(sacola);
+  }
+
   /* ===== Cabeçalho e menu (padrão único em todas as páginas) ===== */
   const NAV = [
     ['/aluguel.html', 'Alugar'],

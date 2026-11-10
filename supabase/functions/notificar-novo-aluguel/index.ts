@@ -3,7 +3,8 @@
 //    avisa a loja e manda a confirmação para a cliente.
 // 2) { acao: "lembretes" } -> chamado 1x por dia (pg_cron): lembra a cliente que a devolução é amanhã
 //    e pede a avaliação de quem já devolveu a bolsa.
-// 3) { acao: "pagamentos_pendentes" } -> de hora em hora (pg_cron): lembra quem fez o pedido e não pagou.
+// 3) { acao: "pagamentos_pendentes" } -> de hora em hora (pg_cron): lembra quem fez o pedido e não pagou
+//    e quem deixou uma bolsa na sacola (cliente logada) sem finalizar.
 // Cada e-mail sai uma única vez por pedido (tabela tbr_notificacoes_aluguel, chave pedido_id + tipo).
 // Só aceita chamadas com o segredo do disparador (EMAIL_WORKER_SECRET).
 import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2";
@@ -172,6 +173,66 @@ function emailAvaliacao(d: Dados, pedidoId: string) {
   return { assunto: `Como foi a sua experiência com a ${d.titulo}?`, html: moldura("The Bag Room · Sua opinião", "Conte como foi", corpo) };
 }
 
+function emailSacola(primeiroNome: string, item: any, slug: string) {
+  const ola = primeiroNome ? `Olá, ${esc(primeiroNome)}.` : "Olá.";
+  const nome = esc(item?.bolsaNome || "sua bolsa");
+  const img = t(item?.imagem);
+  const foto = /^\/img\//.test(img) || /^https:\/\//.test(img)
+    ? `<p style="margin:6px 0 18px;text-align:center"><img src="${esc(img.startsWith("/") ? siteUrl + img : img)}" alt="" width="220" style="max-width:220px;height:auto;background:#f6f4f0"></p>` : "";
+  const corpo = `
+    ${paragrafo(`${ola} A <strong>${nome}</strong> continua na sua sacola, esperando por você.`)}
+    ${foto}
+    <table style="width:100%;border-collapse:collapse;margin:8px 0 6px">
+      ${item?.dataInicio ? linha("Período", `${esc(item.dataInicio)} a ${esc(item.dataFim)}`) : ""}
+      ${item?.valorTotal ? linha("Total", `<strong>${brl(item.valorTotal)}</strong>`) : ""}
+    </table>
+    ${paragrafo(`As datas só ficam reservadas quando o aluguel é finalizado. Se tiver qualquer dúvida, a nossa curadoria te ajuda pelo <a href="${WHATSAPP}" style="color:#1a1714">WhatsApp</a>.`)}
+    ${botao(`${siteUrl}/aluguel/${encodeURIComponent(slug)}.html?sacola=1`, "Voltar para a sacola")}`;
+  return { assunto: `A ${t(item?.bolsaNome) || "sua bolsa"} ainda está na sua sacola`, html: moldura("The Bag Room · Sua sacola", "Ela continua esperando por você", corpo) };
+}
+
+// Sacolas paradas há 3h a 48h, sem lembrete, com a data de retirada ainda possível
+async function sacolasParadas(db: SupabaseClient) {
+  const agora = Date.now();
+  const limite = new Date(agora - 3 * 3600e3 + 3 * 24 * 3600e3).toISOString().slice(0, 10); // retirada ≥ hoje + 3 dias
+  const { data, error } = await db.from("sacolas").select("cliente_auth_id,bolsa_slug,data_inicio,dados")
+    .is("lembrete_enviado_em", null)
+    .lte("atualizado_em", new Date(agora - 3 * 3600e3).toISOString())
+    .gte("atualizado_em", new Date(agora - 48 * 3600e3).toISOString());
+  if (error) throw error;
+  const resultado: Record<string, string> = {};
+  for (const sac of data ?? []) {
+    if (!sac.data_inicio || t(sac.data_inicio) < limite) continue;
+    const [{ data: cad }, { data: u }] = await Promise.all([
+      db.from("validacao_clientes").select("nome_completo,email").eq("usuario_auth_id", sac.cliente_auth_id)
+        .order("created_date", { ascending: false }).limit(1).maybeSingle(),
+      db.auth.admin.getUserById(sac.cliente_auth_id),
+    ]);
+    const para = EMAIL.test(t(cad?.email)) ? t(cad?.email) : t(u?.user?.email);
+    if (!EMAIL.test(para)) continue;
+    // marca antes de enviar: no máximo um lembrete por sacola
+    const { data: marcada } = await db.from("sacolas").update({ lembrete_enviado_em: new Date().toISOString() })
+      .eq("cliente_auth_id", sac.cliente_auth_id).is("lembrete_enviado_em", null).select("cliente_auth_id");
+    if (!marcada?.length) continue;
+    const e = emailSacola(t(cad?.nome_completo).split(/\s+/)[0] || "", sac.dados, sac.bolsa_slug);
+    try {
+      const resp = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json", "Idempotency-Key": `sacola-${sac.cliente_auth_id}-${sac.bolsa_slug}-${sac.data_inicio}` },
+        body: JSON.stringify({ from: emailFrom, to: [para], subject: e.assunto, html: e.html }),
+        signal: AbortSignal.timeout(10000),
+      });
+      if (!resp.ok) throw new Error("provider_" + resp.status);
+      resultado[sac.cliente_auth_id] = "enviado";
+    } catch (err) {
+      console.error("email_sacola_falhou", sac.cliente_auth_id, err instanceof Error ? err.message : err);
+      await db.from("sacolas").update({ lembrete_enviado_em: null }).eq("cliente_auth_id", sac.cliente_auth_id);
+      resultado[sac.cliente_auth_id] = "falhou";
+    }
+  }
+  return resultado;
+}
+
 // ---------- rotas ----------
 async function novoAluguel(db: SupabaseClient, pedidoId: string) {
   const d = await carregarPedido(db, pedidoId);
@@ -253,7 +314,7 @@ Deno.serve(async (req) => {
   const db = createClient(url, key);
   try {
     if (body?.acao === "lembretes") return json(await lembretes(db));
-    if (body?.acao === "pagamentos_pendentes") return json(await pagamentosPendentes(db));
+    if (body?.acao === "pagamentos_pendentes") return json({ pedidos: await pagamentosPendentes(db), sacolas: await sacolasParadas(db) });
     const pedidoId = t(body?.pedido_id);
     if (!UUID.test(pedidoId)) return json({ error: "invalid_pedido" }, 400);
     return json(await novoAluguel(db, pedidoId));
