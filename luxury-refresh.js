@@ -460,7 +460,7 @@
 })();
 
 // Revelação ao rolar (inspirado na Dior): títulos aparecem palavra por palavra saindo do desfoque
-// e textos, cards e fotos surgem do desfoque quando entram na tela. Só anima o que ainda está abaixo
+// e as fotos surgem do desfoque dentro do próprio quadro (como na Tod's), sem mexer no texto quando entram na tela. Só anima o que ainda está abaixo
 // da dobra; respeita quem prefere menos movimento.
 (function () {
   if (/\/(admin|checkout|minha-conta|login|cadastro)/.test(location.pathname)) return;
@@ -468,12 +468,12 @@
 
   const FORA = 'header, nav, footer, form, dialog, .menu-mobile, #tbr-cookie-panel, .slider, .hero-feature, .tbr-cond, [data-no-reveal]';
   const TITULOS = 'h1, h2';
-  const BLOCOS = 'p, .card, figure, blockquote, .tbr-h-card, .week-card, .tbr-404-card';
+  const BLOCOS = 'img';
 
   function css() {
     const st = document.createElement('style');
     st.textContent = `
-.tbr-rv{opacity:0;filter:blur(14px);transform:translateY(10px);transition:opacity 1.1s ease,filter 1.2s ease,transform 1.2s cubic-bezier(.2,.7,.2,1);transition-delay:var(--tbr-d,0s)}
+.tbr-rv{opacity:0;filter:blur(10px);transform:scale(1.03);transition:opacity 1.1s ease,filter 1.2s ease,transform 1.4s cubic-bezier(.2,.7,.2,1)!important;transition-delay:var(--tbr-d,0s)!important}
 .tbr-rv.tbr-in{opacity:1;filter:none;transform:none}
 .tbr-w{display:inline-block}
 .tbr-w>span{display:inline-block;opacity:0;filter:blur(12px);transition:opacity .9s ease,filter 1s ease;transition-delay:calc(var(--tbr-i,0) * 90ms + var(--tbr-d,0s))}
@@ -530,8 +530,9 @@
       if (palavras(h)) io.observe(h);
     });
     document.querySelectorAll(BLOCOS).forEach(el => {
-      if (el.closest(FORA) || el.closest('.tbr-rv, .tbr-words') || !visivel(el) || !abaixoDaDobra(el)) return;
-      if (el.parentElement && el.parentElement.closest('.card, figure, .tbr-h-card, .week-card, .tbr-404-card')) return;
+      if (el.closest(FORA) || !visivel(el) || !abaixoDaDobra(el)) return;
+      if (el.closest('.img-hover, .tbr-m-arrow') || el.classList.contains('img-hover')) return;
+      const r = el.getBoundingClientRect(); if (r.width < 90 || r.height < 90) return; // ícones e selos ficam parados
       el.classList.add('tbr-rv');
       io.observe(el);
     });
