@@ -473,10 +473,10 @@
   function css() {
     const st = document.createElement('style');
     st.textContent = `
-.tbr-rv{opacity:0;filter:blur(10px);transform:scale(1.03);transition:opacity 1.1s ease,filter 1.2s ease,transform 1.4s cubic-bezier(.2,.7,.2,1)!important;transition-delay:var(--tbr-d,0s)!important}
+.tbr-rv{opacity:0;filter:blur(10px);transform:scale(1.03);transition:opacity .5s ease,filter .55s ease,transform .7s cubic-bezier(.2,.7,.2,1)!important;transition-delay:var(--tbr-d,0s)!important}
 .tbr-rv.tbr-in{opacity:1;filter:none;transform:none}
 .tbr-w{display:inline-block}
-.tbr-w>span{display:inline-block;opacity:0;filter:blur(12px);transition:opacity .9s ease,filter 1s ease;transition-delay:calc(var(--tbr-i,0) * 90ms + var(--tbr-d,0s))}
+.tbr-w>span{display:inline-block;opacity:0;filter:blur(12px);transition:opacity .45s ease,filter .5s ease;transition-delay:calc(var(--tbr-i,0) * 45ms + var(--tbr-d,0s))}
 .tbr-words.tbr-in .tbr-w>span{opacity:1;filter:none}`;
     document.head.appendChild(st);
   }
@@ -508,7 +508,7 @@
 
   function limpar(el) {
     // Depois da animação, tira o transform para não interferir em nada da página
-    setTimeout(() => { el.classList.remove('tbr-rv', 'tbr-in'); el.style.removeProperty('--tbr-d'); }, 2000);
+    setTimeout(() => { el.classList.remove('tbr-rv', 'tbr-in'); el.style.removeProperty('--tbr-d'); }, 1000);
   }
 
   function iniciar() {
@@ -518,12 +518,12 @@
       entradas.forEach(e => {
         if (!e.isIntersecting) return;
         const el = e.target;
-        el.style.setProperty('--tbr-d', Math.min(n++ * 0.08, 0.4) + 's');
+        el.style.setProperty('--tbr-d', Math.min(n++ * 0.05, 0.25) + 's');
         el.classList.add('tbr-in');
         io.unobserve(el);
         if (el.classList.contains('tbr-rv')) limpar(el);
       });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+    }, { rootMargin: '0px 0px -4% 0px', threshold: 0.08 });
 
     document.querySelectorAll(TITULOS).forEach(h => {
       if (h.closest(FORA) || !visivel(h) || !abaixoDaDobra(h)) return;
