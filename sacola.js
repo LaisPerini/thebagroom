@@ -271,6 +271,12 @@ html.tbr-sac-trava,html.tbr-sac-trava body{overflow:hidden}
     }
   }
 
+  // ---------- link de indicação (?amiga=CODIGO): guarda o código para o checkout ----------
+  try {
+    const amiga = new URLSearchParams(location.search).get('amiga');
+    if (amiga && /^[A-Za-z0-9_-]{3,40}$/.test(amiga)) localStorage.setItem('tbr-indicacao', amiga.toUpperCase());
+  } catch (e) {}
+
   // ---------- início ----------
   function iniciar() {
     let tentativas = 0;

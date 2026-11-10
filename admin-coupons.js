@@ -14,7 +14,7 @@
   function edit(record){editing=record.id;el('Codigo').value=record.codigo;el('Codigo').readOnly=true;el('Percentual').value=record.percentual;el('Inicio').value=dateValue(record.inicio);el('Fim').value=record.fim?dateValue(record.fim):'';el('Total').value=record.limite_total??'';el('ClienteLimite').value=record.limite_por_cliente;el('Cliente').value=record.cliente_auth_id||'';el('Ativo').checked=record.ativo;el('FreteGratis').checked=!!record.frete_gratis;status('Editando '+record.codigo+'. Alterações não mudam pedidos já criados.');panel.scrollIntoView({behavior:'smooth',block:'start'});}
   async function load(){
     clients();status('Carregando cupons...');
-    const [coupons,uses]=await Promise.all([supabaseClient.from('cupons').select('*').order('created_at',{ascending:false}),supabaseClient.from('cupons_usos').select('cupom_id,pedido_id,consumido,aluguel_pedidos(status)')]);
+    const [coupons,uses]=await Promise.all([supabaseClient.from('cupons').select('*').in('tipo',['manual','boas_vindas']).order('created_at',{ascending:false}),supabaseClient.from('cupons_usos').select('cupom_id,pedido_id,consumido,aluguel_pedidos(status)')]);
     if(coupons.error||uses.error){status('Não foi possível carregar cupons. Execute o SQL de cupons no Supabase e confira seu acesso de administrador.',true);return;}
     records=(coupons.data||[]).filter(record=>!record.excluido_em);el('Lista').replaceChildren();
     for(const record of records){

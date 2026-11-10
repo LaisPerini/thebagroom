@@ -18,10 +18,12 @@
       document.getElementById('valorTotal').textContent=moeda(Number(data.aluguel_liquido)+(data.frete_gratis?0:Number(checkout.valorFrete||0)));
       document.getElementById('valorDesconto').textContent='− '+moeda(data.valor_desconto);
       document.getElementById('linhaDesconto').classList.toggle('hidden',!Number(data.valor_desconto));
-      message.textContent=data.codigo?(data.codigo+' aplicado: '+data.percentual+'% de desconto no aluguel. '+(data.frete_gratis?'Frete de ida e devolução grátis. ':'Frete permanece. ')+(Number(data.percentual)===100?'Caução isenta.':'Caução não muda.')):'Novos cadastros recebem 5% no primeiro aluguel, uma única vez. Não há cupom de boas-vindas disponível para esta conta.';
-    }catch(error){if(token!==revision)return;reset();message.textContent=error.code==='PGRST202'?'Os cupons ainda não foram ativados no servidor.':'Cupom inválido, fora da validade, sem usos disponíveis ou não permitido para esta conta.';}
+      message.textContent=data.vale?(data.codigo+' aplicado: '+moeda(data.valor_desconto)+' do vale-presente neste aluguel'+(Number(data.saldo)>Number(data.valor_desconto)?' (o restante, '+moeda(Number(data.saldo)-Number(data.valor_desconto))+', fica guardado no vale).':'.')+' Frete e caução não mudam.'):data.codigo?(data.codigo+' aplicado: '+data.percentual+'% de desconto no aluguel. '+(data.frete_gratis?'Frete de ida e devolução grátis. ':'Frete permanece. ')+(Number(data.percentual)===100?'Caução isenta.':'Caução não muda.')):'Novos cadastros recebem 5% no primeiro aluguel, uma única vez. Não há cupom de boas-vindas disponível para esta conta.';
+    }catch(error){if(token!==revision)return;reset();const m=String(error.message||'');message.textContent=error.code==='PGRST202'?'Os cupons ainda não foram ativados no servidor.':/vale_vencido/.test(m)?'Este vale-presente está fora da validade.':/vale_sem_saldo/.test(m)?'Este vale-presente já foi totalmente usado.':/cupom_proprio/.test(m)?'Este é o seu código de indicação: ele é para as suas amigas usarem.':/cupom_apenas_primeiro_aluguel/.test(m)?'Código de indicação válido só no primeiro aluguel.':'Cupom inválido, fora da validade, sem usos disponíveis ou não permitido para esta conta.';}
     finally{if(token===revision)button.disabled=false;}
   };
   input.addEventListener('input',()=>{revision++;button.disabled=false;reset();message.textContent='Clique em Aplicar cupom para conferir o novo código.';});
+  // Código de indicação recebido por link (/?amiga=CODIGO) entra sozinho no campo
+  try{const ind=localStorage.getItem('tbr-indicacao');if(ind&&!input.value&&/^[A-Z0-9_-]{3,40}$/.test(ind))input.value=ind;}catch(_){}
   aplicarCupomAluguel();
 })();

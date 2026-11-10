@@ -4,7 +4,9 @@
 // 2) { acao: "lembretes" } -> chamado 1x por dia (pg_cron): lembra a cliente que a devolução é amanhã
 //    e pede a avaliação de quem já devolveu a bolsa.
 // 3) { acao: "pagamentos_pendentes" } -> de hora em hora (pg_cron): lembra quem fez o pedido e não pagou
-//    e quem deixou uma bolsa na sacola (cliente logada) sem finalizar.
+//    e quem deixou uma bolsa na sacola (cliente logada) sem finalizar; e avisa quem pediu "avise-me" quando a data libera.
+// 4) { acao: "vale", vale_id } -> vale-presente pago: envia o código para quem vai ganhar e confirma para quem comprou.
+// 5) { acao: "indicacao", cupom_id } -> a amiga indicada alugou: envia o cupom de agradecimento para quem indicou.
 // Cada e-mail sai uma única vez por pedido (tabela tbr_notificacoes_aluguel, chave pedido_id + tipo).
 // Só aceita chamadas com o segredo do disparador (EMAIL_WORKER_SECRET).
 import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2";
@@ -233,6 +235,112 @@ async function sacolasParadas(db: SupabaseClient) {
   return resultado;
 }
 
+// Envio simples (sem o registro por pedido)
+async function enviar(para: string, assunto: string, html: string, chave: string) {
+  if (!EMAIL.test(para)) return "sem_email";
+  try {
+    const resp = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json", "Idempotency-Key": chave },
+      body: JSON.stringify({ from: emailFrom, to: [para], subject: assunto, html }),
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!resp.ok) throw new Error("provider_" + resp.status);
+    return "enviado";
+  } catch (e) {
+    console.error("email_falhou", chave, e instanceof Error ? e.message : e);
+    return "falhou";
+  }
+}
+const caixaCodigo = (codigo: string) =>
+  `<p style="margin:22px 0;padding:18px;text-align:center;border:1px solid #e7e1d8;background:#f6f3ee;font-size:22px;letter-spacing:.16em;color:#1a1714;font-weight:bold">${esc(codigo)}</p>`;
+
+// ---------- vale-presente ----------
+async function valePago(db: SupabaseClient, valeId: string) {
+  const { data: marcado } = await db.from("vales_presente").update({ enviado_em: new Date().toISOString() })
+    .eq("id", valeId).eq("status", "pago").is("enviado_em", null).select("*");
+  const v = marcado?.[0];
+  if (!v) return { ignored: true };
+  const de = t(v.comprador_nome).split(/\s+/)[0] || "Alguém especial";
+  const validade = dataBR(v.validade);
+  const corpoPresente = `
+    ${paragrafo(`Olá, ${esc(v.destinatario_nome)}. <strong>${esc(de)}</strong> te deu um vale-presente de <strong>${brl(v.valor)}</strong> para alugar uma bolsa de luxo na The Bag Room.`)}
+    ${v.mensagem ? `<p style="margin:18px 0;padding:0 0 0 16px;border-left:2px solid #1a1714;font-family:'DM Serif Display',Georgia,serif;font-size:18px;line-height:1.5;color:#1a1714">“${esc(v.mensagem)}”</p>` : ""}
+    ${paragrafo("Use este código no campo de cupom do checkout:")}
+    ${caixaCodigo(v.codigo)}
+    ${paragrafo(`Válido até ${validade}. O valor é descontado do aluguel e, se sobrar, o saldo fica guardado para o próximo.`)}
+    ${botao(`${siteUrl}/aluguel.html`, "Escolher minha bolsa")}`;
+  const rPresente = await enviar(v.destinatario_email, `${de} te deu um vale-presente The Bag Room`,
+    moldura("The Bag Room · Vale-presente", "Um presente para você", corpoPresente), `vale-presente-${v.id}`);
+  const { data: u } = await db.auth.admin.getUserById(v.comprador_auth_id);
+  const corpoCompra = `
+    ${paragrafo(`Olá${t(v.comprador_nome) ? ", " + esc(de) : ""}. Recebemos o seu pagamento e o vale-presente de <strong>${brl(v.valor)}</strong> foi enviado para <strong>${esc(v.destinatario_nome)}</strong> (${esc(v.destinatario_email)}).`)}
+    ${paragrafo("Se preferir entregar pessoalmente, este é o código:")}
+    ${caixaCodigo(v.codigo)}
+    ${paragrafo(`Válido até ${validade}.`)}`;
+  const rCompra = await enviar(t(u?.user?.email), `Seu vale-presente para ${t(v.destinatario_nome)} foi enviado`,
+    moldura("The Bag Room · Vale-presente", "Presente enviado", corpoCompra), `vale-compra-${v.id}`);
+  if (rPresente === "falhou") await db.from("vales_presente").update({ enviado_em: null }).eq("id", v.id);
+  return { presente: rPresente, comprador: rCompra };
+}
+
+// ---------- indicação ----------
+async function creditoIndicacao(db: SupabaseClient, cupomId: string) {
+  const { data: c } = await db.from("cupons").select("id,codigo,percentual,fim,cliente_auth_id,tipo").eq("id", cupomId).maybeSingle();
+  if (!c || c.tipo !== "credito_indicacao" || !c.cliente_auth_id) return { ignored: true };
+  const [{ data: cad }, { data: u }] = await Promise.all([
+    db.from("validacao_clientes").select("nome_completo,email").eq("usuario_auth_id", c.cliente_auth_id)
+      .order("created_date", { ascending: false }).limit(1).maybeSingle(),
+    db.auth.admin.getUserById(c.cliente_auth_id),
+  ]);
+  const para = EMAIL.test(t(cad?.email)) ? t(cad?.email) : t(u?.user?.email);
+  const nome = t(cad?.nome_completo).split(/\s+/)[0];
+  const corpo = `
+    ${paragrafo(`${nome ? `Olá, ${esc(nome)}.` : "Olá."} Uma amiga que você indicou acabou de alugar a primeira bolsa dela na The Bag Room. Obrigada pela confiança!`)}
+    ${paragrafo(`Como agradecimento, você ganhou <strong>${Number(c.percentual)}% de desconto</strong> no seu próximo aluguel. Use o código:`)}
+    ${caixaCodigo(c.codigo)}
+    ${paragrafo(`Válido até ${dataBR(c.fim)}. Continue indicando: a cada amiga que alugar, você ganha um novo cupom.`)}
+    ${botao(`${siteUrl}/aluguel.html`, "Escolher minha próxima bolsa")}`;
+  return { enviado: await enviar(para, "Sua amiga alugou: você ganhou um presente", moldura("The Bag Room · Indique uma amiga", "Obrigada por indicar", corpo), `indicacao-${c.id}`) };
+}
+
+// ---------- avise-me ----------
+const RESERVAS_ATIVAS = ["aguardando_pagamento", "confirmada", "em_preparacao", "enviada", "em_uso", "devolucao_pendente", "bloqueio_manual"];
+async function avisosLivres(db: SupabaseClient) {
+  const agora = Date.now();
+  const minimo = new Date(agora - 3 * 3600e3 + 3 * 24 * 3600e3).toISOString().slice(0, 10);
+  const { data, error } = await db.from("avisos_disponibilidade").select("id,bolsa_slug,email,data_desejada,dias")
+    .is("avisado_em", null).gte("data_desejada", minimo).limit(200);
+  if (error) throw error;
+  const resultado: Record<string, string> = {};
+  const bolsas: Record<string, any> = {};
+  for (const a of data ?? []) {
+    if (!(a.bolsa_slug in bolsas)) {
+      const { data: b } = await db.from("bolsas").select("id,nome,marca,ativa").eq("slug", a.bolsa_slug).maybeSingle();
+      bolsas[a.bolsa_slug] = b;
+    }
+    const b = bolsas[a.bolsa_slug];
+    if (!b || b.ativa === false) continue;
+    const fim = new Date(Date.parse(a.data_desejada + "T12:00:00Z") + Number(a.dias || 4) * 864e5).toISOString().slice(0, 10);
+    const { data: conflito } = await db.from("bolsa_reservas").select("id").eq("bolsa_id", b.id)
+      .in("status", RESERVAS_ATIVAS).lte("data_inicio", fim).gte("data_fim", a.data_desejada).limit(1);
+    if (conflito?.length) continue;
+    const { data: marcado } = await db.from("avisos_disponibilidade").update({ avisado_em: new Date().toISOString() })
+      .eq("id", a.id).is("avisado_em", null).select("id");
+    if (!marcado?.length) continue;
+    const nome = t(b.marca) && !t(b.nome).toLowerCase().startsWith(t(b.marca).toLowerCase()) ? `${t(b.marca)} ${t(b.nome)}` : t(b.nome);
+    const corpo = `
+      ${paragrafo(`Boa notícia: a <strong>${esc(nome)}</strong> ficou disponível para a data que você queria, <strong>${dataBR(a.data_desejada)}</strong>.`)}
+      ${paragrafo("A data só fica garantida quando o aluguel é finalizado, então vale reservar logo.")}
+      ${botao(`${siteUrl}/aluguel/${encodeURIComponent(a.bolsa_slug)}.html`, "Reservar agora")}`;
+    const r = await enviar(a.email, `A ${nome} está disponível para ${dataBR(a.data_desejada)}`,
+      moldura("The Bag Room · Avise-me", "Ela está livre", corpo), `aviso-${a.id}`);
+    if (r === "falhou") await db.from("avisos_disponibilidade").update({ avisado_em: null }).eq("id", a.id);
+    resultado[a.id] = r;
+  }
+  return resultado;
+}
+
 // ---------- rotas ----------
 async function novoAluguel(db: SupabaseClient, pedidoId: string) {
   const d = await carregarPedido(db, pedidoId);
@@ -314,7 +422,9 @@ Deno.serve(async (req) => {
   const db = createClient(url, key);
   try {
     if (body?.acao === "lembretes") return json(await lembretes(db));
-    if (body?.acao === "pagamentos_pendentes") return json({ pedidos: await pagamentosPendentes(db), sacolas: await sacolasParadas(db) });
+    if (body?.acao === "pagamentos_pendentes") return json({ pedidos: await pagamentosPendentes(db), sacolas: await sacolasParadas(db), avisos: await avisosLivres(db) });
+    if (body?.acao === "vale") { const id = t(body?.vale_id); if (!UUID.test(id)) return json({ error: "invalid_vale" }, 400); return json(await valePago(db, id)); }
+    if (body?.acao === "indicacao") { const id = t(body?.cupom_id); if (!UUID.test(id)) return json({ error: "invalid_cupom" }, 400); return json(await creditoIndicacao(db, id)); }
     const pedidoId = t(body?.pedido_id);
     if (!UUID.test(pedidoId)) return json({ error: "invalid_pedido" }, 400);
     return json(await novoAluguel(db, pedidoId));
