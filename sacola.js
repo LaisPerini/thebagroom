@@ -52,12 +52,12 @@
   css.textContent = `
 .tbr-sacola-btn{position:relative;display:inline-flex;align-items:center;gap:10px;background:none;border:0;padding:0;margin:0 22px 0 0;font:inherit;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--tbr-ink,#1a1714);cursor:pointer}
 .tbr-sacola-btn svg{width:18px;height:18px}
-.tbr-sacola-btn i{position:absolute;top:-3px;left:12px;width:7px;height:7px;border-radius:50%;background:#1a1714;box-shadow:0 0 0 2px var(--tbr-paper,#fffdf9);display:none}
+.tbr-sacola-btn i{position:absolute;top:-6px;left:10px;min-width:15px;height:15px;padding:0 3px;box-sizing:border-box;border-radius:8px;background:#1a1714;color:#fff;font:600 9px/15px Inter,Arial,sans-serif;font-style:normal;letter-spacing:0;text-align:center;box-shadow:0 0 0 1.5px var(--tbr-paper,#fffdf9);display:none}
 .tbr-sacola-btn.tem i{display:block}
 body.tbr-overlay:not(.tbr-scrolled) .tbr-sacola-btn,body.tbr-home:not(.tbr-scrolled) .tbr-sacola-btn{color:#fff}
-body.tbr-overlay:not(.tbr-scrolled) .tbr-sacola-btn i,body.tbr-home:not(.tbr-scrolled) .tbr-sacola-btn i{background:#fff;box-shadow:none}
+body.tbr-overlay:not(.tbr-scrolled) .tbr-sacola-btn i,body.tbr-home:not(.tbr-scrolled) .tbr-sacola-btn i{background:#fff;color:#1a1714;box-shadow:none}
 .tbr-head-right{display:flex;align-items:center}
-@media(max-width:760px){.tbr-sacola-btn{width:40px;height:44px;justify-content:center;margin:0}.tbr-sacola-btn span{display:none}.tbr-sacola-btn i{top:10px;left:23px}}
+@media(max-width:760px){.tbr-sacola-btn{width:40px;height:44px;justify-content:center;margin:0}.tbr-sacola-btn span{display:none}.tbr-sacola-btn i{top:9px;left:21px}}
 .tbr-sac-fundo{position:fixed;inset:0;z-index:100000;background:rgba(26,23,20,.32);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s}
 .tbr-sac-painel{position:fixed;top:0;right:0;bottom:0;z-index:100001;width:min(420px,100%);background:#fffdf9;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .38s cubic-bezier(.25,.8,.25,1);box-shadow:-20px 0 60px rgba(26,23,20,.12)}
 .tbr-sac-aberta .tbr-sac-fundo{opacity:1;visibility:visible}
@@ -102,7 +102,7 @@ html.tbr-sac-trava,html.tbr-sac-trava body{overflow:hidden}
     botao.type = 'button';
     botao.className = 'tbr-sacola-btn';
     botao.setAttribute('aria-haspopup', 'dialog');
-    botao.innerHTML = `${ICON}<i></i><span>Sacola</span>`;
+    botao.innerHTML = `${ICON}<i aria-hidden="true">1</i><span>Sacola</span>`;
     botao.addEventListener('click', abrir);
     right.prepend(botao);
     atualizarBotao();
