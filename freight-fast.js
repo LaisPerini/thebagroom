@@ -34,6 +34,17 @@
   })();pending.set(key,request);return request;
  }
  window.tbrQuoteRoundTrip=(origin,destination)=>Promise.all([quote(origin,destination),quote(destination,origin)]);
+ // O servidor de frete "dorme" quando fica parado e leva até 1 minuto para acordar.
+ // Acordamos ele assim que a página da bolsa abre (e de novo quando a cliente toca no CEP),
+ // para que a consulta já esteja rápida quando ela digitar.
+ let acordado=0;
+ function acordarServidor(){
+  if(Date.now()-acordado<4*60*1000)return;acordado=Date.now();
+  try{fetch('https://thebagroomtest.onrender.com/',{mode:'no-cors',cache:'no-store',keepalive:true}).catch(()=>{});}catch(_){}
+ }
+ window.tbrAcordarFrete=acordarServidor;
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',acordarServidor,{once:true});else acordarServidor();
+ document.addEventListener('focusin',e=>{if(e.target&&e.target.id==='cep')acordarServidor();});
  const addresses=new Map();
  window.validarCepEstadoSP=async function(cep){
   const key=String(cep).replace(/\D/g,'');if(key.length!==8)throw new Error('cep_invalido');
