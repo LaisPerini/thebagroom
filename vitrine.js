@@ -17,9 +17,9 @@
   const st = document.createElement('style');
   st.textContent = `
 body.tbr-catalog .grid .card .img-box{position:relative!important;background:#f6f4f0!important;border-radius:0!important}
-.tbr-trilho{position:absolute;inset:0;display:flex;touch-action:pan-y;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.tbr-trilho{position:absolute;inset:0;display:flex;touch-action:pan-y;will-change:transform}
 .tbr-trilho::-webkit-scrollbar{display:none}
-.tbr-trilho>img{flex:0 0 100%;width:100%!important;height:100%!important;object-fit:cover!important;scroll-snap-align:center;padding:0!important;min-height:0!important}
+.tbr-trilho>img{flex:0 0 100%;width:100%!important;height:100%!important;object-fit:cover!important;padding:0!important;min-height:0!important;-webkit-user-drag:none;user-select:none}
 .tbr-pontos{position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:center;gap:6px;pointer-events:none;z-index:2}
 .tbr-pontos i{display:block;width:16px;height:1.5px;background:rgba(26,23,20,.22);transition:background .25s}
 .tbr-pontos i.on{background:#1a1714}
@@ -85,43 +85,42 @@ body.tbr-catalog .grid .card .tag{right:auto!important}
     pontos.className = 'tbr-pontos';
     pontos.innerHTML = Array.from({ length: extras.length + 1 }, (_, i) => `<i class="${i ? '' : 'on'}"></i>`).join('');
     box.appendChild(pontos);
-    let raf = 0;
-    trilho.addEventListener('scroll', () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const atual = Math.round(trilho.scrollLeft / trilho.clientWidth);
-        pontos.querySelectorAll('i').forEach((p, i) => p.classList.toggle('on', i === atual));
-      });
-    }, { passive: true });
-    // Deslizar com o dedo (controlado aqui para funcionar igual no iPhone e no Android).
-    // Arrastar a foto não abre a bolsa.
+    // Deslizar com o dedo: a faixa de fotos acompanha o dedo (transform, mais fluido no iPhone)
+    // e encaixa na foto seguinte ao soltar. Arrastar a foto não abre a bolsa.
     const total = extras.length + 1;
-    let x0 = 0, y0 = 0, inicio = 0, idx0 = 0, eixo = '', moveu = false;
-    const irPara = i => {
-      i = Math.max(0, Math.min(total - 1, i));
-      trilho.style.scrollSnapType = 'none';
-      trilho.scrollTo({ left: i * trilho.clientWidth, behavior: 'smooth' });
-      clearTimeout(trilho.__snap);
-      trilho.__snap = setTimeout(() => { trilho.style.scrollSnapType = ''; }, 450);
+    let atual = 0, x0 = 0, y0 = 0, t0 = 0, eixo = '', moveu = false;
+    const largura = () => box.clientWidth;
+    const posicionar = (px, animar) => {
+      trilho.style.transition = animar ? 'transform .38s cubic-bezier(.25,.8,.25,1)' : 'none';
+      trilho.style.transform = `translate3d(${px}px,0,0)`;
     };
+    const irPara = i => {
+      atual = Math.max(0, Math.min(total - 1, i));
+      posicionar(-atual * largura(), true);
+      pontos.querySelectorAll('i').forEach((p, k) => p.classList.toggle('on', k === atual));
+    };
+    trilho.__irPara = irPara;
     trilho.addEventListener('touchstart', e => {
-      const t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; eixo = ''; moveu = false;
-      inicio = trilho.scrollLeft; idx0 = Math.round(inicio / trilho.clientWidth);
+      const t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; t0 = Date.now(); eixo = ''; moveu = false;
     }, { passive: true });
     trilho.addEventListener('touchmove', e => {
-      const t = e.touches[0], dx = t.clientX - x0, dy = t.clientY - y0;
-      if (!eixo && (Math.abs(dx) > 6 || Math.abs(dy) > 6)) eixo = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+      const t = e.touches[0]; let dx = t.clientX - x0; const dy = t.clientY - y0;
+      if (!eixo && (Math.abs(dx) > 5 || Math.abs(dy) > 5)) eixo = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
       if (eixo !== 'x') return;
       moveu = true;
       if (e.cancelable) e.preventDefault();
-      trilho.style.scrollSnapType = 'none';
-      trilho.scrollLeft = inicio - dx;
+      if ((atual === 0 && dx > 0) || (atual === total - 1 && dx < 0)) dx *= 0.35; // resistência nas pontas
+      posicionar(-atual * largura() + dx, false);
     }, { passive: false });
-    trilho.addEventListener('touchend', e => {
+    const soltar = e => {
       if (eixo !== 'x') return;
       const dx = e.changedTouches[0].clientX - x0;
-      irPara(Math.abs(dx) > trilho.clientWidth * 0.18 ? idx0 + (dx < 0 ? 1 : -1) : idx0);
-    }, { passive: true });
+      const rapido = Math.abs(dx) / Math.max(1, Date.now() - t0) > 0.35; // passada rápida
+      irPara(Math.abs(dx) > largura() * 0.15 || (rapido && Math.abs(dx) > 20) ? atual + (dx < 0 ? 1 : -1) : atual);
+    };
+    trilho.addEventListener('touchend', soltar, { passive: true });
+    trilho.addEventListener('touchcancel', soltar, { passive: true });
+    addEventListener('resize', () => posicionar(-atual * largura(), false));
     card.addEventListener('click', e => { if (moveu) { e.preventDefault(); e.stopPropagation(); moveu = false; } }, true);
   });
 
@@ -176,7 +175,7 @@ body.tbr-catalog .grid .card .tag{right:auto!important}
   const aplicarGrade = g => {
     document.body.classList.toggle('tbr-grade-1', g === 1);
     acoes.querySelectorAll('.tbr-grade button').forEach(b => b.setAttribute('aria-pressed', Number(b.dataset.g) === g));
-    cards.forEach(c => { const t = c.querySelector('.tbr-trilho'); if (t) t.scrollLeft = 0; });
+    cards.forEach(c => { const t = c.querySelector('.tbr-trilho'); if (t && t.__irPara) t.__irPara(0); });
   };
   acoes.querySelectorAll('.tbr-grade button').forEach(b => b.addEventListener('click', () => { const g = Number(b.dataset.g); gravar(LS_GRADE, g); aplicarGrade(g); }));
   aplicarGrade(ler(LS_GRADE, 2) === 1 ? 1 : 2);
