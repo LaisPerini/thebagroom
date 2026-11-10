@@ -23,7 +23,7 @@ Deno.serve(async (req) => {
   const json = (body: unknown, status = 200) =>
     new Response(JSON.stringify(body), { status, headers: { ...h, "Content-Type": "application/json" } });
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: h });
-  if (req.method === "GET") return json({ ok: true }); // usado só para "acordar"
+  if (req.method === "GET") return json({ ok: true, configurado: !!TOKEN }); // usado só para "acordar"
   if (req.method !== "POST") return json({ error: "method_not_allowed" }, 405);
   if (!TOKEN) return json({ error: "missing_configuration" }, 500);
 

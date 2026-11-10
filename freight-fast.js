@@ -26,7 +26,7 @@
   const request=(async()=>{
    const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),90000);
    try{
-    const response=await fetch('https://thebagroomtest.onrender.com/frete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({from:{postal_code:from},to:{postal_code:to}}),signal:controller.signal});
+    const response=await fetch('https://zpyjnqkrsmgpwszqlcrs.supabase.co/functions/v1/frete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({from:{postal_code:from},to:{postal_code:to}}),signal:controller.signal});
     if(!response.ok)throw new Error('frete_http_'+response.status);
     const data=await response.json();if(!validQuote(data))throw new Error('frete_indisponivel');
     remember(key,data);return data;
@@ -34,13 +34,13 @@
   })();pending.set(key,request);return request;
  }
  window.tbrQuoteRoundTrip=(origin,destination)=>Promise.all([quote(origin,destination),quote(destination,origin)]);
- // O servidor de frete "dorme" quando fica parado e leva até 1 minuto para acordar.
+ // O cálculo de frete roda no Supabase; esta chamada leve deixa a função pronta antes da cliente digitar o CEP.
  // Acordamos ele assim que a página da bolsa abre (e de novo quando a cliente toca no CEP),
  // para que a consulta já esteja rápida quando ela digitar.
  let acordado=0;
  function acordarServidor(){
   if(Date.now()-acordado<4*60*1000)return;acordado=Date.now();
-  try{fetch('https://thebagroomtest.onrender.com/',{mode:'no-cors',cache:'no-store',keepalive:true}).catch(()=>{});}catch(_){}
+  try{fetch('https://zpyjnqkrsmgpwszqlcrs.supabase.co/functions/v1/frete',{cache:'no-store'}).catch(()=>{});}catch(_){}
  }
  window.tbrAcordarFrete=acordarServidor;
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',acordarServidor,{once:true});else acordarServidor();

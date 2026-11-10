@@ -386,7 +386,7 @@
       }, 12000);
       activeShippingRequest = (async () => {
         try {
-          const endpoint = 'https://thebagroomtest.onrender.com/frete';
+          const endpoint = 'https://zpyjnqkrsmgpwszqlcrs.supabase.co/functions/v1/frete';
           const headers = { 'Content-Type': 'application/json' };
           const origin = '11060-003';
           const addressRequest = typeof window.validarCepEstadoSP === 'function'
