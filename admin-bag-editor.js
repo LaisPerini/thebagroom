@@ -4,7 +4,7 @@
   const originalClear = window.limparFormularioBolsa;
   const fields = { nome:'novaBolsaNome',slug:'novaBolsaSlug',marca:'novaBolsaMarca',categoria:'novaBolsaCategoria',cor:'novaBolsaCor',material:'novaBolsaMaterial',dimensoes:'novaBolsaDimensoes',estado:'novaBolsaEstado',descricao:'novaBolsaDescricao',valor_loja:'novaBolsaValorLoja',valor_pago:'novaBolsaValorPago',valor_caucao:'novaBolsaCaucao' };
   const byId = id => document.getElementById(id);
-  function url(value) { try { const result = new URL(value); return /^https?:$/.test(result.protocol) && !result.username && !result.password ? result.href : null; } catch (_) { return null; } }
+  function url(value) { const texto = String(value || '').trim(); if (!texto || !/^(https?:\/\/|\/(?!\/))/i.test(texto)) return null; try { const result = new URL(texto, 'https://www.thebagroom.com.br'); return /^https?:$/.test(result.protocol) && !result.username && !result.password ? result.href : null; } catch (_) { return null; } }
   function mode() {
     byId('tituloEditorBolsa').textContent = editing ? 'Editar bolsa' : 'Cadastrar bolsa';
     byId('salvarBolsaEditor').textContent = editing ? 'Salvar alterações' : 'Cadastrar bolsa';
