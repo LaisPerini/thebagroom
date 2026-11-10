@@ -44,8 +44,10 @@
 .tbr-cond-escala span{font:500 10px/1.3 Inter,Arial,sans-serif;letter-spacing:.04em;color:#a39b90;text-align:center}
 .tbr-cond-escala span:first-child{text-align:left}.tbr-cond-escala span:last-child{text-align:right}
 .tbr-cond-escala span.on{color:#1a1714;font-weight:600}
-.tbr-cond-txt{margin:14px 0 0;font-size:14px;line-height:1.6;color:#5f574e}
-.tbr-cond-txt strong{color:#1a1714;font-weight:600}
+.tbr-caution + .tbr-cond{margin:-14px 0 30px;padding:0;border-top:0}
+.tbr-caution + .tbr-cond .tbr-cond-head{margin-bottom:10px}
+.tbr-caution + .tbr-cond .tbr-cond-rot{font-size:10px}
+.tbr-caution + .tbr-cond .tbr-cond-nivel{font-size:17px}
 @media(max-width:420px){.tbr-cond-escala span{font-size:9px;letter-spacing:0}}`;
     document.head.appendChild(st);
   }
@@ -57,6 +59,16 @@
     });
   }
 
+  // Fica logo abaixo da linha "Caução de segurança", fora dos detalhes da peça
+  function posicionar(box) {
+    const cau = document.querySelector('.info .tbr-caution');
+    if (cau) { if (cau.nextElementSibling !== box) cau.after(box); return; }
+    if (box.__espera) return;
+    box.__espera = new MutationObserver(() => { if (document.querySelector('.info .tbr-caution')) { box.__espera.disconnect(); posicionar(box); } });
+    box.__espera.observe(document.body, { childList: true, subtree: true });
+    setTimeout(() => box.__espera.disconnect(), 15000);
+  }
+
   function montar() {
     const p = acharParagrafo();
     if (!p) return;
@@ -64,16 +76,15 @@
     const n = nivel(texto);
     if (n < 0) return; // texto fora do padrão: mantém o parágrafo original
     css();
-    let box = p.previousElementSibling && p.previousElementSibling.classList.contains('tbr-cond') ? p.previousElementSibling : null;
+    let box = document.querySelector('.tbr-cond');
     if (!box) { box = document.createElement('div'); box.className = 'tbr-cond'; p.before(box); }
-    const det = detalhes(texto, n);
+    posicionar(box);
     box.setAttribute('role', 'group');
     box.setAttribute('aria-label', `Estado da peça: ${NIVEIS[n].nome}, nível ${n + 1} de 5`);
     box.innerHTML = `
       <div class="tbr-cond-head"><span class="tbr-cond-rot">Estado da peça</span><span class="tbr-cond-nivel">${NIVEIS[n].nome}</span></div>
       <div class="tbr-cond-barra" aria-hidden="true">${NIVEIS.map((_, i) => `<i class="${i === n ? 'on' : ''}"></i>`).join('')}</div>
-      <div class="tbr-cond-escala" aria-hidden="true">${NIVEIS.map((x, i) => `<span class="${i === n ? 'on' : ''}">${x.nome}</span>`).join('')}</div>
-      <p class="tbr-cond-txt">${NIVEIS[n].texto}${det ? ` <strong>Nesta peça:</strong> ${det.replace(/[<>&]/g, '')}` : ''}</p>`;
+      <div class="tbr-cond-escala" aria-hidden="true">${NIVEIS.map((x, i) => `<span class="${i === n ? 'on' : ''}">${x.nome}</span>`).join('')}</div>`;
     p.hidden = true; p.style.setProperty('display', 'none', 'important');
     // Se o banco atualizar o texto depois, refaz o medidor
     if (!p.__tbrObs) { p.__tbrObs = new MutationObserver(() => montar()); p.__tbrObs.observe(p, { childList: true, characterData: true, subtree: true }); }
