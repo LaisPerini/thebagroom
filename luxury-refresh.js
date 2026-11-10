@@ -459,8 +459,8 @@
   document.querySelectorAll('img:not([alt])').forEach((img) => img.setAttribute('alt', ''));
 })();
 
-// Revelação ao rolar (inspirado na Dior): títulos sobem palavra por palavra e textos,
-// cards e fotos surgem suavemente quando entram na tela. Só anima o que ainda está abaixo
+// Revelação ao rolar (inspirado na Dior): títulos aparecem palavra por palavra saindo do desfoque
+// e textos, cards e fotos surgem do desfoque quando entram na tela. Só anima o que ainda está abaixo
 // da dobra; respeita quem prefere menos movimento.
 (function () {
   if (/\/(admin|checkout|minha-conta|login|cadastro)/.test(location.pathname)) return;
@@ -473,11 +473,11 @@
   function css() {
     const st = document.createElement('style');
     st.textContent = `
-.tbr-rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:var(--tbr-d,0s)}
-.tbr-rv.tbr-in{opacity:1;transform:none}
-.tbr-w{display:inline-block;overflow:hidden;vertical-align:bottom;padding:0 .02em .1em;margin:0 -.02em -.1em}
-.tbr-w>span{display:inline-block;transform:translateY(110%);transition:transform 1.05s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--tbr-i,0) * 75ms + var(--tbr-d,0s))}
-.tbr-words.tbr-in .tbr-w>span{transform:none}`;
+.tbr-rv{opacity:0;filter:blur(14px);transform:translateY(10px);transition:opacity 1.1s ease,filter 1.2s ease,transform 1.2s cubic-bezier(.2,.7,.2,1);transition-delay:var(--tbr-d,0s)}
+.tbr-rv.tbr-in{opacity:1;filter:none;transform:none}
+.tbr-w{display:inline-block}
+.tbr-w>span{display:inline-block;opacity:0;filter:blur(12px);transition:opacity .9s ease,filter 1s ease;transition-delay:calc(var(--tbr-i,0) * 90ms + var(--tbr-d,0s))}
+.tbr-words.tbr-in .tbr-w>span{opacity:1;filter:none}`;
     document.head.appendChild(st);
   }
 
@@ -508,7 +508,7 @@
 
   function limpar(el) {
     // Depois da animação, tira o transform para não interferir em nada da página
-    setTimeout(() => { el.classList.remove('tbr-rv', 'tbr-in'); el.style.removeProperty('--tbr-d'); }, 1600);
+    setTimeout(() => { el.classList.remove('tbr-rv', 'tbr-in'); el.style.removeProperty('--tbr-d'); }, 2000);
   }
 
   function iniciar() {
