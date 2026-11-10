@@ -17,7 +17,7 @@
   const st = document.createElement('style');
   st.textContent = `
 body.tbr-catalog .grid .card .img-box{position:relative!important;background:#f6f4f0!important;border-radius:0!important}
-.tbr-trilho{position:absolute;inset:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.tbr-trilho{position:absolute;inset:0;display:flex;touch-action:pan-y;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 .tbr-trilho::-webkit-scrollbar{display:none}
 .tbr-trilho>img{flex:0 0 100%;width:100%!important;height:100%!important;object-fit:cover!important;scroll-snap-align:center;padding:0!important;min-height:0!important}
 .tbr-pontos{position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:center;gap:6px;pointer-events:none;z-index:2}
@@ -93,11 +93,36 @@ body.tbr-catalog .grid .card .tag{right:auto!important}
         pontos.querySelectorAll('i').forEach((p, i) => p.classList.toggle('on', i === atual));
       });
     }, { passive: true });
-    // Arrastar a foto não abre a bolsa
-    let x0 = 0, moveu = false;
-    trilho.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; moveu = false; }, { passive: true });
-    trilho.addEventListener('touchmove', e => { if (Math.abs(e.touches[0].clientX - x0) > 8) moveu = true; }, { passive: true });
-    card.addEventListener('click', e => { if (moveu) { e.preventDefault(); moveu = false; } }, true);
+    // Deslizar com o dedo (controlado aqui para funcionar igual no iPhone e no Android).
+    // Arrastar a foto não abre a bolsa.
+    const total = extras.length + 1;
+    let x0 = 0, y0 = 0, inicio = 0, idx0 = 0, eixo = '', moveu = false;
+    const irPara = i => {
+      i = Math.max(0, Math.min(total - 1, i));
+      trilho.style.scrollSnapType = 'none';
+      trilho.scrollTo({ left: i * trilho.clientWidth, behavior: 'smooth' });
+      clearTimeout(trilho.__snap);
+      trilho.__snap = setTimeout(() => { trilho.style.scrollSnapType = ''; }, 450);
+    };
+    trilho.addEventListener('touchstart', e => {
+      const t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; eixo = ''; moveu = false;
+      inicio = trilho.scrollLeft; idx0 = Math.round(inicio / trilho.clientWidth);
+    }, { passive: true });
+    trilho.addEventListener('touchmove', e => {
+      const t = e.touches[0], dx = t.clientX - x0, dy = t.clientY - y0;
+      if (!eixo && (Math.abs(dx) > 6 || Math.abs(dy) > 6)) eixo = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+      if (eixo !== 'x') return;
+      moveu = true;
+      if (e.cancelable) e.preventDefault();
+      trilho.style.scrollSnapType = 'none';
+      trilho.scrollLeft = inicio - dx;
+    }, { passive: false });
+    trilho.addEventListener('touchend', e => {
+      if (eixo !== 'x') return;
+      const dx = e.changedTouches[0].clientX - x0;
+      irPara(Math.abs(dx) > trilho.clientWidth * 0.18 ? idx0 + (dx < 0 ? 1 : -1) : idx0);
+    }, { passive: true });
+    card.addEventListener('click', e => { if (moveu) { e.preventDefault(); e.stopPropagation(); moveu = false; } }, true);
   });
 
   // ---------- favoritas ----------
