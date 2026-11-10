@@ -960,7 +960,7 @@ return [linha1, linha2, linha3].filter(Boolean).map(esc).join("<br>");
 
 function rastreioHtml(r){
 if(!r?.codigo_rastreio) return "Ainda não informado";
-const url = (() => { try{ const u = new URL(r.url_rastreio); return /^https?:$/.test(u.protocol) ? u.href : ""; }catch{ return ""; } })();
+const url = (() => { try{ const u = new URL(r.url_rastreio); return /^https?:$/.test(u.protocol) ? u.href : ""; }catch{ return "https://www.melhorrastreio.com.br/rastreio/" + encodeURIComponent(r.codigo_rastreio); } })();
 const codigo = esc(r.codigo_rastreio) + (r.transportadora ? ` <small>${esc(r.transportadora)}</small>` : "");
 return url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${codigo}</a>` : codigo;
 }

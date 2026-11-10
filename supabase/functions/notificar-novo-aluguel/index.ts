@@ -6,6 +6,8 @@
 // 3) { acao: "pagamentos_pendentes" } -> de hora em hora (pg_cron): lembra quem fez o pedido e não pagou
 //    e quem deixou uma bolsa na sacola (cliente logada) sem finalizar; e avisa quem pediu "avise-me" quando a data libera.
 // 4) { acao: "indicacao", cupom_id } -> a amiga indicada alugou: envia o cupom de agradecimento para quem indicou.
+// 5) { acao: "rastreio", rastreio_id } -> código de envio salvo no admin: "Sua bolsa está a caminho".
+// 6) { acao: "devolvido", pedido_id } -> pedido marcado como devolvido: "Recebemos sua bolsa".
 // Cada e-mail sai uma única vez por pedido (tabela tbr_notificacoes_aluguel, chave pedido_id + tipo).
 // Só aceita chamadas com o segredo do disparador (EMAIL_WORKER_SECRET).
 import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2";
@@ -67,7 +69,7 @@ async function carregarPedido(db: SupabaseClient, pedidoId: string) {
   const bolsas = (reservas ?? []).filter((r: any) => !["cancelada"].includes(r.status)).map((r: any) => {
     const b = Array.isArray(r.bolsas) ? r.bolsas[0] : r.bolsas;
     const n = t(b?.nome), m = t(b?.marca);
-    const nome = !n ? (m || "Bolsa") : (m && !n.toLowerCase().startsWith(m.toLowerCase()) ? `${m} ${n}` : n);
+    const nome = !n ? (m || "Bolsa") : (m && !n.toLowerCase().includes(m.toLowerCase()) ? `${m} ${n}` : n);
     return { nome, ini: r.data_inicio, fim: r.data_fim };
   });
   const enderecoHtml = endereco
@@ -311,6 +313,44 @@ async function avisosLivres(db: SupabaseClient) {
   return resultado;
 }
 
+// ---------- envio e devolução ----------
+function linkRastreio(codigo: string, url?: string) {
+  try { const u = new URL(t(url)); if (/^https?:$/.test(u.protocol)) return u.href; } catch { /* sem link próprio */ }
+  return `https://www.melhorrastreio.com.br/rastreio/${encodeURIComponent(codigo)}`;
+}
+async function bolsaACaminho(db: SupabaseClient, rastreioId: string) {
+  const { data: r } = await db.from("rastreamentos_aluguel").select("id,pedido_id,tipo,transportadora,codigo_rastreio,url_rastreio").eq("id", rastreioId).maybeSingle();
+  if (!r || r.tipo !== "envio" || !t(r.codigo_rastreio)) return { ignored: true };
+  const d = await carregarPedido(db, r.pedido_id);
+  if (!d || d.pedido.status === "cancelado") return { ignored: true };
+  const codigo = t(r.codigo_rastreio);
+  const ola = d.primeiroNome ? `Olá, ${esc(d.primeiroNome)}.` : "Olá.";
+  const b = d.bolsas[0];
+  const corpo = `
+    ${paragrafo(`${ola} A sua <strong>${esc(d.titulo)}</strong> já está a caminho, higienizada, conferida e embalada com todo o cuidado.`)}
+    <table style="width:100%;border-collapse:collapse;margin:8px 0 6px">
+      ${linha("Rastreio", `<strong>${esc(codigo)}</strong>${t(r.transportadora) ? `<br><span style="color:#7a7268">${esc(r.transportadora)}</span>` : ""}`)}
+      ${b ? linha("Período", `${dataBR(b.ini)} a ${dataBR(b.fim)}`) : ""}
+    </table>
+    ${paragrafo(`Ao receber, confira a bolsa e os acessórios. Guarde a embalagem e o dust bag: eles são usados na devolução. Qualquer dúvida, fale com a curadoria pelo <a href="${WHATSAPP}" style="color:#1a1714">WhatsApp</a>.`)}
+    ${botao(linkRastreio(codigo, r.url_rastreio), "Acompanhar entrega")}`;
+  return { enviado: await enviarUmaVez(db, r.pedido_id, `envio_${codigo}`.slice(0, 60), d.email,
+    `Sua ${d.titulo} está a caminho`, moldura("The Bag Room · Envio", "Sua bolsa está a caminho", corpo)) };
+}
+async function bolsaRecebida(db: SupabaseClient, pedidoId: string) {
+  const d = await carregarPedido(db, pedidoId);
+  if (!d || d.pedido.status !== "devolvido") return { ignored: true };
+  const ola = d.primeiroNome ? `Olá, ${esc(d.primeiroNome)}.` : "Olá.";
+  const caucao = Number(d.pedido.valor_caucao_total) > 0;
+  const corpo = `
+    ${paragrafo(`${ola} A sua <strong>${esc(d.titulo)}</strong> chegou de volta à The Bag Room. Obrigada pelo cuidado com ela!`)}
+    ${paragrafo(caucao ? "Agora a nossa curadoria faz a conferência da peça e, estando tudo certo, a caução é liberada conforme o contrato. Você acompanha tudo em Minha conta." : "Agora a nossa curadoria faz a conferência da peça. Você acompanha tudo em Minha conta.")}
+    ${paragrafo("Foi um prazer fazer parte desse momento. Quando quiser a próxima, é só escolher.")}
+    ${botao(`${siteUrl}/aluguel.html`, "Ver bolsas")}`;
+  return { enviado: await enviarUmaVez(db, pedidoId, "devolucao_recebida", d.email,
+    `Recebemos a sua ${d.titulo}`, moldura("The Bag Room · Devolução", "Recebemos sua bolsa", corpo)) };
+}
+
 // ---------- rotas ----------
 async function novoAluguel(db: SupabaseClient, pedidoId: string) {
   const d = await carregarPedido(db, pedidoId);
@@ -393,6 +433,8 @@ Deno.serve(async (req) => {
   try {
     if (body?.acao === "lembretes") return json(await lembretes(db));
     if (body?.acao === "pagamentos_pendentes") return json({ pedidos: await pagamentosPendentes(db), sacolas: await sacolasParadas(db), avisos: await avisosLivres(db) });
+    if (body?.acao === "rastreio") { const id = t(body?.rastreio_id); if (!UUID.test(id)) return json({ error: "invalid_rastreio" }, 400); return json(await bolsaACaminho(db, id)); }
+    if (body?.acao === "devolvido") { const id = t(body?.pedido_id); if (!UUID.test(id)) return json({ error: "invalid_pedido" }, 400); return json(await bolsaRecebida(db, id)); }
     if (body?.acao === "indicacao") { const id = t(body?.cupom_id); if (!UUID.test(id)) return json({ error: "invalid_cupom" }, 400); return json(await creditoIndicacao(db, id)); }
     const pedidoId = t(body?.pedido_id);
     if (!UUID.test(pedidoId)) return json({ error: "invalid_pedido" }, 400);
