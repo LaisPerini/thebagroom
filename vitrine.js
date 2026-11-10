@@ -69,7 +69,7 @@ body.tbr-catalog .grid .card .tag{right:auto!important}
   cards.forEach(card => {
     const box = card.querySelector('.img-box');
     const principal = box && box.querySelector('img:not(.img-hover)');
-    const extras = (card.dataset.fotos || '').split('|').filter(Boolean);
+    const extras = (card.dataset.fotos || '').split('|').filter(Boolean).slice(0, 2); // no máximo 3 fotos por bolsa
     if (!box || !principal || !extras.length) return;
     const trilho = document.createElement('div');
     trilho.className = 'tbr-trilho';
