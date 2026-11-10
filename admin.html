@@ -687,6 +687,12 @@ background:#9b2c2c;
 .desp-acoes{white-space:nowrap;text-align:right;}
 .desp-acoes .btn{margin-left:6px;}
 .desp-excluir{color:#8e3a32!important;}
+@media(max-width:900px){
+.investment-table tr{grid-template-columns:1fr!important;padding:6px 14px!important}
+.investment-table td{flex-direction:row!important;justify-content:space-between!important;align-items:baseline!important;gap:16px!important;padding:11px 0!important;text-align:right!important}
+.investment-table td:last-child{border-bottom:0!important}
+.investment-table td:before{flex:0 0 auto;text-align:left;font-size:10px!important}
+}
 .lucro-head-actions{display:flex;gap:8px;align-items:center}
 .lucro-head-actions select{min-height:36px;padding:0 10px;border:1px solid #ddd5ca;background:#fff;font:inherit;font-size:13px}
 .lucro-kpis{grid-template-columns:repeat(5,minmax(0,1fr));margin-bottom:18px}
