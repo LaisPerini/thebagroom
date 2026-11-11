@@ -46,6 +46,14 @@
     document.head.appendChild(ev);
   }
 
+  /* ===== "Enviar para uma amiga" na página da bolsa ===== */
+  if (/^\/aluguel\/./.test(path)) {
+    const env = document.createElement('script');
+    env.src = '/compartilhar.js?v=20261110-1';
+    env.defer = true;
+    document.head.appendChild(env);
+  }
+
   /* ===== Cabeçalho e menu (padrão único em todas as páginas) ===== */
   const NAV = [
     ['/aluguel.html', 'Alugar'],
