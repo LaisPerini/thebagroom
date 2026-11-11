@@ -1302,3 +1302,33 @@ body.tbr-catalog .card .tag { z-index: 2; }
 .calendario-status:not(.erro):not(.sucesso), #reservaStatus:not(.erro):not(.sucesso), .newsletter-note, .article-date { color: #66615a !important; }
 body.tbr-product .tbr-caution button { min-width: 24px !important; min-height: 24px !important; }
 .footer-luxo .footer-content a { display: inline-block; padding: 4px 0; }
+
+/* Página da bolsa no computador: fotos uma embaixo da outra e coluna de informações fixa ao lado */
+.tbr-photo-count { display: none; }
+@media (min-width: 1024px) {
+  body.tbr-product .tbr-photo-count { display: block; }
+  body.tbr-product .galeria .tbr-gallery-count { display: none !important; }
+  body.tbr-product .slider {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    overflow: visible !important;
+    scroll-snap-type: none !important;
+  }
+  body.tbr-product .slider img {
+    width: 100% !important;
+    height: max(520px, calc(100vh - 140px)) !important;
+    max-height: 1000px;
+    flex: none !important;
+    object-fit: contain !important;
+    cursor: zoom-in;
+  }
+  body.tbr-product .galeria .seta,
+  body.tbr-product .galeria .dots { display: none !important; }
+  body.tbr-product .produto > .info { position: sticky !important; top: 126px !important; }
+  body.tbr-product .tbr-photo-count {
+    position: sticky; top: 50vh; z-index: 3; height: 0;
+    font: 500 11px/1 Inter, Arial, sans-serif; letter-spacing: .14em; color: #7a7268;
+  }
+  body.tbr-product .tbr-photo-count span { position: absolute; left: 18px; top: 0; }
+}

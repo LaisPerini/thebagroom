@@ -103,10 +103,10 @@
   else iniciar();
 })();
 
-// No celular: descrição, estado da peça e ficha técnica ficam dentro de "Detalhes da peça",
-// fechado por padrão (toca para abrir e fechar). No computador tudo continua aberto.
+// Descrição, estado da peça e ficha técnica ficam dentro de "Detalhes da peça",
+// fechado por padrão (toca para abrir e fechar), no celular e no computador.
 (function () {
-  const CEL = '(max-width: 760px)';
+  const CEL = 'all';
   function css() {
     if (document.getElementById('tbr-det-css')) return;
     const st = document.createElement('style'); st.id = 'tbr-det-css';

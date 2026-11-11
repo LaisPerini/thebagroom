@@ -43,7 +43,8 @@
 .tbr-bagnav a{color:#1a1714;text-decoration:none;padding:10px 2px;border-bottom:1px solid transparent;transition:border-color .25s ease,opacity .25s ease;white-space:nowrap}
 .tbr-bagnav a:hover{border-bottom-color:#1a1714}
 .tbr-bagnav a:focus-visible{outline:1px solid #1a1714;outline-offset:4px}
-@media(max-width:700px){.tbr-bagnav{margin:-6px 0 18px;padding:0 4px;max-width:none}}`;
+@media(max-width:700px){.tbr-bagnav{margin:-6px 0 18px;padding:0 4px;max-width:none}}
+.info>.tbr-bagnav{margin:0 0 26px;max-width:none}`;
     document.head.appendChild(st);
   }
 
@@ -77,10 +78,59 @@
     nav.innerHTML = `<a href="${ant.href}" rel="prev">‹ Anterior</a><a href="${prox.href}" rel="next">Próxima ›</a>`;
     const galeria = document.querySelector('.galeria');
     if (!galeria) return;
-    galeria.after(nav); // fora da galeria, que corta o que passa da altura das fotos
+    // Celular: abaixo das fotos (fora da galeria, que corta o que passa da altura).
+    // Computador: no topo da coluna de informações, que fica fixa ao lado das fotos.
+    const pc = matchMedia('(min-width: 1024px)');
+    const posicionar = () => {
+      const info = document.querySelector('.produto > .info');
+      if (pc.matches && info) info.prepend(nav); else galeria.after(nav);
+    };
+    posicionar();
+    pc.addEventListener?.('change', posicionar);
     [prox, ant].forEach(b => { const l = document.createElement('link'); l.rel = 'prefetch'; l.href = b.href; document.head.appendChild(l); });
     arrastar(d => { location.href = (d > 0 ? prox : ant).href; });
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', montar); else montar();
+  // Computador: contador discreto "1/3" ao lado das fotos, que ficam uma embaixo da outra.
+  function contador() {
+    const galeria = document.querySelector('.galeria');
+    if (!galeria) return;
+    const box = document.createElement('div');
+    box.className = 'tbr-photo-count';
+    box.setAttribute('aria-hidden', 'true');
+    box.innerHTML = '<span></span>';
+    galeria.before(box);
+    const texto = box.firstChild;
+    let pendente = false;
+    const atualizar = () => {
+      pendente = false;
+      const fotos = [...galeria.querySelectorAll('#slider img')];
+      if (fotos.length < 2) { texto.textContent = ''; return; }
+      const meio = innerHeight / 2;
+      let atual = 0, menor = Infinity;
+      fotos.forEach((f, i) => { const r = f.getBoundingClientRect(); const d = Math.abs((r.top + r.bottom) / 2 - meio); if (d < menor) { menor = d; atual = i; } });
+      texto.textContent = `${atual + 1}/${fotos.length}`;
+    };
+    addEventListener('scroll', () => { if (!pendente) { pendente = true; requestAnimationFrame(atualizar); } }, { passive: true });
+    addEventListener('resize', atualizar);
+    setTimeout(atualizar, 300); setTimeout(atualizar, 2500); // fotos podem chegar depois (página dinâmica)
+  }
+
+  // Computador: a coluna de informações acompanha as fotos. Se for mais alta que a tela,
+  // ela rola junto até o botão aparecer e só então fica parada (o botão nunca some).
+  function colunaFixa() {
+    const info = document.querySelector('.produto > .info');
+    if (!info) return;
+    const pc = matchMedia('(min-width: 1024px)');
+    const ajustar = () => {
+      if (pc.matches) info.style.setProperty('top', Math.min(126, innerHeight - info.offsetHeight - 24) + 'px', 'important');
+      else info.style.removeProperty('top');
+    };
+    ajustar();
+    if ('ResizeObserver' in window) new ResizeObserver(ajustar).observe(info);
+    addEventListener('resize', ajustar);
+  }
+
+  const iniciar = () => { contador(); colunaFixa(); montar(); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();
 })();
