@@ -174,7 +174,7 @@
       const paragraph = document.querySelector('.info .desc > p');
       if (paragraph && bag.descricao != null) paragraph.textContent = bag.descricao;
       [['estado da bolsa',bag.estado],['categoria',bag.categoria],['material',bag.material],['marca',brand(bag)],['cor',bag.cor],['dimensões',bag.dimensoes]].forEach(([label,value]) => detail(label,value));
-      if (bag.valor_caucao != null) { text('.tbr-caution > span','Caução de segurança: ' + currency(bag.valor_caucao)); detail('valor da caução',currency(bag.valor_caucao)); }
+      if (bag.valor_caucao != null) { text('.tbr-caution > span','Caução de segurança: ' + currency(bag.valor_caucao)); detail('caução',currency(bag.valor_caucao)); }
       if (bag.valor_loja != null) detail('valor em loja',currency(bag.valor_loja));
       const previous = options?.querySelector('input:checked')?.value;
       const selected = plans.find(p => String(p.dias) === previous) || plans[0];
