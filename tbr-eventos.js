@@ -6,6 +6,16 @@
   if (window.tbrEvento) return;
   const KEY = 'checkoutAluguelTheBagRoom';
   const fila = [];
+  // mesmos eventos no Pixel da Meta
+  const META = { view_item: 'ViewContent', add_to_cart: 'AddToCart', begin_checkout: 'InitiateCheckout', purchase: 'Purchase' };
+  const meta = d => {
+    const itens = d.items || [];
+    const o = { currency: d.currency || 'BRL', content_type: 'product', content_ids: itens.map(i => i.item_id).filter(Boolean) };
+    if (itens[0] && itens[0].item_name) o.content_name = itens[0].item_name;
+    if (d.value !== undefined) o.value = d.value;
+    if (itens.length) o.num_items = itens.length;
+    return o;
+  };
   let tentativas = 0, timer = null;
   const pronto = () => typeof window.gtag === 'function' && !window['ga-disable-G-KPVTBY5VK8'];
   function esvaziar() {
@@ -13,7 +23,11 @@
       if (++tentativas > 90) { clearInterval(timer); timer = null; }
       return;
     }
-    while (fila.length) { const [n, d] = fila.shift(); try { window.gtag('event', n, d); } catch (e) { /* sem análise */ } }
+    while (fila.length) {
+      const [n, d] = fila.shift();
+      try { window.gtag('event', n, d); } catch (e) { /* sem análise */ }
+      try { if (typeof window.fbq === 'function' && META[n]) window.fbq('track', META[n], meta(d), d.transaction_id ? { eventID: 'compra-' + d.transaction_id } : undefined); } catch (e) { /* sem pixel */ }
+    }
     clearInterval(timer); timer = null;
   }
   function evento(nome, dados) {

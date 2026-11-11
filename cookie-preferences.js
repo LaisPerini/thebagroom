@@ -1,8 +1,8 @@
 (() => {
   'use strict';
-  const key = 'tbr-cookie-choice-v1', measurement = 'G-KPVTBY5VK8';
+  const key = 'tbr-cookie-choice-v2', measurement = 'G-KPVTBY5VK8', pixel = '2137282516870735';
   let choice = null, loaded = false;
-  try { const saved = JSON.parse(localStorage.getItem(key)); if (saved?.version === 1 && typeof saved.analytics === 'boolean' && Date.now() - saved.at < 180 * 86400000 && saved.at <= Date.now()) choice = saved; } catch (_) {}
+  try { const saved = JSON.parse(localStorage.getItem(key)); if (saved?.version === 2 && typeof saved.analytics === 'boolean' && Date.now() - saved.at < 180 * 86400000 && saved.at <= Date.now()) choice = saved; } catch (_) {}
   window['ga-disable-' + measurement] = !choice?.analytics;
   function loadAnalytics() {
     if (loaded || !choice?.analytics) return;
@@ -14,19 +14,32 @@
     const script = document.createElement('script'); script.async = true;
     script.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurement;
     document.head.appendChild(script);
+    loadPixel();
+  }
+  // Pixel da Meta (Instagram/Facebook): só com a mesma permissão dos cookies de análise
+  function loadPixel() {
+    if (window.fbq) return;
+    const n = window.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+    if (!window._fbq) window._fbq = n;
+    n.push = n; n.loaded = true; n.version = '2.0'; n.queue = [];
+    const s = document.createElement('script'); s.async = true;
+    s.src = 'https://connect.facebook.net/en_US/fbevents.js';
+    document.head.appendChild(s);
+    window.fbq('init', pixel);
+    window.fbq('track', 'PageView');
   }
   function clearAnalyticsCookies() {
     const host = location.hostname, domains = ['', host, '.' + host, '.thebagroom.com.br'];
     document.cookie.split(';').forEach(cookie => {
       const name = cookie.split('=')[0].trim();
-      if (!/^_ga(?:_|$)|^_gid$|^_gat/.test(name)) return;
+      if (!/^_ga(?:_|$)|^_gid$|^_gat|^_fbp$|^_fbc$/.test(name)) return;
       domains.forEach(domain => { document.cookie = name + '=; Max-Age=0; path=/' + (domain ? '; domain=' + domain : '') + '; SameSite=Lax'; });
     });
   }
   let lastFocus;
   function save(analytics) {
     const hadAnalytics = loaded;
-    choice = { version: 1, analytics, at: Date.now() };
+    choice = { version: 2, analytics, at: Date.now() };
     try { localStorage.setItem(key, JSON.stringify(choice)); } catch (_) {}
     window['ga-disable-' + measurement] = !analytics;
     document.getElementById('tbr-cookie-panel')?.remove();
@@ -39,7 +52,7 @@
     lastFocus = document.activeElement;
     const panel = document.createElement('section'); panel.id = 'tbr-cookie-panel';
     panel.setAttribute('role', 'region'); panel.setAttribute('aria-label', 'Preferências de cookies');
-    panel.innerHTML = '<div class="tbr-ck-text"><strong>Cookies</strong><p>Usamos cookies essenciais para a sua conta e os seus pedidos e, com a sua permissão, cookies de análise para entender como o site é usado. <a href="/politica-de-cookies.html">Política de cookies</a></p></div><div class="tbr-ck-actions"><button type="button" data-choice="no">Recusar</button><button type="button" data-choice="yes" class="tbr-ck-primary">Aceitar</button></div>';
+    panel.innerHTML = '<div class="tbr-ck-text"><strong>Cookies</strong><p>Usamos cookies essenciais para a sua conta e os seus pedidos e, com a sua permissão, cookies de análise e de publicidade (Google Analytics e Meta) para entender como o site é usado e mostrar anúncios mais relevantes. <a href="/politica-de-cookies.html">Política de cookies</a></p></div><div class="tbr-ck-actions"><button type="button" data-choice="no">Recusar</button><button type="button" data-choice="yes" class="tbr-ck-primary">Aceitar</button></div>';
     panel.querySelector('[data-choice="no"]').addEventListener('click', () => save(false));
     panel.querySelector('[data-choice="yes"]').addEventListener('click', () => save(true));
     document.body.appendChild(panel);
