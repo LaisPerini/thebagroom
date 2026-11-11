@@ -105,7 +105,10 @@
       }
       text('.tbr-product-brand', brand(bag));
       text('.info > .nome', model(bag));
-      document.title = bag.nome + ' | The Bag Room';
+      if (bag.nome) {
+        const minPrice = plans.length ? Math.min(...plans.map(p => Number(p.valor))) : 0;
+        document.title = bag.nome + (minPrice > 0 ? ' | Aluguel a partir de ' + currency(minPrice) : ' | Aluguel de bolsas') + ' | The Bag Room';
+      }
       const ld=document.getElementById('tbr-product-ld');
       if(ld){try{const data=JSON.parse(ld.textContent);data.name=bag.nome||data.name;if(bag.marca)data.brand={'@type':'Brand',name:brand(bag)};if(bag.descricao)data.description=bag.descricao;
         if(plans.length){data.offers.price=Math.min(...plans.map(p=>Number(p.valor))).toFixed(2);}
