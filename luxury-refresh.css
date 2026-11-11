@@ -552,7 +552,7 @@ body.tbr-product .produto {
   width: var(--tbr-page) !important;
   max-width: none !important;
   margin: 0 auto !important;
-  padding: 62px 0 110px !important;
+  padding: 40px 0 110px !important;
   display: grid !important;
   grid-template-columns: minmax(0, 1.35fr) minmax(390px, .65fr) !important;
   gap: clamp(48px, 7vw, 110px) !important;
@@ -563,7 +563,8 @@ body.tbr-product .galeria { width: 100% !important; max-width: none !important; 
 body.tbr-product .tbr-product-media { grid-column: 1; min-width: 0; }
 body.tbr-product .produto > .info { grid-column: 2; }
 body.tbr-product .slider { width: 100% !important; max-width: none !important; background: #fff !important; }
-body.tbr-product .slider img { width: 100% !important; height: min(72vw, 790px) !important; object-fit: contain !important; }
+/* A foto inteira cabe na tela do computador, com a navegação entre bolsas logo abaixo */
+body.tbr-product .slider img { width: 100% !important; height: max(420px, min(72vw, 790px, calc(100vh - 250px))) !important; object-fit: contain !important; }
 body.tbr-product .auth-selo-link { display: none !important; }
 body.tbr-product .seta { border-radius: 0 !important; background: rgba(255,254,250,.9) !important; color: var(--tbr-ink) !important; }
 body.tbr-product .info { position: sticky; top: 24px; width: 100% !important; padding: 20px 0 !important; }
