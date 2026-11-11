@@ -83,6 +83,63 @@
     } catch (error) { console.error('Preços da página inicial:', error); }
     finally { mostrar(); }
   }
+  // Avaliações aprovadas pela curadoria (e autorizadas pela cliente): aparecem na página e viram estrelas no Google
+  async function reviews(bag) {
+    let rows;
+    try { rows = await read('avaliacoes', { select: 'nota,comentario,nome_exibicao,created_at', bolsa_id: 'eq.' + bag.id, order: 'created_at.desc', limit: '50' }); }
+    catch (error) { console.warn('Avaliações indisponíveis:', error); return; }
+    rows = (rows || []).filter(row => Number(row.nota) >= 1 && Number(row.nota) <= 5);
+    if (!rows.length) return;
+    const average = rows.reduce((sum, row) => sum + Number(row.nota), 0) / rows.length;
+    const averageText = average.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    const stars = n => '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n));
+    const date = value => { const d = new Date(value); return isNaN(d) ? '' : d.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }); };
+    if (!document.getElementById('tbr-reviews-style')) {
+      const style = document.createElement('style'); style.id = 'tbr-reviews-style';
+      style.textContent = '.tbr-reviews{max-width:1100px;margin:56px auto 0;padding:0 20px;font-family:Inter,Arial,sans-serif;color:#111}'
+        + '.tbr-reviews h2{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:26px;margin:0 0 6px}'
+        + '.tbr-reviews-summary{display:flex;align-items:baseline;gap:10px;font-size:14px;color:#555;margin-bottom:22px}'
+        + '.tbr-reviews-summary strong{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:30px;color:#111}'
+        + '.tbr-stars{color:#a8824b;letter-spacing:2px}'
+        + '.tbr-review{border-top:1px solid #eaeaea;padding:18px 0}'
+        + '.tbr-review p{margin:8px 0 0;color:#555;line-height:1.7;font-size:15px;white-space:pre-line}'
+        + '.tbr-review-meta{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#777}';
+      document.head.appendChild(style);
+    }
+    const section = document.createElement('section'); section.className = 'tbr-reviews'; section.setAttribute('aria-label', 'Avaliações das clientes');
+    const title = document.createElement('h2'); title.textContent = 'Avaliações das clientes';
+    const summary = document.createElement('div'); summary.className = 'tbr-reviews-summary';
+    const big = document.createElement('strong'); big.textContent = averageText;
+    const summaryStars = document.createElement('span'); summaryStars.className = 'tbr-stars'; summaryStars.textContent = stars(average); summaryStars.setAttribute('aria-hidden', 'true');
+    const count = document.createElement('span'); count.textContent = rows.length === 1 ? '1 avaliação' : rows.length + ' avaliações';
+    summary.append(big, summaryStars, count);
+    section.append(title, summary);
+    rows.forEach(row => {
+      const item = document.createElement('article'); item.className = 'tbr-review';
+      const head = document.createElement('div');
+      const itemStars = document.createElement('span'); itemStars.className = 'tbr-stars'; itemStars.textContent = stars(row.nota); itemStars.setAttribute('aria-label', row.nota + ' de 5 estrelas');
+      const meta = document.createElement('div'); meta.className = 'tbr-review-meta'; meta.textContent = [row.nome_exibicao || 'Cliente The Bag Room', date(row.created_at)].filter(Boolean).join(' · ');
+      head.append(itemStars, meta); item.appendChild(head);
+      if (row.comentario) { const body = document.createElement('p'); body.textContent = row.comentario; item.appendChild(body); }
+      section.appendChild(item);
+    });
+    (document.querySelector('.produto') || document.querySelector('.info'))?.after(section);
+    const ld = document.getElementById('tbr-product-ld');
+    if (ld) {
+      try {
+        const data = JSON.parse(ld.textContent);
+        data.aggregateRating = { '@type': 'AggregateRating', ratingValue: average.toFixed(1), reviewCount: rows.length, bestRating: 5, worstRating: 1 };
+        data.review = rows.slice(0, 10).map(row => ({
+          '@type': 'Review',
+          reviewRating: { '@type': 'Rating', ratingValue: Number(row.nota), bestRating: 5, worstRating: 1 },
+          author: { '@type': 'Person', name: row.nome_exibicao || 'Cliente The Bag Room' },
+          datePublished: String(row.created_at || '').slice(0, 10) || undefined,
+          reviewBody: row.comentario || undefined
+        }));
+        ld.textContent = JSON.stringify(data);
+      } catch (_) {}
+    }
+  }
   async function product() {
     if (!document.querySelector('.produto') || typeof BOLSA_SLUG === 'undefined') return;
     let ready = false;
@@ -113,6 +170,7 @@
       if(ld){try{const data=JSON.parse(ld.textContent);data.name=bag.nome||data.name;if(bag.marca)data.brand={'@type':'Brand',name:brand(bag)};if(bag.descricao)data.description=bag.descricao;
         if(plans.length){data.offers.price=Math.min(...plans.map(p=>Number(p.valor))).toFixed(2);}
         data.offers.availability='https://schema.org/'+(bag.ativa===false?'OutOfStock':'InStock');ld.textContent=JSON.stringify(data);}catch(e){}}
+      reviews(bag);
       const paragraph = document.querySelector('.info .desc > p');
       if (paragraph && bag.descricao != null) paragraph.textContent = bag.descricao;
       [['estado da bolsa',bag.estado],['categoria',bag.categoria],['material',bag.material],['marca',brand(bag)],['cor',bag.cor],['dimensões',bag.dimensoes]].forEach(([label,value]) => detail(label,value));
