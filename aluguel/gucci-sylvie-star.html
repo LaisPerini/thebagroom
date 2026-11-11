@@ -48,7 +48,7 @@
 <div id="videoModal" class="video-modal">
   <div class="video-close" onclick="fecharVideo()">✕</div>
 
-  <video controls autoplay muted playsinline>
+  <video controls muted playsinline preload="none">
     <source src="/videos/gucci-sylvie.mp4" type="video/mp4">
   </video>
 </div>
@@ -1992,16 +1992,22 @@ function toggleFooter(el){
 
 <script>
 function abrirVideo(){
-document.getElementById('videoModal').style.display='flex';
+const modal=document.getElementById('videoModal');
+modal.style.display='flex';
+const v=modal.querySelector('video');
+if(v){v.currentTime=0;v.play().catch(()=>{});}
 }
 
 function fecharVideo(){
-document.getElementById('videoModal').style.display='none';
+const modal=document.getElementById('videoModal');
+modal.style.display='none';
+const v=modal.querySelector('video');
+if(v)v.pause();
 }
 </script>
 
   <script src="/luxury-refresh.js?v=20261110-11"></script>
-  <script src="/bag-fields.js?v=20261110-2"></script>
+  <script src="/bag-fields.js?v=20261110-3"></script>
 <script src="/freight-fast.js?v=20261110-2"></script>
 <script src="/bag-condition.js?v=20261110-3" defer></script>
 <script src="/recomendacoes.js?v=20261110-1" defer></script>
