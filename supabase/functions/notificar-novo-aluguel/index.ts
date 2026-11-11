@@ -45,6 +45,20 @@ const moldura = (rotulo: string, titulo: string, corpo: string, rodape = true) =
   </div>
   ${rodape ? `<p style="max-width:560px;margin:18px auto 0;text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#7a7268">The Bag Room · <a href="${siteUrl}" style="color:#7a7268">thebagroom.com.br</a></p>` : ""}
 </div>`;
+// Foto da bolsa igual à da vitrine (aluguel.html), em .jpg para abrir em qualquer leitor de e-mail.
+let vitrineHtml: Promise<string> | null = null;
+async function capaBolsa(slug: string) {
+  if (!slug) return "";
+  vitrineHtml ??= fetch(`${siteUrl}/aluguel.html`, { signal: AbortSignal.timeout(8000) }).then((r) => (r.ok ? r.text() : "")).catch(() => "");
+  const html = await vitrineHtml;
+  const i = html.indexOf(`data-bolsa-slug="${slug}"`);
+  if (i < 0) return "";
+  const m = html.slice(i, i + 3000).match(/<img[^>]+src="(\/img\/[^"?]+)/);
+  return m ? siteUrl + m[1].replace(/\.webp$/i, ".jpg") : "";
+}
+const fotoBolsa = (src: string, alt = "") => src
+  ? `<p style="margin:6px 0 18px;text-align:center"><img src="${esc(src)}" alt="${esc(alt)}" width="240" style="display:inline-block;width:240px;max-width:100%;height:auto;background:#f6f4f0;border:0"></p>`
+  : "";
 const paragrafo = (txt: string) => `<p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#1a1714">${txt}</p>`;
 
 // ---------- dados do pedido ----------
@@ -52,7 +66,7 @@ async function carregarPedido(db: SupabaseClient, pedidoId: string) {
   const { data: pedido } = await db.from("aluguel_pedidos").select("*").eq("id", pedidoId).maybeSingle();
   if (!pedido) return null;
   const [{ data: reservas }, { data: cadastro }, { data: endereco }] = await Promise.all([
-    db.from("bolsa_reservas").select("data_inicio,data_fim,status,bolsas(nome,marca)").eq("pedido_id", pedidoId).order("data_inicio"),
+    db.from("bolsa_reservas").select("data_inicio,data_fim,status,bolsas(nome,marca,slug)").eq("pedido_id", pedidoId).order("data_inicio"),
     pedido.cliente_auth_id
       ? db.from("validacao_clientes").select("nome_completo,email,celular,instagram")
           .eq("usuario_auth_id", pedido.cliente_auth_id).order("created_date", { ascending: false }).limit(1).maybeSingle()
@@ -70,13 +84,14 @@ async function carregarPedido(db: SupabaseClient, pedidoId: string) {
     const b = Array.isArray(r.bolsas) ? r.bolsas[0] : r.bolsas;
     const n = t(b?.nome), m = t(b?.marca);
     const nome = !n ? (m || "Bolsa") : (m && !n.toLowerCase().includes(m.toLowerCase()) ? `${m} ${n}` : n);
-    return { nome, ini: r.data_inicio, fim: r.data_fim };
+    return { nome, ini: r.data_inicio, fim: r.data_fim, slug: t(b?.slug) };
   });
+  const foto = bolsas[0] ? await capaBolsa(bolsas[0].slug) : "";
   const enderecoHtml = endereco
     ? `${esc(endereco.endereco)}, ${esc(endereco.numero)}${endereco.complemento ? " - " + esc(endereco.complemento) : ""}<br>${esc(endereco.bairro)} · ${esc(endereco.cidade)}/${esc(endereco.estado)} · CEP ${esc(endereco.cep)}`
     : "";
   return {
-    pedido, bolsas, enderecoHtml, email,
+    pedido, bolsas, enderecoHtml, email, foto,
     nome: t(cadastro?.nome_completo) || "Cliente",
     primeiroNome: (t(cadastro?.nome_completo).split(/\s+/)[0]) || "",
     cadastro,
@@ -130,6 +145,7 @@ function emailConfirmacao(d: Dados) {
   const ola = d.primeiroNome ? `Olá, ${esc(d.primeiroNome)}.` : "Olá.";
   const corpo = `
     ${paragrafo(`${ola} Recebemos o seu pagamento e a sua reserva está confirmada. Agora a gente cuida de tudo: a bolsa passa pela nossa higienização e conferência e segue embalada para você.`)}
+    ${fotoBolsa(d.foto, d.titulo)}
     <table style="width:100%;border-collapse:collapse;margin:8px 0 6px">
       ${linha("Pedido", esc(p.numero || p.id.slice(0, 8)))}
       ${d.bolsas.map((b) => linha("Bolsa", `${esc(b.nome)}<br><span style="color:#7a7268">${dataBR(b.ini)} a ${dataBR(b.fim)}</span>`)).join("")}
@@ -145,6 +161,7 @@ function emailLembrete(d: Dados, fim: string) {
   const ola = d.primeiroNome ? `Olá, ${esc(d.primeiroNome)}.` : "Olá.";
   const corpo = `
     ${paragrafo(`${ola} Esperamos que você tenha aproveitado cada momento com a sua ${esc(d.titulo)}.`)}
+    ${fotoBolsa(d.foto, d.titulo)}
     ${paragrafo(`Passando para lembrar que o período do seu aluguel termina <strong>amanhã, ${dataBR(fim)}</strong>. Deixe a bolsa pronta com a embalagem, o dust bag e os acessórios que vieram com ela.`)}
     ${paragrafo(`Qualquer dúvida sobre a devolução, fale com a gente pelo WhatsApp. Vai ser um prazer te receber de novo.`)}
     ${botao(WHATSAPP, "Falar com a curadoria")}`;
@@ -156,6 +173,7 @@ function emailPagamentoPendente(d: Dados) {
   const b = d.bolsas[0];
   const corpo = `
     ${paragrafo(`${ola} Notamos que o seu pedido da <strong>${esc(d.titulo)}</strong> ainda está aguardando o pagamento.`)}
+    ${fotoBolsa(d.foto, d.titulo)}
     ${b ? `<table style="width:100%;border-collapse:collapse;margin:8px 0 6px">${linha("Período", `${dataBR(b.ini)} a ${dataBR(b.fim)}`)}${linha("Total", `<strong>${brl(d.pedido.valor_total)}</strong>`)}</table>` : ""}
     ${paragrafo(`A reserva só é garantida depois do pagamento. Para concluir, é só abrir Minha conta e tocar em pagar. Se teve alguma dificuldade, a nossa curadoria te ajuda pelo <a href="${WHATSAPP}" style="color:#1a1714">WhatsApp</a>.`)}
     ${botao(`${siteUrl}/minha-conta.html`, "Concluir pagamento")}`;
@@ -169,6 +187,7 @@ function emailAvaliacao(d: Dados, pedidoId: string) {
     `<a href="${link}&nota=${n}" style="display:inline-block;margin:0 4px;font-size:30px;line-height:1;color:#1a1714;text-decoration:none">&#9734;</a>`).join("");
   const corpo = `
     ${paragrafo(`${ola} Recebemos a sua ${esc(d.titulo)} de volta. Obrigada por escolher a The Bag Room.`)}
+    ${fotoBolsa(d.foto, d.titulo)}
     ${paragrafo(`Como foi a sua experiência? Leva menos de um minuto e ajuda muito a nossa curadoria.`)}
     <p style="margin:22px 0 4px;text-align:center">${estrelas}</p>
     <p style="margin:0;text-align:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7a7268">Toque para dar a sua nota</p>
@@ -328,6 +347,7 @@ async function bolsaACaminho(db: SupabaseClient, rastreioId: string) {
   const b = d.bolsas[0];
   const corpo = `
     ${paragrafo(`${ola} A sua <strong>${esc(d.titulo)}</strong> já está a caminho, higienizada, conferida e embalada com todo o cuidado.`)}
+    ${fotoBolsa(d.foto, d.titulo)}
     <table style="width:100%;border-collapse:collapse;margin:8px 0 6px">
       ${linha("Rastreio", `<strong>${esc(codigo)}</strong>${t(r.transportadora) ? `<br><span style="color:#7a7268">${esc(r.transportadora)}</span>` : ""}`)}
       ${b ? linha("Período", `${dataBR(b.ini)} a ${dataBR(b.fim)}`) : ""}
@@ -344,6 +364,7 @@ async function bolsaRecebida(db: SupabaseClient, pedidoId: string) {
   const caucao = Number(d.pedido.valor_caucao_total) > 0;
   const corpo = `
     ${paragrafo(`${ola} A sua <strong>${esc(d.titulo)}</strong> chegou de volta à The Bag Room. Obrigada pelo cuidado com ela!`)}
+    ${fotoBolsa(d.foto, d.titulo)}
     ${paragrafo(caucao ? "Agora a nossa curadoria faz a conferência da peça e, estando tudo certo, a caução é liberada conforme o contrato. Você acompanha tudo em Minha conta." : "Agora a nossa curadoria faz a conferência da peça. Você acompanha tudo em Minha conta.")}
     ${paragrafo("Foi um prazer fazer parte desse momento. Quando quiser a próxima, é só escolher.")}
     ${botao(`${siteUrl}/aluguel.html`, "Ver bolsas")}`;
