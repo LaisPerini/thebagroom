@@ -1,4 +1,4 @@
-// "‹ Anterior · 3 de 29 · Próxima ›" abaixo das fotos, na página da bolsa.
+// "‹ Anterior   Próxima ›" abaixo das fotos (sem mostrar o total de bolsas), na página da bolsa.
 // Ordem: a mesma da vitrine (aluguel.html), só com bolsas ativas; volta ao início no fim.
 // No celular também troca de bolsa arrastando para o lado (fora das fotos e dos campos).
 (function () {
@@ -43,7 +43,6 @@
 .tbr-bagnav a{color:#1a1714;text-decoration:none;padding:10px 2px;border-bottom:1px solid transparent;transition:border-color .25s ease,opacity .25s ease;white-space:nowrap}
 .tbr-bagnav a:hover{border-bottom-color:#1a1714}
 .tbr-bagnav a:focus-visible{outline:1px solid #1a1714;outline-offset:4px}
-.tbr-bagnav span{color:#9a9188;letter-spacing:.1em}
 @media(max-width:700px){.tbr-bagnav{margin:-6px 0 18px;padding:0 4px;max-width:none}}`;
     document.head.appendChild(st);
   }
@@ -75,7 +74,7 @@
     const nav = document.createElement('nav');
     nav.className = 'tbr-bagnav';
     nav.setAttribute('aria-label', 'Navegar entre as bolsas');
-    nav.innerHTML = `<a href="${ant.href}" rel="prev">‹ Anterior</a><span>${i + 1} de ${itens.length}</span><a href="${prox.href}" rel="next">Próxima ›</a>`;
+    nav.innerHTML = `<a href="${ant.href}" rel="prev">‹ Anterior</a><a href="${prox.href}" rel="next">Próxima ›</a>`;
     const galeria = document.querySelector('.galeria');
     if (!galeria) return;
     galeria.after(nav); // fora da galeria, que corta o que passa da altura das fotos
