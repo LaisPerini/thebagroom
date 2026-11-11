@@ -622,6 +622,7 @@ background:#9b2c2c;
 .attention-copy strong{font-size:13px;display:block;margin-bottom:3px;}.attention-copy span{font-size:11px;color:#777;}
 .attention-count{font-weight:700;font-size:18px;}
 .data-table{width:100%;border-collapse:collapse;font-size:13px;}
+.bag-situacao{display:inline-block;margin-top:5px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#7a7268}.bag-situacao.on{color:#2f6b45}.bag-situacao.off{color:#9b2c2c}#bagPerfOrdem{flex:0 1 170px;min-width:0;width:170px;font-size:12px;padding:6px 8px}
 .data-table th{text-align:left;color:#777;font-size:10px;text-transform:uppercase;letter-spacing:.12em;padding:0 10px 10px;border-bottom:1px solid #eee8df;}
 .data-table td{padding:13px 10px;border-bottom:1px solid #f0ebe5;vertical-align:middle;}
 .data-table tr:last-child td{border-bottom:0;}.data-table tr.clickable{cursor:pointer;}.data-table tr.clickable:hover{background:#faf8f5;}
@@ -927,7 +928,7 @@ Painel interno para acompanhar reservas, alterar status, incluir rastreios e con
 <div class="table-scroll"><table class="data-table"><thead><tr><th>Cliente</th><th>Bolsa</th><th>Retirada</th><th>Devolução</th><th>Valor</th><th>Status</th></tr></thead><tbody id="activeRentalsBody"></tbody></table></div>
 </article>
 <article class="card dashboard-card">
-<div class="dashboard-card-head"><div><p class="eyebrow">Estoque · Todas as bolsas</p><h2>Performance das bolsas</h2></div></div>
+<div class="dashboard-card-head"><div><p class="eyebrow">Estoque · Todas as bolsas</p><h2>Performance das bolsas</h2></div><select id="bagPerfOrdem" onchange="renderBagPerformance()" aria-label="Ordenar bolsas"><option value="receita">Maior receita</option><option value="dias">Mais dias alugada</option><option value="parada">Parada há mais tempo</option></select></div>
 <div id="bagPerformance" style="max-height:620px;overflow-y:auto;padding-right:6px;"></div>
 </article>
 </div>
@@ -2203,9 +2204,29 @@ const lista=[...atrasados,...ativos.filter(p=>!atrasados.includes(p))].slice(0,8
 document.getElementById("activeRentalsBody").innerHTML = lista.length ? lista.map(p=>{const item=itemPedido(p),bolsa=bolsaPedido(p),late=atrasados.includes(p);return `<tr class="clickable" onclick="navegarDashboard('pedidos','${safeText(p.numero||p.id)}')"><td data-label="Cliente">${safeText(nomeCliente(p))}</td><td data-label="Bolsa"><strong>${safeText(bolsa.nome||"-")}</strong><br><small>${safeText(bolsa.marca||"")}</small></td><td data-label="Retirada">${dataBR(item?.data_inicio)}</td><td data-label="Devolução">${dataBR(item?.data_fim)}</td><td data-label="Valor">${moeda(item?.valor_aluguel||p.valor_total)}</td><td data-label="Status"><span class="status-pill ${late?'danger':''}">${late?'Atrasado':safeText(statusLabels[p.status]||p.status)}</span></td></tr>`}).join("") : '<tr><td colspan="6" class="dashboard-empty">Nenhum aluguel ativo.</td></tr>';
 }
 
+// Dias alugada nos últimos 12 meses e há quantos dias a bolsa está parada (desde a última devolução)
 function renderBagPerformance(){
-const perf = bolsas.map(b=>{const alugueis=pedidos.filter(p=>itemPedido(p)?.bolsas?.id===b.id && p.status!=="cancelado");const receita=aluguéisReceita(alugueis);const imagem=imagensBolsas.find(i=>i.bolsa_id===b.id);return {b,alugueis,receita,imagem};}).sort((a,b)=>b.receita-a.receita || b.alugueis.length-a.alugueis.length);
-document.getElementById("bagPerformance").innerHTML = perf.length ? perf.map((x,i)=>`<div class="bag-rank"><img class="bag-thumb" src="${safeText(x.imagem?.url||'/favicon.png')}" alt=""><div><strong>${i+1}. ${safeText(x.b.nome)}</strong><small>${safeText(x.b.marca||'')} · ${x.alugueis.length} aluguel(is)</small></div><div class="bag-rank-value">${moeda(x.receita)}</div></div>`).join("") : '<div class="dashboard-empty">Sem dados de performance.</div>';
+const hojeISO=dataISO(), umAno=dataISO(new Date(Date.now()-365*864e5));
+const diasEntre=(a,b)=>Math.round((Date.parse(b+"T12:00:00")-Date.parse(a+"T12:00:00"))/864e5);
+const perf = bolsas.filter(b=>b.ativa!==false).map(b=>{
+  const alugueis=pedidos.filter(p=>itemPedido(p)?.bolsas?.id===b.id && p.status!=="cancelado");
+  const pagos=alugueis.filter(p=>p.status!=="aguardando_pagamento");
+  const receita=aluguéisReceita(alugueis);
+  const imagem=imagensBolsas.find(i=>i.bolsa_id===b.id);
+  let dias=0, ultimoFim="", emUso=false;
+  pagos.forEach(p=>{const it=itemPedido(p); if(!it?.data_inicio||!it?.data_fim) return;
+    const ini=String(it.data_inicio).slice(0,10), fim=String(it.data_fim).slice(0,10);
+    const a=ini<umAno?umAno:ini, z=fim>hojeISO?hojeISO:fim; if(z>=a) dias+=diasEntre(a,z)+1;
+    if(ini<=hojeISO&&fim>=hojeISO) emUso=true;
+    if(fim<=hojeISO&&fim>ultimoFim) ultimoFim=fim;});
+  const parada = emUso ? 0 : ultimoFim ? diasEntre(ultimoFim,hojeISO) : null;
+  return {b,alugueis:pagos,receita,imagem,dias,parada,emUso};
+});
+const ordem=document.getElementById("bagPerfOrdem")?.value||"receita";
+const p=v=>v===null?1e9:v;
+perf.sort(ordem==="dias"?(a,b)=>b.dias-a.dias||b.receita-a.receita:ordem==="parada"?(a,b)=>p(b.parada)-p(a.parada)||a.receita-b.receita:(a,b)=>b.receita-a.receita||b.alugueis.length-a.alugueis.length);
+const situacao=x=>x.emUso?'<span class="bag-situacao on">Alugada agora</span>':x.parada===null?'<span class="bag-situacao off">Nunca alugada</span>':`<span class="bag-situacao${x.parada>=60?' off':''}">Parada há ${x.parada} dia${x.parada===1?'':'s'}</span>`;
+document.getElementById("bagPerformance").innerHTML = perf.length ? perf.map((x,i)=>`<div class="bag-rank"><img class="bag-thumb" src="${safeText(x.imagem?.url||'/favicon.png')}" alt=""><div><strong>${i+1}. ${safeText(x.b.nome)}</strong><small>${safeText(x.b.marca||'')} · ${x.alugueis.length} aluguel(is)</small><small title="Dias alugada nos últimos 12 meses">${x.dias} dia${x.dias===1?'':'s'} alugada · 12 meses</small>${situacao(x)}</div><div class="bag-rank-value">${moeda(x.receita)}</div></div>`).join("") : '<div class="dashboard-empty">Sem dados de performance.</div>';
 }
 
 function aluguéisReceita(lista){return lista.map(p=>pagamentoAprovado(p)).filter(Boolean).reduce((s,p)=>s+Number(p.valor||0),0);}

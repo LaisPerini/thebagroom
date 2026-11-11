@@ -38,6 +38,14 @@
     document.head.appendChild(sacola);
   }
 
+  /* ===== Etapas da compra no Google Analytics ===== */
+  if (!/\/admin/.test(path)) {
+    const ev = document.createElement('script');
+    ev.src = '/tbr-eventos.js?v=20261110-1';
+    ev.async = true;
+    document.head.appendChild(ev);
+  }
+
   /* ===== Cabeçalho e menu (padrão único em todas as páginas) ===== */
   const NAV = [
     ['/aluguel.html', 'Alugar'],
