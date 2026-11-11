@@ -559,10 +559,12 @@ body.tbr-product .produto {
   row-gap: 0 !important;
   align-items: start !important;
 }
-body.tbr-product .galeria { width: 100% !important; max-width: none !important; min-width: 0; background: #fff !important; }
+/* Mesmo fundo das fotos da vitrine (#f6f4f0); as fotos brancas se misturam a ele */
+body.tbr-product .galeria { width: 100% !important; max-width: none !important; min-width: 0; background: #f6f4f0 !important; }
 body.tbr-product .tbr-product-media { grid-column: 1; min-width: 0; }
 body.tbr-product .produto > .info { grid-column: 2; }
-body.tbr-product .slider { width: 100% !important; max-width: none !important; background: #fff !important; }
+body.tbr-product .slider { width: 100% !important; max-width: none !important; background: #f6f4f0 !important; }
+body.tbr-product .slider img { mix-blend-mode: multiply; }
 /* A foto inteira cabe na tela do computador, com a navegação entre bolsas logo abaixo */
 body.tbr-product .slider img { width: 100% !important; height: max(420px, min(72vw, 790px, calc(100vh - 250px))) !important; object-fit: contain !important; }
 body.tbr-product .auth-selo-link { display: none !important; }
@@ -973,7 +975,6 @@ body.tbr-utility label { font-size: 11px !important; font-weight: 600 !important
     height: auto !important;
     aspect-ratio: 4 / 5;
     object-fit: cover !important;
-    background: #fff;
     flex: 0 0 100% !important;
     scroll-snap-align: start;
   }
@@ -1328,7 +1329,6 @@ body.tbr-product .tbr-caution button { min-width: 24px !important; min-height: 2
     aspect-ratio: 4 / 5;
     flex: none !important;
     object-fit: cover !important;
-    background: #fff;
     cursor: zoom-in;
   }
   body.tbr-product .galeria .seta,
