@@ -970,7 +970,10 @@ body.tbr-utility label { font-size: 11px !important; font-weight: 600 !important
     width: 100% !important;
     min-width: 100% !important;
     max-width: 100% !important;
-    height: min(120vw, 620px) !important;
+    height: auto !important;
+    aspect-ratio: 4 / 5;
+    object-fit: cover !important;
+    background: #fff;
     flex: 0 0 100% !important;
     scroll-snap-align: start;
   }
@@ -1315,12 +1318,17 @@ body.tbr-product .tbr-caution button { min-width: 24px !important; min-height: 2
     overflow: visible !important;
     scroll-snap-type: none !important;
   }
+  /* Todas as fotos no mesmo quadro 4:5, com o mesmo fundo branco */
+  body.tbr-product .slider { align-items: center !important; }
   body.tbr-product .slider img {
-    width: 100% !important;
+    width: auto !important;
+    max-width: 100% !important;
     height: max(520px, calc(100vh - 140px)) !important;
     max-height: 1000px;
+    aspect-ratio: 4 / 5;
     flex: none !important;
-    object-fit: contain !important;
+    object-fit: cover !important;
+    background: #fff;
     cursor: zoom-in;
   }
   body.tbr-product .galeria .seta,
