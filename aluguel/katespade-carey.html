@@ -33,10 +33,13 @@
 <link rel="apple-touch-icon" href="/favicon.png">
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"></noscript>
+<!-- Calendário e banco: baixam em paralelo e só rodam depois que a bolsa já apareceu na tela -->
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/flatpickr">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
 
 <style>:where(h1.tbr-title){font-size:1.5em;margin-block:.83em;font-weight:bold;}
 
@@ -924,7 +927,7 @@ body {
   <img src="/selo-auth.webp" class="auth-selo" alt="Selo de autenticidade The Bag Room">
 </a>
     <div class="slider" id="slider">
-<img src="/img/fotos/b9aeszv.webp" alt="Kate Spade Carey – foto 1">
+<img fetchpriority="high" src="/img/fotos/b9aeszv.webp" alt="Kate Spade Carey – foto 1">
       <img src="/img/fotos/uCnpc8l.jpg" alt="Kate Spade Carey – foto 2">
       <img src="/img/fotos/52gJnv5.webp" alt="Kate Spade Carey – foto 3">
       <img src="/img/fotos/JtiExQL.webp" alt="Kate Spade Carey – foto 4">
@@ -1047,6 +1050,9 @@ Confeccionada em couro de bezerro na cor off-white, com acabamento matelassado e
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
 function toggleMenuMobile(){

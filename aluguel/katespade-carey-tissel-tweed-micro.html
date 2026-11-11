@@ -28,10 +28,13 @@
 <link rel="apple-touch-icon" href="/favicon.png">
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"></noscript>
+<!-- Calendário e banco: baixam em paralelo e só rodam depois que a bolsa já apareceu na tela -->
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/flatpickr">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
 
 <style>:where(h1.tbr-title){font-size:1.5em;margin-block:.83em;font-weight:bold;}
 
@@ -920,7 +923,7 @@ body {
 </a>
 
     <div class="slider" id="slider">
-<img src="/img/fotos/b1odo1O.webp" alt="Kate Spade Carey Tinsel Tweed Micro – foto 1">
+<img fetchpriority="high" src="/img/fotos/b1odo1O.webp" alt="Kate Spade Carey Tinsel Tweed Micro – foto 1">
 <img src="/img/fotos/Nsr2DGt.webp" alt="Kate Spade Carey Tinsel Tweed Micro – foto 2">
 <img src="/img/fotos/pxuGZAd.webp" alt="Kate Spade Carey Tinsel Tweed Micro – foto 3">
 <img src="/img/fotos/THpaAMp.webp" alt="Kate Spade Carey Tinsel Tweed Micro – foto 4">
@@ -1035,6 +1038,9 @@ Confeccionada em tweed com fios multicoloridos e brilho sutil, a Carey Tinsel Tw
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
 function toggleMenuMobile(){
