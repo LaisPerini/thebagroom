@@ -44,7 +44,8 @@
 .tbr-bagnav a:hover{border-bottom-color:#1a1714}
 .tbr-bagnav a:focus-visible{outline:1px solid #1a1714;outline-offset:4px}
 @media(max-width:700px){.tbr-bagnav{margin:-6px 0 18px;padding:0 4px;max-width:none}}
-.info>.tbr-bagnav{margin:0 0 26px;max-width:none}`;
+.info>.tbr-bagnav{margin:0 0 26px;max-width:none}
+@media(min-width:1024px){.tbr-bagnav{display:none!important}}`;
     document.head.appendChild(st);
   }
 
@@ -78,15 +79,9 @@
     nav.innerHTML = `<a href="${ant.href}" rel="prev">‹ Anterior</a><a href="${prox.href}" rel="next">Próxima ›</a>`;
     const galeria = document.querySelector('.galeria');
     if (!galeria) return;
-    // Celular: abaixo das fotos (fora da galeria, que corta o que passa da altura).
-    // Computador: no topo da coluna de informações, que fica fixa ao lado das fotos.
-    const pc = matchMedia('(min-width: 1024px)');
-    const posicionar = () => {
-      const info = document.querySelector('.produto > .info');
-      if (pc.matches && info) info.prepend(nav); else galeria.after(nav);
-    };
-    posicionar();
-    pc.addEventListener?.('change', posicionar);
+    // Só no celular e tablet: abaixo das fotos (fora da galeria, que corta o que passa da altura).
+    // No computador não aparece (a cliente volta pela vitrine).
+    galeria.after(nav);
     [prox, ant].forEach(b => { const l = document.createElement('link'); l.rel = 'prefetch'; l.href = b.href; document.head.appendChild(l); });
     arrastar(d => { location.href = (d > 0 ? prox : ant).href; });
   }
