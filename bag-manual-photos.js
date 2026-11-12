@@ -97,10 +97,10 @@ window.TBR_MANUAL_PHOTOS = {
     ]
   },
   "fendi-zucchino": {
-    "cover": "/img/fotos/fFn9bOz.webp",
+    "cover": "/img/fotos/FZuc01.webp",
     "gallery": [
-      "/img/fotos/gq26Mwg.webp",
-      "/img/fotos/bxUUoN4.webp"
+      "/img/fotos/FZuc01.webp",
+      "/img/fotos/FZuc02.webp"
     ]
   },
   "gucci-dionysus-super-mini-python": {
