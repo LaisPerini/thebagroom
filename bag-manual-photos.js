@@ -221,6 +221,7 @@ window.TBR_MANUAL_PHOTOS = {
     "cover": "/img/fotos/I01DeS3.webp",
     "gallery": [
       "/img/fotos/xYyX7Da.webp",
+      "/img/fotos/KSDuet05.webp",
       "/img/fotos/utSMgKu.webp",
       "/img/fotos/ykevrjd.webp",
       "/img/fotos/u8JGK0W.webp"
