@@ -8,15 +8,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Conheça o processo de autenticação da The Bag Room e saiba como garantimos a originalidade de todas as peças.">
-<title>Autenticidade · The Bag Room</title>
+  <meta name="description" content="Como verificamos cada bolsa: curadoria especializada, análise de procedência e autenticação por plataformas internacionais, com certificado digital.">
+<title>Autenticidade das bolsas | The Bag Room</title>
 <meta property="og:locale" content="pt_BR">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Bag Room">
 
-<meta property="og:title" content="Autenticidade | The Bag Room">
-<meta property="og:description" content="Conheça o processo de autenticação da The Bag Room e saiba como garantimos a originalidade de todas as peças.">
+<meta property="og:title" content="Autenticidade das bolsas | The Bag Room">
+<meta property="og:description" content="Como verificamos cada bolsa: curadoria especializada, análise de procedência e autenticação por plataformas internacionais, com certificado digital.">
 
 <meta property="og:url" content="https://www.thebagroom.com.br/autenticidade.html">
 
@@ -25,11 +25,11 @@
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Autenticidade The Bag Room">
+<meta property="og:image:alt" content="Autenticidade das bolsas | The Bag Room">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Autenticidade | The Bag Room">
-<meta name="twitter:description" content="Conheça o processo de autenticação da The Bag Room e saiba como garantimos a originalidade de todas as peças.">
+<meta name="twitter:title" content="Autenticidade das bolsas | The Bag Room">
+<meta name="twitter:description" content="Como verificamos cada bolsa: curadoria especializada, análise de procedência e autenticação por plataformas internacionais, com certificado digital.">
 <meta name="twitter:image" content="https://www.thebagroom.com.br/img/fotos/aCDhajb.jpg">
 
 
@@ -417,17 +417,13 @@ width:80%;
 
 .site-header .menu-mobile-inner a:hover { opacity: 0.6; }
 
-/* Capa com foto (Autenticidade) */
-#authHero.internal-title{height:clamp(340px,56vh,560px)!important;min-height:0!important;padding:0 24px!important;background:#e9e6e1 url('/img/autenticidade-capa.webp?v=5') 22% center/cover no-repeat!important;border-bottom:0!important;align-items:flex-end!important;justify-content:flex-end!important}
-#authHero.internal-title::after{display:block!important;inset:0;background:linear-gradient(90deg,rgba(23,22,19,0) 40%,rgba(23,22,19,.55) 100%)!important}
-#authHero.internal-title h1.tbr-title{position:relative;z-index:3;margin:0 clamp(24px,6vw,96px) clamp(40px,8vh,72px) 0!important;max-width:560px!important;padding:0!important;color:#fff!important;text-align:right!important;font-size:clamp(46px,5.4vw,84px)!important;text-shadow:0 2px 24px rgba(0,0,0,.18)}
-@media (max-width:760px){
-#authHero.internal-title{height:420px!important;background-position:22% center!important;justify-content:center!important}
-#authHero.internal-title::after{background:linear-gradient(180deg,rgba(23,22,19,0) 40%,rgba(23,22,19,.55) 100%)!important}
-#authHero.internal-title h1.tbr-title{margin:0 auto 36px!important;padding:0!important;text-align:center!important;font-size:46px!important}
-}
+/* Capa com vídeo (Autenticidade): menu transparente por cima, igual à página inicial */
+.hero-video{position:relative;height:300px;overflow:hidden;background:#111}
+.hero-video video{width:100%;height:100%;object-fit:cover;display:block}
+.hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center}
+.hero-overlay h1.tbr-title{color:#fff;font-family:'DM Serif Display',serif}
 </style>
-  <link rel="stylesheet" href="/luxury-refresh.css?v=20261110-1">
+  <link rel="stylesheet" href="/luxury-refresh.css?v=20261111-4">
 <script src="/cookie-preferences.js?v=20261110-1" defer></script>
 </head>
 
@@ -454,8 +450,13 @@ width:80%;
 
 <div class="top-space"></div>
 
-<section class="internal-title tbr-photo-hero" id="authHero">
-<h1 class="tbr-title">Autenticidade</h1>
+<section class="hero-video" id="authHero">
+  <video autoplay muted loop playsinline preload="auto" poster="/img/autenticidade-capa-video.jpg" disablepictureinpicture disableremoteplayback>
+    <source src="/videos/autenticidade.mp4?v=1" type="video/mp4">
+  </video>
+  <div class="hero-overlay">
+    <h1 class="tbr-title">Autenticidade</h1>
+  </div>
 </section>
 
 <div class="content-box tbr-auth">

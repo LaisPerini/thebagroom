@@ -552,18 +552,21 @@ body.tbr-product .produto {
   width: var(--tbr-page) !important;
   max-width: none !important;
   margin: 0 auto !important;
-  padding: 62px 0 110px !important;
+  padding: 40px 0 110px !important;
   display: grid !important;
   grid-template-columns: minmax(0, 1.35fr) minmax(390px, .65fr) !important;
   gap: clamp(48px, 7vw, 110px) !important;
   row-gap: 0 !important;
   align-items: start !important;
 }
-body.tbr-product .galeria { width: 100% !important; max-width: none !important; min-width: 0; background: #fff !important; }
+/* Mesmo fundo das fotos da vitrine (#f6f4f0); as fotos brancas se misturam a ele */
+body.tbr-product .galeria { width: 100% !important; max-width: none !important; min-width: 0; background: #f6f4f0 !important; }
 body.tbr-product .tbr-product-media { grid-column: 1; min-width: 0; }
 body.tbr-product .produto > .info { grid-column: 2; }
-body.tbr-product .slider { width: 100% !important; max-width: none !important; background: #fff !important; }
-body.tbr-product .slider img { width: 100% !important; height: min(72vw, 790px) !important; object-fit: contain !important; }
+body.tbr-product .slider { width: 100% !important; max-width: none !important; background: #f6f4f0 !important; }
+body.tbr-product .slider img { mix-blend-mode: multiply; }
+/* A foto inteira cabe na tela do computador, com a navegação entre bolsas logo abaixo */
+body.tbr-product .slider img { width: 100% !important; height: max(420px, min(72vw, 790px, calc(100vh - 250px))) !important; object-fit: contain !important; }
 body.tbr-product .auth-selo-link { display: none !important; }
 body.tbr-product .seta { border-radius: 0 !important; background: rgba(255,254,250,.9) !important; color: var(--tbr-ink) !important; }
 body.tbr-product .info { position: sticky; top: 24px; width: 100% !important; padding: 20px 0 !important; }
@@ -969,7 +972,9 @@ body.tbr-utility label { font-size: 11px !important; font-weight: 600 !important
     width: 100% !important;
     min-width: 100% !important;
     max-width: 100% !important;
-    height: min(120vw, 620px) !important;
+    height: auto !important;
+    aspect-ratio: 4 / 5;
+    object-fit: cover !important;
     flex: 0 0 100% !important;
     scroll-snap-align: start;
   }
@@ -1301,3 +1306,37 @@ body.tbr-catalog .card .tag { z-index: 2; }
 .calendario-status:not(.erro):not(.sucesso), #reservaStatus:not(.erro):not(.sucesso), .newsletter-note, .article-date { color: #66615a !important; }
 body.tbr-product .tbr-caution button { min-width: 24px !important; min-height: 24px !important; }
 .footer-luxo .footer-content a { display: inline-block; padding: 4px 0; }
+
+/* Página da bolsa no computador: fotos uma embaixo da outra e coluna de informações fixa ao lado */
+.tbr-photo-count { display: none; }
+@media (min-width: 1024px) {
+  body.tbr-product .tbr-photo-count { display: block; }
+  body.tbr-product .galeria .tbr-gallery-count { display: none !important; }
+  body.tbr-product .slider {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    overflow: visible !important;
+    scroll-snap-type: none !important;
+  }
+  /* Todas as fotos no mesmo quadro 4:5, com o mesmo fundo branco */
+  body.tbr-product .slider { align-items: center !important; }
+  body.tbr-product .slider img {
+    width: auto !important;
+    max-width: 100% !important;
+    height: max(520px, calc(100vh - 140px)) !important;
+    max-height: 1000px;
+    aspect-ratio: 4 / 5;
+    flex: none !important;
+    object-fit: cover !important;
+    cursor: zoom-in;
+  }
+  body.tbr-product .galeria .seta,
+  body.tbr-product .galeria .dots { display: none !important; }
+  body.tbr-product .produto > .info { position: sticky !important; top: 126px !important; }
+  body.tbr-product .tbr-photo-count {
+    position: sticky; top: 50vh; z-index: 3; height: 0;
+    font: 500 11px/1 Inter, Arial, sans-serif; letter-spacing: .14em; color: #7a7268;
+  }
+  body.tbr-product .tbr-photo-count span { position: absolute; left: 18px; top: 0; }
+}

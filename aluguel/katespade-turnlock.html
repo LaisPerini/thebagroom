@@ -33,10 +33,13 @@
 <link rel="apple-touch-icon" href="/favicon.png">
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"></noscript>
+<!-- Calendário e banco: baixam em paralelo e só rodam depois que a bolsa já apareceu na tela -->
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/flatpickr">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
 
 <style>:where(h1.tbr-title){font-size:1.5em;margin-block:.83em;font-weight:bold;}
 
@@ -857,7 +860,7 @@ body {
   height: 0 !important;
 }
 </style>
-  <link rel="stylesheet" href="/luxury-refresh.css?v=20261110-1">
+  <link rel="stylesheet" href="/luxury-refresh.css?v=20261111-4">
   <style id="tbr-product-title-hierarchy">:where(h1.tbr-title){font-size:1.5em;margin-block:.83em;font-weight:bold;}
 
     body.tbr-product .info .tbr-product-brand {
@@ -887,6 +890,7 @@ body {
   </style>
 <script src="/cookie-preferences.js?v=20261110-1" defer></script>
 <script type="application/ld+json" id="tbr-product-ld">{"@context": "https://schema.org", "@type": "Product", "name": "Kate Spade Turnlock", "brand": {"@type": "Brand", "name": "Kate Spade"}, "description": "Alugue a Kate Spade Turnlock original na The Bag Room. Bolsa autêntica em couro disponível para aluguel com segurança.", "url": "https://www.thebagroom.com.br/aluguel/katespade-turnlock.html", "category": "Aluguel de bolsa de luxo", "offers": {"@type": "Offer", "url": "https://www.thebagroom.com.br/aluguel/katespade-turnlock.html", "priceCurrency": "BRL", "price": "190.00", "availability": "https://schema.org/InStock", "itemCondition": "https://schema.org/UsedCondition", "seller": {"@type": "Organization", "name": "The Bag Room"}}, "image": ["https://www.thebagroom.com.br/img/fotos/WQrPzBg.jpg"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Início", "item": "https://www.thebagroom.com.br/"}, {"@type": "ListItem", "position": 2, "name": "Alugar bolsas", "item": "https://www.thebagroom.com.br/aluguel.html"}, {"@type": "ListItem", "position": 3, "name": "Kate Spade Turnlock", "item": "https://www.thebagroom.com.br/aluguel/katespade-turnlock.html"}]}</script>
 <script>document.documentElement.classList.add('tbr-carregando');setTimeout(function(){document.documentElement.classList.remove('tbr-carregando')},4000);</script>
 <style id="tbr-carregando-css">.tbr-carregando .info>.preco,.tbr-carregando .info .opcoes,.tbr-carregando .tbr-caution>span,.tbr-carregando .info .detalhes,.tbr-carregando .tbr-mobile-rent>span,.tbr-carregando .grid .card .preco,.tbr-carregando .week-price{opacity:0}.info>.preco,.info .opcoes,.tbr-caution>span,.info .detalhes,.tbr-mobile-rent>span,.grid .card .preco,.week-price{transition:opacity .25s ease}</style>
 </head>
@@ -925,10 +929,10 @@ body {
   <img src="/selo-auth.webp" class="auth-selo" alt="Selo de autenticidade The Bag Room">
 </a>
     <div class="slider" id="slider">
-      <img src="/img/fotos/WQrPzBg.webp" alt="Kate Spade Turnlock – foto 1">
-      <img src="/img/fotos/7ZjRz7C.webp" alt="Kate Spade Turnlock – foto 2">
-      <img src="/img/fotos/ytfF6wM.webp" alt="Kate Spade Turnlock – foto 3">
-      <img src="/img/fotos/wAlmswd.webp" alt="Kate Spade Turnlock – foto 4">
+      <img fetchpriority="high" src="/img/fotos/7ZjRz7C.webp" alt="Kate Spade Turnlock – foto 1">
+      <img src="/img/fotos/wAlmswd.webp" alt="Kate Spade Turnlock – foto 2">
+      <img src="/img/fotos/WQrPzBg.webp" alt="Kate Spade Turnlock – foto 3">
+      <img src="/img/fotos/ytfF6wM.webp" alt="Kate Spade Turnlock – foto 4">
                                         
     </div>
     
@@ -984,7 +988,7 @@ Confeccionada em couro de bezerro em combinação de cores bege e off-white, com
 </p>
 <p>
   <i data-lucide="credit-card" class="icon"></i>
-  <strong>Valor do caução:</strong>R$ 500,00
+  <strong>Caução:</strong>R$ 500,00
 </p>
 
 <p>
@@ -1046,6 +1050,9 @@ Confeccionada em couro de bezerro em combinação de cores bege e off-white, com
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
 function toggleMenuMobile(){
@@ -1884,10 +1891,11 @@ function toggleFooter(el){
 </script>
 
   <script src="/luxury-refresh.js?v=20261110-11"></script>
-  <script src="/bag-fields.js?v=20261110-1"></script>
+  <script src="/bag-fields.js?v=20261111-1"></script>
 <script src="/freight-fast.js?v=20261110-2"></script>
-<script src="/bag-condition.js?v=20261110-3" defer></script>
+<script src="/bag-condition.js?v=20261111-1" defer></script>
 <script src="/recomendacoes.js?v=20261110-1" defer></script>
+<script src="/navegacao-bolsas.js?v=20261111-4" defer></script>
 </body>
 </html>
 

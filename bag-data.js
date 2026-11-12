@@ -54,7 +54,7 @@
         const paragraph = document.createElement('p'); paragraph.textContent = bag.descricao || ''; paragraph.style.whiteSpace = 'pre-line'; description.appendChild(paragraph);
         const condition = document.createElement('p'); const strong = document.createElement('strong'); strong.textContent = 'Estado da bolsa: '; condition.append(strong, document.createTextNode(bag.estado || 'Não informado')); description.appendChild(condition);
         const details = document.createElement('div'); details.className = 'detalhes';
-        [['Categoria',bag.categoria],['Material',bag.material],['Marca',bag.marca],['Cor',bag.cor],['Dimensões',bag.dimensoes],['Valor do caução',money(bag.valor_caucao)],['Valor em loja',bag.valor_loja == null ? 'Não informado' : money(bag.valor_loja)]].forEach(([label,value]) => {
+        [['Categoria',bag.categoria],['Material',bag.material],['Marca',bag.marca],['Cor',bag.cor],['Dimensões',bag.dimensoes],['Caução',money(bag.valor_caucao)],['Valor em loja',bag.valor_loja == null ? 'Não informado' : money(bag.valor_loja)]].forEach(([label,value]) => {
           const row=document.createElement('p'); const title=document.createElement('strong'); title.textContent=label+': '; row.append(title,document.createTextNode(value || 'Não informado')); details.appendChild(row);
         }); description.appendChild(details);
       }

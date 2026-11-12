@@ -38,10 +38,13 @@
 <link rel="apple-touch-icon" href="/favicon.png">
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"></noscript>
+<!-- Calendário e banco: baixam em paralelo e só rodam depois que a bolsa já apareceu na tela -->
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/flatpickr">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
 
 <!-- VIDEO -->
 <div class="video-bubble" onclick="abrirVideo()">
@@ -53,7 +56,7 @@
 <div id="videoModal" class="video-modal">
   <div class="video-close" onclick="fecharVideo()">✕</div>
 
-  <video controls autoplay muted playsinline>
+  <video controls muted playsinline preload="none">
     <source src="/videos/bvlgari-serpenti-vermelha.mp4" type="video/mp4">
   </video>
 </div>
@@ -969,7 +972,7 @@ body {
   height: 0 !important;
 }
 </style>
-  <link rel="stylesheet" href="/luxury-refresh.css?v=20261110-1">
+  <link rel="stylesheet" href="/luxury-refresh.css?v=20261111-4">
   <style id="tbr-product-title-hierarchy">:where(h1.tbr-title){font-size:1.5em;margin-block:.83em;font-weight:bold;}
 
     body.tbr-product .info .tbr-product-brand {
@@ -999,6 +1002,7 @@ body {
   </style>
 <script src="/cookie-preferences.js?v=20261110-1" defer></script>
 <script type="application/ld+json" id="tbr-product-ld">{"@context": "https://schema.org", "@type": "Product", "name": "Bvlgari Serpenti Vermelha", "brand": {"@type": "Brand", "name": "Bvlgari"}, "description": "Alugue a icônica Bvlgari Serpenti na The Bag Room. Bolsa de luxo autêntica com design sofisticado e acabamento impecável para eventos, viagens e momentos especiais.", "url": "https://www.thebagroom.com.br/aluguel/bvlgari-serpenti-vermelha.html", "category": "Aluguel de bolsa de luxo", "offers": {"@type": "Offer", "url": "https://www.thebagroom.com.br/aluguel/bvlgari-serpenti-vermelha.html", "priceCurrency": "BRL", "price": "590.00", "availability": "https://schema.org/InStock", "itemCondition": "https://schema.org/UsedCondition", "seller": {"@type": "Organization", "name": "The Bag Room"}}, "image": ["https://www.thebagroom.com.br/img/fotos/8GdXEuT.jpg"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Início", "item": "https://www.thebagroom.com.br/"}, {"@type": "ListItem", "position": 2, "name": "Alugar bolsas", "item": "https://www.thebagroom.com.br/aluguel.html"}, {"@type": "ListItem", "position": 3, "name": "Bvlgari Serpenti Vermelha", "item": "https://www.thebagroom.com.br/aluguel/bvlgari-serpenti-vermelha.html"}]}</script>
 <script>document.documentElement.classList.add('tbr-carregando');setTimeout(function(){document.documentElement.classList.remove('tbr-carregando')},4000);</script>
 <style id="tbr-carregando-css">.tbr-carregando .info>.preco,.tbr-carregando .info .opcoes,.tbr-carregando .tbr-caution>span,.tbr-carregando .info .detalhes,.tbr-carregando .tbr-mobile-rent>span,.tbr-carregando .grid .card .preco,.tbr-carregando .week-price{opacity:0}.info>.preco,.info .opcoes,.tbr-caution>span,.info .detalhes,.tbr-mobile-rent>span,.grid .card .preco,.week-price{transition:opacity .25s ease}</style>
 </head>
@@ -1037,10 +1041,10 @@ body {
 </a>
 
     <div class="slider" id="slider">
-<img src="/img/fotos/8GdXEuT.webp" alt="Bvlgari Serpenti Vermelha – foto 1">
-<img src="/img/fotos/oQ2Nkfg.webp" alt="Bvlgari Serpenti Vermelha – foto 2">
-<img src="/img/fotos/DWIZQZ1.webp" alt="Bvlgari Serpenti Vermelha – foto 3">
-<img src="/img/fotos/Sl72765.webp" alt="Bvlgari Serpenti Vermelha – foto 4">
+<img fetchpriority="high" src="/img/fotos/8GdXEuT.webp" alt="Bvlgari Serpenti Vermelha – foto 1">
+<img src="/img/fotos/Sl72765.webp" alt="Bvlgari Serpenti Vermelha – foto 2">
+<img src="/img/fotos/oQ2Nkfg.webp" alt="Bvlgari Serpenti Vermelha – foto 3">
+<img src="/img/fotos/DWIZQZ1.webp" alt="Bvlgari Serpenti Vermelha – foto 4">
 <img src="/img/fotos/M1H9wvr.webp" alt="Bvlgari Serpenti Vermelha – foto 5">
     </div>
     
@@ -1096,7 +1100,7 @@ Confeccionada em couro na cor vermelha, com ferragens douradas, a Bvlgari Serpen
 </p>
 <p>
   <i data-lucide="credit-card" class="icon"></i>
-  <strong>Valor do caução:</strong>R$ 2.500,00
+  <strong>Caução:</strong>R$ 2.500,00
 </p>
 
 <p>
@@ -1158,6 +1162,9 @@ Confeccionada em couro na cor vermelha, com ferragens douradas, a Bvlgari Serpen
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
 function toggleMenuMobile(){
@@ -1997,19 +2004,26 @@ function toggleFooter(el){
 
 <script>
 function abrirVideo(){
-document.getElementById('videoModal').style.display='flex';
+const modal=document.getElementById('videoModal');
+modal.style.display='flex';
+const v=modal.querySelector('video');
+if(v){v.currentTime=0;v.play().catch(()=>{});}
 }
 
 function fecharVideo(){
-document.getElementById('videoModal').style.display='none';
+const modal=document.getElementById('videoModal');
+modal.style.display='none';
+const v=modal.querySelector('video');
+if(v)v.pause();
 }
 </script>
 
   <script src="/luxury-refresh.js?v=20261110-11"></script>
-  <script src="/bag-fields.js?v=20261110-1"></script>
+  <script src="/bag-fields.js?v=20261111-1"></script>
 <script src="/freight-fast.js?v=20261110-2"></script>
-<script src="/bag-condition.js?v=20261110-3" defer></script>
+<script src="/bag-condition.js?v=20261111-1" defer></script>
 <script src="/recomendacoes.js?v=20261110-1" defer></script>
+<script src="/navegacao-bolsas.js?v=20261111-4" defer></script>
 </body>
 </html>
 
