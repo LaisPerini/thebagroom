@@ -166,11 +166,11 @@ window.TBR_MANUAL_PHOTOS = {
     ]
   },
   "hermes-vinyl-kelly": {
-    "cover": "/img/fotos/Q99KQYI.webp",
+    "cover": "/img/fotos/HVK01.webp",
     "gallery": [
-      "/img/fotos/Q99KQYI.webp",
-      "/img/fotos/VShcLVB.webp",
-      "/img/fotos/VqgoPIz.webp"
+      "/img/fotos/HVK01.webp",
+      "/img/fotos/HVK02.webp",
+      "/img/fotos/HVK03.webp"
     ]
   },
   "katespade-carey-tisel-tweed-medium": {
