@@ -146,13 +146,13 @@ window.TBR_MANUAL_PHOTOS = {
     ]
   },
   "gucci-sylvie-star": {
-    "cover": "/img/fotos/WLn7IbA.webp",
+    "cover": "/img/fotos/GSyl05.webp",
     "gallery": [
       "/img/fotos/v81HiZn.webp",
       "/img/fotos/0CUXB65.webp",
       "/img/fotos/wxwsr66.webp",
       "/img/fotos/gTLLQKY.webp",
-      "/img/fotos/HJ5jPYQ.webp"
+      "/img/fotos/GSyl05.webp"
     ]
   },
   "hermes-toto-pm": {
