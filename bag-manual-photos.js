@@ -118,8 +118,8 @@ window.TBR_MANUAL_PHOTOS = {
     "cover": "/img/fotos/cWeUrHz.webp",
     "gallery": [
       "/img/fotos/cWeUrHz.webp",
-      "/img/fotos/ZgC7RfI.webp",
-      "/img/fotos/gQHiRGn.webp",
+      "/img/fotos/GDV02.webp",
+      "/img/fotos/GDV03.webp",
       "/img/fotos/n4CjEmT.webp"
     ]
   },
