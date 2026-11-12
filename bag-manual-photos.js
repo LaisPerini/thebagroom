@@ -40,11 +40,11 @@ window.TBR_MANUAL_PHOTOS = {
     ]
   },
   "carolinaherreira-insignia": {
-    "cover": "/img/fotos/CHVic01.webp",
+    "cover": "/img/fotos/CHVic11.webp",
     "gallery": [
-      "/img/fotos/CHVic01.webp",
-      "/img/fotos/CHVic02.webp",
-      "/img/fotos/CHVic03.webp",
+      "/img/fotos/CHVic11.webp",
+      "/img/fotos/CHVic12.webp",
+      "/img/fotos/CHVic13.webp",
       "/img/fotos/CHVic04.webp"
     ]
   },
@@ -186,12 +186,12 @@ window.TBR_MANUAL_PHOTOS = {
     ]
   },
   "katespade-carey-tissel-tweed-micro": {
-    "cover": "/img/fotos/b1odo1O.webp",
+    "cover": "/img/fotos/KSMic01.webp",
     "gallery": [
-      "/img/fotos/b1odo1O.webp",
-      "/img/fotos/pxuGZAd.webp",
-      "/img/fotos/Nsr2DGt.webp",
-      "/img/fotos/THpaAMp.webp"
+      "/img/fotos/KSMic01.webp",
+      "/img/fotos/KSMic02.webp",
+      "/img/fotos/KSMic03.webp",
+      "/img/fotos/KSMic04.webp"
     ]
   },
   "katespade-carey": {
