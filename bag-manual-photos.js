@@ -10,10 +10,10 @@ window.TBR_MANUAL_PHOTOS = {
     ]
   },
   "bvlgari-serpenti-branca": {
-    "cover": "/img/fotos/SmLGoiG.webp",
+    "cover": "/img/fotos/BvBr01.webp",
     "gallery": [
-      "/img/fotos/A2FaCOI.webp",
-      "/img/fotos/S0EM5aK.webp",
+      "/img/fotos/BvBr01.webp",
+      "/img/fotos/BvBr02.webp",
       "/img/fotos/EdPXLh4.webp",
       "/img/fotos/OtrUNo5.webp",
       "/img/fotos/AOwuabT.webp"
