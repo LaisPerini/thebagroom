@@ -4,7 +4,7 @@ window.TBR_MANUAL_PHOTOS = {
     "gallery": [
       "/img/fotos/uKmvItm.webp",
       "/img/fotos/7J3P9Fr.webp",
-      "/img/fotos/VBhQdfh.webp",
+      "/img/fotos/BvAma03.webp",
       "/img/fotos/k5shGjv.webp",
       "/img/fotos/gRt4hw5.webp"
     ]
@@ -59,25 +59,25 @@ window.TBR_MANUAL_PHOTOS = {
     ]
   },
   "coach-tabby-chain-19": {
-    "cover": "/img/fotos/Vw8sxhs.webp",
+    "cover": "/img/fotos/CTab01.webp",
     "gallery": [
-      "/img/fotos/Vw8sxhs.webp",
-      "/img/fotos/UIui1Ql.webp",
-      "/img/fotos/W3t3Pfc.webp",
+      "/img/fotos/CTab01.webp",
+      "/img/fotos/CTab02.webp",
+      "/img/fotos/CTab03.webp",
       "/img/fotos/r1bTKHy.webp",
       "/img/fotos/YaS0jtG.webp",
       "/img/fotos/OTKwj3J.webp",
-      "/img/fotos/AX5RV5D.webp"
+      "/img/fotos/CTab04.webp"
     ]
   },
   "dolce-gabbana-devotion-box": {
-    "cover": "/img/fotos/RAJHFek.webp",
+    "cover": "/img/fotos/DGB01.webp",
     "gallery": [
-      "/img/fotos/RAJHFek.webp",
-      "/img/fotos/8znoA5O.webp",
-      "/img/fotos/8YsxmLs.webp",
-      "/img/fotos/fskfLJX.webp",
-      "/img/fotos/TxofWfI.webp"
+      "/img/fotos/DGB01.webp",
+      "/img/fotos/DGB02.webp",
+      "/img/fotos/DGB03.webp",
+      "/img/fotos/DGB04.webp",
+      "/img/fotos/fskfLJX.webp"
     ]
   },
   "dolcegabbana-iguana": {
