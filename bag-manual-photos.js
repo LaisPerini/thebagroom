@@ -215,7 +215,6 @@ window.TBR_MANUAL_PHOTOS = {
       "/img/fotos/ZRcxpQM.webp",
       "/img/fotos/YL9GmFm.webp",
       "/img/fotos/eLIV87x.webp",
-      "/img/fotos/dNh6riZ.webp",
       "/img/fotos/YLOjvaD.webp"
     ]
   },
