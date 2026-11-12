@@ -135,15 +135,14 @@ window.TBR_MANUAL_PHOTOS = {
     ]
   },
   "gucci-blondie-rosa": {
-    "cover": "/img/fotos/GblRsa1.webp",
+    "cover": "/img/fotos/GBR01.webp",
     "gallery": [
-      "/img/fotos/GblRsa1.webp",
-      "/img/fotos/GblRsa2.webp",
-      "/img/fotos/GblRsa3.webp",
-      "/img/fotos/GblRsa4.webp",
+      "/img/fotos/GBR01.webp",
+      "/img/fotos/GBR02.webp",
+      "/img/fotos/GBR03.webp",
+      "/img/fotos/GBR04.webp",
       "/img/fotos/GblRsa5.webp",
-      "/img/fotos/GblRsa6.webp",
-      "/img/fotos/GblRsa7.webp"
+      "/img/fotos/GBR05.webp"
     ]
   },
   "gucci-sylvie-star": {
